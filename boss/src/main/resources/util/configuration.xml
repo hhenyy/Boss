@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<typeAliases>
+		<typeAlias alias="member" type="boss.model.Member" />
+		<typeAlias alias="product" type="boss.model.Product" />
+		<typeAlias alias="pagePgm" type="boss.common.PagePgm" />
+<!-- 		<typeAlias alias="search" type="boss.common.Search" /> -->
+<!-- 		<typeAlias alias="pagePgm" type="boss.common.PagePgm" /> -->
+<!-- 		<typeAlias alias="master" type="boss.master.Master" /> -->
+	</typeAliases>	
+	
+</configuration>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boss.dao.MemberDao">
+
+	<!-- 회원 가입 -->
+	<!-- <insert id="InsertMember" parameterType="member"> -->
+	<!-- INSERT INTO MEMBER VALUES (#{id}, #{nickname}, #{password}, #{phone1}, 
+		#{phone2}, #{phone3}, #{email}, '새싹', sysdate) -->
+	<!-- </insert> -->
+
+	<!-- 1명의 정보 뽑기 ( 비번 비교 ) -->
+	<!-- <select id="SelectOne" resultType="member" parameterType="string"> -->
+	<!-- SELECT * FROM MEMBER where id = #{id} -->
+	<!-- </select> -->
+
+
+
+
+
+</mapper>

@@ -1,0 +1,113 @@
+@charset "UTF-8";
+
+.container1 {
+  display: flex; /* Flexbox를 사용하여 내부 요소들을 정렬합니다 */
+}
+
+/* .container_left {
+  width: 40%; 너비를 40%로 설정합니다
+  align-self: flex-start; 왼쪽으로 정렬합니다
+} */
+
+/* 사진 css */
+.centered-image {
+	width: 650px;
+	height: 750px;
+	margin-left: 180px; 조절하고 싶은 왼쪽 여백 크기
+}
+
+/* 선 css */
+.line_1 {
+	position: absolute;
+	top: 0; /* 선을 상단에 위치시킵니다. */
+	right: 200px; /* 선을 오른쪽에 위치시킵니다. */
+	height: 5px;
+	background-color: black;
+	width: 30%;
+	margin-top: 250px;
+}
+
+/* 구매하기,장바구니 css */
+.container_right .content button {
+	display: inline-block;
+	padding: 10px 20px;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	background-color: #000000;
+	color: #ffffff;
+	border: 2px solid #000000;
+	border-radius: 5px;
+	transition: background-color 0.3s ease, color 0.3s ease;
+	float: right; /* 버튼을 오른쪽으로 이동 */
+	margin-right: 10px; /* 버튼 사이 간격 설정 */
+}
+
+/* 구매하기,장바구니 버튼  */
+.container_right .content button:hover {
+	background-color: #ffffff;
+	color: #000000;
+}
+
+/* 리뷰 게시판 css */
+table {
+	width: 80%;
+	margin: auto;
+	border-collapse: collapse;
+}
+
+th, td {
+	padding: 10px;
+	text-align: center;
+	border: 1px solid #ddd;
+}
+
+th {
+	background-color: #f2f2f2;
+}
+
+tr:hover {
+	background-color: #f5f5f5;
+}
+
+/* 리뷰 번호, 게시글, 이름, 날짜, 별점 스타일 추가 */
+td div {
+	padding: 5px;
+}
+
+/* 리뷰 쓰기 버튼 스타일 추가 */
+.write-review-button {
+	display: block;
+	margin-left: auto; /* 왼쪽 여백을 자동으로 설정하여 오른쪽으로 정렬 */
+	margin-right: 190px; /* 오른쪽 여백을 0으로 설정하여 오른쪽으로 정렬 */
+	padding: 10px 20px;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	background-color: #000000;
+	color: #ffffff;
+	border: 2px solid #000000;
+	border-radius: 5px;
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 리뷰 쓰기 버튼 호버 효과 */
+.write-review-button:hover {
+	background-color: #ffffff;
+	color: #000000;
+}
+
+/* 상품 테이블 css */
+.productDetailPage {
+	border-collapse: collapse;
+}
+/* 상품 테이블 선 없애기	 */
+.productDetailPage, .productDetailPage th, .productDetailPage td {
+	border: none;
+}
+/* 상품 테이블 호버 삭제  */
+.productDetailPage tr:hover {
+	background-color: inherit; /* 배경색을 기본값으로 변경 */
+}

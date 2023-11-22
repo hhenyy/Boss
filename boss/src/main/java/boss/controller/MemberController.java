@@ -1,0 +1,245 @@
+package boss.controller;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.github.scribejava.core.model.OAuth2AccessToken;
+
+import boss.model.Member;
+import boss.service.MemberService;
+
+@Controller
+public class MemberController {
+
+	@Autowired
+	private MemberService service;
+
+	@Autowired
+	private JavaMailSender mailSender;
+
+	/* NaverLoginBO */
+	private NaverLoginBO naverLoginBO;
+	private String apiResult = null;
+
+	@Autowired
+	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+		this.naverLoginBO = naverLoginBO;
+	}
+
+	// 회원가입 진행하고 ajax 콜백하기
+	@RequestMapping("InsertMember.do")
+	public ResponseEntity<Map<String, String>> loginform(Member member) {
+		System.out.println("Insertmember");
+
+		Map<String, String> response = new HashMap<>();
+
+		int result = service.InsertMember(member);
+
+		if (result == 1) {
+			response.put("result", "Y");
+		} else {
+			response.put("result", "N");
+		}
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
+	/*
+	 * 메인 페이지 이동 메소드
+	 */
+	@RequestMapping(value = "main.do")
+	public String doMain() {
+
+		return "common/main";
+	}
+
+	// 로그인 첫 화면 요청 메소드 ( 기본 로그인 폼으로 이동 할때 꼭 써야 함 )
+	@RequestMapping(value = "NaverLogin.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public String login(Model model, HttpSession session) {
+		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+
+		// https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=mo1HJXGXT3n7A3XV59QM&
+		// redirect_uri=http%3A%2F%2F211.63.89.90%3A8090%2Flogin_project%2Fcallback&state=e68c269c-5ba9-4c31-85da-54c16c658125
+
+		System.out.println("네이버:" + naverAuthUrl);
+		// 네이버
+		model.addAttribute("url", naverAuthUrl);
+
+		return "login/LoginForm";
+	}
+
+	// 네이버 로그인 성공시 callback호출 메소드
+	@RequestMapping(value = "/callback.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session)
+			throws Exception {
+//      public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, ParseException {
+
+		System.out.println("여기는 callback");
+
+		OAuth2AccessToken oauthToken;
+		oauthToken = naverLoginBO.getAccessToken(session, code, state);
+
+		// 1. 로그인 사용자 정보를 읽어온다.
+		apiResult = naverLoginBO.getUserProfile(oauthToken);
+
+		// String형식의 json데이터
+		/**
+		 * apiResult json 구조 {"resultcode":"00", "message":"success",
+		 * "response":{"id":"33666449", "nickname":"shinn****", "age":"20-29",
+		 * "gender":"M", "email":"sh@naver.com", "name":"\uc2e0\ubc94\ud638"}}
+		 **/
+
+		// 2. String형식인 apiResult를 json형태로 바꿈 ( pom.xml 에 있어용 )
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(apiResult);
+		JSONObject jsonObj = (JSONObject) obj;
+
+		// 3. 데이터 파싱
+
+		// Top레벨 단계 _response 파싱
+		JSONObject response_obj = (JSONObject) jsonObj.get("response");
+
+		// response의 nickname값 파싱
+		String name = (String) response_obj.get("name");
+		String nickname = (String) response_obj.get("nickname");
+		String email = (String) response_obj.get("email");
+		String mobile = (String) response_obj.get("mobile");
+
+		System.out.println("이름 : " + name);
+		System.out.println("별명 : " + nickname);
+		System.out.println("email : " + email);
+		System.out.println("mobile : " + mobile);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("name", name);
+		map.put("nickname", nickname);
+		map.put("email", email);
+		map.put("mobile", mobile);
+
+		// 4.파싱 닉네임 세션으로 저장
+		session.setAttribute("sessionId", map);
+
+		// 세션 생성
+		model.addAttribute("result", apiResult);
+		return "common/main";
+	}
+
+	// kakao 코드 받기
+	@RequestMapping("kakaologin.do")
+	public String kakaologin(@RequestParam(value = "code", required = false) String code, Model model,
+			HttpSession session) throws Throwable {
+
+		// 1. 인가코드 받기 ( 인가코드로 토큰을 발행하는거임 )
+		System.out.println("code:" + code);
+
+		// 토큰 발행 ( 서비스 클래스에서 ) 그리고 토근 받아오기
+		String access_Token = service.getAccessToken(code);
+
+		System.out.println("###access_Token#### : " + access_Token);
+		// 위의 access_Token 받는 걸 확인한 후에 밑에 진행
+
+		// 3번
+		HashMap<String, Object> userInfo = service.getUserInfo(access_Token);
+		System.out.println("###nickname#### : " + userInfo.get("nickname"));
+		System.out.println("###email#### : " + userInfo.get("email"));
+
+		String nickname = (String) userInfo.get("nickname");
+		String email = (String) userInfo.get("email");
+
+		String pasing[] = email.split("@");
+		String username = pasing[0];
+
+		model.addAttribute("nickname", nickname);
+		model.addAttribute("email", email);
+
+		session.setAttribute("sessionId", username);
+
+		return "common/main";
+	}
+
+	// 이메일 보내는 요청 ( 인증번호 )
+	@ResponseBody
+	@RequestMapping(value = "emailAuth.do", method = RequestMethod.POST)
+	public String emailAuth(String email) {
+		Random random = new Random();
+		int checkNum = random.nextInt(888888) + 111111;
+
+		/* 이메일 보내기 */
+		String setFrom = "boss_mall@naver.com"; // 이메일을 보내는 사람의 주소 ( 유효해야함 )
+		String toMail = email; // 회원가입 폼에서 쓴 email 매개변수로 받았음
+		String title = "회원가입 인증 이메일 입니다."; // 제목
+		String content = "홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + checkNum + "입니다." + "<br><br>" // 내용
+				+ "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
+
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+			helper.setFrom(setFrom);
+			helper.setTo(toMail);
+			helper.setSubject(title);
+			helper.setText(content, true);
+			mailSender.send(message);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return Integer.toString(checkNum);
+	}
+
+	// 회원가입 폼 이동 ( insert )
+	@RequestMapping("InsertForm.do")
+	public String InsertMember() {
+		System.out.println("회원가입 폼으로 이동 할게");
+		return "login/InsertForm";
+	}
+
+	// 로그인 기능
+	@RequestMapping("Login.do")
+	public ResponseEntity<Map<String, String>> Login(String id, String password, HttpSession session) {
+
+		Map<String, String> response = new HashMap<>();
+
+		System.out.println(id);
+		
+		Member dbmember = service.SelectOne(id);
+
+		System.out.println("비밀번호 : " + dbmember.getmPwd());
+
+		if (dbmember != null && dbmember.getmPwd().equals(password)) {
+			response.put("result", "Y");
+			session.setAttribute("dbmember", dbmember); // dbmember 라는 이름으로 DTO 객체를 세션 공유 설정
+		} else {
+			response.put("result", "N");
+		}
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
+	// 로그아웃 세션 종료
+	@RequestMapping(value = "Logout.do")
+	public String Logout(HttpSession session) {
+		session.invalidate();
+		return "common/main";
+	}
+
+}
