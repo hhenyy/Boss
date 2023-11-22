@@ -9,6 +9,7 @@
 <body>
 	<script>
 		location.href="main.do";
+		// 2023-11-22 11:51
 	</script>
 </body>
 </html> 
