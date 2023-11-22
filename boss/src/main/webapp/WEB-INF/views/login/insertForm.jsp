@@ -30,11 +30,11 @@
 <div id="container" class="container">
    <div class="content">
       <div class="join_wrap">
-         <form id="join_frm" action="InsertMember.do" method = "post">
+         <form id="join_frm" action="insertMember.do" method = "post">
          
             <div class="join_title">회원가입</div>
             
-            <div class="join_box" action = "InsertMember.do">
+            <div class="join_box" action = "insertMember.do">
                
                <div class="email_auth">
                   <input type="text" placeholder="이메일 (Naver 이메일만 가능)" name="mEmail" id="mEmail" class="email">
@@ -51,7 +51,7 @@
                
                <div class="phone_box">
                    <div class="phone_box_item">
-                       <input type="text" size="4" id="mPhone" name="mPhone" maxlength="11" placeholder="핸드폰 번호 ( - 없이 숫자만 입력하세요.)">
+                       <input type="text" size="4" id="mPhone" name="mPhone" maxlength="13" placeholder="핸드폰 번호 ( - 없이 숫자만 입력하세요.)">
                    </div>
                </div>
                

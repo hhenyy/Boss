@@ -42,11 +42,11 @@ $(document).ready(function () {
    <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <body>
    <div class="LoginForm">
-      <form method="post" action="Login.do" id = "insert_frm">
-         <input type="text" placeholder="아이디" class="in" id="id" name="id"> 
-         <input type="password" placeholder="비밀번호" class="in" id="password" name="password"> 
+      <form method="post" action="login.do" id = "insert_frm">
+         <input type="text" placeholder="이메일" class="in" id="mEmail" name="mEmail"> 
+         <input type="password" placeholder="비밀번호" class="in" id="mPwd" name="mPwd"> 
          <input type="submit" id="btn" value="로그인"><br> 
-         <input type="button" value="회원가입" onClick="location.href='InsertForm.do' " style = "background-color: black;
+         <input type="button" value="회원가입" onClick="location.href='insertForm.do' " style = "background-color: black;
                                                                            margin-bottom: 30px; 
                                                                            color: white;">
              <br>

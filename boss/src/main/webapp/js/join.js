@@ -33,22 +33,17 @@ function fn_join() {
  
    $('#join').click(function(){
       
-      if($('#id').val() == ""){
-         alert("아이디를 입력해주세요.");
+      if($('#mEmail').val() == ""){
+         alert("이메일을 입력해주세요.");
          return false;
       }
       
-      if($('#nickname').val() == ""){
-         alert("닉네임을 입력해주세요.");
-         return false;
-      }
-      
-      if($('#password').val() == ""){
+      if($('#mPwd').val() == ""){
          alert("비밀번호를 입력해주세요.");
          return false;
       }
       
-      if($('#password').val() != $('#password_ck').val()){
+      if($('#mPwd').val() != $('#password_ck').val()){
          alert("비밀번호가 일치하지 않습니다.");
          return false;
       }
@@ -62,9 +57,9 @@ function fn_join() {
    });
    
    $(".email_auth_btn").click(function(){            
-        var email = $('#email').val();
+        var mEmail = $('#mEmail').val();
         
-        if(email == ''){
+        if(mEmail == ''){
            alert("이메일을 입력해주세요.");
            return false;
         }
@@ -72,7 +67,7 @@ function fn_join() {
         $.ajax({
          type : "POST",
          url : "emailAuth.do",
-         data : {email : email},
+         data : {mEmail : mEmail},
          success: function(data){
             alert("인증번호가 발송되었습니다.");
             email_auth_cd = data;
