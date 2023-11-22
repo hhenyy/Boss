@@ -128,9 +128,9 @@ public class MemberController {
 		System.out.println("mobile : " + mPhone);
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("name", mName);
-		map.put("email", mEmail);
-		map.put("mobile", mPhone);
+		map.put("mName", mName);
+		map.put("mEmail", mEmail);
+		map.put("mPhone", mPhone);
 		
 		int loginresult = service.insertNMember(map);
 		
