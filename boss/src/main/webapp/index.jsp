@@ -9,7 +9,7 @@
 <body>
 	<script>
 		location.href="main.do";
-		// 2023-11-22 11:51
+		// 2023-11-22 11:51 혜선
 	</script>
 </body>
 </html> 
