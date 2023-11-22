@@ -82,7 +82,9 @@
 		<div id="main">
 			<div class="inner">
 				<header align="center">
+
 					<h1>시선이 교차하는 순간</h1>
+
 					<h3>
 						자연스럽고 특별한 아름다움은 한 순간에 시선과 마음을 사로잡습니다<br>
 					</h3>
