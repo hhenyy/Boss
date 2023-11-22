@@ -23,7 +23,7 @@ function goBack() {
 
 <body>
 	<%@ include file="../common/masterNav.jsp"%>
-	<form method="post" action="masterMemberUpdate.do" id="myform"
+	<form method="post" action="masterProductUpdate.do" id="myform"
 		enctype="multipart/form-data">
 		<div class="container">
 			<div class="table-container">
@@ -52,16 +52,16 @@ function goBack() {
 							name="mGrade"></td>
 						<td><input type="text" value="${product.psize}" id="mgrade"
 							name="pcolor"></td>
-						<td><textarea id="mgrade" name="pcontent">${product.pcontent }</textarea></td>
+						<td><input type="text" value="${product.pcontent }" id="mgrade"></td>	
 
 						<td><fmt:formatDate pattern="yyyy-MM-dd" var="formattedDate"
 								value="${product.preg}" /> <input type="text"
 							value="${formattedDate}" /></td>
-
+						<td><input type="text" value=""></td>
 						<td><input type="text" value="${product.pdrop}" id="mgrade"
 							name="pdrop"></td>
 						<td>
-							<button type="submit" onclick="masterProductUpdate.do">수정</button>
+							<button type="submit">수정</button>
 							<button type="button" onclick="goBack();">취소</button>
 						</td>
 					</tr>

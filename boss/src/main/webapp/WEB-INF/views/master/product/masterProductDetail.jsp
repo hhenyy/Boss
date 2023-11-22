@@ -40,6 +40,7 @@
 				<td>${product.pcontent }</td>
 				<td><fmt:formatDate pattern="yyyy-MM-dd"
 						value="${product.preg }" /></td>
+				<td></td>		
 				<td>${product.pdrop }</td>
 				<td>
 					<button type="button"
