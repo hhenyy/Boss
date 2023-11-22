@@ -10,6 +10,8 @@
 	<script>
 		location.href="main.do";
 		// 2023-11-22 11:51
+		// 창근
+		
 	</script>
 </body>
 </html> 
