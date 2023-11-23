@@ -11,6 +11,7 @@ import boss.model.Member;
 
 @Service
 public class MasterMemberService {
+	
 	@Autowired
 	private MasterMemberDao dao;
 
@@ -33,8 +34,5 @@ public class MasterMemberService {
 	public int delete(List<String> idList) {
 		return dao.delete(idList);
 	}
-
-	 
-
 
 }
