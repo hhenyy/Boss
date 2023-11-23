@@ -67,7 +67,6 @@ public class MemberController {
 	 */
 	@RequestMapping(value = "main.do")
 	public String doMain() {
-
 		return "common/main";
 	}
 
@@ -121,28 +120,41 @@ public class MemberController {
 		// response의 name, email, mobile
 		String mName = (String) response_obj.get("name");
 		String mEmail = (String) response_obj.get("email");
-		String mPhone = (String) response_obj.get("mobile");
-
+		String nPhone = (String) response_obj.get("mobile");
+		
 		System.out.println("네이버 이름 : " + mName);
 		System.out.println("네이버 email : " + mEmail);
-		System.out.println("네이버 mobile : " + mPhone);
-
+		System.out.println("네이버 mobile : " + nPhone);
+		
+		// 010-0000-0000 을 파싱해서 01000000000으로 바꾸는 코드
+		String phone[] = nPhone.split("-");
+		String mPhone = "";
+		for(int i = 0; i < phone.length; i++) {
+				mPhone += phone[i];
+		}
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("mName", mName);
 		map.put("mEmail", mEmail);
 		map.put("mPhone", mPhone);
 		
-		// 네이버 회원 가입
-		int loginresult = service.insertNMember(map);
+		Member checkmember = service.selectOne(mEmail);
 		
-		if(loginresult == 1) {
-			// 네이버 회원 member 불러오기
-			member = service.selectOne(mEmail);
+		// 회원 가입이 안 되어 있을 경우
+		if(checkmember == null) {
+			// 네이버 회원 가입
+			int loginresult = service.insertNMember(map);
+
+			if(loginresult == 1) {
+				// 네이버 회원 member 불러오기
+				member = service.selectOne(mEmail);
+				// 네이버 세션 올리기
+				session.setAttribute("Member", member);				
+			}
+		}else {	// 회원가입이 되어 있을경우 세션만 올림
+			session.setAttribute("Member", checkmember);
 		}
-		
-		// 네이버 세션 올리기
-		session.setAttribute("Member", member);
-		
+			
 		// 세션 생성 ( 이건 건들면 안돼 )
 		model.addAttribute("result", apiResult);
 		return "common/main";
@@ -161,7 +173,7 @@ public class MemberController {
 
 		System.out.println("###access_Token#### : " + access_Token);
 		// 위의 access_Token 받는 걸 확인한 후에 밑에 진행
-
+		
 		// 3번
 		HashMap<String, Object> userInfo = service.getUserInfo(access_Token);
 		System.out.println("###nickname#### : " + userInfo.get("nickname"));
@@ -215,7 +227,7 @@ public class MemberController {
 	@RequestMapping("insertForm.do")
 	public String insertMember() {
 		System.out.println("회원가입 폼으로 이동 할게");
-		return "login/insertForm";
+		return "login/InsertForm";
 	}
 
 	// 로그인 기능
@@ -246,5 +258,11 @@ public class MemberController {
 		session.invalidate();
 		return "common/main";
 	}
-
+	
+	// MyPage 이동
+	@RequestMapping(value = "mypage.do")
+	public String mypage() {
+		return "login/mypage";
+	}
+	
 }
