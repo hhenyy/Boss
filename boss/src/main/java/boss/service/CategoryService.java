@@ -21,10 +21,10 @@ public class CategoryService {
 		return dao.categoryCount(cid);
 	}
 
-	//해당 카테고리의 상품 페이징 처리 후 list 전송
-	public List<Product> categoryList(Category c) {
+	//해당 카테고리의 상품 list 전송
+	public List<Product> categoryList(String cid) {
 
-		return dao.categoryList(c);
+		return dao.categoryList(cid);
 	}
 	
 	

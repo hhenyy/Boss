@@ -6,16 +6,15 @@
 
 	<!-- 카테고리 별 상품 갯수 -->
 	<select id="categoryCount" parameterType="string" resultType="int">
-		select count(*) from product where #{cid}
+		select count(*) from product where cid=#{cid}
 	</select>
 
-	<!-- 페이징 처리된 카테고리 리스트 -->
-	<select id="categoryList" parameterType="Category"
+	<!-- 카테고리 리스트 -->
+	<select id="categoryList" parameterType="string"
 		resultType="product">
 		select *
 		from (select rownum rnum, category.*
 		from (select * from product where cid=#{cid} order by preg desc) category)
-		where rnum between #{startRow} and #{endRow}
 	</select>
 
 
