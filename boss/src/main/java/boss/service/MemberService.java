@@ -149,16 +149,18 @@ public class MemberService  {
 	
 	
 	// 회원 가입
-	public int InsertMember(Member member) {
-		return dao.InsertMember(member);
+	public int insertMember(Member member) {
+		return dao.insertMember(member);
 	}
 	
 	// 회원 1명의 정보 가져오기
-	public Member SelectOne(String id) {
-		return dao.SelectOne(id);
+	public Member selectOne(String mEmail) {
+		return dao.selectOne(mEmail);
+	}
+	
+	// 네이버 회원가입
+	public int insertNMember(Map<String, Object> map) {
+		return dao.insertNMember(map);
 	}
 
-	
-	
-	
 }

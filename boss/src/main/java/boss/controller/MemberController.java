@@ -45,13 +45,13 @@ public class MemberController {
 	}
 
 	// 회원가입 진행하고 ajax 콜백하기
-	@RequestMapping("InsertMember.do")
+	@RequestMapping("insertMember.do")
 	public ResponseEntity<Map<String, String>> loginform(Member member) {
 		System.out.println("Insertmember");
 
 		Map<String, String> response = new HashMap<>();
 
-		int result = service.InsertMember(member);
+		int result = service.insertMember(member);
 
 		if (result == 1) {
 			response.put("result", "Y");
@@ -89,7 +89,7 @@ public class MemberController {
 
 	// 네이버 로그인 성공시 callback호출 메소드
 	@RequestMapping(value = "/callback.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session)
+	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session, Member member)
 			throws Exception {
 //      public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, ParseException {
 
@@ -119,26 +119,30 @@ public class MemberController {
 		JSONObject response_obj = (JSONObject) jsonObj.get("response");
 
 		// response의 nickname값 파싱
-		String name = (String) response_obj.get("name");
-		String nickname = (String) response_obj.get("nickname");
-		String email = (String) response_obj.get("email");
-		String mobile = (String) response_obj.get("mobile");
+		String mName = (String) response_obj.get("name");
+		String mEmail = (String) response_obj.get("email");
+		String mPhone = (String) response_obj.get("mobile");
 
-		System.out.println("이름 : " + name);
-		System.out.println("별명 : " + nickname);
-		System.out.println("email : " + email);
-		System.out.println("mobile : " + mobile);
+		System.out.println("이름 : " + mName);
+		System.out.println("email : " + mEmail);
+		System.out.println("mobile : " + mPhone);
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("name", name);
-		map.put("nickname", nickname);
-		map.put("email", email);
-		map.put("mobile", mobile);
-
-		// 4.파싱 닉네임 세션으로 저장
-		session.setAttribute("sessionId", map);
-
-		// 세션 생성
+		map.put("mName", mName);
+		map.put("mEmail", mEmail);
+		map.put("mPhone", mPhone);
+		
+		int loginresult = service.insertNMember(map);
+		
+		if(loginresult == 1) {
+			// 네이버 회원 member 불러오기
+			member = service.selectOne(mEmail);
+		}
+		
+		// 네이버 세션 올리기
+		session.setAttribute("Member", member);
+		
+		// 세션 생성 ( 이건 건들면 안돼 )
 		model.addAttribute("result", apiResult);
 		return "common/main";
 	}
@@ -179,13 +183,13 @@ public class MemberController {
 	// 이메일 보내는 요청 ( 인증번호 )
 	@ResponseBody
 	@RequestMapping(value = "emailAuth.do", method = RequestMethod.POST)
-	public String emailAuth(String email) {
+	public String emailAuth(String mEmail) {
 		Random random = new Random();
 		int checkNum = random.nextInt(888888) + 111111;
 
 		/* 이메일 보내기 */
 		String setFrom = "boss_mall@naver.com"; // 이메일을 보내는 사람의 주소 ( 유효해야함 )
-		String toMail = email; // 회원가입 폼에서 쓴 email 매개변수로 받았음
+		String toMail = mEmail; // 회원가입 폼에서 쓴 email 매개변수로 받았음
 		String title = "회원가입 인증 이메일 입니다."; // 제목
 		String content = "홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + checkNum + "입니다." + "<br><br>" // 내용
 				+ "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
@@ -207,27 +211,27 @@ public class MemberController {
 	}
 
 	// 회원가입 폼 이동 ( insert )
-	@RequestMapping("InsertForm.do")
-	public String InsertMember() {
+	@RequestMapping("insertForm.do")
+	public String insertMember() {
 		System.out.println("회원가입 폼으로 이동 할게");
-		return "login/InsertForm";
+		return "login/insertForm";
 	}
 
 	// 로그인 기능
-	@RequestMapping("Login.do")
-	public ResponseEntity<Map<String, String>> Login(String id, String password, HttpSession session) {
+	@RequestMapping("login.do")
+	public ResponseEntity<Map<String, String>> Login(String mEmail, String mPwd, HttpSession session) {
 
 		Map<String, String> response = new HashMap<>();
 
-		System.out.println(id);
+		System.out.println(mEmail);
 		
-		Member dbmember = service.SelectOne(id);
+		Member dbmember = service.selectOne(mEmail);
 
 		System.out.println("비밀번호 : " + dbmember.getmPwd());
 
-		if (dbmember != null && dbmember.getmPwd().equals(password)) {
+		if (dbmember != null && dbmember.getmPwd().equals(mPwd)) {
 			response.put("result", "Y");
-			session.setAttribute("dbmember", dbmember); // dbmember 라는 이름으로 DTO 객체를 세션 공유 설정
+			session.setAttribute("Member", dbmember); // dbmember 라는 이름으로 DTO 객체를 세션 공유 설정
 		} else {
 			response.put("result", "N");
 		}
