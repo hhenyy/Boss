@@ -1,0 +1,80 @@
+@charset "UTF-8";
+
+
+
+
+body {
+	font-family: 'Arial', sans-serif;
+	background-color: #f8f8f8;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+}
+
+/* .main_review { */
+/* 	background-color: #fff; */
+/* 	border-radius: 8px; */
+/* 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+/* 	padding: 20px; */
+/* 	width: 60%; */
+/* } */
+
+.bbswrite_title {
+	font-size: 24px;
+	margin-bottom: 20px;
+}
+
+#reviewwrite {
+	width: 100%;
+}
+
+th {
+	text-align: right;
+	padding-right: 20px;
+}
+
+td {
+	padding-left: 20px;
+}
+
+.input_box {
+	width: 100%;
+	padding: 8px;
+	box-sizing: border-box;
+	margin-bottom: 10px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 14px;
+}
+
+textarea {
+	width: calc(100% - 16px);
+	padding: 8px;
+	box-sizing: border-box;
+	margin-bottom: 10px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 14px;
+}
+
+.input_button {
+	background-color: black;
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+	margin-right: 10px;
+}
+
+.input_button:hover {
+	background-color: #0056b3;
+}
+
+#rb {
+	text-align: center;
+}
