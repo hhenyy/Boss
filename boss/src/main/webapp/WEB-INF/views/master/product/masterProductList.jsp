@@ -24,6 +24,7 @@
 </head>
 <body>
 	<%@ include file="../common/masterNav.jsp"%>
+	
 	<form method="post" action="masterMemberDelete.do">
 		<div class="container">
 
@@ -31,7 +32,7 @@
 
 			<div style="float: right;">
 				<select id="cntPerPage" name="sel" onchange="selChange()"
-					class="selected-five">>
+					class="selected-five">
 					<option value="5"
 						<c:if test="${page.cntPerPage == 5}">selected</c:if>>5줄
 						보기</option>
@@ -47,10 +48,8 @@
 				</select>
 			</div>
 
-
 			<!-- 옵션선택 끝 -->
-
-			<button type="button" class="putsub">신규 상품 등록</button>
+			<button type="button" class="putsub" onclick="location.href='masterProductInsertForm.do'">신규 상품 등록</button>
 			<table>
 				<tr>
 					<th><label><input type="checkbox"
@@ -81,6 +80,7 @@
 						<td onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.pcontent}</td>
 						<td onclick="location.href='masterProductDetail.do?id=${product.pid}' "><fmt:formatDate
 								pattern="yyyy-MM-dd" value="${product.preg}" /></td>
+						<td onclick="location.href='masterProductDetail.do?id=${product.pid}' "></td>
 						<td onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.pdrop}</td>
 						<td>
 							<button type="button"

@@ -2,12 +2,13 @@ package boss.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import boss.common.PagePgm;
 import boss.model.Product;
 
-@Repository
+@Mapper
 public interface MasterProductDao {
 
 	// 총상품 갯수
@@ -19,4 +20,7 @@ public interface MasterProductDao {
 	// 상품 상세정보 구하기
 	Product selectOne(String id);
 
+	// 상품 등록 하기
+	int productInsert(Product product);
+		
 }

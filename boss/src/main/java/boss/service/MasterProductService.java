@@ -30,4 +30,12 @@ public class MasterProductService {
 		return dao.selectOne(id);
 	}
 
+	/*
+	 * 상품 등록 하기
+	 */
+	public int productInsert(Product product) {
+		System.out.println("서비스까진 왔어");
+		return dao.productInsert(product);
+	}
+
 }

@@ -15,7 +15,7 @@
 		</script>
 	</c:if>
 
-	<c:if test="${result < 0}">
+	<c:if test="${result == 0}">
 		<script>
 		alert("${msg}");
 		history.go(-1);

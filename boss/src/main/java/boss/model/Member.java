@@ -12,9 +12,9 @@ public class Member {
 	private String mAddress; // 주소
 	private String mGrade; // 회원등급
 	private Date mReg; // 날짜
-	private String mDrop; //
+	private String mDrop; // 삭제여부
 
-	public String getmEmail() {
+	public String getmEmail() {  
 		return mEmail;
 	}
 
@@ -85,6 +85,7 @@ public class Member {
 	public void setmDrop(String mDrop) {
 		this.mDrop = mDrop;
 	}
+	
 //	public int getStartRow() {
 //		return StartRow;
 //	}

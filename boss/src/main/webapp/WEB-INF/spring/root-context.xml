@@ -26,8 +26,7 @@
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
-		<property name="configLocation"
-			value="classpath:util/configuration.xml" />
+		<property name="configLocation"	value="classpath:util/configuration.xml" />
 		<property name="mapperLocations" value="classpath:sql/*.xml" />
 	</bean>
 
@@ -59,6 +58,7 @@
 
 	<!-- mapper interface의 package설정 -->
 	<mybatis-spring:scan base-package="boss.dao" />
+	
 
 
 </beans>

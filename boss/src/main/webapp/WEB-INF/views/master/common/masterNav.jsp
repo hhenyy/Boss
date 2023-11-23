@@ -16,7 +16,7 @@
   <button onclick="location.href='masterMemberList.do'">회원관리</button>
   <button onclick="location.href='masterProductList.do'">상품관리</button>
   <button onclick="location.href='#'">Q&A관리</button>
-  <button onclick="location.href='masterReviewtList.do'">리뷰관리</button>
+  <button onclick="location.href='masterReviewList.do'">리뷰관리</button>
   <button onclick="location.href='#'">메뉴4</button>
 </nav>
 

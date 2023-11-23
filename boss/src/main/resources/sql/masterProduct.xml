@@ -24,4 +24,9 @@
 		select * from product where pid=#{pid}
 	</select>
 	
+	<!-- 상품 등록 하기 -->
+	<insert id="productInsert" parameterType="product">
+		insert into product values(product_seq.nextval,#{cid},#{pname},#{pcontent},#{pimage},#{pprice},sysdate,#{pcolor},#{psize},0,'N')
+	</insert>
+	
 </mapper>
