@@ -26,7 +26,7 @@
 		<!-- Header -->
 		<header id="header">
 			<div class="inner">
-				
+
 				<c:if test="${sessionId eq null}">
 					<a href="NaverLogin.do" style="text-decoration: none">로그인</a>
 				</c:if>
@@ -99,7 +99,7 @@
 				<section class="tiles">
 					<article class="style1">
 						<span class="image"> <img src="images/ch3.jpg" alt="" />
-						</span> <a href="productDetail.do">
+						</span> <a href="productDetail.do?pid=6">
 							<h2>오쨍군</h2>
 							<div class="content">
 								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
@@ -109,12 +109,9 @@
 					</article>
 					<article class="style2">
 						<span class="image"> <img src="images/gun3.jpg" alt="" />
-						</span> <a href="productDetail.do">
-							<h2>Lorem</h2>
-							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
-							</div>
+						</span> <a href="productDetail.do?pid=49">
+							<h2>목도리</h2>
+							<div class="content"></div>
 						</a>
 					</article>
 					<article class="style3">

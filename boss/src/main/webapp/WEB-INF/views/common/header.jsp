@@ -9,7 +9,7 @@ html, body {
 	margin: 0px;
 }
 
-#header2 {
+header {
 	height: 60px;
 	background-color: #e9eaed;
 }
@@ -20,10 +20,12 @@ html, body {
 
 
 <body>
-	<header2 align="center">BO$$ 머리</header2>
+	<header align="center">BO$$ 머리</header>
 
-	<a href="location.href='main.do'"><img
-		src="./resources/images/logo.png" border="0" width="100px"
-		height="100px" /></a>
+	<!-- Logo -->
+	<a href="main.do" class="logo"> <span class="symbol"><img
+			src="images/logo.png" alt="" style="width: 200px; height: 100px;"></span>
+			<span class="title">JY & HB</span>
+	</a>
 </body>
 </html>
