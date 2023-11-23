@@ -15,6 +15,12 @@
 <!-- css 불러오기 -->
 <link rel="stylesheet" href="css/productDetail.css">
 
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+<!--구매하기 버튼, 장바구니 ajax -->
+<script src="./js/bucket.js"></script>
+
+
 </head>
 
 
@@ -56,8 +62,10 @@
 			</table>
 
 			<div class="button-container">
-				<button type="button" onclick="#" class="button1">구매하기</button>
-				<button type="button" onclick="#" class="button1">장바구니</button>
+				<button type="button" id="buy" class="button1">구매하기</button>
+				<button type="button" id="bucket" class="button1">장바구니</button>
+				
+				
 			</div>
 		</div>
 	</div>
