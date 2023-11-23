@@ -22,13 +22,6 @@ public class MasterMemberController {
 	@Autowired
 	private MasterMemberService ms;
 
-	// elements
-	@RequestMapping("elements.do")
-	public String elements() {
-		System.out.println("elements");
-		return "./common/elements";
-	}
-
 	// 관리자 메인 이동
 	@RequestMapping("masterMain.do")
 	public String masterMain() {
@@ -88,6 +81,7 @@ public class MasterMemberController {
 		System.out.println("쿼리문 성공");
 		String dbid = member.getmEmail();
 		System.out.println("dbid" + dbid);
+
 		if (result == 1) { // 업데이트 성공시
 			System.out.println("여기여기");
 			model.addAttribute("result", result);
@@ -109,21 +103,29 @@ public class MasterMemberController {
 
 		// Service에서 메소드를 1번만 호출하기 위해 리스트로 양식을 통일했음.
 		List<String> idList = new ArrayList<String>();
-		if (id != null) { // 1개만 삭제할경우. (양식이 List기때문에 단일값도 list에 add)
-			idList.add(0, id);
-		} else { // 여러개 삭제할경우. (String[]->List로 변환해준다.)
-			String[] ids = request.getParameterValues("chkId");
-			idList = Arrays.asList(ids);
+		int result = 0;
+		// id값이 1개라도 넘어온다면 (복수허용)
+		if ((id != null) || (request.getParameterValues("chkId") != null)) {
+
+			if (id != null) { // 1개만 넘어온경우. (양식이 List기때문에 단일값도 list에 add)
+				idList.add(0, id);
+			} else { // 여러개가 넘어온경우. (String[]->List (메서드 양식 통일))
+				String[] ids = request.getParameterValues("chkId");
+				idList = Arrays.asList(ids);
+			}
+		} else {
+			result = 0;
+			model.addAttribute("result", result);
+			model.addAttribute("msg", "체크된 회원이 없습니다.");
+			return "./master/member/masterMemberDelete";
 		}
-		int result = ms.delete(idList);
+		result = ms.delete(idList);
 		if (result > 0) { // 삭제 성공시
 			model.addAttribute("result", result);
-			model.addAttribute("msg", result + "명 이젠 보낼게");
-			System.out.println(result);
+			model.addAttribute("msg", result + "명 회원삭제 성공.");
 		} else { // 삭제 실패시
 			model.addAttribute("result", result);
-			model.addAttribute("msg", "아직 잊지 못했어.");
-			System.out.println(result);
+			model.addAttribute("msg", "삭제할 회원이 없습니다.");
 		}
 		return "./master/member/masterMemberDelete";
 	}

@@ -7,10 +7,12 @@
 	<typeAliases>
 		<typeAlias alias="member" type="boss.model.Member" />
 		<typeAlias alias="product" type="boss.model.Product" />
+		<typeAlias alias="review" type="boss.model.Review" />
 		<typeAlias alias="pagePgm" type="boss.common.PagePgm" />
-<!-- 		<typeAlias alias="search" type="boss.common.Search" /> -->
-<!-- 		<typeAlias alias="pagePgm" type="boss.common.PagePgm" /> -->
-<!-- 		<typeAlias alias="master" type="boss.master.Master" /> -->
-	</typeAliases>	
-	
+
+		<!-- <typeAlias alias="search" type="boss.common.Search" /> -->
+		<!-- <typeAlias alias="pagePgm" type="boss.common.PagePgm" /> -->
+		<!-- <typeAlias alias="master" type="boss.master.Master" /> -->
+	</typeAliases>
+
 </configuration>

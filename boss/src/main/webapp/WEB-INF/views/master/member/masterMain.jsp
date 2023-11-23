@@ -24,7 +24,7 @@
 			<th><button type="button"
 					onclick="location.href='masterProductList.do' ">상품관리</button></th>
 			<th><button type="button" onclick="location.href='#' ">Q&A관리</button></th>
-			<th><button type="button" onclick="location.href='masterProductList.do' ">리뷰관리</button></th>
+			<th><button type="button" onclick="location.href='masterReviewList.do' ">리뷰관리</button></th>
 			<th><button type="button" onclick="location.href='#' ">주문관리</button></th>
 		</tr>
 
