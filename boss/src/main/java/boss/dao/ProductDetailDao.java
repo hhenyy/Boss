@@ -1,10 +1,10 @@
 package boss.dao;
 
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 import boss.model.Product;
 
-@Repository
+@Mapper
 public interface ProductDetailDao {
 
 

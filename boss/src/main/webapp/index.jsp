@@ -9,6 +9,7 @@
 </head>
 <body>
 	<script>
+//		location.href="masterMain.do";
 		location.href="main.do";
 	</script>
 </body>
