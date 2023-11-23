@@ -118,20 +118,21 @@ public class MemberController {
 		// Top레벨 단계 _response 파싱
 		JSONObject response_obj = (JSONObject) jsonObj.get("response");
 
-		// response의 nickname값 파싱
+		// response의 name, email, mobile
 		String mName = (String) response_obj.get("name");
 		String mEmail = (String) response_obj.get("email");
 		String mPhone = (String) response_obj.get("mobile");
 
-		System.out.println("이름 : " + mName);
-		System.out.println("email : " + mEmail);
-		System.out.println("mobile : " + mPhone);
+		System.out.println("네이버 이름 : " + mName);
+		System.out.println("네이버 email : " + mEmail);
+		System.out.println("네이버 mobile : " + mPhone);
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("mName", mName);
 		map.put("mEmail", mEmail);
 		map.put("mPhone", mPhone);
 		
+		// 네이버 회원 가입
 		int loginresult = service.insertNMember(map);
 		
 		if(loginresult == 1) {
