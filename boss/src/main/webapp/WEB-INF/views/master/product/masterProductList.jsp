@@ -60,7 +60,6 @@
 					<th>사이즈</th>
 					<th>설명</th>
 					<th>등록일</th>
-					<th>재고수량</th>
 					<th>삭제여부[Y/N]</th>
 					<th>수정/삭제</th>
 				</tr>
@@ -68,7 +67,7 @@
 				<c:forEach var="product" items="${list}" varStatus="loop">
 					<tr>
 						<td id="${i }"><label><input type="checkbox"
-								name="chkId" value="${product.pid}"> ${i }번상품</label></td>
+								name="chkId" value="${product.pid}">코드 ${product.pid }</label></td>
 						<td
 							onclick="location.href='masterProductDetail.do?id=${product.pid}' ">
 							<img src="./images/${product.pimage}" width="50" height="50">
@@ -80,13 +79,12 @@
 						<td onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.pcontent}</td>
 						<td onclick="location.href='masterProductDetail.do?id=${product.pid}' "><fmt:formatDate
 								pattern="yyyy-MM-dd" value="${product.preg}" /></td>
-						<td onclick="location.href='masterProductDetail.do?id=${product.pid}' "></td>
 						<td onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.pdrop}</td>
 						<td>
 							<button type="button"
 								onclick="location.href='masterProductUpdateForm.do?id=${product.pid}'">수정</button>
 							<button type="button"
-								onclick="location.href='masterProductList.do?id=${product.pid}' ">삭제</button>
+								onclick="alert('삭제하시겠습니까?'); location.href='masterProductDelete.do?id=${product.pid}'">삭제</button>
 						</td>
 					</tr>
 					<c:set var="i" value="${i + 1}"></c:set>
@@ -96,13 +94,13 @@
 			<button type="submit" align="left" class="putsub">선택삭제</button>
 			<div align="right" class="search">
 	</form>
-	<form action="masterMemberSearch.do" method="post">
-		<select class="putsub" name="type">
+	<form action="masterProductSearch.do" method="post">
+		<select class="putsub" name="searchtype">
 			<option value="">검색 유형 선택</option>
-			<option value="eEmail">ID</option>
-			<option value="eName">이름</option>
-			<option value="eAddress">주소</option>
-			<option value="eGrade">회원등급</option>
+			<option value="pid">상품코드</option>
+			<option value="pname">상품명</option>
+			<option value="psize">사이즈</option>
+			<option value="pcolor">칼라</option>
 		</select> <input type="text" align="right" id="keyword" name="keyword"
 			placeholder="검색어를 입력하세요." maxlength="10" class="text-input">
 		<input type="submit" value="검색" class="putsub">

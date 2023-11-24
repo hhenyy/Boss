@@ -2,11 +2,11 @@ package boss.dao;
 
 import java.util.Map;
 
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 import boss.model.Member;
 
-@Repository
+@Mapper
 public interface MemberDao {
 	
 	// 회원가입

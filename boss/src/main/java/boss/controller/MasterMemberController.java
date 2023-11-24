@@ -2,7 +2,9 @@ package boss.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import boss.common.PagePgm;
 import boss.model.Member;
+import boss.model.Product;
 import boss.service.MasterMemberService;
 
 @Controller
@@ -35,6 +38,7 @@ public class MasterMemberController {
 			@RequestParam(value = "nowPage", required = false) String nowPage,
 			@RequestParam(value = "cntPerPage", required = false) String cntPerPage, String search) throws Exception {
 		System.out.println("masterMemberList");
+
 		int total = ms.total();
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";

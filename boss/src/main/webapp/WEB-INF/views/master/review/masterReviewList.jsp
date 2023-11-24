@@ -52,8 +52,7 @@
 			<table>
 				<tr>
 					<th><label><input type="checkbox"
-							class="check-all-checkbox">전체선택</label></th>
-					<th>고유번호</th>
+							class="check-all-checkbox">글번호</label></th>
 					<th>ID</th>
 					<th>상품번호</th>
 					<th>작성자</th>
@@ -69,9 +68,7 @@
 				<c:forEach var="review" items="${list}" varStatus="loop">
 					<tr>
 						<td id="${i }"><label><input type="checkbox"
-								name="chkId" value="${review.rid }"> ${i }. 번글</label></td>
-						<td
-							onclick="location.href='masterReviewSelect.do?rid=${review.rid}' ">${review.rid}</td>
+								name="chkId" value="${review.rid }"> ${review.rid }</label></td>
 						<td
 							onclick="location.href='masterReviewSelect.do?rid=${review.rid}' ">${review.memail}</td>
 						<td
