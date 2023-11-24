@@ -159,10 +159,10 @@ public class MemberController {
 				// 네이버 회원 member 불러오기
 				member = service.selectOne(mEmail);
 				// 네이버 세션 올리기
-				session.setAttribute("Member", member);				
+				session.setAttribute("member", member);				
 			}
 		}else {	// 회원가입이 되어 있을경우 세션만 올림
-			session.setAttribute("Member", checkmember);
+			session.setAttribute("member", checkmember);
 		}
 			
 		// 세션 생성 ( 이건 건들면 안돼 )
@@ -192,13 +192,10 @@ public class MemberController {
 		String nickname = (String) userInfo.get("nickname");
 		String email = (String) userInfo.get("email");
 
-		String pasing[] = email.split("@");
-		String username = pasing[0];
-
 		model.addAttribute("nickname", nickname);
 		model.addAttribute("email", email);
 
-		session.setAttribute("sessionId", username);
+		session.setAttribute("member", nickname);
 
 		return "common/main";
 	}
@@ -249,12 +246,10 @@ public class MemberController {
 		System.out.println(mEmail);
 		
 		Member dbmember = service.selectOne(mEmail);
-
-		System.out.println("비밀번호 : " + dbmember.getmPwd());
-
+		
 		if (dbmember != null && passwordEncoder.matches(mPwd, dbmember.getmPwd())) {
 			response.put("result", "Y");
-			session.setAttribute("Member", dbmember); // dbmember 라는 이름으로 DTO 객체를 세션 공유 설정
+			session.setAttribute("member", dbmember); // dbmember 라는 이름으로 DTO 객체를 세션 공유 설정
 		} else {
 			response.put("result", "N");
 		}
