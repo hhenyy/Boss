@@ -13,25 +13,29 @@
 <body>
 	<div id="main_review">
 		<h1 class="bbswrite_title" align="center">리뷰 작성</h1>
-		<form method="post" action="productReviewcheck.do">
+		<form method="post" action="prInsert.do">
 			<table id="reviewwrite">
 				<tr>
-					<th>글쓴이</th>
-					<td>아이디 불러오기</td>
+					<th>작성자</th>
+					<td></td>
 				</tr>
 
 				<tr>
-			
+					
 				</tr>
 
 				<tr>
 					<th>글제목</th>
-					<td><input name="product_subject" id="product_subject" size="40" class="input_box" /></td>
+					<td><input name="rtitle" id="rtitle" size="40" class="input_box" /></td>
 				</tr>
-
+					<tr>
+					<th>이미지</th>
+					<td><input type="file" name="rimage" id="rimage" ></td>
+					</tr>
+					
 				<tr>
 					<th>글내용</th>
-					<td><textarea name="product_content" id="product_content" rows="10" cols="50"
+					<td><textarea name="rcontent" id="rcontent" rows="10" cols="50"
 							class="input_box"></textarea></td>
 				</tr>
 

@@ -5,16 +5,30 @@ import org.springframework.stereotype.Service;
 
 import boss.dao.ProductDetailDao;
 import boss.model.Product;
+import boss.model.Review;
 
 @Service
-public class ProductDetailService{
+public class ProductDetailService {
 
 	@Autowired
 	ProductDetailDao dao;
 
-	public Product select(String pid) {
-		return dao.select(pid);
+	public Product selectProduct(String pid) {
+		return dao.selectProduct(pid);
 	}
 
+	public Review selectReview(String pid) {
+
+		return dao.selectReview(pid);
+	}
+
+	public Review selectReviewOne(int rid) {
+		return dao.selectReviewOne(rid);
+	}
+
+	public Review prselect(int rid) {
+		System.out.println("서비스까지 옴 "+ rid);
+		return dao.prselect(rid);
+	}
 
 }

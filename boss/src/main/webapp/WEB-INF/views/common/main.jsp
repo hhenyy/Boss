@@ -273,9 +273,10 @@
 					</p>
 				</header>
 				<section class="tiles">
+          
 					<article class="style1">
 						<span class="image"> <img src="images/ch3.jpg" alt="" />
-						</span> <a href="productDetail.do?pid=3">
+						</span> <a href="productDetail.do?pid=6">
 							<h2>오쨍군</h2>
 							<div class="content">
 								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
@@ -285,7 +286,7 @@
 					</article>
 					<article class="style2">
 						<span class="image"> <img src="images/gun3.jpg" alt="" />
-						</span> <a href="productDetail.do?pid=49">
+						</span> <a href="productDetail.do?pid=3">
 							<h2>목도리</h2>
 							<div class="content"></div>
 						</a>

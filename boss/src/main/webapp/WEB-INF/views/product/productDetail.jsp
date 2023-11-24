@@ -31,6 +31,8 @@
 	<div class="container_main">
 		<div class="container_left">
 			<!-- 이미지 경로 불러오기 -->
+			<img alt="상품이미지" src="./images/${product.pimage }"
+				class="centered-image">
 			<img alt="상품이미지" src="images/${product.pimage }" class="centered-image">
 		</div>
 
@@ -101,48 +103,59 @@
 			<table class="table_review" align="center" border="1">
 				<caption>리뷰 게시판</caption>
 				<tr align="center">
-					<th>리뷰 번호 1</th>
+					<th>리뷰 번호</th>
+					<th>아이디</th>
 					<th>리뷰 게시글</th>
 					<th>이름</th>
 					<th>날짜</th>
 					<th>별점</th>
 				</tr>
-				<tr>
-					<td>반복문 쓰기</td>
-					<td>ㅇㅅㅇ</td>
+
+
+				<tr onclick="location.href='productReviewSelect.do?rid=${review.rid }&pid=${review.pid}'">
+					<td>${review.rid }</td>
+					<td>${review.memail }</td>
+					<td>${review.rcontent }</td>
+					<td>${review.rwriter }</td>
+					<td>${review.rreg }</td>
+					<td>별점추가예정</td>
 				</tr>
-				<tr>
-					<td>연습</td>
-				</tr>
+
+
 			</table>
-		<button type="button" class="button1" onclick="location.href='productReview.do'">리뷰작성</button>
 		</div>
+		<button type="button" class="button1"
+			onclick="location.href='productReviewInsert.do?pid=3'">리뷰 작성</button>
 	</div>
 
-	<!--
-			Q&A 게시판
-			<div class="inquiry">
-				<h3 align="center">문의 게시판 목록</h3>
+	<!-- 문의게시판 -->
+	<div class="askboard">
+		<div class="reivew_button">
+			<table class="table_ask" align="center" border="1">
+				<caption>문의 게시판</caption>
+				<tr align="center">
+					<th>문의 번호</th>
+					<th>아이디</th>
+					<th>문의 게시글</th>
+					<th>이름</th>
+					<th>날짜</th>
+				</tr>
 
 
-				<table border="1" align="center">
-					<tr align="center">
-						<th><div align="center">문의 번호 1</div></th>
-						<th><div align="center">문의 게시글</div></th>
-						<th><div align="center">이름</div></th>
-						<th><div align="center">날짜</div></th>
-						<th><div align="center">별점</div></th>
-						실제 데이터를 가져와서 표시하거나 테스트용으로 임시 데이터를 넣으세요
-					</tr>
-					<tr>
-						<td>반복문 쓰기</td>
-					</tr>
+				<tr>
+					<td>${review.rid }</td>
+					<td>${review.memail }</td>
+					<td>${review.rcontent }</td>
+					<td>${review.rwriter }</td>
+					<td>${review.rreg }</td>
+				</tr>
 
-				</table>
-				<button type="button" class="write-review-button" onclick="">문의작성</button>
-			</div>
 
- -->
+			</table>
+			<button type="button" class="button1"
+				onclick="location.href='productReviewInsert.do'">리뷰 작성</button>
+		</div>
+	</div>
 
 	<!-- css 양식 include -->
 	<%@include file="/WEB-INF/views/common/footer.jsp"%>
