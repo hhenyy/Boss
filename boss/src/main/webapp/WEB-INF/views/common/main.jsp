@@ -99,7 +99,7 @@
 				<section class="tiles">
 					<article class="style1">
 						<span class="image"> <img src="images/ch3.jpg" alt="" />
-						</span> <a href="productDetail.do?pid=6">
+						</span> <a href="productDetail.do?pid=3">
 							<h2>오쨍군</h2>
 							<div class="content">
 								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
@@ -119,8 +119,7 @@
 						</span> <a href="productDetail.do">
 							<h2>Feugiat</h2>
 							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
+								<p>${product.pcontent}</p>
 							</div>
 						</a>
 					</article>

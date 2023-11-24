@@ -25,7 +25,7 @@
 	<div class="container_main">
 		<div class="container_left">
 			<!-- 이미지 경로 불러오기 -->
-			<img alt="상품이미지" src="./images/${product.pimage }" class="centered-image">
+			<img alt="상품이미지" src="images/${product.pimage }" class="centered-image">
 		</div>
 
 		<div class="container_right">
