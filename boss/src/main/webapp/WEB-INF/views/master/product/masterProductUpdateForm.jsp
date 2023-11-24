@@ -23,8 +23,8 @@ function goBack() {
 
 <body>
 	<%@ include file="../common/masterNav.jsp"%>
-	<form method="post" action="masterProductUpdate.do" id="myform"
-		enctype="multipart/form-data">
+	<form method="post" action="masterProductUpdate.do" id="myform">
+		
 		<div class="container">
 			<div class="table-container">
 				<table>
@@ -43,21 +43,21 @@ function goBack() {
 					</tr>
 					<tr align="center">
 						<td><input type="text" value="${product.pid}" id="mgrade"
-							name="pid" autofocus></td>
-						<td style="font-size: 15px;"><input type="file"><br>
-							<br>수정전 파일명: ${product.pimage }</td>
+							name="pid" readonly></td>
+						<td><img src="images/${product.pimage }" width="50" height="50"></td>
 						<td><input type="text" value="${product.pname}" id="mgrade"
-							name="pname" maxlength="3" class="phone"></td>
+							name="pname" maxlength="3" class="phone" autofocus></td>
 						<td><input type="text" value="${product.pcolor}" id="mgrade"
-							name="mGrade"></td>
-						<td><input type="text" value="${product.psize}" id="mgrade"
 							name="pcolor"></td>
-						<td><input type="text" value="${product.pcontent }" id="mgrade"></td>	
+						<td><input type="text" value="${product.psize}" id="mgrade"
+							name="psize"></td>
+						<td><input type="text" value="${product.pcontent }" id="mgrade" name="pcontent"></td>
+							
 
 						<td><fmt:formatDate pattern="yyyy-MM-dd" var="formattedDate"
 								value="${product.preg}" /> <input type="text"
-							value="${formattedDate}" /></td>
-						<td><input type="text" value=""></td>
+							value="${formattedDate}" readonly/></td>
+						<td><input type="text" value="${amount.acount }" name="acount"></td>
 						<td><input type="text" value="${product.pdrop}" id="mgrade"
 							name="pdrop"></td>
 						<td>
