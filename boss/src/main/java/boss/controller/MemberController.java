@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +35,10 @@ public class MemberController {
 
 	@Autowired
 	private JavaMailSender mailSender;
-
+	
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
+	
 	/* NaverLoginBO */
 	private NaverLoginBO naverLoginBO;
 	private String apiResult = null;
@@ -48,7 +52,13 @@ public class MemberController {
 	@RequestMapping("insertMember.do")
 	public ResponseEntity<Map<String, String>> loginform(Member member) {
 		System.out.println("Insertmember");
-
+		
+		// member 폼에서 넘어온 값을 암호화
+		String encpassword = passwordEncoder.encode(member.getmPwd());
+		
+		// db에 넣을 member password 를 암호화 한걸로 넣기
+		member.setmPwd(encpassword);
+		
 		Map<String, String> response = new HashMap<>();
 
 		int result = service.insertMember(member);
@@ -242,7 +252,7 @@ public class MemberController {
 
 		System.out.println("비밀번호 : " + dbmember.getmPwd());
 
-		if (dbmember != null && dbmember.getmPwd().equals(mPwd)) {
+		if (dbmember != null && passwordEncoder.matches(mPwd, dbmember.getmPwd())) {
 			response.put("result", "Y");
 			session.setAttribute("Member", dbmember); // dbmember 라는 이름으로 DTO 객체를 세션 공유 설정
 		} else {
