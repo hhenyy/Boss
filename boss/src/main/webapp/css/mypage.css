@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+.button1 {
+	display: inline-block;
+    width: 115px;
+    height: 50px;
+    padding: 17px 0 15px;
+    border-radius: 6px;
+    border: solid 1px rgba(0,0,0,.15);
+    background-color: #000000;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.button1:hover {
+	background-color: #ffffff;
+	color: #000000;
+}
+
+.container_main {
+    display: flex;
+}
+
+.container_left {
+    flex: 1; /* Flexible width to take remaining space */
+    padding: 20px; /* Adjust padding as needed */
+}
+
+.container_orders {
+    flex: 1; /* Flexible width to take remaining space */
+    padding: 20px; /* Adjust padding as needed */
+    float: right; /* Float the container to the right */
+}
