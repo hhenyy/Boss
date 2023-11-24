@@ -13,6 +13,7 @@
 		<typeAlias alias="amount" type="boss.model.Amount" />
 		<typeAlias alias="search" type="boss.common.Search" />
 
+
 		<!-- <typeAlias alias="search" type="boss.common.Search" /> -->
 		<!-- <typeAlias alias="pagePgm" type="boss.common.PagePgm" /> -->
 		<!-- <typeAlias alias="master" type="boss.master.Master" /> -->
