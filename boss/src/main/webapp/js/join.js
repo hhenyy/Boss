@@ -64,6 +64,7 @@ function fn_join() {
            return false;
         }
         
+        
         $.ajax({
          type : "POST",
          url : "emailAuth.do",

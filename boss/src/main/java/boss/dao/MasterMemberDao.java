@@ -2,12 +2,12 @@ package boss.dao;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 import boss.common.PagePgm;
 import boss.model.Member;
 
-@Repository
+@Mapper
 public interface MasterMemberDao {
 	Member selectOne(String id);
 

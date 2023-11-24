@@ -14,6 +14,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="assets/css/main.css" />
+<link rel="stylesheet" href="assets/css/mainhs.css" />
 <noscript>
 	<link rel="stylesheet" href="assets/css/noscript.css" />
 </noscript>
@@ -30,13 +31,193 @@
 				<c:if test="${sessionId eq null}">
 					<a href="NaverLogin.do" style="text-decoration: none">로그인</a>
 				</c:if>
+
+				<!--관리자라면  -->
 				<c:if test="${sessionId ne null && sessionId eq 'boss'}">
 				${sessionId }님 환영합니다.
 				<a href="Logout.do" onclick="alert('로그아웃')"
 						style="text-decoration: none"><br>로그아웃</a>
 					<a href="productInsertForm.do" onclick="alert('상품등록')"
 						style="text-decoration: none"><br>상품등록</a>
+					<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<header align="center">
+
+								<h1>시선이 교차하는 순간</h1>
+
+								<h3>
+									자연스럽고 특별한 아름다움은 한 순간에 시선과 마음을 사로잡습니다<br>
+								</h3>
+								<h3>눈과 마음을 열어보세요</h3>
+								<br>
+								<p align="left">
+									남성을 위한 수트<br> 포멀함과 세심한 디자인의 기능성이 만난 남성 수트를 소개합니다.<br>
+									포멀 & 캐주얼 스타일을 선보이는 우아한 컬렉션에서 소개하는 BO$$만의 실루엣을 발견해보세요.<br>
+									슬림핏과 가벼운 여름 스타일부터 턱시도와 스리피스 디자인까지, 세심한 스타일링에 중점을 둔 수트 컬렉션을 지금
+									확인해보세요.
+								</p>
+							</header>
+							<section class="tiles">
+
+								<article class="style1">
+									<span class="image"> <img src="images/ch3.jpg" alt="" />
+									</span> <a href="productDetail.do?pid=6">
+										<h2>오쨍군</h2>
+										<div class="content">
+											<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
+												veroeros et feugiat.</p>
+										</div>
+									</a>
+									<div class="buttons_master">
+										<button class="edit-button" onClick="location.href='main.do';">수정</button>
+										<button class="add-button">등록</button>
+										<button class="delete-button">삭제</button>
+									</div>
+								</article>
+
+								<article class="style2">
+									<span class="image"> <img src="images/gun3.jpg" alt="" />
+									</span> <a href="productDetail.do?pid=49">
+										<h2>목도리</h2>
+										<div class="content"></div>
+									</a>
+									<div class="buttons_master">
+										<button class="edit-button">수정</button>
+										<button class="add-button">등록</button>
+										<button class="delete-button">삭제</button>
+									</div>
+								</article>
+
+								<article class="style3">
+									<span class="image"> <img src="images/ch2.jpg" alt="" />
+									</span> <a href="productDetail.do">
+										<h2>Feugiat</h2>
+										<div class="content">
+											<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
+												veroeros et feugiat.</p>
+										</div>
+									</a>
+									<div class="buttons_master">
+										<button class="edit-button">수정</button>
+										<button class="add-button">등록</button>
+										<button class="delete-button">삭제</button>
+									</div>
+								</article>
+								<article class="style4">
+									<span class="image"> <img src="images/gun4.jpg" alt="" />
+									</span> <a href="productDetail.do">
+										<h2>Tempus</h2>
+										<div class="content">
+											<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
+												veroeros et feugiat.</p>
+										</div>
+									</a>
+									<div class="buttons_master">
+										<button class="edit-button">수정</button>
+										<button class="add-button">등록</button>
+										<button class="delete-button">삭제</button>
+									</div>
+								</article>
+								<article class="style5">
+									<span class="image"> <img src="images/e1.png" alt="" />
+									</span> <a href="productDetail.do">
+										<h2>Aliquam</h2>
+										<div class="content">
+											<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
+												veroeros et feugiat.</p>
+										</div>
+									</a>
+									<div class="buttons_master">
+										<button class="edit-button">수정</button>
+										<button class="add-button">등록</button>
+										<button class="delete-button">삭제</button>
+									</div>
+								</article>
+
+								<article class="style6">
+									<span class="image"> <img src="images/e2.png" alt="" />
+									</span> <a href="productDetail.do">
+										<h2>Veroeros</h2>
+										<div class="content">
+											<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
+												veroeros et feugiat.</p>
+										</div>
+									</a>
+									<div class="buttons_master">
+										<button class="edit-button">수정</button>
+										<button class="add-button">등록</button>
+										<button class="delete-button">삭제</button>
+									</div>
+								</article>
+								<!-- 에러시작 -->
+								<article class="style2">
+									<span class="image"> <img src="images/e3.png" alt="" />
+									</span> <a href="productDetail.do">
+										<h2>Lorem</h2>
+										<div class="content">
+											<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
+												veroeros et feugiat.</p>
+										</div>
+									</a>
+								</article>
+								<article class="style3">
+									<span class="image"> <img src="images/e4.png" alt="" />
+									</span> <a href="productDetail.do">
+										<h2>Dolor</h2>
+										<div class="content">
+											<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
+												veroeros et feugiat.</p>
+										</div>
+									</a>
+								</article>
+								<article class="style1">
+									<span class="image"> <img src="images/gun2.jpg" alt="" />
+									</span> <a href="productDetail.do">
+										<h2>Nullam</h2>
+										<div class="content">
+											<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
+												veroeros et feugiat.</p>
+										</div>
+									</a>
+								</article>
+								<article class="style5">
+									<span class="image"> <img src="images/gun2.jpg" alt="" />
+									</span> <a href="productDetail.do">
+										<h2>Ultricies</h2>
+										<div class="content">
+											<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
+												veroeros et feugiat.</p>
+										</div>
+									</a>
+								</article>
+								<article class="style2">
+									<span class="image"> <img src="images/gun2.jpg" alt="" />
+									</span> <a href="productDetail.do">
+										<h2>Lorem</h2>
+										<div class="content">
+											<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
+												veroeros et feugiat.</p>
+										</div>
+									</a>
+								</article>
+								<article class="style4">
+									<span class="image"> <img src="images/gun2.jpg" alt="" />
+									</span> <a href="productDetail.do">
+										<h2>Pretium</h2>
+										<div class="content">
+											<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
+												veroeros et feugiat.</p>
+										</div>
+									</a>
+								</article>
+							</section>
+						</div>
+					</div>
 				</c:if>
+
+
+				<!-- 회원이면 -->
 				<c:if test="${sessionId ne null && sessionId ne 'boss'}">
 				${sessionId }님 환영합니다.
 				<a href="Logout.do" onclick="alert('로그아웃')"
@@ -78,12 +259,7 @@
 			</ul>
 		</nav>
 
-		<!-- Main -->
-		<div id="main">
-			<div class="inner">
-				<header align="center">
 
-					<h1>시선이 교차하는 순간</h1>
 
 					<h3>
 						자연스럽고 특별한 아름다움은 한 순간에 시선과 마음을 사로잡습니다<br>
@@ -97,9 +273,10 @@
 					</p>
 				</header>
 				<section class="tiles">
+          
 					<article class="style1">
 						<span class="image"> <img src="images/ch3.jpg" alt="" />
-						</span> <a href="productDetail.do?pid=60">
+						</span> <a href="productDetail.do?pid=6">
 							<h2>오쨍군</h2>
 							<div class="content">
 								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
@@ -119,8 +296,7 @@
 						</span> <a href="productDetail.do">
 							<h2>Feugiat</h2>
 							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
+								<p>${product.pcontent}</p>
 							</div>
 						</a>
 					</article>
@@ -218,6 +394,7 @@
 				</section>
 			</div>
 		</div>
+
 
 		<!-- Footer -->
 		<footer id="footer">

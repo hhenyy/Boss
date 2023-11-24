@@ -3,13 +3,14 @@ package boss.common;
 import boss.controller.MasterMemberController;
 
 public class Search extends MasterMemberController {
-	private String searchType = "";
+	private String searchtype = "";
 	private String keyword = "";
-	public String getSearchType() {
-		return searchType;
+	
+	public String getSearchtype() {
+		return searchtype;
 	}
-	public void setSearchType(String searchType) {
-		this.searchType = searchType;
+	public void setSearchtype(String searchtype) {
+		this.searchtype = searchtype;
 	}
 	public String getKeyword() {
 		return keyword;
@@ -17,5 +18,6 @@ public class Search extends MasterMemberController {
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
+	
 
 }
