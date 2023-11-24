@@ -10,7 +10,7 @@
 	</select>
 
 	<!-- 페이징 처리된 카테고리 리스트 -->
-	<select id="categoryList" parameterType="Category"
+	<select id="categoryList" parameterType="category"
 		resultType="product">
 		select *
 		from (select rownum rnum, category.*

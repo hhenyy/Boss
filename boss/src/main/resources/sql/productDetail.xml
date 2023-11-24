@@ -5,15 +5,29 @@
 <mapper namespace="boss.dao.ProductDetailDao">
 
 	<!-- 상품 가져오기 -->
-	<select id="select" parameterType="String" resultType="product">
-		select * from product where pid=#{pid}
+	<select id="selectProduct" parameterType="String"
+		resultType="product">
+		select *
+		from product where pid=#{pid}
+	</select>
+
+
+ 
+	<select id="selectReviewOne" resultType="review" parameterType="int">
+		SELECT * FROM review where rid = #{rid}
 	</select>
 	
-	
-	
-	
-	
-	
-	
-	
+	<select id="prselect" resultType="review" parameterType="int">
+		SELECT * FROM review where rid = #{rid}
+	</select>
+
+
+
+
+
+
+
+
+
+
 </mapper>

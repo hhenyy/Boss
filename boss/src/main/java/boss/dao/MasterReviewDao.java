@@ -2,12 +2,12 @@ package boss.dao;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 import boss.common.PagePgm;
 import boss.model.Review;
 
-@Repository
+@Mapper
 public interface MasterReviewDao {
 	
 	Review selectOne(String rid);
