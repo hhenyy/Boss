@@ -2,6 +2,7 @@ package boss.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,21 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import boss.common.PagePgm;
-import boss.model.OrderDetail;
-import boss.model.Orders;
-import boss.model.Product;
 import boss.service.MasterOrdersService;
-import boss.service.MasterProductService;
 
 @Controller
 public class MasterOrdersController {
 
 	@Autowired
 	MasterOrdersService ms;
-
-	@Autowired
-	MasterProductService ps;
-	// masterOrdersList.do
 
 	// 관리자 리뷰리스트
 	@RequestMapping("masterOrdersList.do")
@@ -48,46 +41,25 @@ public class MasterOrdersController {
 		pp = new PagePgm(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("pp", pp);
 		model.addAttribute("list", ms.list(pp));
-		return "./master/orders/masterOrdersList";
+		return "master/orders/masterOrdersList";
 	}
 
 	// 관리자 주문 상세정보
 	@RequestMapping("masterOrdersSelect.do")
-	public String masterOrdersSelect(Orders orders, String oid, Model model)throws Exception{
+	public String masterOrdersSelect(String oid, Model model) throws Exception {
 		System.out.println("masterOrdersSelect");
-		System.out.println("oid : " + oid);
 
-		List<Product> plist = new ArrayList<Product>();
- 
-		orders = ms.selectOne(oid);
-		if (orders != null) { // 주문번호가 있다면.
-			System.out.println("시작 진입");
-
-			List<OrderDetail> odlist = ms.odList(oid);
-			System.out.println("odlist 가 널인가 : " + odlist);
-			if (odlist.size() > 0) { // // od리스트를 구해왔음. 해당정보로 배송정보를 컨트롤함.
-				System.out.println("odlist : " + odlist.size());
-				System.out.println("odlist의 pid[] : " + odlist.get(0).getPid());
-
-				for (int i = 0; i < odlist.size(); i++) { // odid[]를 기반으로 pid[]를 구해옴.
-					int pid_ = odlist.get(i).getPid();
-					String pid = ""+pid_;
-					System.out.println(pid);
-					System.out.println("pid로 구해온 product : " + ps.selectOne(pid));
-					plist.add(i, ps.selectOne(pid));
-					System.out.println("plist : " + i + "+" + pid);
-					System.out.println("plist의 요소들 : " + plist.get(0).getPprice());
-				}
-			} 
-
-			model.addAttribute("plist", plist);
-			model.addAttribute("odlist", odlist);
-			model.addAttribute("orders", orders);
-		} else { // 주문번호가 없다면.
-			System.out.println("실패");
+		List<HashMap<String, Object>> ordersList = new ArrayList<>();
+		System.out.println("1");
+		if (oid != null) { // 주문정보가 있다면. (없으면 처음부터 select도 못들어옴. else처리 안함)
+			ordersList = ms.listProduct(Integer.parseInt(oid));
+			
+			// 모든정보의 List
+			model.addAttribute("ordersList", ordersList);
+			// 단일정보 (뷰에서 쓰기쉽게 foreach안돌려도됨)
+			model.addAttribute("orders",ordersList.get(0));
 		}
-
-		return "./master/orders/masterOrdersSelect";
+		return "master/orders/masterOrdersSelect";
 	}
 
 	// 관리자 주문 삭제
@@ -121,6 +93,6 @@ public class MasterOrdersController {
 			model.addAttribute("result", result);
 			model.addAttribute("msg", "삭제할 글이 없습니다.");
 		}
-		return "./master/orders/masterOrdersDelete";
+		return "master/orders/masterOrdersDelete";
 	}
 }

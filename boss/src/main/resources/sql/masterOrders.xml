@@ -4,6 +4,18 @@
 
 <mapper namespace="boss.dao.MasterOrdersDao">
 
+	<!-- 주문번호안에 pid목록들 -->
+	<select id="listProduct" parameterType="integer"
+		resultType="Map">
+		select *
+		from orderdetail join
+		orders using(oid)
+		join product
+		on orderdetail.pid = product.pid
+		where oid = #{oid}
+	</select>
+
+
 	<!-- list로 for문돌려서 where절에 가변적 처리 -->
 	<delete id="delete" parameterType="java.util.List">
 		delete from Orders
@@ -13,17 +25,6 @@
 			#{oid}
 		</foreach>
 	</delete>
-	<!-- 주문번호안에 pid목록들 -->
-	<select id="">
-		SELECT *
-		FROM product p
-		JOIN orderdetail od ON p.pid =
-		od.pid
-		JOIN orders o ON od.odid = o.oid
-		WHERE od.oid = 1;
-
-	</select>
-
 
 	<!-- 한명의 주문정보를 구해옴. -->
 	<select id="selectOne" resultType="orders"
@@ -36,6 +37,7 @@
 		resultType="orderDetail">
 		select * from OrderDetail where oid=#{oid}
 	</select>
+
 	<!-- 페이징 처리 후 게시글 조회 -->
 	<select id="list" resultType="orders" parameterType="pagePgm">
 		SELECT *

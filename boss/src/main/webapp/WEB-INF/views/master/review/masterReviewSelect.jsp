@@ -23,19 +23,18 @@
 			<table>
 				<tr>
 					<th>ID</th>
-					<th>수령인</th>
-					<th>휴대폰</th>
-					<th>우편번호</th>
-					<th>주소</th>
-					<th>총금액</th>
-					<th>배송비</th>
-					<th>메시지</th>
-					<th>주문일</th>
+					<th>상품번호</th>
+					<th>작성자</th>
+					<th>제목</th>
+					<th>내용</th>
+					<th>이미지</th>
+					<th>작성일</th>
+					<th>조회수</th>
+					<th>삭제여부</th>
 					<th>관리</th>
 				</tr>
 				<tr>
 					<td>${review.rid}</td>
-					<td>${review.memail}</td>
 					<td>${review.pid}</td>
 					<td>${review.rwriter}</td>
 					<td>${review.rtitle}</td>
@@ -78,6 +77,7 @@
 				</tr>
 			</table>
 		</div>
+		<%@ include file="../../common/footer.jsp"%>
 	</form>
 </body>
 </html>

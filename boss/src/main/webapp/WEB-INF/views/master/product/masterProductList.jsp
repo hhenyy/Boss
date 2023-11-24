@@ -24,7 +24,7 @@
 </head>
 <body>
 	<%@ include file="../common/masterNav.jsp"%>
-	
+
 	<form method="post" action="masterMemberDelete.do">
 		<div class="container">
 
@@ -49,7 +49,9 @@
 			</div>
 
 			<!-- 옵션선택 끝 -->
-			<button type="button" class="putsub" onclick="location.href='masterProductInsertForm.do'">신규 상품 등록</button>
+			<button type="button" class="putsub"
+				onclick="location.href='masterProductInsertForm.do'">신규 상품
+				등록</button>
 			<table>
 				<tr>
 					<th><label><input type="checkbox"
@@ -70,16 +72,21 @@
 								name="chkId" value="${product.pid}">코드 ${product.pid }</label></td>
 						<td
 							onclick="location.href='masterProductDetail.do?id=${product.pid}' ">
-							<img src="./images/${product.pimage}" width="50" height="50">
+							<img src="./images/${product.pimage}" width="50px" height="50px">
 						</td>
 						<td id="${product.pid }"
 							onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.pname}</td>
-						<td onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.pcolor}</td>
-						<td onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.psize}</td>
-						<td onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.pcontent}</td>
-						<td onclick="location.href='masterProductDetail.do?id=${product.pid}' "><fmt:formatDate
+						<td
+							onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.pcolor}</td>
+						<td
+							onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.psize}</td>
+						<td
+							onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.pcontent}</td>
+						<td
+							onclick="location.href='masterProductDetail.do?id=${product.pid}' "><fmt:formatDate
 								pattern="yyyy-MM-dd" value="${product.preg}" /></td>
-						<td onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.pdrop}</td>
+						<td
+							onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.pdrop}</td>
 						<td>
 							<button type="button"
 								onclick="location.href='masterProductUpdateForm.do?id=${product.pid}'">수정</button>
@@ -129,8 +136,9 @@
 				> </a>
 		</c:if>
 	</div>
-	<%@ include file="../../common/footer.jsp"%>
+	<h4 class="info-message">클릭시 해당 상품으로 이동합니다.</h4>
 	</div>
+	<%@ include file="../../common/footer.jsp"%>
 
 	<br>
 	</form>
