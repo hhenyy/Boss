@@ -13,6 +13,6 @@ public interface CategoryDao {
 
 	int categoryCount(String cid);
 
-	List<Product> categoryList(String cid);
+	List<Product> categoryList(Category c);
 
 }
