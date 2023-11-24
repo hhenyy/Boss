@@ -24,4 +24,6 @@ public interface MasterReviewDao {
 	// 페이징 처리 게시글 조회
 	List<Review> list(PagePgm vo);
 
+	
+
 }
