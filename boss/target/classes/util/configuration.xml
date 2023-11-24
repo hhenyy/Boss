@@ -11,6 +11,7 @@
 <!-- 		<typeAlias alias="search" type="boss.common.Search" /> -->
 <!-- 		<typeAlias alias="pagePgm" type="boss.common.PagePgm" /> -->
 <!-- 		<typeAlias alias="master" type="boss.master.Master" /> -->
+<!-- 		<typeAlias alias="category" type="boss.model.Category" /> -->
 	</typeAliases>	
 	
 </configuration>
