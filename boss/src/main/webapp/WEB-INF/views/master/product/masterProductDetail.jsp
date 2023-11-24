@@ -38,15 +38,24 @@
 				<td>${product.pcolor }</td>
 				<td>${product.psize }</td>
 				<td>${product.pcontent }</td>
-				<td><fmt:formatDate pattern="yyyy-MM-dd"
+				
+				<c:if test="${product.preg != null}">
+					<td><fmt:formatDate pattern="yyyy-MM-dd"
 						value="${product.preg }" /></td>
-				<td></td>		
+				</c:if>
+				
+				<c:if test="${product.preg == null }">
+					<td><fmt:formatDate pattern="yyyy-MM-dd"
+						value="${date }" /></td>
+				</c:if>
+				<td>${amount.acount }</td>
+				
 				<td>${product.pdrop }</td>
 				<td>
 					<button type="button"
-						onclick="location.href='masterProductList.do?id=${product.pid}'">수정</button>
+						onclick="location.href='masterProductUpdateForm.do?id=${product.pid}'">수정</button>
 					<button type="button"
-						onclick="location.href='masterProductList.do?id=${product.pid}' ">삭제</button>
+						onclick="alert('삭제하시겠습니까?'); location.href='masterProductDelete.do?id=${product.pid}'">삭제</button>
 				</td>
 			</tr>
 		</table>

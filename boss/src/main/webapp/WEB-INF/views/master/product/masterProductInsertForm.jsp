@@ -62,8 +62,7 @@ function goBack() {
 						<td><input type="text" id="mgrade"
 							name="pcontent"></td>
 						<td><input type="text" id="mgrade" name="pprice"></td>
-						<td><input type="text" id="mgrade"
-							></td>
+						<td><input type="text" id="mgrade" name="acount"></td>
 						
 						<td>
 							<button type="submit">등록</button>

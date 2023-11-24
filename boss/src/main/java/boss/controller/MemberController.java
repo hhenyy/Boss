@@ -67,7 +67,7 @@ public class MemberController {
 	 */
 	@RequestMapping(value = "main.do")
 	public String doMain() {
-
+		
 		return "common/main";
 	}
 

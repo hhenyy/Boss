@@ -9,6 +9,9 @@
 		<typeAlias alias="product" type="boss.model.Product" />
 		<typeAlias alias="review" type="boss.model.Review" />
 		<typeAlias alias="pagePgm" type="boss.common.PagePgm" />
+		<typeAlias alias="category" type="boss.model.Category" />
+		<typeAlias alias="amount" type="boss.model.Amount" />
+		<typeAlias alias="search" type="boss.common.Search" />
 
 		<!-- <typeAlias alias="search" type="boss.common.Search" /> -->
 		<!-- <typeAlias alias="pagePgm" type="boss.common.PagePgm" /> -->
