@@ -8,9 +8,7 @@
 <title>로그인 폼</title>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet" href="css/LoginForm.css">
-<script src="./js/member.js"></script>
 
-<!-- 로그인 ajax로 처리함 -->
 <script>
 $(document).ready(function () {
 	$("#btn").on("click", function () {
@@ -27,9 +25,8 @@ $(document).ready(function () {
 	            if (data.result == "Y") {
 	                alert("로그인 성공");
 	                location.href = "main.do";
-	            } else if (data.result == "N") {
+	            } else {
 	                alert("로그인 실패");
-	                location.href = "NaverLogin.do";
 	            }
 	        },
     	    error: function (data) {
@@ -48,7 +45,7 @@ $(document).ready(function () {
       <form method="post" action="login.do" id = "insert_frm">
          <input type="text" placeholder="이메일" class="in" id="mEmail" name="mEmail"> 
          <input type="password" placeholder="비밀번호" class="in" id="mPwd" name="mPwd"> 
-         <input type="submit" id="btn" name = "btn" value="로그인"><br> 
+         <input type="submit" id="btn" value="로그인"><br> 
          <input type="button" value="회원가입" onClick="location.href='insertForm.do' " style = "background-color: black;
                                                                            margin-bottom: 30px; 
                                                                            color: white;">
