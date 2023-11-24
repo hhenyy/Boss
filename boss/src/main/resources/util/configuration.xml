@@ -10,9 +10,9 @@
 		<typeAlias alias="review" type="boss.model.Review" />
 		<typeAlias alias="orders" type="boss.model.Orders" />
 		<typeAlias alias="orderDetail" type="boss.model.OrderDetail" />
-		<typeAlias alias="category" type="boss.model.Category" />
+	<typeAlias alias="category" type="boss.model.Category" />
 		<typeAlias alias="pagePgm" type="boss.common.PagePgm" />
-		<typeAlias alias="category" type="boss.model.Category" />
+<!-- 		<typeAlias alias="category" type="boss.model.Category" /> -->
 		<typeAlias alias="bucket" type="boss.model.Bucket" />
 		<typeAlias alias="amount" type="boss.model.Amount" />
 		<typeAlias alias="search" type="boss.common.Search" />
@@ -21,7 +21,7 @@
 		<!-- <typeAlias alias="search" type="boss.common.Search" /> -->
 		<!-- <typeAlias alias="pagePgm" type="boss.common.PagePgm" /> -->
 		<!-- <typeAlias alias="master" type="boss.master.Master" /> -->
-		<typeAlias alias="category" type="boss.model.Category" />
+	<!-- 	<typeAlias alias="category" type="boss.model.Category" /> -->
 	</typeAliases>
 
 </configuration>
