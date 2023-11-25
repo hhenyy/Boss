@@ -17,6 +17,8 @@
 		<typeAlias alias="search" type="boss.common.Search" />
 		<typeAlias alias="qnaBoard" type="boss.model.QnaBoard" />
 		<typeAlias alias="qnaReply" type="boss.model.QnaReply" />
+		<typeAlias alias="freeboard" type="boss.model.FreeBoard" />
+
     
 
 		<!-- <typeAlias alias="search" type="boss.common.Search" /> -->

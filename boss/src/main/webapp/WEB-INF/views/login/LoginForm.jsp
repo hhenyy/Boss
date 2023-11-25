@@ -14,6 +14,7 @@
 <script>
 $(document).ready(function () {
 	$("#btn").on("click", function () {
+		event.preventDefault();
 		var f = $('#insert_frm');
 	    var formData = f.serialize();
 	
@@ -49,9 +50,7 @@ $(document).ready(function () {
          <input type="text" placeholder="이메일" class="in" id="mEmail" name="mEmail"> 
          <input type="password" placeholder="비밀번호" class="in" id="mPwd" name="mPwd"> 
          <input type="submit" id="btn" name = "btn" value="로그인"><br> 
-         <input type="button" value="회원가입" onClick="location.href='insertForm.do' " style = "background-color: black;
-                                                                           margin-bottom: 30px; 
-                                                                           color: white;">
+         <input type="button" value="회원가입" onClick="location.href='insertForm.do' " name = "btn" id = "btn">
              <br>
       </form>
          <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=45b48fcc29ad5a368b013958e9976afe&redirect_uri=http://localhost/boss/kakaologin.do&response_type=code">
