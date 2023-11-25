@@ -1,18 +1,19 @@
 @charset "UTF-8";
 
-  .buttons_master {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 5px; /* Adjust margin as needed */
-  }
+.buttons_master {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 25px; /* Adjust margin as needed */
+}
 
-  .buttons_master button {
-    margin: 5px; /* Adjust margin as needed */
-    filter: grayscale(100%);
-    transition: filter 0.3s ease;
-  }
+.buttons_master button {
+	margin: 5px; /* Adjust margin as needed */
+	filter: grayscale(100%);
+	transition: filter 0.3s ease;
+	font-size: 14px;
+}
 
-  .buttons_master button:hover {
-    filter: grayscale(0%);
-  }
+.buttons_master button:hover {
+	filter: grayscale(0%);
+}
