@@ -16,6 +16,7 @@
 		<typeAlias alias="bucket" type="boss.model.Bucket" />
 		<typeAlias alias="amount" type="boss.model.Amount" />
 		<typeAlias alias="search" type="boss.common.Search" />
+		<typeAlias alias="freeboard" type="boss.model.FreeBoard" />
     
 
 		<!-- <typeAlias alias="search" type="boss.common.Search" /> -->
