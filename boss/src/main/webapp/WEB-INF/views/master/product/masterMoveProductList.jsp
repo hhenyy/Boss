@@ -36,5 +36,19 @@
 			location.href="masterProductList.do";
 		</script>
 	</c:if>
+	
+	<c:if test="${result > 0}">
+		<script>
+		alert("${msg}");
+		location.href = "masterProductList.do";
+		</script>
+	</c:if>
+
+	<c:if test="${result == 0}">
+		<script>
+		alert("${msg}");
+		history.go(-1);
+		</script>
+	</c:if>
 </body>
 </html>
