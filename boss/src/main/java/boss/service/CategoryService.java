@@ -22,9 +22,9 @@ public class CategoryService {
 	}
 
 	//해당 카테고리의 상품 list 전송
-	public List<Product> categoryList(String cid) {
-
-		return dao.categoryList(cid);
+	public List<Product> categoryList(Category c) {
+		System.out.println("서비스");
+		return dao.categoryList(c);
 	}
 	
 	

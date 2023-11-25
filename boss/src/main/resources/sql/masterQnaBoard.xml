@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boss.dao.MasterQnaBoardDao">
+
+	<!-- 총상품 갯수 -->
+	<select id="totalQnaCount" resultType="int">
+		select count(*) from qnaboard
+	</select>
+
+	<!-- 페이징 처리된 상품 리스트 -->
+	<select id="selectQnaBoardList" parameterType="pagePgm"
+		resultType="qnaBoard">
+		select *
+		from (select rownum rnum, qnaboard.*
+		from (select * from qnaboard order by qnareg desc) qnaboard)
+		where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<!-- qna 게시글 상세정보 구하기 -->
+	<select id="selectQnaDetail" parameterType="int" resultType="qnaBoard">
+		select * from qnaBoard where qid=#{qid}
+	</select>
+	
+	<!-- qna 답글 저장 -->
+	<insert id="insertReply" parameterType="Map">
+		insert into qnareply values(qnareply_seq.nextval,#{memail},#{qid},#{qrcontent},sysdate,default)
+	</insert>
+	
+	<!-- qna 1개 댓글 구하기 -->
+	<select id="selectReplyOne" parameterType="int" resultType="qnaReply">
+		select * from qnareply where pid=#{pid}
+	</select>
+		
+</mapper>

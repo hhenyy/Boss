@@ -32,8 +32,8 @@
 		<div class="container_left">
 			<!-- 이미지 경로 불러오기 -->
 			<img alt="상품이미지" src="./images/${product.pimage }"
-				class="centered-image">
-			<img alt="상품이미지" src="images/${product.pimage }" class="centered-image">
+				class="centered-image"> <img alt="상품이미지"
+				src="images/${product.pimage }" class="centered-image">
 		</div>
 
 		<div class="container_right">
@@ -66,8 +66,8 @@
 			<div class="button-container">
 				<button type="button" id="buy" class="button1">구매하기</button>
 				<button type="button" id="bucket" class="button1">장바구니</button>
-				
-				
+
+
 			</div>
 		</div>
 	</div>
@@ -75,9 +75,9 @@
 	<!-- 오른쪽 컨테이너 끝 -->
 
 
-	<div class="content" align="center">
+	<div class="detail_content" align="center">
 
-
+		<h1>${product.pcontent }</h1>
 		<br>
 		<h1>이옷은 멋있고</h1>
 		<br>
@@ -110,22 +110,61 @@
 					<th>날짜</th>
 					<th>별점</th>
 				</tr>
-
-
-				<tr onclick="location.href='productReviewSelect.do?rid=${review.rid }&pid=${review.pid}'">
-					<td>${review.rid }</td>
-					<td>${review.memail }</td>
-					<td>${review.rcontent }</td>
-					<td>${review.rwriter }</td>
-					<td>${review.rreg }</td>
-					<td>별점추가예정</td>
-				</tr>
-
-
+				<c:forEach var="review" items="${reviewList }">
+					<tr onclick="location.href='productReviewSelect.do?rid=${review.rid}&pid=${review.pid}'">
+						<td>${review.rid}</td>
+						<td>${review.memail}</td>
+						<td>${review.rcontent}</td>
+						<td>${review.rwriter}</td>
+						<td>${review.rreg}</td>
+						<td>별점추가예정</td>
+					</tr>
+				</c:forEach>
 			</table>
+			<!-- 여기 추가함 -->
+			<div class="detail_page">
+				<c:if test="${pp.startPage != 1 }">
+					<a style="text-decoration: none; color: black"
+						href="./productDetail.do?nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}&pid=84"><!-- 주소 바꿔야댐 -->
+						< </a>
+				</c:if>
+				<c:forEach begin="${pp.startPage }" end="${pp.endPage }" var="p">
+					<c:choose>
+						<c:when test="${p == pp.nowPage }">
+							<b>${p }</b>
+						</c:when>
+						<c:when test="${p != pp.nowPage }">
+							<a style="text-decoration: none; color: black"
+								href="./productDetail.do?nowPage=${p }&cntPerPage=${pp.cntPerPage}&pid=84"><!-- 주소 바꿔야댐 -->${p }</a>
+						</c:when>
+					</c:choose>
+				</c:forEach>
+				<c:if test="${pp.endPage != pp.lastPage}">
+					<a style="text-decoration: none; color: black"
+						
+						href="./productDetail.do?nowPage=${pp.endPage + 1 }&cntPerPage=${pp.cntPerPage}&pid=84"><!-- 주소 바꿔야댐 -->
+						> </a>
+				</c:if>
+			</div>
+			<script>
+			function 
+			
+			
+			
+			</script>
+	
+
+			<%-- 				<tr onclick="location.href='productReviewSelect.do?rid=${review.rid }&pid=${review.pid}'"> --%>
+			<%-- 					<td>${review.rid }</td> --%>
+			<%-- 					<td>${review.memail }</td> --%>
+			<%-- 					<td>${review.rcontent }</td> --%>
+			<%-- 					<td>${review.rwriter }</td> --%>
+			<%-- 					<td>${review.rreg }</td> --%>
+			<!-- 					<td>별점추가예정</td> -->
+			<!-- 				</tr> -->
 		</div>
 		<button type="button" class="button1"
-			onclick="location.href='productReviewInsert.do?pid=3'">리뷰 작성</button>
+			onclick="location.href='productReviewInsertForm.do?pid=3'">리뷰 작성</button>
 	</div>
 
 	<!-- 문의게시판 -->

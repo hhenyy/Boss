@@ -22,12 +22,18 @@ public class CategoryController {
 	
 		// 상품 리스트로 이동 이동
 		@RequestMapping("category.do")
-		public String category(PagePgm pp, Product p, Model model,
+		public String category(PagePgm pp, Product p, Model model, Category c,
 				@RequestParam(value = "nowPage", required = false) String nowPage,
 				@RequestParam(value = "cntPerPage", required = false) String cntPerPage, String search) throws Exception {
 			System.out.println("category");
+			
 			int categoryCount = cs.categoryCount(p.getCid());
 			//해당 카테고리의 상품 갯수를 검색
+			System.out.println(p.getCid());
+			System.out.println(categoryCount);
+			System.out.println(pp.getNowPage());
+			System.out.println(pp.getCntPerPage());
+			
 			if (nowPage == null && cntPerPage == null) {
 				nowPage = "1";
 				cntPerPage = "15";
@@ -37,28 +43,22 @@ public class CategoryController {
 				cntPerPage = "15";
 			}
 			
-			//1.cid 값을 가지고 product내부에서 검색하는 쿼리문으로 연결
-			//검색 결과는 리스트에 저장되어 돌아옴
-			List<Product> categoryList = cs.categoryList(p.getCid());
+			//1.페이징처리를 위한 값들을 전송 후 거기서 파생된 변수들을 Category DTO에 저장. 
+			pp = new PagePgm(categoryCount, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 			
-			//2.리스트의 인덱스 번호 값을 페이징에 활용. 0~29/30~59 등등
-			//for문을 사용해 해당 DTO 객체들을 새로운 리스트에 저장시킨 후 뷰페이지로 공유
-			List<Product> realCategoryList = new ArrayList<Product>();
-			
-			pp=new PagePgm(categoryCount, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-			for(int i = pp.getStartPage()-1;i<pp.getEndPage();i++) {
-				realCategoryList.add(i, categoryList.get(i));
-			}
-			
-			
-			
-			//3.뷰페이지에선 이 데이터를 forEach를 이용해 반복출력
-			//출력될 리스트는 현재 페이지에 따라 변화하게 됨
+			System.out.println(c.getNewCid());
+			c.setNewCid("맨투맨");
+			c.setNewStartRow(pp.getStartRow());
+			c.setNewEndRow(pp.getEndRow());
+			System.out.println(c.getNewCid());
+			System.out.println(c.getNewStartRow());
+			System.out.println(c.getNewEndRow());
 			
 			model.addAttribute("pp", pp);  //상품 갯수, 현재페이지번호, 한 페이지에 출력될 번호를 공유
-			model.addAttribute("list", realCategoryList);
+			model.addAttribute("list", cs.categoryList(c));
 			model.addAttribute("cid",p.getCid());
 			//cid로 찾아낸 해당 카테고리 상품 목록을 페이징 처리하여 공유
+			System.out.println(cs.categoryList(c).get(0).getPname());
 			return "./category/categoryList";
 		}
 

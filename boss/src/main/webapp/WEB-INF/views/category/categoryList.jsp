@@ -115,54 +115,42 @@
 
 				<section class="tiles">
 				<!-- if문을 넣어 해당 카테고리의 상품이 없을 경우 화면 중앙에 '등록된 상품이 없습니다' 출력 -->
-					<c:forEach var="i" begin="1" end="15">
+					<c:forEach var="list" items="${list }" varStatus="loop">
 						<article class="style1">
-							<span class="image"> <img src="images/${i}.png" alt="" />
-							</span> <a href="productDetail.do">
-								<h2>오쨍군</h2>
+							<span class="image"> <img src="images/${list.pimage}" onerror="this.src='images/1.png'">
+							<!-- 일단은 엑박 대신 1.png가 출력되도록 처리. 클릭이 안되게 하려면? -->
+							</span> <a href="productDetail.do?pid=${list.pid }">
+								<h2>${list.pname }</h2>
 								<div class="content">
-									<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-										veroeros et feugiat.</p>
+									<p>${list.pcontent }</p>
 								</div>
 							</a>
 						</article>
 					</c:forEach>
-					<%-- <c:forEach var="i" item=${list}>
-						<article class="style1">
-							<span class="image"> <img src="images/${i}.png" alt="" />
-							</span> <a href="productDetail.do">
-								<h2>${i.pname}</h2>
-								<div class="content">
-									<p>${i.pcontent}</p>
-								</div>
-							</a>
-						</article>
-					</c:forEach> --%>
 				</section>
 			</div>
 			<!-- 다른 페이지로 넘어가기 위한 숫자들 자리 -->
-			<div><!-- 가운데 정렬 필요 -->
-				<c:if test="${c.startPage != 1 }">
+			<div align="center"><!-- 가운데 정렬 필요 -->
+				<c:if test="${pp.startPage != 1 }">
 					<a style="text-decoration: none; color: deeppink"
-						href="./categoryList.do?cid=${c.cid}&nowPage=${c.startPage - 1 }&cntPerPage=${c.cntPerPage}">
+						href="./category.do?cid=${cid }&newCid=${cid }&nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}">
 						<- 
 					</a>
 				</c:if>
-				<c:forEach begin="${c.startPage }" end="${c.endPage }" var="p">
-				<!-- 내부 데이터가 0이라 아무것도 표시X  -->
+				<c:forEach begin="${pp.startPage }" end="${pp.endPage }" var="p">
 					<c:choose>
-						<c:when test="${p == c.nowPage }">
+						<c:when test="${p == pp.nowPage }">
 							<b>${p }</b>
 						</c:when>
-						<c:when test="${p != c.nowPage }">
+						<c:when test="${p != pp.nowPage }">
 							<a style="text-decoration: none; color: deeppink"
-								href="./categoryList.do?cid=${c.cid}&nowPage=${p }&cntPerPage=${c.cntPerPage}">${p }</a>
+								href="./category.do?cid=${cid }&newCid=${cid }&nowPage=${p }&cntPerPage=${pp.cntPerPage}">${p }</a>
 						</c:when>
 					</c:choose>
 				</c:forEach>
-				<c:if test="${c.endPage != c.lastPage}">
+				<c:if test="${pp.endPage != pp.lastPage}">
 					<a style="text-decoration: none; color: deeppink"
-						href="./categoryList.do?cid=${c.cid}&nowPage=${c.endPage+1 }&cntPerPage=${c.cntPerPage}">
+						href="./category.do?cid=${cid }&newCid=${cid }&nowPage=${pp.endPage+1 }&cntPerPage=${pp.cntPerPage}">
 						-> </a>
 				</c:if>
 			</div>

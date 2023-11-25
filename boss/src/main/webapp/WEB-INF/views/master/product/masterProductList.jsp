@@ -26,6 +26,8 @@
 	<%@ include file="../common/masterNav.jsp"%>
 
 	<form method="post" action="masterMemberDelete.do">
+	
+	<form method="post" action="masterProductDelete.do">
 		<div class="container">
 
 			<h1 class="h1_caption">상 품 관 리</h1>

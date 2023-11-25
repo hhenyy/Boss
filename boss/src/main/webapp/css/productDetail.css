@@ -93,20 +93,18 @@
 	color: black;
 	text-align: left;
 	padding: 15px 0;
-	위아래
-	간격을
-	조절할
-	수
-	있는
-	부분
-	추가적인
-	th에
-	대한
-	스타일
+
 }
 
 .th_product {
 	background-color: black;
+}
+/* 내용 글씨 css */
+.detail_content h1 {
+    font-size: 24px;
+    font-weight: bold; /* 굵게 */
+    color: #0066cc; /* 파란색 */
+    margin-bottom: 10px; /* 각 제목 아래 여백 */
 }
 
 /* right 컨테이너쪽 버튼 2개(장바구니,구매하기) */
@@ -117,7 +115,7 @@
 
 .button1 {
 	flex: 0.3;
-	margin-left: 100px; /* 오른쪽으로 10px만큼 이동 */
+/* 	margin-left: 100px; 오른쪽으로 10px만큼 이동 */
 	padding: 8px 14px;
 	font-size: 14px;
 	font-weight: bold;
@@ -146,7 +144,7 @@
 	border-radius: 8px;
 	overflow: hidden;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	margin-bottom: 20%; /* 여기에 간격을 조절하는 값 추가 */
+/* 	margin-bottom: 10%; 여기에 간격을 조절하는 값 추가 */
 }
 
 /* 리뷰 caption */
@@ -200,7 +198,6 @@
 	text-align: center;
 	margin-top: 20px; /* 버튼 위 간격 조절을 위해 값을 조정하세요 */
 }
-
-.button1 {
-	margin: 0 10px; /* 버튼 간격을 조절하기 위해 값을 조정하세요 */
+.detail_page{
+    text-align: center; /* 텍스트 내용을 가운데 정렬 */
 }
