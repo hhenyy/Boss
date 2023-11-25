@@ -133,6 +133,8 @@
 				> </a>
 		</c:if>
 	</div>
+	<h4 class="info-message">클릭시 해당 회원으로 이동합니다.</h4>
 	</div>
+	<%@ include file="../../common/footer.jsp"%>
 </body>
 </html>

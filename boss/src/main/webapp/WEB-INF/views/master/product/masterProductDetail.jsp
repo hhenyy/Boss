@@ -61,7 +61,6 @@
 		</table>
 	</div>
 	<br>
-	<h4 class=info-message>클릭시 해당회원 개인정보로 이동합니다.</h4>
 
 </body>
 </html>
