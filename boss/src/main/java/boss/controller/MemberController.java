@@ -264,10 +264,5 @@ public class MemberController {
 		return "common/main";
 	}
 	
-	// MyPage 이동
-	@RequestMapping(value = "mypage.do")
-	public String mypage() {
-		return "login/mypage";
-	}
 	
 }
