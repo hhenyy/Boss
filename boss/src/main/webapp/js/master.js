@@ -1,23 +1,6 @@
+
+
  
- // 이미지 클릭시 확대기능
-  
-document.addEventListener('DOMContentLoaded', function() {
-  const images = document.querySelectorAll('.toggle-image');
-
-  images.forEach(img => {
-    img.addEventListener('click', function() {
-      const textOnImage = img.nextElementSibling;
-
-      if (img.classList.contains('enlarged')) {
-        img.classList.remove('enlarged');
-        textOnImage.style.display = 'block';
-      } else {
-        img.classList.add('enlarged');
-        textOnImage.style.display = 'none';
-      }
-    });
-  });
-});
 	// JavaScript로 특정 열의 크기 동적 조절
 	document.addEventListener('DOMContentLoaded', function() {
 		// 테이블의 모든 행을 가져옴

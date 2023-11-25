@@ -9,32 +9,44 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet" href="css/masterCss.css">
 <script src="js/master.js"></script>
+
+<script>
+	// 해당 스크립트를 js로 이동시 작동 X 
+	// 초기 배경색 설정 반드시필요)
+$(document).ready(function() {
+  function startcolor() {
+    $(".select-Dtype").each(function() {
+      var background = $(this).find("option:selected").css("background-color");
+      $(this).css("background-color", background);
+    });
+  }
+
+  // 페이지 로드시 초기 배경색 설정
+  startcolor();
+
+  // 변경 이벤트에 따른 배경색 설정
+  $(".select-Dtype").change(function() {
+    var background = $(this).find("option:selected").css("background-color");
+    var color = $(this).find("option:selected").css("color");
+    $(this).css("background-color", background);
+    $(this).css("color", color);
+  });
+});
+
+
+  
+  
+</script>
+
+
 <title>Insert title here</title>
-
-
 </head>
 <body>
-	<script>document.addEventListener('DOMContentLoaded', function() {
-	  const images = document.querySelectorAll('.toggle-image');
 
-	  images.forEach(img => {
-	    img.addEventListener('click', function() {
-	      const textOnImage = img.nextElementSibling;
 
-	      if (img.classList.contains('enlarged')) {
-	        img.classList.remove('enlarged');
-	        textOnImage.style.display = 'block';
-	      } else {
-	        img.classList.add('enlarged');
-	        textOnImage.style.display = 'none';
-	      }
-	    });
-	  });</script>
+	</script>
 	<%@ include file="../common/masterNav.jsp"%>
 	<form method="post" action="masteroDelete.do">
-
-
-
 		<div class="container">
 			<h1 class="h1_caption">주문 상세정보</h1>
 
@@ -90,8 +102,8 @@
 					<th>휴대폰</th>
 					<td colspan="2">${orders.OPHONE}</td>
 					<th>배송일</th>
-					<td colspan="2"><fmt:formatDate
-							pattern="yyyy/MM/dd HH시 mm분 ss초" value="${orders.OREG}" /></td>
+					<td colspan="2"><fmt:formatDate pattern="yyyy/MM/dd HH시 mm분"
+							value="${orders.OREG}" /></td>
 				</tr>
 
 			</table>
@@ -133,7 +145,6 @@
 							class="toggle-image"> <span class="text-on-image">${o.PTEXT}</span>
 						</td>
 
-						<script src="yourScript.js"></script>
 						<td onclick="location.href='masterProductDetail.do?id=${o.PID }' ">${o.PCOLOR }</td>
 						<td onclick="location.href='masterProductDetail.do?id=${o.PID }' ">${o.PSIZE }</td>
 						<td onclick="location.href='masterProductDetail.do?id=${o.PID }' ">${o.ODCOUNT}</td>
@@ -148,13 +159,28 @@
 								onclick="location.href='masterProductUpdateForm.do?id=${o.PID}'">상품수정</button>
 
 
-							<select class="custom-select" name="chk">
-								<option value="" style="text-align: center;">배송상태</option>
-								<option value="0" selected="selected">배송대기</option>
-								<option value="1">배송완료</option>
-								<option value="2">취소대기</option>
-								<option value="3">취소완료</option>
+							<select class="select-Dtype"
+							onchange="location.href='masterOrdersStatus.do?odid=${o.ODID}&odstatus='
+							+ this.value;"
+							style="color: black; background-color: gray; font-size:15px">
+								<option value="0" style="color: black; background-color: gray;"
+									<c:if test="${o.ODSTATUS == 0}"> selected 
+									</c:if>>배송상태
+								</option>
+								<option value="1"
+									style="color: black; background-color: papayawhip;"
+									<c:if test="${o.ODSTATUS == 1}"> selected </c:if>>배송대기</option>
+								<option value="2"
+									style="color: black; background-color: MediumSpringGreen;"
+									<c:if test="${o.ODSTATUS == 2}"> selected </c:if>>배송완료</option>
+								<option value="3"
+									style="color: black; background-color: deeppink;"
+									<c:if test="${o.ODSTATUS == 3}"> selected </c:if>>취소대기</option>
+								<option value="4"
+									style="color: black; background-color: darkorange;"
+									<c:if test="${o.ODSTATUS == 4}"> selected </c:if>>취소완료</option>
 						</select>
+
 
 
 						</td>
@@ -183,6 +209,7 @@
 			<h4 class=info-message>배송상태 클릭시 배송상태를 변경합니다.</h4>
 		</div>
 	</form>
+
 	<%@ include file="../../common/footer.jsp"%>
 </body>
 </html>

@@ -19,10 +19,6 @@
 				+ sel;
 	}
 </script>
-
-
-
-
 </head>
 <body>
 	<%@ include file="../common/masterNav.jsp"%>

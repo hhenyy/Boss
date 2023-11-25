@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import boss.common.PagePgm;
+import boss.model.OrderDetail;
+import boss.model.Orders;
 import boss.service.MasterOrdersService;
 
 @Controller
@@ -48,18 +50,44 @@ public class MasterOrdersController {
 	@RequestMapping("masterOrdersSelect.do")
 	public String masterOrdersSelect(String oid, Model model) throws Exception {
 		System.out.println("masterOrdersSelect");
-
+		System.out.println("oid : " + oid);
 		List<HashMap<String, Object>> ordersList = new ArrayList<>();
-		System.out.println("1");
 		if (oid != null) { // 주문정보가 있다면. (없으면 처음부터 select도 못들어옴. else처리 안함)
+			System.out.println("oid 널통과");
 			ordersList = ms.listProduct(Integer.parseInt(oid));
-			
+			if (ordersList != null && ordersList.size() > 0 ) { // 리스트 구해옴
+				System.out.println("list 통과 : ");
+				model.addAttribute("ordersList", ordersList);
+				// 단일정보 (뷰에서 쓰기쉽게 foreach안돌려도됨)
+				model.addAttribute("orders", ordersList.get(0));
+				System.out.println("dorders" + ordersList.get(0));
+			} else { // oid는 있으나 list를 못구해옴
+				System.out.println("oid는 있으나 list는 못구해옴 ");
+			}
 			// 모든정보의 List
-			model.addAttribute("ordersList", ordersList);
-			// 단일정보 (뷰에서 쓰기쉽게 foreach안돌려도됨)
-			model.addAttribute("orders",ordersList.get(0));
+
 		}
 		return "master/orders/masterOrdersSelect";
+	}
+
+	// 관리자 주문 상세 - 배송상태 변경
+	@RequestMapping("masterOrdersStatus.do")
+	public String masterOrdersStatus(String odid, String odstatus, Model model) throws Exception {
+		System.out.println("masterOrdersStatus");
+		int oid = ms.selectOrderDetail(odid).getOid();
+		System.out.println("oid : " + oid);
+		System.out.println("odid : " + odid);
+		System.out.println("odstatus : " + odstatus);
+		if (odstatus != null) {
+			int result = ms.updateStatus(odid, odstatus);
+			if (result == 1) { // 수정 완료시
+				System.out.println("수정성공");
+				model.addAttribute("oid", oid);
+			} else { // 수정 실패시
+				System.out.println("수정실패");
+			}
+		}
+		return "redirect:/masterOrdersSelect.do";
 	}
 
 	// 관리자 주문 삭제

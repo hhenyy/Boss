@@ -41,11 +41,6 @@ public class MasterProductService {
 		return dao.productInsert(product);
 	}
 
-	// 주문상세정보를 기반으로 상품정보를 구해옴.
-	public Product odidSelect(String odid) {
-		return dao.odidList(odid);
-	}
-
 	/*
 	 * 상품 수정 하기
 	 */
