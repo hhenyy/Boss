@@ -46,8 +46,8 @@
 		</table>
 
 	<div class="button_select">
-		<button type="submit" class="button1">수정</button>
-		<button type="button" class="button1"
+		<button type="submit" class="review_button1">수정</button>
+		<button type="button" class="review_button1"
 			onclick="history.go(-1)">취소</button>
 	</div>
 	</form>

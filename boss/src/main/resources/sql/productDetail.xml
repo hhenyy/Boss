@@ -12,14 +12,42 @@
 	</select>
 
 
- 
-	<select id="selectReviewOne" resultType="review" parameterType="int">
+
+	<select id="selectReviewOne" resultType="review"
+		parameterType="int">
 		SELECT * FROM review where rid = #{rid}
 	</select>
-	
+
 	<select id="prselect" resultType="review" parameterType="int">
-		SELECT * FROM review where rid = #{rid}
+		SELECT *
+		FROM review where rid = #{rid}
 	</select>
+
+	<select id="total" resultType="int">
+		select count(*) from review
+	</select>
+
+	<!-- 페이징 처리 후 게시글 조회 -->
+	<select id="list" resultType="review" parameterType="pagePgm">
+		SELECT *
+		FROM (
+		SELECT ROWNUM RN, A.*
+		FROM (
+		SELECT *
+		FROM review
+		ORDER BY rReg DESC
+		) A
+		)
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+
+	<!-- 리뷰 게시판 작성 -->
+<!-- 	<insert id="insert" parameterType="review" > -->
+<!-- 		insert insert review (rwriter, -->
+<!-- 		rtitle, rimage_path, rcontent) -->
+<!-- 		VALUES (?, ?, ?, ?) -->
+<!-- 	</insert> -->
+
 
 
 
