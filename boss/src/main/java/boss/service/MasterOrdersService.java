@@ -19,12 +19,12 @@ public class MasterOrdersService {
 	private MasterOrdersDao dao;
 
 	// 1개의 주문정보를 구함.
-	public Orders selectOrders( String oid) {
+	public Orders selectOrders(String oid) {
 		return dao.selectOrders(oid);
 	}
 
 	// 1개의 주문상세정보를 구함.
-	public OrderDetail selectOrderDetail( String odid) {
+	public OrderDetail selectOrderDetail(String odid) {
 		return dao.selectOrderDetail(odid);
 	}
 
@@ -44,14 +44,14 @@ public class MasterOrdersService {
 		return dao.listProduct(oid);
 	}
 
-	// oid를 기준으로 다중삭제.
-	public int delete(List<String> idList) {
-		return dao.delete(idList);
-	}
-
 	// 배송상태 변경.
 	public int updateStatus(String odid, String odstatus) {
 		return dao.updateStatus(odid, odstatus);
+	}
+
+	// oid를 기준으로 다중삭제.
+	public int deleteOrders(List<String> idList) {
+		return dao.deleteOrders(idList);
 	}
 
 }

@@ -27,4 +27,6 @@ public interface MasterQnaBoardDao {
 	// 댓글 상세 1개 구하기 
 	QnaReply selectReplyOne(int qid);
 
+	int deleteQna(List<String> idList);
+
 }

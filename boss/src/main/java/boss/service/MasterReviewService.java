@@ -30,7 +30,9 @@ public class MasterReviewService {
 		return dao.update(review);
 	}
 
-	public int delete(List<String> ridList) {
-		return dao.delete(ridList);
+
+	public int deleteReview(List<String> idList) {
+		return dao.deleteReview(idList);
 	}
+	
 }

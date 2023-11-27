@@ -3,15 +3,6 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="boss.dao.MasterMemberDao">
-	<!-- list로 for문돌려서 where절에 가변적 처리 -->
-	<delete id="delete" parameterType="java.util.List">
-		delete from member
-		where mEmail in
-		<foreach item="mEmail" collection="list" open="("
-			separator="," close=")">
-			#{mEmail}
-		</foreach>
-	</delete>
 
 	<!-- 한명의 회원정보를 구해옴. -->
 	<select id="selectOne" resultType="member"
@@ -43,8 +34,27 @@
 		UPDATE MEMBER SET
 		mEmail=#{mEmail},
 		mPwd = #{mPwd}, mName = #{mName},
-		mPhone = #{mPhone}, mPost = #{mPost}, mAddress = #{mAddress},
-		mGrade = #{mGrade}, mReg = #{mReg}, mDrop = #{mDrop}
+		mPhone = #{mPhone},
+		mPost = #{mPost}, mAddress = #{mAddress},
+		mGrade = #{mGrade}, mReg =
+		#{mReg}, mDrop = #{mDrop}
 		where mEmail = #{mEmail}
 	</update>
+
+	<!-- 상품 전체 삭제('Y') 업데이트 -->
+	<update id="deleteMember" parameterType="java.util.List">
+		update member set
+		mdrop =
+		case mdrop
+		when 'N' then 'Y'
+		when 'Y' then 'N'
+		else mdrop
+		end
+		where memail in
+		<foreach item="memail" collection="list" open="(" separator=","
+			close=")">
+			#{memail}
+		</foreach>
+	</update>
+
 </mapper>

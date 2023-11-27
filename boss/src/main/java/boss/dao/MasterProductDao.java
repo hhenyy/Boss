@@ -30,9 +30,6 @@ public interface MasterProductDao {
 	// 상품 수정 하기
 	int updateProduct(Product product);
 	
-	// 상품 삭제 하기
-	int deleteProduct(String id);
-
 	// 재고 구하기
 	Amount selectAmount(String id);
 
@@ -49,6 +46,6 @@ public interface MasterProductDao {
 	int updateAmount(Map map);
 
 	// 상품 전체 삭제('Y') 업데이트
-	//int deleteProduct(List<String> idList);
+	int deleteProduct(List<String> pidList);
 		
 }

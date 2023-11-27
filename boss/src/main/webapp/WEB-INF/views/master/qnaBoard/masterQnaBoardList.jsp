@@ -18,6 +18,12 @@
 		location.href = "masterQnaBoardList.do?nowPage=${page.nowPage}&cntPerPage="
 				+ sel;
 	}
+
+	// 	function selChange() {
+	// 		var sel = document.getElementById('cntPerPage').value;
+	// 		location.href = "masterMemberList.do?nowPage=${page.nowPage}&cntPerPage="
+	// 				+ sel;
+	// 	}
 </script>
 
 
@@ -28,10 +34,7 @@
 	<%@ include file="../common/masterNav.jsp"%>
 	<form method="post" action="masterQnaBoardDelete.do">
 		<div class="container">
-
 			<h1 class="h1_caption">Qna 관리</h1>
-
-
 			<div style="float: right;">
 				<select id="cntPerPage" name="sel" onchange="selChange()"
 					class="selected-five">
@@ -75,26 +78,27 @@
 						<td
 							onclick="location.href='masterQnaBoardDetail.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">
 							<img src="images/${qnaBoard.qnaorifile}" width="50" height="50">
-						
+
 						</td>
-						<td onclick="location.href='masterQnaBoardDetail.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' "><fmt:formatDate
+						<td
+							onclick="location.href='masterQnaBoardDetail.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' "><fmt:formatDate
 								pattern="yyyy-MM-dd" value="${qnaBoard.qnareg}" /></td>
 
 						<td
 							onclick="location.href='masterQnaBoardDetail.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">${qnaBoard.qnadrop}</td>
-						
+
 						<td>
 							<button type="button"
 								onclick="location.href='masterQnaBoardDetail.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }'">수정</button>
 							<button type="button"
-								onclick="location.href='masterQnaBoardDelete.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">삭제</button>
+								onclick="location.href='masterQnaBoardDelete.do?id=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">삭제</button>
 						</td>
 					</tr>
 					<c:set var="i" value="${i + 1}"></c:set>
 				</c:forEach>
 			</table>
 
-			<button type="submit" align="left" class="putsub">선택삭제</button>
+			<button type="submit" align="left" class="putsub">삭제여부 수정</button>
 			<div align="right" class="search">
 	</form>
 	<form action="masterQnaBoardSearch.do" method="post">
@@ -132,6 +136,8 @@
 				> </a>
 		</c:if>
 	</div>
+	<h4 class="info-message">클릭시 해당 회원으로 이동합니다.</h4>
 	</div>
+	<%@ include file="../../common/footer.jsp"%>
 </body>
 </html>

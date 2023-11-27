@@ -46,4 +46,8 @@ public class MasterQnaBoardService {
 	public QnaReply selectReplyOne(int qid) {
 		return dao.selectReplyOne(qid);
 	}
+
+	public int deleteQna(List<String> idList) {
+		return dao.deleteQna(idList);
+	}
 }

@@ -14,8 +14,6 @@ public interface MasterReviewDao {
 
 	int update(Review review);
 
-	int delete(List<String> idList);
-
 	int getTotal(Review review);
 
 	// 게시물 총 갯수
@@ -23,6 +21,8 @@ public interface MasterReviewDao {
 
 	// 페이징 처리 게시글 조회
 	List<Review> list(PagePgm vo);
+
+	int deleteReview(List<String> idList);
 
 	
 

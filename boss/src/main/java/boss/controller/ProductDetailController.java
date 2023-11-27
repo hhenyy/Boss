@@ -28,7 +28,9 @@ public class ProductDetailController {
 
 		int rid = 61;
 		product = service.selectProduct(pid);
+		System.out.println("pid 구해옴");
 		review = service.selectReviewOne(rid);
+		System.out.println("rid 구해옴");
 
 		System.out.println("review : " + review.getMemail() + review.getRcontent());
 		if (product != null) { // 상품을 잘 구해왔다면.

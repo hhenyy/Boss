@@ -48,12 +48,6 @@ public class MasterProductService {
 		return dao.updateProduct(product);
 	}
 
-	/*
-	 * 상품 상제 하기
-	 */
-	public int deleteProduct(String id) {
-		return dao.deleteProduct(id);
-	}
 
 	/*
 	 * 재고 구하기
@@ -93,10 +87,10 @@ public class MasterProductService {
 		return dao.updateAmount(map);
 	}
 
-	// 상품 전체 삭제('Y') 업데이트
-//	public int deleteProduct(List<String> idList) {
-//		
-//		return dao.deleteProduct(idList);
-//	}
+	 // 회원 전체 삭제('Y') 업데이트
+	public int deleteProduct(List<String> id) {
+		
+		return dao.deleteProduct(id);
+	}
 
 }

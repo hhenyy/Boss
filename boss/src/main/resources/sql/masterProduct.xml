@@ -14,8 +14,10 @@
 		resultType="product">
 		select *
 		from (select rownum rnum, product.*
-		from (select * from product order by preg desc) product)
-		where rnum between #{startRow} and #{endRow}
+		from (select *
+		from product order by preg desc) product)
+		where rnum between
+		#{startRow} and #{endRow}
 	</select>
 
 	<!-- 상품 상세정보 -->
@@ -23,78 +25,94 @@
 		resultType="product">
 		select * from product where pid=#{pid}
 	</select>
-	
+
 	<!-- 상품 등록 하기 -->
 	<insert id="productInsert" parameterType="product">
-		insert into product values(product_seq.nextval,#{cid},#{pname},#{pcontent},#{pimage},#{pprice},sysdate,#{pcolor},#{psize},0,'N')
+		insert into product
+		values(product_seq.nextval,#{cid},#{pname},#{pcontent},#{pimage},#{pprice},sysdate,#{pcolor},#{psize},0,'N')
 	</insert>
-	
+
 	<!-- 상품 등록시 재고 저장 -->
 	<insert id="amountInsert" parameterType="map">
-		insert into amount values(amount_seq.nextval,#{pro},#{pname},#{amount})
+		insert into amount
+		values(amount_seq.nextval,#{pro},#{pname},#{amount})
 	</insert>
-	
+
 	<!-- 상품 수정 하기 -->
 	<update id="updateProduct" parameterType="product">
-		update product set pname=#{pname},pcolor=#{pcolor},psize=#{psize},pcontent=#{pcontent},pdrop=#{pdrop} where pid=#{pid}
+		update product set
+		pname=#{pname},pcolor=#{pcolor},psize=#{psize},pcontent=#{pcontent},pdrop=#{pdrop}
+		where pid=#{pid}
 	</update>
-	
+
 	<!-- 상품 삭제 하기(Y) -->
-	<update id="deleteProduct" parameterType="string">
-		update product set pdrop= 'Y' where pid=#{pid}
-	</update>
-	
+	<!-- <update id="deleteProduct" parameterType="string"> -->
+	<!-- update product set pdrop= 'Y' where pid=#{pid} -->
+	<!-- </update> -->
+
 	<!-- 재고 구하기 -->
-	<select id="selectAmount" parameterType="string" resultType="amount">
+	<select id="selectAmount" parameterType="string"
+		resultType="amount">
 		select * from amount where pid=#{pid}
 	</select>
-	
+
 	<!-- 정렬된 상품 리스트 구하기 -->
 	<select id="changeList" resultType="product">
-		select * 
-		from(select * 
-		     from product order by rownum desc)
-		where rownum = 1			  
+		select *
+		from(select *
+		from
+		product order by rownum desc)
+		where rownum = 1
 	</select>
 
 	<!-- 상품 검색 목록 구하기 -->
-	<select id="searchList" parameterType="search" resultType="product">
-		
-		 select * from product where
-		  <choose>
-        <when test="searchtype == 'pname'">
-            pname like '%' || #{keyword} || '%'
-        </when>
-        
-        <when test="searchtype == 'pid'">
-            pid like '%' || #{keyword} || '%'
-        </when>
-        
-        <when test="searchtype == 'psize'">
-            psize like '%' || #{keyword} || '%'
-        </when>
-        
-        <when test="searchtype == 'pcolor'">
-            pcolor like '%' || #{keyword} || '%'
-        </when>
-        
-    </choose>
+	<select id="searchList" parameterType="search"
+		resultType="product">
+
+		select * from product where
+		<choose>
+			<when test="searchtype == 'pname'">
+				pname like '%' || #{keyword} || '%'
+			</when>
+
+			<when test="searchtype == 'pid'">
+				pid like '%' || #{keyword} || '%'
+			</when>
+
+			<when test="searchtype == 'psize'">
+				psize like '%' || #{keyword} || '%'
+			</when>
+
+			<when test="searchtype == 'pcolor'">
+				pcolor like '%' || #{keyword} || '%'
+			</when>
+
+		</choose>
 	</select>
-	
+
 	<!-- 상품 수정 시 재고 수정 -->
 	<update id="updateAmount" parameterType="map">
-		update amount set acount=#{acount} where pid=#{pid}
+		update amount set
+		acount=#{acount} where pid=#{pid}
 	</update>
 
 	<!-- 상품 전체 삭제('Y') 업데이트 -->
-	<!-- <update id="deleteProduct" parameterType="list">
-		delete from member
-		where mEmail in
-		<foreach item="mEmail" collection="list" open="("
-			separator="," close=")">
-			#{mEmail}
+	<update id="deleteProduct" parameterType="java.util.List">
+		update product set
+		pdrop =
+		case pdrop
+		when 'N' then 'Y'
+		when 'Y' then 'N'
+		else pdrop
+		end
+		where pid in
+		<foreach item="pid" collection="list" open="(" separator=","
+			close=")">
+			#{pid}
 		</foreach>
-	</update> -->
+	</update>
+
+
 </mapper>
 
 

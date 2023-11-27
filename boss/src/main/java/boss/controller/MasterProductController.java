@@ -245,19 +245,6 @@ public class MasterProductController {
 	}
 
 	/*
-	 * 상품 삭제 메소드
-	 */
-	@RequestMapping("masterProductDelete.do")
-	public String masterProductDelete(String id, Model model) {
-
-		int deleteResult = service.deleteProduct(id);
-
-		model.addAttribute("msg", "deleteTrue");
-
-		return "./master/product/masterMoveProductList";
-	}
-
-	/*
 	 * 상품 검색 메소드
 	 */
 	@RequestMapping("masterProductSearch.do")
@@ -275,45 +262,46 @@ public class MasterProductController {
 	/*
 	 * 상품 전체 삭제 메소드
 	 */
-//	@RequestMapping("masterProductDelete.do")
-//	public String masterMemberDelete(String id, Model model, HttpServletRequest request) {
-//		System.out.println("masterProductDelete");
-//		System.out.println("pid :" + id);
-//		// Service에서 메소드를 1번만 호출하기 위해 리스트로 양식을 통일했음.
-//		List idList = new ArrayList();
-//		int result = 0; 
-//		// id값이 1개라도 넘어온다면 (복수허용)
-//		if ((id != null) || (request.getParameterValues("chkId") != null)) {
-//
-//			if (id != null) { // 1개만 넘어온경우. (양식이 List기때문에 단일값도 list에 add)
-//				idList.add(0, (int) Integer.parseInt(id));
-//			} else { // 여러개가 넘어온경우. (String[]->List (메서드 양식 통일))
-//				String[] strIds = request.getParameterValues("chkId");
-//				
-//				if (strIds != null) {
-//					for (int i = 0; i < strIds.length; i++) {
-//						try {
-//							idList.add((int) Integer.parseInt(strIds[i]));
-//						} catch (NumberFormatException e) {
-//							e.printStackTrace();
-//						}
-//					}
-//				}
-//			}
-//		} else {
-//			result = 0;
-//			model.addAttribute("result", result);
-//			model.addAttribute("msg", "체크된 상품이 없습니다.");
-//			return "./master/product/masterMoveProductList";
-//		}
-//		result = service.deleteUpdateProduct(idList);
-//		if (result > 0) { // 삭제 성공시
-//			model.addAttribute("result", result);
-//			model.addAttribute("msg", result + "개 상품삭제 성공.");
-//		} else { // 삭제 실패시
-//			model.addAttribute("result", result);
-//			model.addAttribute("msg", "삭제할 상품이 없습니다.");
-//		}
-//		return "./master/product/masterMoveProductList";
-//	}
+	@RequestMapping("masterProductDelete.do")
+	public String masterMemberDelete(String id, Model model, HttpServletRequest request) {
+		System.out.println("masterProductDelete");
+		System.out.println("pid :" + id);
+
+		// Service에서 메소드를 1번만 호출하기 위해 리스트로 양식을 통일했음.
+		List<String> idList = new ArrayList<String>();
+		String[] ids = request.getParameterValues("chkId");
+
+		int result = 0;
+		String msg = "";
+		// id값이 1개라도 넘어온다면 (복수허용)
+		if ((id != null) || (request.getParameterValues("chkId") != null)) { // 요청받는 방식을 나누는 조건문. 체크박스 / 버튼
+			if (id != null) { // id가 버튼으로 넘어온 경우. (단일, 다중 동일메서드 처리를 위해 List로 양식을 통일했음.)
+				System.out.println("id가 버튼으로 1개만 넘어옴.");
+				idList.add(0, id);
+				result = service.deleteProduct(idList);
+				model.addAttribute("resultDelete", result); // moveProduct.jsp에 동일한 result 변수명이 있어 임의로 변경함 (필요시 변경해서
+															// 쓰시길)
+				model.addAttribute("msg", +result + "개 수정 완료");
+				System.out.println("1개만 삭제완료. : " + result);
+
+			} else if (id == null && ids != null) { // id가 체크박스를 통해 넘어온경우.
+				System.out.println("id가 체크박스로 1개 or 여러개 넘어옴.");
+				System.out.println("체크박스로 넘어온 ID의 갯수 : " + ids.length);
+				idList = Arrays.asList(ids);
+				result = service.deleteProduct(idList);
+				model.addAttribute("resultDelete", result);
+				model.addAttribute("msg", +result + "개 수정 완료");
+				System.out.println("여러명 삭제 완료 : " + result);
+
+			}
+		} else { // 모든값이 Null이라면.
+			model.addAttribute("result", result);
+			model.addAttribute("msg", "수정할 글을 선택하세요.");
+			System.out.println("체크박스가 선택되지않음. " + result);
+
+		}
+
+		return "./master/product/masterMoveProductList";
+	}
+
 }
