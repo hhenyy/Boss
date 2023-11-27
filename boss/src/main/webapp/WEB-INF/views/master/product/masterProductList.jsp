@@ -87,8 +87,17 @@
 						<td
 							onclick="location.href='masterProductDetail.do?id=${product.pid}' "><fmt:formatDate
 								pattern="yyyy-MM-dd" value="${product.preg}" /></td>
-						<td
-							onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.pdrop}</td>
+								
+						<c:if test="${product.pdrop == 'N'}">
+							<td
+							onclick="location.href='masterProductDetail.do?id=${product.pid}' " style="color: red;">${product.pdrop}</td>
+						</c:if>
+						
+						<c:if test="${product.pdrop == 'Y'}">
+							<td
+							onclick="location.href='masterProductDetail.do?id=${product.pid}' " style="color: cyan;">${product.pdrop}</td>
+						</c:if>		
+						
 						<td>
 							<button type="button"
 								onclick="location.href='masterProductUpdateForm.do?id=${product.pid}'">수정</button>

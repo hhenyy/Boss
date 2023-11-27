@@ -266,9 +266,28 @@ public class MasterProductController {
 		System.out.println(search.getKeyword());
 		System.out.println(search.getSearchtype());
 
-		List<Product> list = service.searchList(search);
-		System.out.println(list);
-		model.addAttribute("list", list);
+		if(search.getKeyword() != "" && search.getSearchtype() != "") {
+			List<Product> list = service.searchList(search);
+			System.out.println(list);
+			model.addAttribute("list", list);
+			//return "./master/product/masterProductList";
+		}
+		if(search.getKeyword() == "" && search.getSearchtype() != "") {
+			model.addAttribute("type", "notKey");
+			model.addAttribute("msg", "검색어를 입력해 주세요.");
+			return "./master/product/masterMoveProductList";
+		}
+		if(search.getKeyword() != "" && search.getSearchtype() == "") {
+			model.addAttribute("type", "notType");
+			model.addAttribute("msg", "검색타입을 선택해 주세요.");
+			return "./master/product/masterMoveProductList";
+		}
+		if(search.getKeyword() == "" && search.getSearchtype() == "") {
+			model.addAttribute("type", "notKeynotType");
+			model.addAttribute("msg", "검색타입 & 검색어를 입력해 주세요.");
+			return "./master/product/masterMoveProductList";
+		}
+
 		return "./master/product/masterProductList";
 	}
 

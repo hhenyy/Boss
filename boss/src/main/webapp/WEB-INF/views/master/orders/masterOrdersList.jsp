@@ -103,12 +103,12 @@
 			<div align="right" class="search">
 	</form>
 	<form action="masterOrdersSearch.do" method="post">
-		<select class="putsub" name="type">
+		<select class="putsub" name="searchtype">
 			<option value="">검색 유형 선택</option>
-			<option value="eEmail">ID</option>
-			<option value="eName">이름</option>
-			<option value="eAddress">주소</option>
-			<option value="eGrade">회원등급</option>
+			<option value="memail">ID</option>
+			<option value="oname">수령인</option>
+			<option value="oid">주문번호</option>
+			<option value="opost">우편번호</option>
 		</select> <input type="text" align="right" id="keyword" name="keyword"
 			placeholder="검색어를 입력하세요." maxlength="10" class="text-input">
 		<input type="submit" value="검색" class="putsub">

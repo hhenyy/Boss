@@ -23,7 +23,7 @@
 					onclick="location.href='masterMemberList.do' ">회원관리</button></th>
 			<th><button type="button"
 					onclick="location.href='masterProductList.do' ">상품관리</button></th>
-			<th><button type="button" onclick="location.href='#' ">Q&A관리</button></th>
+			<th><button type="button" onclick="location.href='masterQnaBoardList.do' ">Q&A관리</button></th>
 			<th><button type="button" onclick="location.href='masterReviewList.do' ">리뷰관리</button></th>
 			<th><button type="button" onclick="location.href='masterOrdersList.do' ">주문관리</button></th>
 		</tr>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import boss.common.PagePgm;
+import boss.common.Search;
 import boss.dao.MasterQnaBoardDao;
 import boss.model.QnaBoard;
 import boss.model.QnaReply;
@@ -45,5 +46,26 @@ public class MasterQnaBoardService {
 	 */
 	public QnaReply selectReplyOne(int qid) {
 		return dao.selectReplyOne(qid);
+	}
+
+	// qnaBoard 답변 상태 'Y'변겅
+	public int updateQnaBoardReplyYn(int qid) {
+		return dao.updateQnaBoardReplyYn(qid);
+		
+	}
+
+	// qna답글 수정 하기
+	public int updateQnaReply(Map<String, Object> map) {
+		return dao.updateQnaReply(map);
+	}
+
+	// qna게시글 삭제('Y') 업데이트 메소드
+	public int deleteQnaBoard(int id) {
+		return dao.deleteQnaBoard(id);
+	}
+
+	// qna 게시글 유형별 검색 메소드
+	public List<QnaBoard> searchQnaList(Search search) {
+		return dao.searchQnaList(search);
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import boss.common.PagePgm;
+import boss.common.Search;
 import boss.model.Member;
 
 @Mapper
@@ -22,6 +23,9 @@ public interface MasterMemberDao {
 
 	// 페이징 처리 게시글 조회
 	List<Member> list(PagePgm vo);
+
+	// 유형별 검색
+	List<Member> searchMember(Search search);
 
 
 }

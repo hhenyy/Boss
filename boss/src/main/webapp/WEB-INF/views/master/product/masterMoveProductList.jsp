@@ -50,5 +50,42 @@
 		history.go(-1);
 		</script>
 	</c:if>
+	
+	<c:if test="${type == 'notKey'}">
+		<script>
+		alert("${msg}");
+		history.go(-1);
+		</script>
+	</c:if>
+	
+	<c:if test="${type == 'notType'}">
+		<script>
+		alert("${msg}");
+		history.go(-1);
+		</script>
+	</c:if>
+	
+	<c:if test="${type == 'notKeynotType'}">
+		<script>
+		alert("${msg}");
+		history.go(-1);
+		</script>
+	</c:if>
+	
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
