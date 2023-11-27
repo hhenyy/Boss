@@ -62,11 +62,6 @@
 			#{qid}
 		</foreach>
 	</update>
-
-</mapper>
-	<select id="selectReplyOne" parameterType="int" resultType="qnaReply">
-		select * from qnareply where qid=#{qid}
-	</select>
 		
 	<!-- qnaBoard 답변 상태 'Y'변겅 -->	
 	<update id="updateQnaBoardReplyYn" parameterType="int">

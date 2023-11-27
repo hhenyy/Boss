@@ -12,7 +12,6 @@ import boss.dao.MasterOrdersDao;
 import boss.model.Member;
 import boss.model.OrderDetail;
 import boss.model.Orders;
-import boss.model.QnaBoard;
 
 @Service
 public class MasterOrdersService {
@@ -54,6 +53,7 @@ public class MasterOrdersService {
 	// oid를 기준으로 다중삭제.
 	public int deleteOrders(List<String> idList) {
 		return dao.deleteOrders(idList);
+	}	
 	// 주문내역 검색 유형별 검색
 	public List<Orders> searchOrdersList(Search search) {
 		return dao.searchOrdersList(search);

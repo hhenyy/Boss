@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import boss.common.PagePgm;
 import boss.common.Search;
-import boss.model.Product;
 import boss.model.QnaBoard;
+import boss.model.QnaReply;
 import boss.service.MasterQnaBoardService;
 
 @Controller
@@ -170,18 +170,6 @@ public class MasterQnaBoardController {
 	}
 	
 	/*
-	 * qna 게시글 삭제('Y')업데이트 메소드
-	 */
-	@RequestMapping("masterQnaBoardDelete.do")
-	public String masterQnaBoardDelete(String qid, Model model) {
-		
-		int id = Integer.parseInt(qid);
-		int result = service.deleteQnaBoard(id);
-		
-		return "redirect:/masterQnaBoardList.do";
-	}
-	
-	/*
 	 * qna게시글 검색 메소드
 	 */
 	@RequestMapping("masterQnaBoardSearch.do")
@@ -218,26 +206,6 @@ public class MasterQnaBoardController {
 		
 		return "./master/qnaBoard/masterQnaBoardList";
 	}
-	
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	// 관리자 QNA 삭제
