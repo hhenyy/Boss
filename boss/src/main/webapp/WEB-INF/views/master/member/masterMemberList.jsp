@@ -24,10 +24,7 @@
 	<%@ include file="../common/masterNav.jsp"%>
 	<form method="post" action="masterMemberDelete.do">
 		<div class="container">
-
 			<h1 class="h1_caption">회 원 관 리</h1>
-
-
 			<div style="float: right;">
 				<select id="cntPerPage" name="sel" onchange="selChange()"
 					class="selected-five">
@@ -98,8 +95,8 @@
 					<c:set var="i" value="${i + 1}"></c:set>
 				</c:forEach>
 			</table>
-
-			<button type="submit" align="left" class="putsub">선택삭제</button>
+ 
+			<button type="submit" align="left" class="putsub">삭제여부 수정</button>
 			<div align="right" class="search">
 	</form>
 	<form action="masterMemberSearch.do" method="post">

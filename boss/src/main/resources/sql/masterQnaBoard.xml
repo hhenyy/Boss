@@ -6,29 +6,64 @@
 
 	<!-- 총상품 갯수 -->
 	<select id="totalQnaCount" resultType="int">
-		select count(*) from qnaboard
+		select count(*) from
+		qnaboard
 	</select>
+
+ 
 
 	<!-- 페이징 처리된 상품 리스트 -->
 	<select id="selectQnaBoardList" parameterType="pagePgm"
 		resultType="qnaBoard">
 		select *
 		from (select rownum rnum, qnaboard.*
+		from (select *
+		from qnaboard order by qnareg desc) qnaboard)
+		where rnum between
+		#{startRow} and #{endRow}
 		from (select * from qnaboard order by qnayn asc,qnareg desc) qnaboard)
 		where rnum between #{startRow} and #{endRow}
 	</select>
-	
+
+
+
+
 	<!-- qna 게시글 상세정보 구하기 -->
-	<select id="selectQnaDetail" parameterType="int" resultType="qnaBoard">
+	<select id="selectQnaDetail" parameterType="int"
+		resultType="qnaBoard">
 		select * from qnaBoard where qid=#{qid}
 	</select>
-	
+
 	<!-- qna 답글 저장 -->
 	<insert id="insertReply" parameterType="Map">
-		insert into qnareply values(qnareply_seq.nextval,#{memail},#{qid},#{qrcontent},sysdate,default)
+		insert into qnareply
+		values(qnareply_seq.nextval,#{memail},#{qid},#{qrcontent},sysdate,default)
 	</insert>
-	
+
 	<!-- qna 1개 댓글 구하기 -->
+	<select id="selectReplyOne" parameterType="int"
+		resultType="qnaReply">
+		select * from qnareply where pid=#{pid}
+	</select>
+
+	<!-- 상품 전체 삭제('Y') 업데이트 -->
+	<update id="deleteQna" parameterType="java.util.List">
+		update qnaboard set
+		qnadrop =
+		case qnadrop
+		when 'N' then 'Y'
+		when 'Y' then
+		'N'
+		else qnadrop
+		end
+		where qid in
+		<foreach item="qid" collection="list" open="(" separator=","
+			close=")">
+			#{qid}
+		</foreach>
+	</update>
+
+</mapper>
 	<select id="selectReplyOne" parameterType="int" resultType="qnaReply">
 		select * from qnareply where qid=#{qid}
 	</select>

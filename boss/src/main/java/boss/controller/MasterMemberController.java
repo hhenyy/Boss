@@ -106,29 +106,35 @@ public class MasterMemberController {
 
 		// Service에서 메소드를 1번만 호출하기 위해 리스트로 양식을 통일했음.
 		List<String> idList = new ArrayList<String>();
-		int result = 0;
-		// id값이 1개라도 넘어온다면 (복수허용)
-		if ((id != null) || (request.getParameterValues("chkId") != null)) {
+		String[] ids = request.getParameterValues("chkId");
 
-			if (id != null) { // 1개만 넘어온경우. (양식이 List기때문에 단일값도 list에 add)
+		int result = 0;
+		String msg = "";
+		// id값이 1개라도 넘어온다면 (복수허용)
+
+		if ((id != null) || (request.getParameterValues("chkId") != null)) { // 요청받는 방식을 나누는 조건문. 체크박스 / 버튼
+			if (id != null) { // id가 버튼으로 넘어온 경우. (단일, 다중 동일메서드 처리를 위해 List로 양식을 통일했음.)
+				System.out.println("id가 버튼으로 1개만 넘어옴.");
 				idList.add(0, id);
-			} else { // 여러개가 넘어온경우. (String[]->List (메서드 양식 통일))
-				String[] ids = request.getParameterValues("chkId");
+				result = ms.deleteMember(idList);
+				model.addAttribute("result", result);
+				model.addAttribute("msg", +result + "개 수정 완료");
+				System.out.println("1개만 삭제완료. : " + result);
+
+			} else if (id == null && ids != null) { // id가 체크박스를 통해 넘어온경우.
+				System.out.println("id가 체크박스로 1개 or 여러개 넘어옴.");
+				System.out.println("체크박스로 넘어온 ID의 갯수 : " + ids.length);
 				idList = Arrays.asList(ids);
+				result = ms.deleteMember(idList);
+				model.addAttribute("result", result);
+				model.addAttribute("msg", +result + "개 수정 완료");
+				System.out.println("여러명 삭제 완료 : " + result);
 			}
-		} else {
-			result = 0;
+		} else { // 모든값이 Null이라면.
 			model.addAttribute("result", result);
-			model.addAttribute("msg", "체크된 회원이 없습니다.");
-			return "./master/member/masterMemberDelete";
-		}
-		result = ms.delete(idList);
-		if (result > 0) { // 삭제 성공시
-			model.addAttribute("result", result);
-			model.addAttribute("msg", result + "명 회원삭제 성공.");
-		} else { // 삭제 실패시
-			model.addAttribute("result", result);
-			model.addAttribute("msg", "삭제할 회원이 없습니다.");
+			model.addAttribute("msg", "수정할 회원을 선택하세요.");
+			System.out.println("체크박스가 선택되지않음. " + result);
+
 		}
 		return "./master/member/masterMemberDelete";
 	}

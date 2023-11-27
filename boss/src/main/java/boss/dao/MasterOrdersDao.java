@@ -36,6 +36,10 @@ public interface MasterOrdersDao {
 	// oid를 기준으로 다중삭제.
 	int delete(List<String> idList);
 
+	// 배송상태 변경 (Map사용 않기위해 @Param붙힘)
 	int updateStatus(@Param("odid") String odid, @Param("odstatus") String odstatus);
+
+	// 다중삭제.
+	int deleteOrders(List<String> idList);
 
 }

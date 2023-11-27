@@ -62,7 +62,6 @@ $(document).ready(function() {
 					<th>배송비</th>
 					<th>메시지</th>
 					<th>주문일</th>
-					<th>관리</th>
 				</tr>
 
 				<tr>
@@ -78,12 +77,6 @@ $(document).ready(function() {
 						value="${orders.OMESSAGE}"></td>
 					<td><fmt:formatDate pattern="yyyy/MM/dd"
 							value="${orders.OREG}" /></td>
-					<td>
-						<button type="button"
-							onclick="location.href='masteroUpdateForm.do?oid=${orders.OID}'">수정</button>
-						<button type="button"
-							onclick="location.href='masteroDelete.do?oid=${orders.OID}' ">삭제</button>
-					</td>
 				</tr>
 			</table>
 
@@ -129,7 +122,7 @@ $(document).ready(function() {
 					<th>수량</th>
 					<th>개당가격</th>
 					<th>합계</th>
-					<th>관리</th>
+					<th>배송상태</th>
 				</tr>
 
 				<script>

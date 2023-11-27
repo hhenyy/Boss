@@ -48,6 +48,8 @@ public class MasterQnaBoardService {
 		return dao.selectReplyOne(qid);
 	}
 
+	public int deleteQna(List<String> idList) {
+		return dao.deleteQna(idList);
 	// qnaBoard 답변 상태 'Y'변겅
 	public int updateQnaBoardReplyYn(int qid) {
 		return dao.updateQnaBoardReplyYn(qid);

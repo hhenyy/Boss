@@ -12,7 +12,7 @@ import boss.model.Member;
 
 @Service
 public class MasterMemberService {
-	
+
 	@Autowired
 	private MasterMemberDao dao;
 
@@ -32,8 +32,10 @@ public class MasterMemberService {
 		return dao.update(member);
 	}
 
-	public int delete(List<String> idList) {
-		return dao.delete(idList);
+	// 상품 전체 삭제('Y') 업데이트
+	public int deleteMember(List<String> midList) {
+
+		return dao.deleteMember(midList);
 	}
 
 	public List<Member> searchMember(Search search) {

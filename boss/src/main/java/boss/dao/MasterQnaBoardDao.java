@@ -28,6 +28,7 @@ public interface MasterQnaBoardDao {
 	// 댓글 상세 1개 구하기 
 	QnaReply selectReplyOne(int qid);
 
+	int deleteQna(List<String> idList);
 	// qnaBoard 답변 상태 'Y'변겅
 	int updateQnaBoardReplyYn(int qid);
 

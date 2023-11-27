@@ -18,6 +18,12 @@
 		location.href = "masterQnaBoardList.do?nowPage=${page.nowPage}&cntPerPage="
 				+ sel;
 	}
+
+	// 	function selChange() {
+	// 		var sel = document.getElementById('cntPerPage').value;
+	// 		location.href = "masterMemberList.do?nowPage=${page.nowPage}&cntPerPage="
+	// 				+ sel;
+	// 	}
 </script>
 
 
@@ -28,6 +34,7 @@
 	<%@ include file="../common/masterNav.jsp"%>
 	<form method="post" action="masterQnaBoardDelete.do">
 		<div class="container">
+			<h1 class="h1_caption">Qna 관리</h1>
 
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h1 class="h1_caption">Qna 내역</h1>
 
@@ -76,9 +83,10 @@
 						<td
 							onclick="location.href='masterQnaBoardDetail.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">
 							<img src="images/${qnaBoard.qnaorifile}" width="50" height="50">
-						
+
 						</td>
-						<td onclick="location.href='masterQnaBoardDetail.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' "><fmt:formatDate
+						<td
+							onclick="location.href='masterQnaBoardDetail.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' "><fmt:formatDate
 								pattern="yyyy-MM-dd" value="${qnaBoard.qnareg}" /></td>
 						
 						<c:if test="${qnaBoard.qnayn == 'Y'}">
@@ -93,6 +101,8 @@
 						</c:if>	
 						<c:if test="${qnaBoard.qnadrop == 'Y'}">
 						<td
+							onclick="location.href='masterQnaBoardDetail.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">${qnaBoard.qnadrop}</td>
+
 							onclick="location.href='masterQnaBoardDetail.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' "
 							style="color: cyan;">${qnaBoard.qnadrop}</td>
 						</c:if>
@@ -115,6 +125,7 @@
 						 	<button type="button"
 								onclick="location.href='masterQnaBoardDetail.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }'">수정</button>
 							<button type="button"
+								onclick="location.href='masterQnaBoardDelete.do?id=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">삭제</button>
 								onclick="location.href='masterQnaBoardDelete.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">삭제</button>
 						 </c:if>
 							
@@ -124,7 +135,7 @@
 				</c:forEach>
 			</table>
 
-			<button type="submit" align="left" class="putsub">선택삭제</button>
+			<button type="submit" align="left" class="putsub">삭제여부 수정</button>
 			<div align="right" class="search">
 	</form>
 	<form action="masterQnaBoardSearch.do" method="post">
@@ -162,6 +173,8 @@
 				> </a>
 		</c:if>
 	</div>
+	<h4 class="info-message">클릭시 해당 회원으로 이동합니다.</h4>
 	</div>
+	<%@ include file="../../common/footer.jsp"%>
 </body>
 </html>

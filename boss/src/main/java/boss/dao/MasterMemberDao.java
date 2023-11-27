@@ -23,6 +23,9 @@ public interface MasterMemberDao {
 
 	// 페이징 처리 게시글 조회
 	List<Member> list(PagePgm vo);
+	
+	
+	int deleteMember(List<String> midList);
 
 	// 유형별 검색
 	List<Member> searchMember(Search search);

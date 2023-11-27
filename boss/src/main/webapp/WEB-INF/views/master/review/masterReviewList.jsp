@@ -108,7 +108,7 @@
 				</c:forEach>
 			</table>
 
-			<button type="submit" align="left" class="putsub">선택삭제</button>
+			<button type="submit" align="left" class="putsub">삭제여부 수정</button>
 			<div align="right" class="search">
 	</form>
 	<form action="masterReviewSearch.do" method="post">

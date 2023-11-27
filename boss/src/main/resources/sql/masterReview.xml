@@ -8,8 +8,8 @@
 	<delete id="delete" parameterType="java.util.List">
 		delete from review
 		where rid in
-		<foreach item="rid" collection="list" open="("
-			separator="," close=")">
+		<foreach item="rid" collection="list" open="(" separator=","
+			close=")">
 			#{rid}
 		</foreach>
 	</delete>
@@ -39,6 +39,23 @@
 	<select id="total" resultType="int">
 		SELECT COUNT(*) FROM review
 	</select>
+
+	<!-- 상품 전체 삭제('Y') 업데이트 -->
+	<update id="deleteReview" parameterType="java.util.List">
+		update review set
+		rdrop =
+		case rdrop
+		when 'N' then 'Y'
+		when 'Y' then 'N'
+		else rdrop
+		end
+		where rid in
+		<foreach item="rid" collection="list" open="(" separator=","
+			close=")">
+			#{rid}
+		</foreach>
+	</update>
+
 	
 	<!-- qna게시글 검색 목록 구하기 -->
 	<select id="searchReviewList" parameterType="search" resultType="review">
