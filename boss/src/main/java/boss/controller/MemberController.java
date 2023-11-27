@@ -17,6 +17,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -70,6 +71,20 @@ public class MemberController {
 		}
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
+	// end포인트라는 어노테이션
+	@PostMapping("dbCheckEmail.do")
+	@ResponseBody // 응답을 HTTP 응답으로 직접 전송된다.
+	public String dbCheckEmail(String mEmail) {
+		Member member = service.selectOne(mEmail);
+		
+		// 사용 불가능한 이메일
+		if(member != null) {
+			return "N";
+		}else
+		
+		return "Y";
 	}
 
 	/*
@@ -139,14 +154,21 @@ public class MemberController {
 		// 010-0000-0000 을 파싱해서 01000000000으로 바꾸는 코드
 		String phone[] = nPhone.split("-");
 		String mPhone = "";
+		String Pwd = "";
+		
 		for(int i = 0; i < phone.length; i++) {
 				mPhone += phone[i];
+				Pwd = phone[i];			// 네이버 회원의 비밀번호는 회원 마지막 핸드폰 번호
 		}
+		
+		// 마지막 핸드폰번호 (2311) 암호화
+		String mPwd = passwordEncoder.encode(Pwd);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("mName", mName);
 		map.put("mEmail", mEmail);
 		map.put("mPhone", mPhone);
+		map.put("mPwd", mPwd);
 		
 		Member checkmember = service.selectOne(mEmail);
 		
