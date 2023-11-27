@@ -62,9 +62,12 @@
 				<li><a href="productDetail.do">LOGIN</a></li>
 				<li><a href="mypage.do">MYPAGE</a></li>
 				<li><a href="productDetail.do">CART</a></li>
-				<li><a href="freeBoard.do">COMMUNITY</a></li>
+				<li><a href="freeBoardList.do">COMMUNITY</a></li>
 				<li><a href="elements.do">Elements</a></li>
 				<li><a href="category.do?cid=맨투맨">맨투맨</a></li>
+				<!-- 최종에서는 관리자페이지 빼기 -->
+				<input type="button" value="관리자페이지"
+				onclick="location.href='masterMain.do'">
 				<br>
 			</ul>
 		</nav>
@@ -253,7 +256,7 @@
 			<li><a href="productDetail.do">LOGIN</a></li>
 			<li><a href="mypage.do">MYPAGE</a></li>
 			<li><a href="productDetail.do">CART</a></li>
-			<li><a href="freeBoard.do">COMMUNITY</a></li>
+			<li><a href="freeBoardList.do">COMMUNITY</a></li>
 			<li><a href="elements.do">Elements</a></li>
 			<li><a href="category.do?cid=맨투맨">맨투맨</a></li>
 			<input type="button" value="관리자페이지"
@@ -475,7 +478,7 @@
 				<li><a href="productDetail.do">LOGIN</a></li>
 				<li><a href="mypage.do">MYPAGE</a></li>
 				<li><a href="productDetail.do">CART</a></li>
-				<li><a href="freeBoard.do">COMMUNITY</a></li>
+				<li><a href="freeBoardList.do">COMMUNITY</a></li>
 				<li><a href="elements.do">Elements</a></li>
 				<li><a href="category.do?cid=맨투맨">맨투맨</a></li>
 				<br>
