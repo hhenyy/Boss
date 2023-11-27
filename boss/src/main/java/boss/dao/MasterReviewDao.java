@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import boss.common.PagePgm;
+import boss.common.Search;
 import boss.model.Review;
 
 @Mapper
@@ -23,6 +24,8 @@ public interface MasterReviewDao {
 	List<Review> list(PagePgm vo);
 
 	int deleteReview(List<String> idList);
+	// 리뷰 유형별 검색
+	List<Review> searchReviewList(Search search);
 
 	
 

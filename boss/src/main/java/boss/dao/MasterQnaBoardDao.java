@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import boss.common.PagePgm;
+import boss.common.Search;
 import boss.model.QnaBoard;
 import boss.model.QnaReply;
 
@@ -28,5 +29,16 @@ public interface MasterQnaBoardDao {
 	QnaReply selectReplyOne(int qid);
 
 	int deleteQna(List<String> idList);
+	// qnaBoard 답변 상태 'Y'변겅
+	int updateQnaBoardReplyYn(int qid);
+
+	// qna답글 수정 하기
+	int updateQnaReply(Map<String, Object> map);
+
+	// qna 게시글 삭제('Y') 업데이트 하기
+	int deleteQnaBoard(int id);
+
+	// 상품 유형별 검색 메소드
+	List<QnaBoard> searchQnaList(Search search);
 
 }

@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import boss.common.PagePgm;
+import boss.common.Search;
 import boss.model.Member;
 import boss.model.OrderDetail;
 import boss.model.Orders;
@@ -29,6 +30,8 @@ public interface MasterOrdersDao {
 	// 3개의 테이블이 join된 정보를 구함.
 	// oid를 기준으로 해당하는 총 product 리스트를 구함.
 	List<HashMap<String, Object>> listProduct(int oid);
+
+	List<Orders> searchOrdersList(Search search);
 
 	// oid를 기준으로 다중삭제.
 	int delete(List<String> idList);

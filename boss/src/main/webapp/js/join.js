@@ -56,28 +56,53 @@ function fn_join() {
       fn_join();
    });
    
-   $(".email_auth_btn").click(function(){            
-        var mEmail = $('#mEmail').val();
-        
-        if(mEmail == ''){
-           alert("이메일을 입력해주세요.");
-           return false;
-        }
-        
-        
+   function checkEmail(str) {
+    const regEmail = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+
+    return regEmail.test(str);
+}
+
+$(".email_auth_btn").click(function () {
+    var mEmail = $('#mEmail').val();
+
+    if (mEmail === '') {
+        alert("이메일을 입력해주세요.");
+        return false;
+    } else if (!checkEmail(mEmail)) {
+        alert("이메일 형식이 잘못되었습니다.");
+        $('#mEmail').focus();
+        return false;
+    } else {
+        // 이메일 중복 확인 수행
         $.ajax({
-         type : "POST",
-         url : "emailAuth.do",
-         data : {mEmail : mEmail},
-         success: function(data){
-            alert("인증번호가 발송되었습니다.");
-            email_auth_cd = data;
-         },
-         error: function(data){
-            alert("메일 발송에 실패했습니다.");
-         }
-      }); 
-   });
+            type: "POST",
+            url: "dbCheckEmail.do",
+            data: { mEmail: mEmail },
+            success: function (response) {
+                if (response === "N") {
+                    alert("이미 등록된 이메일입니다.");
+                } else {
+                    // 중복되지 않으면 이메일 인증 진행
+                    $.ajax({
+                        type: "POST",
+                        url: "emailAuth.do",
+                        data: { mEmail: mEmail },
+                        success: function (data) {
+                            alert("인증번호가 발송되었습니다.");
+                            email_auth_cd = data;
+                        },
+                        error: function (data) {
+                            alert("메일 발송에 실패했습니다.");
+                        }
+                    });
+                }
+            },
+            error: function (data) {
+                alert("이메일 중복 확인에 실패했습니다.");
+            }
+        });
+    }
+});
    
    $('#id').focusout(function(){
       var id = $('#id').val();
@@ -99,22 +124,5 @@ function fn_join() {
       }); 
    });
    
-   $('#nickname').focusout(function(){
-      var nickname = $('#nickname').val();
    
-      $.ajax({
-         type : "POST",
-         url : "nicknameCheck.do",
-         data : {nickname : nickname},
-         success: function(data){
-            if(data == "Y"){
-               $('#nickname_ck').removeClass("dpn");
-            }else{
-               $('#nickname_ck').addClass("dpn");
-            }
-         },
-         error: function(data){
-         }
-      }); 
-   });
  });

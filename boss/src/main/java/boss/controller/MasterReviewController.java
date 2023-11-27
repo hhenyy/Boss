@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import boss.common.PagePgm;
+import boss.common.Search;
 import boss.model.Review;
 import boss.service.MasterReviewService;
 
@@ -95,4 +96,61 @@ public class MasterReviewController {
 		return "./master/review/masterReviewDelete";
 	}
 
+	
+	// 리뷰 유형별 검색
+	@RequestMapping("masterReviewSearch.do")
+	public String masterReviewSearch(Search search, Model model) {
+		
+		System.out.println(search.getKeyword());
+		System.out.println(search.getSearchtype());
+		
+		if(search.getKeyword() != "" && search.getSearchtype() != "") {
+			List<Review> list = ms.searchReviewList(search);
+			System.out.println(list);
+			model.addAttribute("list", list);
+			//return "./master/product/masterProductList";
+		}
+		if(search.getKeyword() == "" && search.getSearchtype() != "") {
+			model.addAttribute("type", "notKey");
+			model.addAttribute("msg", "검색어를 입력해 주세요.");
+			return "./master/product/masterMoveProductList";
+		}
+		if(search.getKeyword() != "" && search.getSearchtype() == "") {
+			model.addAttribute("type", "notType");
+			model.addAttribute("msg", "검색타입을 선택해 주세요.");
+			return "./master/product/masterMoveProductList";
+		}
+		if(search.getKeyword() == "" && search.getSearchtype() == "") {
+			model.addAttribute("type", "notKeynotType");
+			model.addAttribute("msg", "검색타입 & 검색어를 입력해 주세요.");
+			return "./master/product/masterMoveProductList";
+		}
+		
+		return "./master/review/masterReviewList";
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

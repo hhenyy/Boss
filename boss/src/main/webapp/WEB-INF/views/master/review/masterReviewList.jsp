@@ -87,8 +87,16 @@
 							onclick="location.href='masterReviewSelect.do?rid=${review.rid}' ">${review.rreg}</td>
 						<td
 							onclick="location.href='masterReviewSelect.do?rid=${review.rid}' ">${review.rreadcount}</td>
-						<td
-							onclick="location.href='masterReviewSelect.do?rid=${review.rid}' ">${review.rdrop}</td>
+						<c:if test="${review.rdrop == 'N'}">
+							<td
+							onclick="location.href='masterReviewSelect.do?rid=${review.rid}' " style="color: red;">${review.rdrop}</td>
+						</c:if>	
+						
+						<c:if test="${review.rdrop == 'Y'}">
+							<td
+							onclick="location.href='masterReviewSelect.do?rid=${review.rid}' " style="color: cyan;">${review.rdrop}</td>
+						</c:if>	
+						
 						<td>
 							<button type="button"
 								onclick="location.href='masterReviewUpdateForm.do?rid=${review.rid}'">수정</button>
@@ -104,12 +112,12 @@
 			<div align="right" class="search">
 	</form>
 	<form action="masterReviewSearch.do" method="post">
-		<select class="putsub" name="type">
+		<select class="putsub" name="searchtype">
 			<option value="">검색 유형 선택</option>
-			<option value="eEmail">ID</option>
-			<option value="eName">이름</option>
-			<option value="eAddress">주소</option>
-			<option value="eGrade">회원등급</option>
+			<option value="memail">ID</option>
+			<option value="rwriter">작성자</option>
+			<option value="rid">글번호</option>
+			<option value="pid">상품번호</option>
 		</select> <input type="text" align="right" id="keyword" name="keyword"
 			placeholder="검색어를 입력하세요." maxlength="10" class="text-input">
 		<input type="submit" value="검색" class="putsub">

@@ -35,6 +35,10 @@
 	<form method="post" action="masterQnaBoardDelete.do">
 		<div class="container">
 			<h1 class="h1_caption">Qna 관리</h1>
+
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h1 class="h1_caption">Qna 내역</h1>
+
+
 			<div style="float: right;">
 				<select id="cntPerPage" name="sel" onchange="selChange()"
 					class="selected-five">
@@ -59,8 +63,9 @@
 					<th>ID</th>
 					<th>제목</th>
 					<th>내용</th>
-					<th>첨부파일</th>
+					<th>이미지</th>
 					<th>작성일</th>
+					<th>답변여부[Y/N]</th>
 					<th>삭제여부[Y/N]</th>
 					<th>관리</th>
 				</tr>
@@ -83,15 +88,47 @@
 						<td
 							onclick="location.href='masterQnaBoardDetail.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' "><fmt:formatDate
 								pattern="yyyy-MM-dd" value="${qnaBoard.qnareg}" /></td>
-
+						
+						<c:if test="${qnaBoard.qnayn == 'Y'}">
+							<td
+							onclick="location.href='masterQnaBoardDetail.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' "
+							style="color: cyan;">${qnaBoard.qnayn}</td>
+						</c:if>
+						<c:if test="${qnaBoard.qnayn == 'N'}">
+						<td
+							onclick="location.href='masterQnaBoardDetail.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' "
+							style="color: red;">${qnaBoard.qnayn}</td>
+						</c:if>	
+						<c:if test="${qnaBoard.qnadrop == 'Y'}">
 						<td
 							onclick="location.href='masterQnaBoardDetail.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">${qnaBoard.qnadrop}</td>
 
+							onclick="location.href='masterQnaBoardDetail.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' "
+							style="color: cyan;">${qnaBoard.qnadrop}</td>
+						</c:if>
+						<c:if test="${qnaBoard.qnadrop == 'N'}">
+						<td
+							onclick="location.href='masterQnaBoardDetail.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' "
+							style="color: red;">${qnaBoard.qnadrop}</td>
+						</c:if>
+						
 						<td>
+						
+						 <c:if test="${qnaBoard.qnayn == 'N'}">
+						 	<button type="button"
+								onclick="location.href='masterQnaBoardDetail.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }'">답변</button>
 							<button type="button"
+								onclick="location.href='masterQnaBoardDelete.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">삭제</button>
+						 </c:if>
+						 
+						 <c:if test="${qnaBoard.qnayn == 'Y'}">
+						 	<button type="button"
 								onclick="location.href='masterQnaBoardDetail.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }'">수정</button>
 							<button type="button"
 								onclick="location.href='masterQnaBoardDelete.do?id=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">삭제</button>
+								onclick="location.href='masterQnaBoardDelete.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">삭제</button>
+						 </c:if>
+							
 						</td>
 					</tr>
 					<c:set var="i" value="${i + 1}"></c:set>
@@ -102,12 +139,12 @@
 			<div align="right" class="search">
 	</form>
 	<form action="masterQnaBoardSearch.do" method="post">
-		<select class="putsub" name="type">
+		<select class="putsub" name="searchtype">
 			<option value="">검색 유형 선택</option>
-			<option value="eEmail">ID</option>
-			<option value="eName">이름</option>
-			<option value="eAddress">주소</option>
-			<option value="eGrade">회원등급</option>
+			<option value="memail">ID</option>
+			<option value="qid">글번호</option>
+			<option value="qnatitle">글제목</option>
+			<option value="qnayn">답변여부</option>
 		</select> <input type="text" align="right" id="keyword" name="keyword"
 			placeholder="검색어를 입력하세요." maxlength="10" class="text-input">
 		<input type="submit" value="검색" class="putsub">

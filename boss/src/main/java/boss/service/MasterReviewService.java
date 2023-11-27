@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import boss.common.PagePgm;
+import boss.common.Search;
 import boss.dao.MasterReviewDao;
 import boss.model.Review;
 
@@ -35,4 +36,9 @@ public class MasterReviewService {
 		return dao.deleteReview(idList);
 	}
 	
+
+	// 리뷰 유형별 검색
+	public List<Review> searchReviewList(Search search) {
+		return dao.searchReviewList(search);
+	}
 }

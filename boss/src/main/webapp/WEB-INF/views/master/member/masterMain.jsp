@@ -29,6 +29,9 @@
 					onclick="location.href='masterReviewList.do' ">리뷰관리</button></th>
 			<th><button type="button"
 					onclick="location.href='masterOrdersList.do' ">주문관리</button></th>
+			<th><button type="button" onclick="location.href='masterQnaBoardList.do' ">Q&A관리</button></th>
+			<th><button type="button" onclick="location.href='masterReviewList.do' ">리뷰관리</button></th>
+			<th><button type="button" onclick="location.href='masterOrdersList.do' ">주문관리</button></th>
 		</tr>
 
 		<tr>

@@ -66,6 +66,40 @@
 						<th>등록일</th>
 						<th>삭제여부[Y/N]</th>
 						<th>수정/삭제</th>
+						<td id="${i }"><label><input type="checkbox"
+								name="chkId" value="${product.pid}">코드 ${product.pid }</label></td>
+						<td
+							onclick="location.href='masterProductDetail.do?id=${product.pid}' ">
+							<img src="./images/${product.pimage}" width="50px" height="50px">
+						</td>
+						<td id="${product.pid }"
+							onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.pname}</td>
+						<td
+							onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.pcolor}</td>
+						<td
+							onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.psize}</td>
+						<td
+							onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.pcontent}</td>
+						<td
+							onclick="location.href='masterProductDetail.do?id=${product.pid}' "><fmt:formatDate
+								pattern="yyyy-MM-dd" value="${product.preg}" /></td>
+								
+						<c:if test="${product.pdrop == 'N'}">
+							<td
+							onclick="location.href='masterProductDetail.do?id=${product.pid}' " style="color: red;">${product.pdrop}</td>
+						</c:if>
+						
+						<c:if test="${product.pdrop == 'Y'}">
+							<td
+							onclick="location.href='masterProductDetail.do?id=${product.pid}' " style="color: cyan;">${product.pdrop}</td>
+						</c:if>		
+						
+						<td>
+							<button type="button"
+								onclick="location.href='masterProductUpdateForm.do?id=${product.pid}'">수정</button>
+							<button type="button"
+								onclick="alert('삭제하시겠습니까?'); location.href='masterProductDelete.do?id=${product.pid}'">삭제</button>
+						</td>
 					</tr>
 					<c:set var="i" value="1"></c:set>
 					<c:forEach var="product" items="${list}" varStatus="loop">

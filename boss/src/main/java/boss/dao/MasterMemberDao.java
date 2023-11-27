@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import boss.common.PagePgm;
+import boss.common.Search;
 import boss.model.Member;
 
 @Mapper
@@ -25,6 +26,9 @@ public interface MasterMemberDao {
 	
 	
 	int deleteMember(List<String> midList);
+
+	// 유형별 검색
+	List<Member> searchMember(Search search);
 
 
 }

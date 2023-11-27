@@ -119,6 +119,35 @@
 					</c:choose>
 				</c:forEach>
 				<c:if test="${pp.endPage != pp.lastPage}">
+			</table>
+
+			<button type="submit" align="left" class="putsub">선택삭제</button>
+			<div align="right" class="search">
+	</form>
+	<form action="masterOrdersSearch.do" method="post">
+		<select class="putsub" name="searchtype">
+			<option value="">검색 유형 선택</option>
+			<option value="memail">ID</option>
+			<option value="oname">수령인</option>
+			<option value="oid">주문번호</option>
+			<option value="opost">우편번호</option>
+		</select> <input type="text" align="right" id="keyword" name="keyword"
+			placeholder="검색어를 입력하세요." maxlength="10" class="text-input">
+		<input type="submit" value="검색" class="putsub">
+	</form>
+
+	<div class="pageFont1">
+		<c:if test="${pp.startPage != 1 }">
+			<a style="text-decoration: none; color: deeppink"
+				href="./masterOrdersList.do?nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}">
+				< </a>
+		</c:if>
+		<c:forEach begin="${pp.startPage }" end="${pp.endPage }" var="p">
+			<c:choose>
+				<c:when test="${p == pp.nowPage }">
+					<b>${p }</b>
+				</c:when>
+				<c:when test="${p != pp.nowPage }">
 					<a style="text-decoration: none; color: deeppink"
 						href="./masterOrdersList.do?nowPage=${pp.endPage+1 }&cntPerPage=${pp.cntPerPage}">
 						> </a>

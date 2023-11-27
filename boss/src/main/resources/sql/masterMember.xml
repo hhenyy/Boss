@@ -19,7 +19,7 @@
 		FROM (
 		SELECT *
 		FROM member
-		ORDER BY mReg DESC
+		ORDER BY mDrop ASC, mReg DESC
 		) A
 		)
 		WHERE RN BETWEEN #{startRow} AND #{endRow}
@@ -58,3 +58,49 @@
 	</update>
 
 </mapper>
+	
+	<!-- 유형별 회원 리스트 검색 -->
+	<select id="searchMember" parameterType="search" resultType="member">
+		
+		 select * from member where
+		  <choose>
+        <when test="searchtype == 'mEmail'">
+            mEmail like '%' || #{keyword} || '%'
+        </when>
+        
+        <when test="searchtype == 'mName'">
+            mName like '%' || #{keyword} || '%'
+        </when>
+        
+        <when test="searchtype == 'mAddress'">
+            mAddress like '%' || #{keyword} || '%'
+        </when>
+        
+        <when test="searchtype == 'mGrade'">
+            mGrade like '%' || #{keyword} || '%'
+        </when>
+        
+    </choose>
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

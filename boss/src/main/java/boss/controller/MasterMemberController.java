@@ -2,9 +2,7 @@ package boss.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import boss.common.PagePgm;
+import boss.common.Search;
 import boss.model.Member;
-import boss.model.Product;
+import boss.model.QnaBoard;
 import boss.service.MasterMemberService;
 
 @Controller
@@ -139,5 +138,68 @@ public class MasterMemberController {
 		}
 		return "./master/member/masterMemberDelete";
 	}
+	
+	// 회원 옵션별 검색
+	@RequestMapping("masterMemberSearch.do")
+	public String masterMemberSearch(Search search, Model model) {
+		
+		System.out.println(search.getKeyword());
+		System.out.println(search.getSearchtype());
+		
+		if(search.getKeyword() != "" && search.getSearchtype() != "") {
+			List<Member> list = ms.searchMember(search);
+			System.out.println(list);
+			model.addAttribute("list", list);
+			//return "./master/product/masterProductList";
+		}
+		if(search.getKeyword() == "" && search.getSearchtype() != "") {
+			model.addAttribute("type", "notKey");
+			model.addAttribute("msg", "검색어를 입력해 주세요.");
+			return "./master/product/masterMoveProductList";
+		}
+		if(search.getKeyword() != "" && search.getSearchtype() == "") {
+			model.addAttribute("type", "notType");
+			model.addAttribute("msg", "검색타입을 선택해 주세요.");
+			return "./master/product/masterMoveProductList";
+		}
+		if(search.getKeyword() == "" && search.getSearchtype() == "") {
+			model.addAttribute("type", "notKeynotType");
+			model.addAttribute("msg", "검색타입 & 검색어를 입력해 주세요.");
+			return "./master/product/masterMoveProductList";
+		}
+		
+		return "./master/member/masterMemberList";
+	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
