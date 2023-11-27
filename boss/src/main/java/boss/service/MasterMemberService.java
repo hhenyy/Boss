@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import boss.common.PagePgm;
+import boss.common.Search;
 import boss.dao.MasterMemberDao;
 import boss.model.Member;
 
@@ -33,6 +34,10 @@ public class MasterMemberService {
 
 	public int delete(List<String> idList) {
 		return dao.delete(idList);
+	}
+
+	public List<Member> searchMember(Search search) {
+		return dao.searchMember(search);
 	}
 
 }

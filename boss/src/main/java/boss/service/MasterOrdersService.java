@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import boss.common.PagePgm;
+import boss.common.Search;
 import boss.dao.MasterOrdersDao;
 import boss.model.Member;
 import boss.model.OrderDetail;
 import boss.model.Orders;
+import boss.model.QnaBoard;
 
 @Service
 public class MasterOrdersService {
@@ -52,6 +54,11 @@ public class MasterOrdersService {
 	// 배송상태 변경.
 	public int updateStatus(String odid, String odstatus) {
 		return dao.updateStatus(odid, odstatus);
+	}
+
+	// 주문내역 검색 유형별 검색
+	public List<Orders> searchOrdersList(Search search) {
+		return dao.searchOrdersList(search);
 	}
 
 }

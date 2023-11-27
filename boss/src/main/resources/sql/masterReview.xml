@@ -29,7 +29,7 @@
 		FROM (
 		SELECT *
 		FROM review
-		ORDER BY rreg DESC
+		ORDER BY rdrop ASC,rreg DESC
 		) A
 		)
 		WHERE RN BETWEEN #{startRow} AND #{endRow}
@@ -38,6 +38,30 @@
 	<!-- total구하기 -->
 	<select id="total" resultType="int">
 		SELECT COUNT(*) FROM review
+	</select>
+	
+	<!-- qna게시글 검색 목록 구하기 -->
+	<select id="searchReviewList" parameterType="search" resultType="review">
+		
+		 select * from review where
+		  <choose>
+        <when test="searchtype == 'memail'">
+            memail like '%' || #{keyword} || '%'
+        </when>
+        
+        <when test="searchtype == 'rwriter'">
+            rwriter like '%' || #{keyword} || '%'
+        </when>
+        
+        <when test="searchtype == 'rid'">
+            rid like '%' || #{keyword} || '%'
+        </when>
+        
+        <when test="searchtype == 'pid'">
+            pid like '%' || #{keyword} || '%'
+        </when>
+        
+    </choose>
 	</select>
 	<!-- ID기준으로 회원정보를 수정 -->
 <!-- 	<update id="update" parameterType="review"> -->

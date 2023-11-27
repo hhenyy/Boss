@@ -69,4 +69,43 @@
 		SELECT COUNT(*) FROM orders
 	</select>
 
+	<!-- qna게시글 검색 목록 구하기 -->
+	<select id="searchOrdersList" parameterType="search" resultType="orders">
+		
+		 select * from orders where
+		  <choose>
+        <when test="searchtype == 'memail'">
+            memail like '%' || #{keyword} || '%'
+        </when>
+        
+        <when test="searchtype == 'oname'">
+            oname like '%' || #{keyword} || '%'
+        </when>
+        
+        <when test="searchtype == 'oid'">
+            oid like '%' || #{keyword} || '%'
+        </when>
+        
+        <when test="searchtype == 'opost'">
+            opost like '%' || #{keyword} || '%'
+        </when>
+        
+    </choose>
+	</select>
+
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

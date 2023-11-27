@@ -11,6 +11,7 @@ public class QnaBoard {
 	private String qnaorifile;
 	private Date qnareg;
 	private String qnadrop;
+	private String qnayn;	// 답변 여부 (Y/N)
 	
 	public int getQid() {
 		return qid;
@@ -54,6 +55,13 @@ public class QnaBoard {
 	public void setQnadrop(String qnadrop) {
 		this.qnadrop = qnadrop;
 	}
+	public String getQnayn() {
+		return qnayn;
+	}
+	public void setQnayn(String qnayn) {
+		this.qnayn = qnayn;
+	}
+	
 	
 	
 }
