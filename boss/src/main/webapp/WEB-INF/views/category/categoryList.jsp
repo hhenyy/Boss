@@ -130,7 +130,7 @@
 				</section>
 			</div>
 			<!-- 다른 페이지로 넘어가기 위한 숫자들 자리 -->
-			<div align="center"><!-- 가운데 정렬 필요 -->
+			<div align="center">
 				<c:if test="${pp.startPage != 1 }">
 					<a style="text-decoration: none; color: deeppink"
 						href="./category.do?cid=${cid }&newCid=${cid }&nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}">

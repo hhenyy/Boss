@@ -20,7 +20,7 @@
 <script>
 	function selChange() {
 		var sel = document.getElementById('cntPerPage').value;
-		location.href = "category.do?nowPage=${pp.nowPage}&cid=${cid}&cntPerPage="
+		location.href = "masterNotice.do?nowPage=${pp.nowPage}&cntPerPage="
 				+ sel;
 	}
 </script>
@@ -90,37 +90,92 @@
 				<header align="left">
 
 					<h1>공지사항</h1>
-					<br>
 				</header>
 
 				<section class="tiles">
-				<!-- 공지사항 테이블 출력 -->
-				
+
+					<!-- 공지사항 테이블 출력 -->
+					<form method="post" action="masterNoticeInsert.do">
+						<div class="container">
+							<div style="float: right;">
+								<select id="cntPerPage" name="sel" onchange="selChange()"
+									class="selected-five">
+									<option value="5"
+										<c:if test="${pp.cntPerPage == 5}">selected</c:if>>5줄
+										보기</option>
+									<option value="10"
+										<c:if test="${pp.cntPerPage == 10}">selected</c:if>>10줄
+										보기</option>
+									<option value="15"
+										<c:if test="${pp.cntPerPage == 15}">selected</c:if>>15줄
+										보기</option>
+									<option value="20"
+										<c:if test="${pp.cntPerPage == 20}">selected</c:if>>20줄
+										보기</option>
+								</select>
+							</div>
+							<!-- 옵션선택 끝 -->
+							<table style="border:1px solid black;margin-left:auto;margin-right:auto;">
+								<tr>
+									<th>글번호</th>
+									<th>제목</th>
+									<th>작성일</th>
+								</tr>
+								<c:set var="i" value="1"></c:set>
+								<c:forEach var="masterNotice" items="${noticeList}"
+									varStatus="loop">
+									<tr>
+										<td id="${i }">${masterNotice.mnid }</td>
+										<td
+											onclick="location.href='masterNoticeDetail.do?mnid=${masterNotice.mnid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">${masterNotice.qnatitle}</td>
+										<td
+											onclick="location.href='masterNoticeDetail.do?mnid=${masterNotice.mnid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">${masterNotice.qnacontent}</td>
+										<td
+											onclick="location.href='masterNoticeDetail.do?mnid=${masterNotice.mnid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' "><fmt:formatDate
+												pattern="yyyy-MM-dd" value="${masterNotice.mnreg}" /></td>
+										<c:if test="${sessionId ne null && sessionId eq 'boss'}">
+											<td>
+												<button type="button"
+													onclick="location.href='masterNoticeUpdate.do?mnid=${masterNotice.mnid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }'">수정</button>
+												<button type="button"
+													onclick="location.href='masterNoticeDelete.do?mnid=${masterNotice.mnid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">삭제</button>
+											</td>
+										</c:if>
+									</tr>
+									<c:set var="i" value="${i + 1}"></c:set>
+								</c:forEach>
+							</table>
+
+								<button type="submit" align="right" class="putsub">글 작성</button>
+								<div align="right" class="search">
+					</form>
 				</section>
 			</div>
+			
+			
+			
 			<!-- 다른 페이지로 넘어가기 위한 숫자들 자리 -->
-			<div><!-- 가운데 정렬 필요 -->
-				<c:if test="${c.startPage != 1 }">
+			<div align="center">
+				<c:if test="${pp.startPage != 1 }">
 					<a style="text-decoration: none; color: deeppink"
-						href="./categoryList.do?cid=${c.cid}&nowPage=${c.startPage - 1 }&cntPerPage=${c.cntPerPage}">
+						href="./masterNotice.do?nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}">
 						<- 
 					</a>
 				</c:if>
-				<c:forEach begin="${c.startPage }" end="${c.endPage }" var="p">
-				<!-- 내부 데이터가 0이라 아무것도 표시X  -->
+				<c:forEach begin="${pp.startPage }" end="${pp.endPage }" var="p">
 					<c:choose>
-						<c:when test="${p == c.nowPage }">
+						<c:when test="${p == pp.nowPage }">
 							<b>${p }</b>
 						</c:when>
-						<c:when test="${p != c.nowPage }">
+						<c:when test="${p != pp.nowPage }">
 							<a style="text-decoration: none; color: deeppink"
-								href="./categoryList.do?cid=${c.cid}&nowPage=${p }&cntPerPage=${c.cntPerPage}">${p }</a>
+								href="./masterNotice.do?nowPage=${p }&cntPerPage=${pp.cntPerPage}">${p }</a>
 						</c:when>
 					</c:choose>
 				</c:forEach>
-				<c:if test="${c.endPage != c.lastPage}">
+				<c:if test="${pp.endPage != pp.lastPage}">
 					<a style="text-decoration: none; color: deeppink"
-						href="./categoryList.do?cid=${c.cid}&nowPage=${c.endPage+1 }&cntPerPage=${c.cntPerPage}">
+						href="./masterNotice.do?nowPage=${pp.endPage+1 }&cntPerPage=${pp.cntPerPage}">
 						-> </a>
 				</c:if>
 			</div>
@@ -181,7 +236,7 @@
 		</footer>
 
 	</div>
-	<%@ include file="../common/footer.jsp"%>
+	<%@ include file="../../common/footer.jsp"%>
 	<!-- Scripts -->
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/browser.min.js"></script>

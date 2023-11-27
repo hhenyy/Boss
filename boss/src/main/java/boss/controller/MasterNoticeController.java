@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import boss.common.PagePgm;
-import boss.model.Notice;
+import boss.model.MasterNotice;
 import boss.model.Product;
 import boss.service.MasterNoticeService;
 import boss.service.MasterProductService;
@@ -25,9 +25,9 @@ import boss.service.MasterProductService;
 @Controller
 public class MasterNoticeController {
 
-	/*
-	 * @Autowired MasterNoticeService service;
-	 */
+	
+	  @Autowired MasterNoticeService service;
+	 
 	
 	//글 등록폼 이동 메소드
 	/*
@@ -97,33 +97,33 @@ public class MasterNoticeController {
 	// 글 수정
 
 	// 공지사항 목록 페이지 출력
-//	@RequestMapping("masterNotice.do")
-//	public String masterNotice(PagePgm page, Model model,
-//			@RequestParam(value = "nowPage", required = false) String nowPage,
-//			@RequestParam(value = "cntPerPage", required = false) String cntPerPage) {
-//
-//		if (nowPage == null && cntPerPage == null) {
-//			nowPage = "1";
-//			cntPerPage = "10";
-//		} else if (nowPage == null) {
-//			nowPage = "1";
-//		} else if (cntPerPage == null) {
-//			cntPerPage = "10";
-//		}
+	@RequestMapping("masterNotice.do")
+	public String masterNotice(PagePgm pp, Model model,
+			@RequestParam(value = "nowPage", required = false) String nowPage,
+			@RequestParam(value = "cntPerPage", required = false) String cntPerPage) {
+
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "20";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) {
+			cntPerPage = "20";
+		}
 		
 		//총 글 갯수
-		//int totalCount = service.totalCount();
-		//System.out.println(totalCount+"개");
+		int totalCount = service.totalCount();
+		System.out.println(totalCount+"개");
 		
-//page = new PagePgm(totalCount,Integer.parseInt(nowPage),Integer.parseInt(cntPerPage));
+pp = new PagePgm(totalCount,Integer.parseInt(nowPage),Integer.parseInt(cntPerPage));
 		
 		// 페이징 처리된 리스트
-		//List<Notice> list = service.selectList(page);
-		//System.out.println(list);
-//		model.addAttribute("page", page);
-//		//model.addAttribute("list", list);
-//		
-//		return "./master/notice/masterNotice";
-//	}
+		List<MasterNotice> noticeList = service.noticeList(pp);
+		System.out.println(noticeList);
+		model.addAttribute("pp", pp);
+		model.addAttribute("list", noticeList);
+		
+		return "./master/notice/masterNotice";
+	}
 	
 }
