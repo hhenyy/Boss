@@ -4,4 +4,39 @@
 
 <mapper namespace="boss.dao.FreeBoardDao">
 
+<!-- 글등록 -->
+<insert id="insert" parameterType="FreeBoard">
+insert into FreeBoard
+(fId,mEmail,fTitle,fContent,fReadCount,fLike,fReg,fDrop)
+values
+(FreeBoard_seq.nextval,#{mEmail},#{fTitle},#{fContent},0,0,SYSDATE,'N')
+</insert>
+
+<!-- 게시글 수 구하기 -->
+<select id="listcount" resultType="int">
+ select count(*) from FreeBoard
+</select>
+
+<!-- 페이징 목록 구하기 -->
+<!-- 댓글컬럼 추가후 수정 필요-->
+<select id="selectList" parameterType="int" resultType="FreeBoard">
+<![CDATA[
+select * from (select rownum rnum, FreeBoard.* from 
+(select * from FreeBoard order by fid desc) FreeBoard) 
+where rnum >= ((#{page}-1) * 10+1)  and rnum <= (#{page} * 10)
+]]>
+</select>
+
+<!--게시판 조회수 중가 -->
+<update id="readcount" parameterType="int">
+update FreeBoard set fReadCount=fReadCount+1
+where fId=#{fId}
+</update>
+
+<!-- 게시판 내용 가져오기 -->
+<select id="getDetail" parameterType="int" resultType="FreeBoard">
+select * from FreeBoard where fId=#{fId}
+</select>
+
+
 </mapper>
