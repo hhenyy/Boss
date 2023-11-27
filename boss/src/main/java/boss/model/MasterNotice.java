@@ -2,14 +2,15 @@ package boss.model;
 
 import java.sql.Date;
 
-public class Notice {
+public class MasterNotice {
 
-	private int mnid;
+	private int mnid;	
 	private String mnTitle;
 	private String mnContent;
 	private Date mnReg;
 	private String mnOriFile;
 	private int mnReadCount;
+	private int cntPage = 10; // 페이지 블럭
 	
 	public int getMnid() {
 		return mnid;
@@ -46,5 +47,11 @@ public class Notice {
 	}
 	public void setMnReadCount(int mnReadCount) {
 		this.mnReadCount = mnReadCount;
+	}
+	public int getCntPage() {
+		return cntPage;
+	}
+	public void setCntPage(int cntPage) {
+		this.cntPage = cntPage;
 	}
 }
