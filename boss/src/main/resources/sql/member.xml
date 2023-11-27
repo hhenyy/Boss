@@ -12,8 +12,8 @@
 	
 	<!-- 네이버 회원 가입 -->
 	<insert id="insertNMember" parameterType="java.util.Map">
-	INSERT INTO MEMBER (mEmail, mName, mPhone, mGrade, mReg, mDrop)
-    VALUES (#{mEmail}, #{mName}, #{mPhone}, 'WhiteStar', sysdate, 'N')
+	INSERT INTO MEMBER (mEmail, mPwd, mName, mPhone, mGrade, mReg, mDrop)
+    VALUES (#{mEmail}, #{mPwd}, #{mName}, #{mPhone}, 'WhiteStar', sysdate, 'N')
 	</insert>
 	
 	<!-- 1명의 정보 뽑기 ( 비번 비교 ) -->
