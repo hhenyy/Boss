@@ -4,6 +4,18 @@
 
 <mapper namespace="boss.dao.MasterOrdersDao">
 
+	<!-- 한명의 주문정보를 구해옴. -->
+	<select id="selectOrders" resultType="orders"
+		parameterType="string">
+		SELECT * FROM Orders where oid = #{oid}
+	</select>
+
+	<!-- 한명의 주문정보를 구해옴. -->
+	<select id="selectOrderDetail" resultType="orderDetail"
+		parameterType="string">
+		SELECT * FROM OrderDetail where odid = #{odid}
+	</select>
+
 	<!-- 주문번호안에 pid목록들 -->
 	<select id="listProduct" parameterType="integer"
 		resultType="Map">
@@ -15,6 +27,10 @@
 		where oid = #{oid}
 	</select>
 
+	<update id="updateStatus" parameterType="string">
+		update orderdetail set
+		odstatus = #{param2} where odid = #{param1}
+	</update>
 
 	<!-- list로 for문돌려서 where절에 가변적 처리 -->
 	<delete id="delete" parameterType="java.util.List">
@@ -26,11 +42,7 @@
 		</foreach>
 	</delete>
 
-	<!-- 한명의 주문정보를 구해옴. -->
-	<select id="selectOne" resultType="orders"
-		parameterType="string">
-		SELECT * FROM Orders where oid = #{oid}
-	</select>
+
 
 	<!-- 한명의 주문에 대한 여러 상세 주문을 구해옴. -->
 	<select id="odList" parameterType="string"
