@@ -10,6 +10,7 @@ import boss.common.PagePgm;
 import boss.common.Search;
 import boss.dao.MasterProductDao;
 import boss.model.Amount;
+import boss.model.Member;
 import boss.model.Product;
 
 @Service
@@ -48,7 +49,6 @@ public class MasterProductService {
 		return dao.updateProduct(product);
 	}
 
-
 	/*
 	 * 재고 구하기
 	 */
@@ -68,7 +68,7 @@ public class MasterProductService {
 	 * 페이징 필요없는 상품 리스트 구하기
 	 */
 	public Product changeList() {
-		
+
 		return dao.changeList();
 	}
 
@@ -76,7 +76,7 @@ public class MasterProductService {
 	 * 상품 검색 목록 구하기
 	 */
 	public List<Product> searchList(Search search) {
-		
+
 		return dao.searchList(search);
 	}
 
@@ -87,10 +87,15 @@ public class MasterProductService {
 		return dao.updateAmount(map);
 	}
 
-	 // 회원 전체 삭제('Y') 업데이트
+	// 회원 전체 삭제('Y') 업데이트
 	public int deleteProduct(List<String> id) {
-		
+
 		return dao.deleteProduct(id);
+	}
+	
+	// 구매이력이 있는 회원정보 구해오기.
+	public List<Member> selectMemberOfProduct(String id) {
+		return dao.selectMemberOfProduct(id);
 	}
 
 }

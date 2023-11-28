@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import boss.common.PagePgm;
 import boss.common.Search;
 import boss.model.Amount;
+import boss.model.Member;
 import boss.model.Product;
 import boss.service.MasterProductService;
 
@@ -37,6 +38,8 @@ public class MasterProductController {
 	 */
 	@RequestMapping("masterProductDetail.do")
 	public String masterProductDetail(String id, Model model) {
+		System.out.println("masterProductDetail");
+		List<Member> memberList = new ArrayList<Member>();
 
 		System.out.println("id : " + id);
 		// 상품 상세정보 구하기
@@ -44,10 +47,16 @@ public class MasterProductController {
 
 		// 재고 구하기
 		Amount amount = service.selectAmount(id);
-
 		model.addAttribute("product", product);
 		model.addAttribute("amount", amount);
 
+		memberList = service.selectMemberOfProduct(id);
+		if (memberList != null && memberList.size() > 0) { // 멤버를 구해옴.
+			System.out.println(" 맴버를 구해옴.");
+			model.addAttribute("memberList",memberList);
+		} else { // 멤버를 못구해옴.
+			System.out.println("멤버를 못구해옴.");
+		}
 		return "./master/product/masterProductDetail";
 	}
 
@@ -253,23 +262,23 @@ public class MasterProductController {
 		System.out.println(search.getKeyword());
 		System.out.println(search.getSearchtype());
 
-		if(search.getKeyword() != "" && search.getSearchtype() != "") {
+		if (search.getKeyword() != "" && search.getSearchtype() != "") {
 			List<Product> list = service.searchList(search);
 			System.out.println(list);
 			model.addAttribute("list", list);
-			//return "./master/product/masterProductList";
+			// return "./master/product/masterProductList";
 		}
-		if(search.getKeyword() == "" && search.getSearchtype() != "") {
+		if (search.getKeyword() == "" && search.getSearchtype() != "") {
 			model.addAttribute("type", "notKey");
 			model.addAttribute("msg", "검색어를 입력해 주세요.");
 			return "./master/product/masterMoveProductList";
 		}
-		if(search.getKeyword() != "" && search.getSearchtype() == "") {
+		if (search.getKeyword() != "" && search.getSearchtype() == "") {
 			model.addAttribute("type", "notType");
 			model.addAttribute("msg", "검색타입을 선택해 주세요.");
 			return "./master/product/masterMoveProductList";
 		}
-		if(search.getKeyword() == "" && search.getSearchtype() == "") {
+		if (search.getKeyword() == "" && search.getSearchtype() == "") {
 			model.addAttribute("type", "notKeynotType");
 			model.addAttribute("msg", "검색타입 & 검색어를 입력해 주세요.");
 			return "./master/product/masterMoveProductList";

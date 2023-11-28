@@ -19,7 +19,8 @@
 		FROM (
 		SELECT *
 		FROM member
-		ORDER BY mDrop ASC, mReg DESC
+		ORDER BY mDrop
+		ASC, mReg DESC
 		) A
 		)
 		WHERE RN BETWEEN #{startRow} AND #{endRow}
@@ -51,37 +52,49 @@
 		else mdrop
 		end
 		where memail in
-		<foreach item="memail" collection="list" open="(" separator=","
-			close=")">
+		<foreach item="memail" collection="list" open="("
+			separator="," close=")">
 			#{memail}
 		</foreach>
 	</update>
 
-	
+
 	<!-- 유형별 회원 리스트 검색 -->
-	<select id="searchMember" parameterType="search" resultType="member">
-		
-		 select * from member where
-		  <choose>
-        <when test="searchtype == 'mEmail'">
-            mEmail like '%' || #{keyword} || '%'
-        </when>
-        
-        <when test="searchtype == 'mName'">
-            mName like '%' || #{keyword} || '%'
-        </when>
-        
-        <when test="searchtype == 'mAddress'">
-            mAddress like '%' || #{keyword} || '%'
-        </when>
-        
-        <when test="searchtype == 'mGrade'">
-            mGrade like '%' || #{keyword} || '%'
-        </when>
-        
-    </choose>
+	<select id="searchMember" parameterType="search"
+		resultType="member">
+
+		select * from member where
+		<choose>
+			<when test="searchtype == 'mEmail'">
+				mEmail like '%' || #{keyword} || '%'
+			</when>
+
+			<when test="searchtype == 'mName'">
+				mName like '%' || #{keyword} || '%'
+			</when>
+
+			<when test="searchtype == 'mAddress'">
+				mAddress like '%' || #{keyword} || '%'
+			</when>
+
+			<when test="searchtype == 'mGrade'">
+				mGrade like '%' || #{keyword} || '%'
+			</when>
+
+		</choose>
 	</select>
-	
+
+	<!-- pid를 기준으로 구매한 이력이 있는 회원 목록을 구해옴. -->
+	<select id="selectProductOfMember" parameterType="string"
+		resultType="product">
+		SELECT * 
+      FROM (select product.* from orders
+      JOIN  orderdetail ON
+      orders .oid = orderdetail.oid 
+      JOIN product ON orderdetail.pid =
+      product.pid where memail = #{id})
+	</select>
+
 </mapper>
 
 

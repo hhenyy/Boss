@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import boss.common.PagePgm;
 import boss.common.Search;
 import boss.model.Amount;
+import boss.model.Member;
 import boss.model.Product;
 
 @Mapper
@@ -29,7 +30,7 @@ public interface MasterProductDao {
 
 	// 상품 수정 하기
 	int updateProduct(Product product);
-	
+
 	// 재고 구하기
 	Amount selectAmount(String id);
 
@@ -47,5 +48,8 @@ public interface MasterProductDao {
 
 	// 상품 전체 삭제('Y') 업데이트
 	int deleteProduct(List<String> pidList);
-		
+
+	// 구매이력이 있는 회원정보 구해오기.
+	List<Member> selectMemberOfProduct(String id);
+
 }
