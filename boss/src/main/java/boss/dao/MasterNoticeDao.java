@@ -13,6 +13,8 @@ public interface MasterNoticeDao {
 		int totalCount();
 
 		List<MasterNotice> noticeList(PagePgm page);
+
+		int noticeInsert(MasterNotice notice);
 	
 
 }

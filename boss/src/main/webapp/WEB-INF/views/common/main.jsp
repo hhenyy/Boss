@@ -32,7 +32,8 @@
 
 				<!--1. 비회원 페이지 -->
 				<c:if test="${empty sessionScope.member}">
-					<a href="NaverLogin.do" style="text-decoration: none">로그인</a>
+					<a href="NaverLogin.do"><img src="./images/login.png" style="text-decoration: none"></a>
+					<a href="NaverLogin.do"><img src="./images/join.png" style="text-decoration: none"></a>
 					<!-- --------------------------회원 비회원 관리자 각각 넣을 내용---------------------------------- -->
 					<div align="center" width="100px" height="100px">
 						<input type="text" maxlength="50" placeholder="검색어를 입력하세요."><br>
@@ -222,11 +223,14 @@
 		<!--2.관리자페이지  -->
 		<c:if
 			test="${!empty sessionScope.member && member.mEmail eq 'master'}">
-				${member.mName }님 환영합니다.
-				<a href="Logout.do" onclick="alert('로그아웃')"
-				style="text-decoration: none"><br>로그아웃</a>
+				<a href="Logout.do" onclick="alert('로그아웃')"><img src="./images/logout.png" style="text-decoration: none"></a>
+				<a href="mypage.do"><img src="./images/my.png" style="text-decoration: none"></a>
+				<a href="productInsertForm.do"><img src="./images/cart.png" style="text-decoration: none"></a>
+				<br>${member.mName }님 환영합니다.
 			<a href="productInsertForm.do" onclick="alert('상품등록')"
-				style="text-decoration: none"><br>상품등록</a>
+				style="text-decoration: none"><br>상품등록</a><br>
+					<input type="button" value="관리자페이지"
+				onclick="location.href='masterMain.do'">
 			<!-- --------------------------회원 비회원 관리자 각각 넣을 내용---------------------------------- -->
 			<div align="center" width="100px" height="100px">
 				<input type="text" maxlength="50" placeholder="검색어를 입력하세요."><br>
@@ -447,8 +451,9 @@
 	<!-- 3.회원페이지 -->
 	<c:if test="${!empty sessionScope.member && member.mEmail ne 'master'}">
 				${member.mName }님 환영합니다.
-				<a href="Logout.do" onclick="alert('로그아웃')"
-			style="text-decoration: none"><br>로그아웃</a>
+				<a href="Logout.do" onclick="alert('로그아웃')"><img src="./images/logout.png" style="text-decoration: none"></a>
+				<a href="mypage.do"><img src="./images/my.png" style="text-decoration: none"></a>
+				<a href="productInsertForm.do"><img src="./images/cart.png" style="text-decoration: none"></a>
 		<!-- --------------------------회원 비회원 관리자 각각 넣을 내용---------------------------------- -->
 		<div align="center" width="100px" height="100px">
 			<input type="text" maxlength="50" placeholder="검색어를 입력하세요."><br>

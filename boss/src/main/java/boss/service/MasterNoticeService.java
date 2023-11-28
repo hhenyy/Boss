@@ -25,6 +25,11 @@ public class MasterNoticeService {
 		return dao.noticeList(page);
 	}
 
+	public int noticeInsert(MasterNotice notice) {
+
+		return dao.noticeInsert(notice);
+	}
+
 	
  
 }

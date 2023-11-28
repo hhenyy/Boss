@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 <!DOCTYPE html>
 <!--
 	Phantom by HTML5 UP
@@ -18,11 +20,12 @@
 	<link rel="stylesheet" href="assets/css/noscript.css" />
 </noscript>
 <script>
-	function selChange() {
-		var sel = document.getElementById('cntPerPage').value;
-		location.href = "masterNotice.do?nowPage=${pp.nowPage}&cntPerPage="
-				+ sel;
-	}
+    function popup(){
+        var url = "masterNoticeInsertForm.do";
+        var name = "공지사항";
+        var option = "width = 1000, height = 800, top = 100, left = 200, location = no"
+        window.open(url, name, option);
+    }
 </script>
 </head>
 
@@ -37,14 +40,14 @@
 				<c:if test="${sessionId eq null}">
 					<a href="NaverLogin.do" style="text-decoration: none">로그인</a>
 				</c:if>
-				<c:if test="${sessionId ne null && sessionId eq 'boss'}">
+				<c:if test="${member ne null && member.mEmail eq 'master'}">
 				${sessionId }님 환영합니다.
 				<a href="Logout.do" onclick="alert('로그아웃')"
 						style="text-decoration: none"><br>로그아웃</a>
 					<a href="productInsertForm.do" onclick="alert('상품등록')"
 						style="text-decoration: none"><br>상품등록</a>
 				</c:if>
-				<c:if test="${sessionId ne null && sessionId ne 'boss'}">
+				<c:if test="${member ne null && member.mEmail ne 'master'}">
 				${sessionId }님 환영합니다.
 				<a href="Logout.do" onclick="alert('로그아웃')"
 						style="text-decoration: none"><br>로그아웃</a>
@@ -95,58 +98,47 @@
 				<section class="tiles">
 
 					<!-- 공지사항 테이블 출력 -->
-					<form method="post" action="masterNoticeInsert.do">
+					<form method="post" action="javascript:popup()">
 						<div class="container">
-							<div style="float: right;">
-								<select id="cntPerPage" name="sel" onchange="selChange()"
-									class="selected-five">
-									<option value="5"
-										<c:if test="${pp.cntPerPage == 5}">selected</c:if>>5줄
-										보기</option>
-									<option value="10"
-										<c:if test="${pp.cntPerPage == 10}">selected</c:if>>10줄
-										보기</option>
-									<option value="15"
-										<c:if test="${pp.cntPerPage == 15}">selected</c:if>>15줄
-										보기</option>
-									<option value="20"
-										<c:if test="${pp.cntPerPage == 20}">selected</c:if>>20줄
-										보기</option>
-								</select>
-							</div>
 							<!-- 옵션선택 끝 -->
 							<table style="border:1px solid black;margin-left:auto;margin-right:auto;">
 								<tr>
 									<th>글번호</th>
 									<th>제목</th>
+									<th>내용</th>
 									<th>작성일</th>
+									<th>조회수</th>
 								</tr>
 								<c:set var="i" value="1"></c:set>
-								<c:forEach var="masterNotice" items="${noticeList}"
+								<c:forEach var="masterNotice" items="${list}"
 									varStatus="loop">
 									<tr>
-										<td id="${i }">${masterNotice.mnid }</td>
+										<td id="${i }">${i }</td>
 										<td
-											onclick="location.href='masterNoticeDetail.do?mnid=${masterNotice.mnid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">${masterNotice.qnatitle}</td>
+											onclick="location.href='masterNoticeDetail.do?mnid=${masterNotice.mnid}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' ">${masterNotice.mnTitle}</td>
 										<td
-											onclick="location.href='masterNoticeDetail.do?mnid=${masterNotice.mnid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">${masterNotice.qnacontent}</td>
+											onclick="location.href='masterNoticeDetail.do?mnid=${masterNotice.mnid}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' ">${masterNotice.mnContent}</td>
 										<td
-											onclick="location.href='masterNoticeDetail.do?mnid=${masterNotice.mnid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' "><fmt:formatDate
-												pattern="yyyy-MM-dd" value="${masterNotice.mnreg}" /></td>
-										<c:if test="${sessionId ne null && sessionId eq 'boss'}">
+											onclick="location.href='masterNoticeDetail.do?mnid=${masterNotice.mnid}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' "><fmt:formatDate
+												pattern="yyyy-MM-dd hh:" value="${masterNotice.mnReg}" /></td>
+										<td
+											onclick="location.href='masterNoticeDetail.do?mnid=${masterNotice.mnid}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' ">${masterNotice.mnReadCount}
+												</td>		
+										<c:if test="${member ne null && member.mEmail eq 'master'}">
 											<td>
 												<button type="button"
-													onclick="location.href='masterNoticeUpdate.do?mnid=${masterNotice.mnid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }'">수정</button>
+													onclick="location.href='masterNoticeUpdate.do?mnid=${masterNotice.mnid}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }'">수정</button>
 												<button type="button"
-													onclick="location.href='masterNoticeDelete.do?mnid=${masterNotice.mnid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">삭제</button>
+													onclick="location.href='masterNoticeDelete.do?mnid=${masterNotice.mnid}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' ">삭제</button>
 											</td>
 										</c:if>
 									</tr>
 									<c:set var="i" value="${i + 1}"></c:set>
 								</c:forEach>
 							</table>
-
-								<button type="submit" align="right" class="putsub">글 작성</button>
+							<c:if test="${member ne null}">
+								<button type="submit" class="putsub">공지사항 등록</button>
+							</c:if>	
 								<div align="right" class="search">
 					</form>
 				</section>

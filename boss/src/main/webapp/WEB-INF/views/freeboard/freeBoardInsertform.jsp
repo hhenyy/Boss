@@ -17,7 +17,7 @@
 <body>
 <!-- 전체 div시작 -->
 <div class="div_insertform">
-  <form action="freeBoardInsertok.do" method="post" obSubmit="return boardinsert_check()">
+  <form action="freeBoardInsertok.do" method="post" onSubmit="return boardinsert_check()">
   <table class="table_insertform">
   <tr>
   <th>제목</th>
@@ -28,7 +28,7 @@
   <td><textarea name="fContent" id="fContent" cols="90" rows="30">내용을 입력해 주세요</textarea></td>
   </tr>
   <tr>
-  <th>작성자아이디</th>
+  <th>작성자</th>
   <td><input type="text" name="mEmail" id="mEmail" value="${member.mEmail}" size="30" class="table_td_text"></td>
   </tr>
  <!-- <tr>
@@ -36,7 +36,6 @@
   <td><input type="password" name="fPassword" id="fPassword"  size="30" class="table_td_text"></td>
   </tr>  -->  
   </table>
-  
   
   
 <!-- button div 끝-->
