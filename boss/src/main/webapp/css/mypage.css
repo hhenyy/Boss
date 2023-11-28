@@ -53,10 +53,16 @@ body {
 .container_orders {
     float: left;
     width: 60%;
+    margin-left : 100px;
 }
 
 h1 {
     color: #000;
+}
+
+.container_review {
+    float: right;
+    width: 50%;
 }
 
 table {

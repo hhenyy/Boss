@@ -81,6 +81,7 @@ $(".email_auth_btn").click(function () {
             success: function (response) {
                 if (response === "N") {
                     alert("이미 등록된 이메일입니다.");
+                    $('#mEmail').val('');
                 } else {
                     // 중복되지 않으면 이메일 인증 진행
                     $.ajax({
