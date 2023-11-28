@@ -24,6 +24,7 @@
 		<typeAlias alias="qnaReply" type="boss.model.QnaReply" />
 		<typeAlias alias="freeboard" type="boss.model.FreeBoard" />
 		<typeAlias alias="masterNotice" type="boss.model.MasterNotice" />
+		<typeAlias alias="mainImage" type="boss.model.MainImage" />
 
     
 

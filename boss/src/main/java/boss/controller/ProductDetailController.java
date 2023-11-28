@@ -39,7 +39,8 @@ public class ProductDetailController {
 		
 		// 상품 불러오기
 		product = service.selectProduct(pid);
-		// 페이징 처리
+
+		// 페이징 처리 
 		System.out.println("productReviewList 들어가");
 
 		int total = service.total();

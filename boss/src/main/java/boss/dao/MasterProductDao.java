@@ -1,5 +1,6 @@
 package boss.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,9 @@ import org.apache.ibatis.annotations.Mapper;
 import boss.common.PagePgm;
 import boss.common.Search;
 import boss.model.Amount;
+import boss.model.MainImage;
+
+
 import boss.model.Member;
 import boss.model.Product;
 
@@ -52,4 +56,16 @@ public interface MasterProductDao {
 	// 구매이력이 있는 회원정보 구해오기.
 	List<Member> selectMemberOfProduct(String id);
 
+
+	// 메인 이미지 출력 리스트 구하기
+	List<MainImage> selectMainProductList();
+
+	int updateMainImageInsert(Map<String, Object> map);
+
+	// 메인 이미지 변경하기
+//	int updateMainImageInsert(@Param("product") Product product, @Param("block") String block);
+
 }
+
+
+

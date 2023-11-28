@@ -68,7 +68,7 @@
 				<li><a href="category.do?cid=맨투맨">맨투맨</a></li>
 				<!-- 최종에서는 관리자페이지 빼기 -->
 				<input type="button" value="관리자페이지"
-				onclick="location.href='masterMain.do'">
+					onclick="location.href='masterMain.do'">
 				<br>
 			</ul>
 		</nav>
@@ -93,124 +93,132 @@
 				</header>
 				<section class="tiles">
 					<article class="style1">
-						<span class="image"> <img src="images/ch3.jpg" alt="" />
-						</span> <a href="productDetail.do?pid=6">
-							<h2>오쨍군</h2>
-							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
-							</div>
-						</a>
+					<span class="image"> <c:if test="${block1 == 1 }">
+							<img src="images/${mainImageList1.mainimage} " alt="" />
+						</c:if>
 
-					</article>
-					<article class="style2">
-						<span class="image"> <img src="images/gun3.jpg" alt="" />
-						</span> <a href="productDetail.do?pid=49">
-							<h2>목도리</h2>
-							<div class="content"></div>
-						</a>
-					</article>
-					<article class="style3">
-						<span class="image"> <img src="images/ch2.jpg" alt="" />
-						</span> <a href="productDetail.do">
-							<h2>Feugiat</h2>
-							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
-							</div>
-						</a>
-					</article>
-					<article class="style4">
-						<span class="image"> <img src="images/gun4.jpg" alt="" />
-						</span> <a href="productDetail.do">
-							<h2>Tempus</h2>
-							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
-							</div>
-						</a>
-					</article>
-					<article class="style5">
-						<span class="image"> <img src="images/e1.png" alt="" />
-						</span> <a href="productDetail.do">
-							<h2>Aliquam</h2>
-							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
-							</div>
-						</a>
-					</article>
-					<article class="style6">
-						<span class="image"> <img src="images/e2.png" alt="" />
-						</span> <a href="productDetail.do">
-							<h2>Veroeros</h2>
-							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
-							</div>
-						</a>
-					</article>
-					<!-- 에러시작 -->
-					<article class="style2">
-						<span class="image"> <img src="images/e3.png" alt="" />
-						</span> <a href="productDetail.do">
-							<h2>Lorem</h2>
-							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
-							</div>
-						</a>
-					</article>
-					<article class="style3">
-						<span class="image"> <img src="images/e4.png" alt="" />
-						</span> <a href="productDetail.do">
-							<h2>Dolor</h2>
-							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
-							</div>
-						</a>
-					</article>
+					</span> <a href="productDetail.do?pid=${mainImageList1.pid }">
+						<h2>${mainImageList1.mainpname }</h2>
+						<div class="content">
+							<p>${mainImageList1.maincontent}</p>
+						</div>
+					</a>
+					<div class="buttons_master">
+					</div>
+				</article>
 					<article class="style1">
-						<span class="image"> <img src="images/gun2.jpg" alt="" />
-						</span> <a href="productDetail.do">
-							<h2>Nullam</h2>
-							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
-							</div>
-						</a>
-					</article>
-					<article class="style5">
-						<span class="image"> <img src="images/gun2.jpg" alt="" />
-						</span> <a href="productDetail.do">
-							<h2>Ultricies</h2>
-							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
-							</div>
-						</a>
-					</article>
-					<article class="style2">
-						<span class="image"> <img src="images/gun2.jpg" alt="" />
-						</span> <a href="productDetail.do">
-							<h2>Lorem</h2>
-							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
-							</div>
-						</a>
-					</article>
-					<article class="style4">
-						<span class="image"> <img src="images/gun2.jpg" alt="" />
-						</span> <a href="productDetail.do">
-							<h2>Pretium</h2>
-							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
-							</div>
-						</a>
-					</article>
+					<span class="image"> <c:if test="${block2 == 2 }">
+							<img src="images/${mainImageList2.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList2.pid }">
+						<h2>${mainImageList2.mainpname }</h2>
+						<div class="content">
+							<p>${mainImageList2.maincontent}</p>
+						</div>
+					</a>
+					<div class="buttons_master">
+					</div>
+				</article>
+					<article class="style1">
+					<span class="image"> <c:if test="${block3 == 3 }">
+							<img src="images/${mainImageList3.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList3.pid }">
+						<h2>${mainImageList3.mainpname }</h2>
+						<div class="content">
+							<p>${mainImageList3.maincontent}</p>
+						</div>
+					</a>
+					<div class="buttons_master">
+					</div>
+				</article>
+					<article class="style1">
+					<span class="image"> <c:if test="${block4 == 4 }">
+							<img src="images/${mainImageList4.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList4.pid }">
+						<h2>${mainImageList4.mainpname }</h2>
+						<div class="content">
+							<p>${mainImageList4.maincontent}</p>
+						</div>
+					</a>
+					<div class="buttons_master">
+					</div>
+				</article>
+					<article class="style1">
+					<span class="image"> <c:if test="${block5 == 5 }">
+							<img src="images/${mainImageList5.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList5.pid }">
+						<h2>${mainImageList5.mainpname }</h2>
+						<div class="content">
+							<p>${mainImageList5.maincontent}</p>
+						</div>
+					</a>
+					<div class="buttons_master">
+					</div>
+				</article>
+					<article class="style1">
+					<span class="image"> <c:if test="${block6 == 6 }">
+							<img src="images/${mainImageList6.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList6.pid }">
+						<h2>${mainImageList6.mainpname }</h2>
+						<div class="content">
+							<p>${mainImageList6.maincontent}</p>
+						</div>
+					</a>
+					<div class="buttons_master">
+					</div>
+				</article>
+					<!-- 에러시작 -->
+					<article class="style1">
+					<span class="image"> <c:if test="${block7 == 7 }">
+							<img src="images/${mainImageList7.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList7.pid }">
+						<h2>${mainImageList7.mainpname }</h2>
+						<div class="content">
+							<p>${mainImageList7.maincontent}</p>
+						</div>
+					</a>
+					<div class="buttons_master">
+					</div>
+				</article>
+					<article class="style1">
+					<span class="image"> <c:if test="${block8 == 8 }">
+							<img src="images/${mainImageList8.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList8.pid }">
+						<h2>${mainImageList8.mainpname }</h2>
+						<div class="content">
+							<p>${mainImageList8.maincontent}</p>
+						</div>
+					</a>
+					<div class="buttons_master">
+					</div>
+				</article>
+					<article class="style1">
+					<span class="image"> <c:if test="${block9 == 9 }">
+							<img src="images/${mainImageList9.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList9.pid }">
+						<h2>${mainImageList9.mainpname }</h2>
+						<div class="content">
+							<p>${mainImageList9.maincontent}</p>
+						</div>
+					</a>
+					<div class="buttons_master">
+					</div>
+				</article>
 				</section>
 			</div>
 		</div>
@@ -289,152 +297,152 @@
 			</header>
 			<section class="tiles">
 				<article class="style1">
-					<span class="image"> <img src="images/ch3.jpg" alt="" />
-					</span> <a href="productDetail.do?pid=6">
-						<h2>오쨍군</h2>
+					<span class="image"> <c:if test="${block1 == 1 }">
+							<img src="images/${mainImageList1.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList1.pid }">
+						<h2>${mainImageList1.mainpname }</h2>
 						<div class="content">
-							<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-								veroeros et feugiat.</p>
+							<p>${mainImageList1.maincontent}</p>
 						</div>
 					</a>
 					<div class="buttons_master">
-						<button class="edit-button" onClick="location.href='main.do';">수정</button>
-						<button class="add-button">등록</button>
-						<button class="delete-button">삭제</button>
+						<button class="edit-button"
+							onClick="location.href='masterProductList.do?type=change&block=1&id=${mainImageList1.pid}';">이미지
+							변경</button>
 					</div>
-				</article>
-				<article class="style2">
-					<span class="image"> <img src="images/gun3.jpg" alt="" />
-					</span> <a href="productDetail.do?pid=49">
-						<h2>목도리</h2>
-						<div class="content"></div>
-					</a>
-					<div class="buttons_master">
-						<button class="edit-button" onClick="location.href='main.do';">수정</button>
-						<button class="add-button">등록</button>
-						<button class="delete-button">삭제</button>
-					</div>
-				</article>
-				<article class="style3">
-					<span class="image"> <img src="images/ch2.jpg" alt="" />
-					</span> <a href="productDetail.do">
-						<h2>Feugiat</h2>
-						<div class="content">
-							<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-								veroeros et feugiat.</p>
-						</div>
-					</a>
-					<div class="buttons_master">
-						<button class="edit-button" onClick="location.href='main.do';">수정</button>
-						<button class="add-button">등록</button>
-						<button class="delete-button">삭제</button>
-					</div>
-				</article>
-				<article class="style4">
-					<span class="image"> <img src="images/gun4.jpg" alt="" />
-					</span> <a href="productDetail.do">
-						<h2>Tempus</h2>
-						<div class="content">
-							<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-								veroeros et feugiat.</p>
-						</div>
-					</a>
-					<div class="buttons_master">
-						<button class="edit-button" onClick="location.href='main.do';">수정</button>
-						<button class="add-button">등록</button>
-						<button class="delete-button">삭제</button>
-					</div>
-				</article>
-				<article class="style5">
-					<span class="image"> <img src="images/e1.png" alt="" />
-					</span> <a href="productDetail.do">
-						<h2>Aliquam</h2>
-						<div class="content">
-							<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-								veroeros et feugiat.</p>
-						</div>
-					</a>
-					<div class="buttons_master">
-						<button class="edit-button" onClick="location.href='main.do';">수정</button>
-						<button class="add-button">등록</button>
-						<button class="delete-button">삭제</button>
-					</div>
-				</article>
-				<article class="style6">
-					<span class="image"> <img src="images/e2.png" alt="" />
-					</span> <a href="productDetail.do">
-						<h2>Veroeros</h2>
-						<div class="content">
-							<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-								veroeros et feugiat.</p>
-						</div>
-					</a>
-					<div class="buttons_master">
-						<button class="edit-button" onClick="location.href='main.do';">수정</button>
-						<button class="add-button">등록</button>
-						<button class="delete-button">삭제</button>
-					</div>
-				</article>
-				<!-- 에러시작 -->
-				<article class="style2">
-					<span class="image"> <img src="images/e3.png" alt="" />
-					</span> <a href="productDetail.do">
-						<h2>Lorem</h2>
-						<div class="content">
-							<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-								veroeros et feugiat.</p>
-						</div>
-					</a>
-				</article>
-				<article class="style3">
-					<span class="image"> <img src="images/e4.png" alt="" />
-					</span> <a href="productDetail.do">
-						<h2>Dolor</h2>
-						<div class="content">
-							<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-								veroeros et feugiat.</p>
-						</div>
-					</a>
 				</article>
 				<article class="style1">
-					<span class="image"> <img src="images/gun2.jpg" alt="" />
-					</span> <a href="productDetail.do">
-						<h2>Nullam</h2>
+					<span class="image"> <c:if test="${block2 == 2 }">
+							<img src="images/${mainImageList2.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList2.pid }">
+						<h2>${mainImageList2.mainpname }</h2>
 						<div class="content">
-							<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-								veroeros et feugiat.</p>
+							<p>${mainImageList2.maincontent}</p>
 						</div>
 					</a>
-				</article>
-				<article class="style5">
-					<span class="image"> <img src="images/gun2.jpg" alt="" />
-					</span> <a href="productDetail.do">
-						<h2>Ultricies</h2>
-						<div class="content">
-							<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-								veroeros et feugiat.</p>
-						</div>
-					</a>
+					<div class="buttons_master">
+						<button class="edit-button"
+							onClick="location.href='masterProductList.do?type=change&block=2';">이미지
+							변경</button>
+					</div>
 				</article>
 				<article class="style2">
-					<span class="image"> <img src="images/gun2.jpg" alt="" />
-					</span> <a href="productDetail.do">
-						<h2>Lorem</h2>
+					<span class="image"> <c:if test="${block3 == 3 }">
+							<img src="images/${mainImageList3.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList3.pid }">
+						<h2>${mainImageList3.mainpname }</h2>
 						<div class="content">
-							<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-								veroeros et feugiat.</p>
+							<p>${mainImageList3.maincontent}</p>
 						</div>
 					</a>
+					<div class="buttons_master">
+						<button class="edit-button"
+							onClick="location.href='masterProductList.do?type=change&block=3';">이미지
+							변경</button>
+					</div>
 				</article>
-				<article class="style4">
-					<span class="image"> <img src="images/gun2.jpg" alt="" />
-					</span> <a href="productDetail.do">
-						<h2>Pretium</h2>
+				 <article class="style3">
+					<span class="image"> <c:if test="${block4 == 4 }">
+							<img src="images/${mainImageList4.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList4.pid }">
+						<h2>${mainImageList4.mainpname }</h2>
 						<div class="content">
-							<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-								veroeros et feugiat.</p>
+							<p>${mainImageList4.maincontent}</p>
 						</div>
 					</a>
+					<div class="buttons_master">
+						<button class="edit-button"
+							onClick="location.href='masterProductList.do?type=change&block=4';">이미지
+							변경</button>
+					</div>
+				</article><article class="style4">
+					<span class="image"> <c:if test="${block5 == 5 }">
+							<img src="images/${mainImageList5.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList5.pid }">
+						<h2>${mainImageList5.mainpname }</h2>
+						<div class="content">
+							<p>${mainImageList5.maincontent}</p>
+						</div>
+					</a>
+					<div class="buttons_master">
+						<button class="edit-button"
+							onClick="location.href='masterProductList.do?type=change&block=5';">이미지
+							변경</button>
+					</div>
+				</article><article class="style5">
+					<span class="image"> <c:if test="${block6 == 6 }">
+							<img src="images/${mainImageList6.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList6.pid }">
+						<h2>${mainImageList6.mainpname }</h2>
+						<div class="content">
+							<p>${mainImageList6.maincontent}</p>
+						</div>
+					</a>
+					<div class="buttons_master">
+						<button class="edit-button"
+							onClick="location.href='masterProductList.do?type=change&block=6';">이미지
+							변경</button>
+					</div>
+				</article><article class="style6">
+					<span class="image"> <c:if test="${block7 ==  7}">
+							<img src="images/${mainImageList7.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList7.pid }">
+						<h2>${mainImageList7.mainpname }</h2>
+						<div class="content">
+							<p>${mainImageList7.maincontent}</p>
+						</div>
+					</a>
+					<div class="buttons_master">
+						<button class="edit-button"
+							onClick="location.href='masterProductList.do?type=change&block=7';">이미지
+							변경</button>
+					</div>
+				</article><article class="style1">
+					<span class="image"> <c:if test="${block8 == 8 }">
+							<img src="images/${mainImageList8.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList8.pid }">
+						<h2>${mainImageList8.mainpname }</h2>
+						<div class="content">
+							<p>${mainImageList8.maincontent}</p>
+						</div>
+					</a>
+					<div class="buttons_master">
+						<button class="edit-button"
+							onClick="location.href='masterProductList.do?type=change&block=8';">이미지
+							변경</button>
+					</div>
+				</article><article class="style2">
+					<span class="image"> <c:if test="${block9 == 9 }">
+							<img src="images/${mainImageList9.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList9.pid }">
+						<h2>${mainImageList9.mainpname }</h2>
+						<div class="content">
+							<p>${mainImageList9.maincontent}</p>
+						</div>
+					</a>
+					<div class="buttons_master">
+						<button class="edit-button"
+							onClick="location.href='masterProductList.do?type=change&block=9';">이미지
+							변경</button>
+					</div>
 				</article>
 			</section>
 		</div>
@@ -510,124 +518,132 @@
 				</header>
 				<section class="tiles">
 					<article class="style1">
-						<span class="image"> <img src="images/ch3.jpg" alt="" />
-						</span> <a href="productDetail.do?pid=6">
-							<h2>오쨍군</h2>
-							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
-							</div>
-						</a>
+					<span class="image"> <c:if test="${block1 == 1 }">
+							<img src="images/${mainImageList1.mainimage} " alt="" />
+						</c:if>
 
-					</article>
-					<article class="style2">
-						<span class="image"> <img src="images/gun3.jpg" alt="" />
-						</span> <a href="productDetail.do?pid=49">
-							<h2>목도리</h2>
-							<div class="content"></div>
-						</a>
-					</article>
-					<article class="style3">
-						<span class="image"> <img src="images/ch2.jpg" alt="" />
-						</span> <a href="productDetail.do">
-							<h2>Feugiat</h2>
-							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
-							</div>
-						</a>
-					</article>
-					<article class="style4">
-						<span class="image"> <img src="images/gun4.jpg" alt="" />
-						</span> <a href="productDetail.do">
-							<h2>Tempus</h2>
-							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
-							</div>
-						</a>
-					</article>
-					<article class="style5">
-						<span class="image"> <img src="images/e1.png" alt="" />
-						</span> <a href="productDetail.do">
-							<h2>Aliquam</h2>
-							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
-							</div>
-						</a>
-					</article>
-					<article class="style6">
-						<span class="image"> <img src="images/e2.png" alt="" />
-						</span> <a href="productDetail.do">
-							<h2>Veroeros</h2>
-							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
-							</div>
-						</a>
-					</article>
-					<!-- 에러시작 -->
-					<article class="style2">
-						<span class="image"> <img src="images/e3.png" alt="" />
-						</span> <a href="productDetail.do">
-							<h2>Lorem</h2>
-							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
-							</div>
-						</a>
-					</article>
-					<article class="style3">
-						<span class="image"> <img src="images/e4.png" alt="" />
-						</span> <a href="productDetail.do">
-							<h2>Dolor</h2>
-							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
-							</div>
-						</a>
-					</article>
+					</span> <a href="productDetail.do?pid=${mainImageList1.pid }">
+						<h2>${mainImageList1.mainpname }</h2>
+						<div class="content">
+							<p>${mainImageList1.maincontent}</p>
+						</div>
+					</a>
+					<div class="buttons_master">
+					</div>
+				</article>
 					<article class="style1">
-						<span class="image"> <img src="images/gun2.jpg" alt="" />
-						</span> <a href="productDetail.do">
-							<h2>Nullam</h2>
-							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
-							</div>
-						</a>
-					</article>
-					<article class="style5">
-						<span class="image"> <img src="images/gun2.jpg" alt="" />
-						</span> <a href="productDetail.do">
-							<h2>Ultricies</h2>
-							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
-							</div>
-						</a>
-					</article>
-					<article class="style2">
-						<span class="image"> <img src="images/gun2.jpg" alt="" />
-						</span> <a href="productDetail.do">
-							<h2>Lorem</h2>
-							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
-							</div>
-						</a>
-					</article>
-					<article class="style4">
-						<span class="image"> <img src="images/gun2.jpg" alt="" />
-						</span> <a href="productDetail.do">
-							<h2>Pretium</h2>
-							<div class="content">
-								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor
-									veroeros et feugiat.</p>
-							</div>
-						</a>
-					</article>
+					<span class="image"> <c:if test="${block2 == 2 }">
+							<img src="images/${mainImageList2.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList2.pid }">
+						<h2>${mainImageList2.mainpname }</h2>
+						<div class="content">
+							<p>${mainImageList2.maincontent}</p>
+						</div>
+					</a>
+					<div class="buttons_master">
+					</div>
+				</article>
+					<article class="style1">
+					<span class="image"> <c:if test="${block3 == 3 }">
+							<img src="images/${mainImageList3.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList3.pid }">
+						<h2>${mainImageList3.mainpname }</h2>
+						<div class="content">
+							<p>${mainImageList3.maincontent}</p>
+						</div>
+					</a>
+					<div class="buttons_master">
+					</div>
+				</article>
+					<article class="style1">
+					<span class="image"> <c:if test="${block4 == 4 }">
+							<img src="images/${mainImageList4.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList4.pid }">
+						<h2>${mainImageList4.mainpname }</h2>
+						<div class="content">
+							<p>${mainImageList4.maincontent}</p>
+						</div>
+					</a>
+					<div class="buttons_master">
+					</div>
+				</article>
+					<article class="style1">
+					<span class="image"> <c:if test="${block5 == 5 }">
+							<img src="images/${mainImageList5.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList5.pid }">
+						<h2>${mainImageList5.mainpname }</h2>
+						<div class="content">
+							<p>${mainImageList5.maincontent}</p>
+						</div>
+					</a>
+					<div class="buttons_master">
+					</div>
+				</article>
+					<article class="style1">
+					<span class="image"> <c:if test="${block6 == 6 }">
+							<img src="images/${mainImageList6.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList6.pid }">
+						<h2>${mainImageList6.mainpname }</h2>
+						<div class="content">
+							<p>${mainImageList6.maincontent}</p>
+						</div>
+					</a>
+					<div class="buttons_master">
+					</div>
+				</article>
+					<!-- 에러시작 -->
+					<article class="style1">
+					<span class="image"> <c:if test="${block7 == 7 }">
+							<img src="images/${mainImageList7.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList7.pid }">
+						<h2>${mainImageList7.mainpname }</h2>
+						<div class="content">
+							<p>${mainImageList7.maincontent}</p>
+						</div>
+					</a>
+					<div class="buttons_master">
+					</div>
+				</article>
+					<article class="style1">
+					<span class="image"> <c:if test="${block8 == 8 }">
+							<img src="images/${mainImageList8.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList8.pid }">
+						<h2>${mainImageList8.mainpname }</h2>
+						<div class="content">
+							<p>${mainImageList8.maincontent}</p>
+						</div>
+					</a>
+					<div class="buttons_master">
+					</div>
+				</article>
+					<article class="style1">
+					<span class="image"> <c:if test="${block9 == 9 }">
+							<img src="images/${mainImageList9.mainimage} " alt="" />
+						</c:if>
+
+					</span> <a href="productDetail.do?pid=${mainImageList9.pid }">
+						<h2>${mainImageList9.mainpname }</h2>
+						<div class="content">
+							<p>${mainImageList9.maincontent}</p>
+						</div>
+					</a>
+					<div class="buttons_master">
+					</div>
+				</article>
 				</section>
 			</div>
 		</div>

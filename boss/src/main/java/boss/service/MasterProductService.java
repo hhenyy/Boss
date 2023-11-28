@@ -1,5 +1,6 @@
 package boss.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,8 @@ import boss.common.PagePgm;
 import boss.common.Search;
 import boss.dao.MasterProductDao;
 import boss.model.Amount;
+import boss.model.MainImage;
+
 import boss.model.Member;
 import boss.model.Product;
 
@@ -96,6 +99,25 @@ public class MasterProductService {
 	// 구매이력이 있는 회원정보 구해오기.
 	public List<Member> selectMemberOfProduct(String id) {
 		return dao.selectMemberOfProduct(id);
+	}
+
+	// 구매이력이 있는 회원정보 구해오기.
+	public List<Member> selectMemberOfProduct(String id) {
+		return dao.selectMemberOfProduct(id);
+	}
+
+	// 메인 이미지 리스트 구하기
+	public List<MainImage> selectMainProductList() {
+		return dao.selectMainProductList();
+	}
+
+//	// 메인 이미지 변경
+//	public int updateMainImageInsert(Product product, String block) {
+//		return dao.updateMainImageInsert(product,block);
+//	}
+
+	public int updateMainImageInsert(Map<String, Object> map) {
+		return dao.updateMainImageInsert(map);
 	}
 
 }
