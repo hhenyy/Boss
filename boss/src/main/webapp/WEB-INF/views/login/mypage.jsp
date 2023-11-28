@@ -44,9 +44,11 @@
 						<th>상품명</th>
 						<th>상품 이미지</th>
 						<th>주문 상품 수량</th>
+						<th>상품 배송 상태</th>
 						<th>주문일</th>
 					</tr>
 					
+					<c:forEach items = "#{statusMsg }" var = "msg" varStatus="loop">
 					<c:forEach items="${ordersList}" var="order" varStatus="loop">
 						<td>${order['OID']}</td>
 						<td>${order['PNAME']}</td>
@@ -55,16 +57,26 @@
 							class="toggle-image"> <span class="text-on-image">${o.PTEXT}</span>
 						</td>
 						<td>${order['ODCOUNT']}</td>
-						<td>${order['OREG']}</td>
+						<td>${msg }</td>
+						<fmt:formatDate value="${order['OREG']}" pattern="yyyy년 MM월 dd일" var="formattedDate" />
+						<td>${formattedDate}</td>
 					</c:forEach>
-					
-					
+					</c:forEach>
 				</table>
-
-
 			</div>
 			<!-- container_orders -->
-
+			
+			<div class="container_review">
+					<h1 class="orderHeader">내가 쓴 QnA</h1>
+						<table border="1">
+					<tr>
+						<th>QnA 제목</th>
+						<th>작성일</th>
+						<th>답변 여부</th>
+					</tr>
+					</table>
+			</div>
+			
 		</div>
 		<!-- container_main -->
 	</c:if>
