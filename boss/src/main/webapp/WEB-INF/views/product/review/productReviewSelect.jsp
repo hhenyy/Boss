@@ -19,37 +19,36 @@
 	<!-- 		<h1 class="bbswrite_title" align="center">리뷰 작성</h1> -->
 	<form method="post" action="prselect.do">
 		<table class="review_select">
-			
+
 
 
 			<tr>
 				<th>작성자</th>
-				<td style="color:black;">${review.rwriter }</td>
+				<td style="color: black;">${review.rwriter }</td>
 			</tr>
 
-			
+
 
 			<tr>
 				<th>글제목</th>
-				<td style="color:black;">${review.rtitle}</td>
+				<td style="color: black;">${review.rtitle}</td>
 			</tr>
 			<tr>
 				<th>이미지</th>
-				<td><img src="images/gun3.jpg" alt="#" width="500" hight="500"/></td>
+				<td><img src="images/gun3.jpg" alt="#" width="500" hight="500" /></td>
 			</tr>
 
 			<tr>
-				<th>글내용</th>
-				<td style="color:black;"> ${review.rcontent}</td>
+				<th >글내용</th>
+				<td rowspan="2" style="color: black;">${review.rcontent}</td>
 			</tr>
 
 		</table>
 
-	<div class="button_select">
-		<button type="submit" class="review_button1">수정</button>
-		<button type="button" class="review_button1"
-			onclick="history.go(-1)">취소</button>
-	</div>
+		<div class="button_select">
+			<button type="submit" class="review_button1">수정</button>
+			<button type="button" class="review_button1" onclick="history.go(-1)">취소</button>
+		</div>
 	</form>
 
 	<!-- css 양식 include -->
