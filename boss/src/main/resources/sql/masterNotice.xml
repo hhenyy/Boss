@@ -9,9 +9,8 @@
 		select count(*) from MasterNotice
 	</select>
 
-
 	<!-- 페이징 처리 후 게시글 조회 -->
-	<select id="noticeList" resultType="MasterNotice" parameterType="pagePgm">
+	<select id="noticeList" resultType="masterNotice" parameterType="pagePgm">
 		SELECT *
 		FROM (
 		SELECT ROWNUM RN, NOTICE.*
@@ -24,9 +23,14 @@
 		WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 
+	<insert id="noticeInsert" parameterType="masterNotice">
+		insert into MasterNotice values(MASTERNOTICE_SEQ.nextval,#{mnTitle},#{mnContent},SYSDATE,#{mnOriFile,jdbcType=VARCHAR},#{mnReadCount})
+	</insert>
+	
+	
 	<!-- total구하기 -->
 	<select id="total" resultType="int">
-		SELECT COUNT(*) FROM member
+		SELECT COUNT(*) FROM masterNotice
 	</select>
 	<!-- ID기준으로 회원정보를 수정 -->
 	<update id="update" parameterType="member">
