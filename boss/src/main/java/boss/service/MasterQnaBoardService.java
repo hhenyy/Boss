@@ -44,8 +44,8 @@ public class MasterQnaBoardService {
 	/*
 	 * 댓글 상세정보 1개 구하기 메소드
 	 */
-	public QnaReply selectReplyOne(int qid) {
-		return dao.selectReplyOne(qid);
+	public QnaReply selectReplyOne(int id) {
+		return dao.selectReplyOne(id);
 	}
 
 	public int deleteQna(List<String> idList) {
@@ -53,8 +53,8 @@ public class MasterQnaBoardService {
 	}
 
 	// qnaBoard 답변 상태 'Y'변겅
-	public int updateQnaBoardReplyYn(int qid) {
-		return dao.updateQnaBoardReplyYn(qid);
+	public int updateQnaBoardReplyYn(int id) {
+		return dao.updateQnaBoardReplyYn(id);
 
 	}
 

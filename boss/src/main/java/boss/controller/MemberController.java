@@ -87,14 +87,6 @@ public class MemberController {
 		return "Y";
 	}
 
-	/*
-	 * 메인 페이지 이동 메소드
-	 */
-	@RequestMapping(value = "main.do")
-	public String doMain() {
-		return "common/main";
-	}
-
 	// 로그인 첫 화면 요청 메소드 ( 기본 로그인 폼으로 이동 할때 꼭 써야 함 )
 	@RequestMapping(value = "NaverLogin.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String login(Model model, HttpSession session) {

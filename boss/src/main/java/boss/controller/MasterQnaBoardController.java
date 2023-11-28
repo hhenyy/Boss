@@ -109,37 +109,33 @@ public class MasterQnaBoardController {
 		page = new PagePgm(totalQnaCount, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		System.out.println("masterQnaReplyInsert");
 		System.out.println("qid22 : " + request.getParameter("qid"));
-		int qid = Integer.parseInt(request.getParameter("qid"));
+		int id = Integer.parseInt(request.getParameter("qid"));
 		String memail = request.getParameter("memail");
 		String qrcontent = request.getParameter("qrcontent");
 
-		System.out.println("qid : " + qid);
+		System.out.println("qid : " + id);
 		System.out.println("memail : " + memail);
 		System.out.println("qrcontent : " + qrcontent);
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("qid", qid);
+		map.put("id", id);
 		map.put("memail", memail);
 		map.put("qrcontent", qrcontent);
 		List<QnaBoard> list = service.selectQnaBoardList(page);
-
-		int result = service.insertReply(map);
-		System.out.println("여기까지옴?");
-
 		
 		// 댓글 저장
 		int inset = service.insertReply(map);
 		// qnaBoard 답변 상태 'Y'변겅
-		int update = service.updateQnaBoardReplyYn(qid);
+		int update = service.updateQnaBoardReplyYn(id);
 		System.out.println("update성공 : " + update);
 		
 		System.out.println("여기까지옴?");
-		QnaReply qnaReply = service.selectReplyOne(qid);
+		//QnaReply qnaReply = service.selectReplyOne(id);
 		
-		model.addAttribute("qid", qid);
-		model.addAttribute("memail", memail);
+		model.addAttribute("id", id);
+		//model.addAttribute("memail", memail);
 		model.addAttribute("qrcontent", qrcontent);
-		model.addAttribute("qnaReply", qnaReply);
+		//model.addAttribute("qnaReply", qnaReply);
 		model.addAttribute("page", page);
 		model.addAttribute("nowPage", nowPage);
 		model.addAttribute("cntPerPage", cntPerPage);

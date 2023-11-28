@@ -17,12 +17,10 @@
 		resultType="qnaBoard">
 		select *
 		from (select rownum rnum, qnaboard.*
-		from (select *
-		from qnaboard order by qnareg desc) qnaboard)
+			  from (select *
+		            from qnaboard order by qnayn asc,qnareg desc) qnaboard)
 		where rnum between
 		#{startRow} and #{endRow}
-		from (select * from qnaboard order by qnayn asc,qnareg desc) qnaboard)
-		where rnum between #{startRow} and #{endRow}
 	</select>
 
 
@@ -31,19 +29,19 @@
 	<!-- qna 게시글 상세정보 구하기 -->
 	<select id="selectQnaDetail" parameterType="int"
 		resultType="qnaBoard">
-		select * from qnaBoard where qid=#{qid}
+		select * from qnaBoard where qid=#{id}
 	</select>
 
 	<!-- qna 답글 저장 -->
 	<insert id="insertReply" parameterType="Map">
 		insert into qnareply
-		values(qnareply_seq.nextval,#{memail},#{qid},#{qrcontent},sysdate,default)
+		values(qnareply_seq.nextval,#{memail},#{id},#{qrcontent},sysdate,default)
 	</insert>
 
 	<!-- qna 1개 댓글 구하기 -->
 	<select id="selectReplyOne" parameterType="int"
 		resultType="qnaReply">
-		select * from qnareply where pid=#{pid}
+		select * from qnareply where qid=#{id}
 	</select>
 
 	<!-- 상품 전체 삭제('Y') 업데이트 -->
@@ -65,7 +63,7 @@
 		
 	<!-- qnaBoard 답변 상태 'Y'변겅 -->	
 	<update id="updateQnaBoardReplyYn" parameterType="int">
-		update qnaboard set qnayn='Y' where qid=#{qid}
+		update qnaboard set qnayn='Y' where qid=#{id}
 	</update>
 		
 	<!-- qna 답글 수정 하기 -->	
