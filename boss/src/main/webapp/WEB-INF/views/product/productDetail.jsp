@@ -33,7 +33,7 @@
 			<!-- 이미지 경로 불러오기 -->
 			<img alt="상품이미지" src="./images/${product.pimage }"
 				class="centered-image"> <img alt="상품이미지"
-				src="images/${product.pimage }" class="centered-image">
+				src="./images/${product.pimage }" class="centered-image">
 		</div>
 
 		<div class="container_right">
@@ -105,6 +105,7 @@
 				<tr align="center">
 					<th>리뷰 번호</th>
 					<th>아이디</th>
+					<th>사진</th>
 					<th>리뷰 게시글</th>
 					<th>이름</th>
 					<th>날짜</th>
@@ -114,6 +115,7 @@
 					<tr onclick="location.href='productReviewSelect.do?rid=${review.rid}&pid=${review.pid}'">
 						<td>${review.rid}</td>
 						<td>${review.memail}</td>
+						<td><img alt="상품이미지" src="./images/${review.rimage }"style="max-width: 100px; max-height: 100px;"/></td>
 						<td>${review.rcontent}</td>
 						<td>${review.rwriter}</td>
 						<td>${review.rreg}</td>
@@ -163,8 +165,13 @@
 			<!-- 					<td>별점추가예정</td> -->
 			<!-- 				</tr> -->
 		</div>
-		<button type="button" class="button1"
+		<!-- 비로그인일 때 리뷰 작성 버튼이 안보임 -->
+		<c:if test="${member != null }">
+			<button type="button" class="button1"
 			onclick="location.href='productReviewInsertForm.do?pid=3'">리뷰 작성</button>
+		</c:if>
+		
+			
 	</div>
 
 	<!-- 문의게시판 -->

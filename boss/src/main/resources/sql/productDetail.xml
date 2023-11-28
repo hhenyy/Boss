@@ -11,17 +11,25 @@
 		from product where pid=#{pid}
 	</select>
 
+	<!-- 리뷰 리스트 가져오기 -->
+	<select id="selectMemberReview" parameterType="String"
+		resultType="review">
 
+		select * from review where memail = #{memail}
 
+	</select>
+
+	<!-- 한명의 리뷰 가져오기 -->
 	<select id="selectReviewOne" resultType="review"
-		parameterType="int">
-		SELECT * FROM review where rid = #{rid}
+		parameterType="String">
+		SELECT * FROM review where memail = #{memail}
 	</select>
 
 	<select id="prselect" resultType="review" parameterType="int">
 		SELECT *
 		FROM review where rid = #{rid}
 	</select>
+
 
 	<select id="total" resultType="int">
 		select count(*) from review
@@ -42,11 +50,15 @@
 	</select>
 
 	<!-- 리뷰 게시판 작성 -->
-<!-- 	<insert id="insert" parameterType="review" > -->
-<!-- 		insert insert review (rwriter, -->
-<!-- 		rtitle, rimage_path, rcontent) -->
-<!-- 		VALUES (?, ?, ?, ?) -->
-<!-- 	</insert> -->
+	<insert id="reviewInsert" parameterType="Map">
+		insert into review
+		values (
+		REAVIEW_SEQ.nextval,
+		#{memail}, #{oid}, #{pid},
+		#{rwriter}, #{rtitle},
+		#{rimage}, sysdate, 0, default, #{rcontent}
+		)
+	</insert>
 
 
 
