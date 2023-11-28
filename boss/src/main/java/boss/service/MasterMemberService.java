@@ -9,6 +9,7 @@ import boss.common.PagePgm;
 import boss.common.Search;
 import boss.dao.MasterMemberDao;
 import boss.model.Member;
+import boss.model.Product;
 
 @Service
 public class MasterMemberService {
@@ -40,6 +41,11 @@ public class MasterMemberService {
 
 	public List<Member> searchMember(Search search) {
 		return dao.searchMember(search);
+	}
+
+	// 회원별 상품목록 구하기
+	public List<Product> selectProductOfMember(String id) {
+		return dao.selectProductOfMember(id);
 	}
 
 }

@@ -20,17 +20,17 @@ public interface MasterQnaBoardDao {
 	List<QnaBoard> selectQnaBoardList(PagePgm page);
 
 	// Qna 게시글 상세정보 구하기
-	QnaBoard selectQnaDetail(int pid);
+	QnaBoard selectQnaDetail(int id);
 
 	// qna 답글 저장
 	int insertReply(Map<String, Object> map);
 
 	// 댓글 상세 1개 구하기 
-	QnaReply selectReplyOne(int qid);
+	QnaReply selectReplyOne(int id);
 
 	int deleteQna(List<String> idList);
 	// qnaBoard 답변 상태 'Y'변겅
-	int updateQnaBoardReplyYn(int qid);
+	int updateQnaBoardReplyYn(int id);
 
 	// qna답글 수정 하기
 	int updateQnaReply(Map<String, Object> map);

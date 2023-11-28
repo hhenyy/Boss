@@ -43,6 +43,64 @@
 						onclick="location.href='masterMemberDelete.do?id=${member.mEmail}' ">삭제</button></td>
 			</tr>
 		</table>
+		<table class="fancy_table">
+
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr align="center">
+				<td colspan="7"
+					style="padding: 20px; color: deeppink; font-size: 40px; font-weight: bold;">주문
+					상품 목록</td>
+
+			</tr>
+			<tr>
+				<th>상품코드</th>
+				<th>이미지</th>
+				<th>상품명</th>
+				<th>색상</th>
+				<th>사이즈</th>
+				<th>설명</th>
+				<th>등록일</th>
+			</tr>
+
+			<c:forEach var="product" items="${productList}" varStatus="loop">
+				<tr>
+					<td style="font-size: 25px !important;"
+						onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.pid}
+					</td>
+					<td style="font-size: 25px !important;"
+						onclick="location.href='masterProductDetail.do?id=${product.pid}' "><img
+						src="./images/${product.pimage }" width="100" height="100"></td>
+					<td style="font-size: 25px !important;"
+						onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.pname }</td>
+					<td style="font-size: 25px !important;"
+						onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.pcolor }</td>
+					<td style="font-size: 25px !important;"
+						onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.psize }</td>
+					<td style="font-size: 25px !important;"
+						onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.pcontent }</td>
+					<td style="font-size: 25px !important;"
+						onclick="location.href='masterProductDetail.do?id=${product.pid}' ">
+						<fmt:formatDate pattern="yyyy/MM/dd" value="${product.preg}" />
+					</td>
+				</tr>
+
+
+
+
+			</c:forEach>
+		</table>
+		<h4 class="info-message">클릭시 해당 상품으로 이동합니다.</h4>
+	</div>
+	<br>
+
 	</div>
 	<%@ include file="../../common/footer.jsp"%>
 </body>

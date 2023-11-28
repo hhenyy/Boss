@@ -112,7 +112,21 @@
 		</foreach>
 	</update>
 
-
+	<!-- pid를 기준으로 구매한 이력이 있는 회원 목록을 구해옴. -->
+	<select id="selectMemberOfProduct" parameterType="String"
+		resultType="member">
+		SELECT *
+		FROM member
+		WHERE memail IN (
+		SELECT memail
+		FROM
+		orderdetail
+		JOIN orders USING (oid)
+		JOIN product ON orderdetail.pid =
+		product.pid
+		WHERE product.pid = #{id}
+		)
+	</select>
 </mapper>
 
 

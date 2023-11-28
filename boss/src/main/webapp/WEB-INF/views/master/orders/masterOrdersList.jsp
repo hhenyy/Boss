@@ -20,9 +20,6 @@
 	}
 </script>
 
-
-
-
 </head>
 <body>
 	<%@ include file="../common/masterNav.jsp"%>
@@ -48,8 +45,7 @@
 		<!-- 옵션선택 끝 -->
 		<table>
 			<tr>
-				<th><label><input type="checkbox"
-						class="check-all-checkbox">주문번호</label></th>
+				<th>주문번호</th>
 				<th>ID</th>
 				<th>수령인</th>
 				<th>휴대폰</th>
@@ -63,8 +59,7 @@
 			<c:set var="i" value="1"></c:set>
 			<c:forEach var="orders" items="${list}" varStatus="loop">
 				<tr>
-					<td id="${i }"><label><input type="checkbox"
-							name="chkId" value="${orders.oid }">${orders.oid }</label></td>
+					<td id="${i }">${orders.oid }</td>
 					<td
 						onclick="location.href='masterOrdersSelect.do?oid=${orders.oid}' ">${orders.memail}</td>
 					<td
@@ -90,72 +85,38 @@
 		</table>
 		<div align="right" class="search">
 			<form action="masterOrdersSearch.do" method="post">
-				<select class="putsub" name="type">
+				<select class="putsub" name="searchtype">
 					<option value="">검색 유형 선택</option>
-					<option value="eEmail">ID</option>
-					<option value="eName">이름</option>
-					<option value="eAddress">주소</option>
-					<option value="eGrade">회원등급</option>
+					<option value="memail">ID</option>
+					<option value="oname">수령인</option>
+					<option value="oid">주문번호</option>
+					<option value="opost">우편번호</option>
 				</select> <input type="text" align="right" id="keyword" name="keyword"
 					placeholder="검색어를 입력하세요." maxlength="10" class="text-input">
 				<input type="submit" value="검색" class="putsub">
 			</form>
-
-			<div class="pageFont1">
-				<c:if test="${pp.startPage != 1 }">
-					<a style="text-decoration: none; color: deeppink"
-						href="./masterOrdersList.do?nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}">
-						< </a>
-				</c:if>
-				<c:forEach begin="${pp.startPage }" end="${pp.endPage }" var="p">
-					<c:choose>
-						<c:when test="${p == pp.nowPage }">
-							<b>${p }</b>
-						</c:when>
-						<c:when test="${p != pp.nowPage }">
-							<a style="text-decoration: none; color: deeppink"
-								href="./masterOrdersList.do?nowPage=${p }&cntPerPage=${pp.cntPerPage}">${p }</a>
-						</c:when>
-					</c:choose>
-				</c:forEach>
-				<c:if test="${pp.endPage != pp.lastPage}">
-			</table>
-
-			<button type="submit" align="left" class="putsub">선택삭제</button>
-			<div align="right" class="search">
-	</form>
-	<form action="masterOrdersSearch.do" method="post">
-		<select class="putsub" name="searchtype">
-			<option value="">검색 유형 선택</option>
-			<option value="memail">ID</option>
-			<option value="oname">수령인</option>
-			<option value="oid">주문번호</option>
-			<option value="opost">우편번호</option>
-		</select> <input type="text" align="right" id="keyword" name="keyword"
-			placeholder="검색어를 입력하세요." maxlength="10" class="text-input">
-		<input type="submit" value="검색" class="putsub">
-	</form>
-
-	<div class="pageFont1">
-		<c:if test="${pp.startPage != 1 }">
-			<a style="text-decoration: none; color: deeppink"
-				href="./masterOrdersList.do?nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}">
-				< </a>
-		</c:if>
-		<c:forEach begin="${pp.startPage }" end="${pp.endPage }" var="p">
-			<c:choose>
-				<c:when test="${p == pp.nowPage }">
-					<b>${p }</b>
-				</c:when>
-				<c:when test="${p != pp.nowPage }">
-					<a style="text-decoration: none; color: deeppink"
-						href="./masterOrdersList.do?nowPage=${pp.endPage+1 }&cntPerPage=${pp.cntPerPage}">
-						> </a>
-				</c:if>
-			</div>
-			<h4 class="info-message">클릭시 해당 주문으로 이동합니다.</h4>
-			<h4 class="info-message">마우스 드래그로 대략적인 내용을 볼 수 있습니다.</h4>
 		</div>
-		<%@ include file="../../common/footer.jsp"%>
+		<div class="pageFont1">
+			<c:if test="${pp.startPage != 1 }">
+				<a style="text-decoration: none; color: deeppink"
+					href="./masterOrdersList.do?nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}">
+					< </a>
+			</c:if>
+			<c:forEach begin="${pp.startPage }" end="${pp.endPage }" var="p">
+				<c:choose>
+					<c:when test="${p == pp.nowPage }">
+						<b>${p }</b>
+					</c:when>
+					<c:when test="${p != pp.nowPage }">
+						<a style="text-decoration: none; color: deeppink"
+							href="./masterOrdersList.do?nowPage=${p }&cntPerPage=${pp.cntPerPage}">${p }</a>
+					</c:when>
+				</c:choose>
+			</c:forEach>
+		</div>
+		<h4 class="info-message">클릭시 해당 주문으로 이동합니다.</h4>
+		<h4 class="info-message">마우스 드래그로 대략적인 내용을 볼 수 있습니다.</h4>
+	</div>
+	<%@ include file="../../common/footer.jsp"%>
 </body>
 </html>

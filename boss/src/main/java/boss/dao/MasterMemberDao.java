@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import boss.common.PagePgm;
 import boss.common.Search;
 import boss.model.Member;
+import boss.model.Product;
 
 @Mapper
 public interface MasterMemberDao {
@@ -29,6 +30,9 @@ public interface MasterMemberDao {
 
 	// 유형별 검색
 	List<Member> searchMember(Search search);
+	
+	// 회원별 상품목록 구하기
+	List<Product> selectProductOfMember(String id);
 
 
 }
