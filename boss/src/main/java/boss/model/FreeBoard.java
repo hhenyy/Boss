@@ -11,6 +11,46 @@ public class FreeBoard {
 	private int fLike; 			/* 좋아요 */
 	private Date fReg; 			/* 작성일 */
 	private String fDrop; 		/* free 삭제 여부 */
+	
+	// page
+	private int startRow;
+	private int endRow;
+	
+	// 검색
+	private String search;
+	private String keyword;
+
+	public int getStartRow() {
+		return startRow;
+	}
+
+	public void setStartRow(int startRow) {
+		this.startRow = startRow;
+	}
+
+	public int getEndRow() {
+		return endRow;
+	}
+
+	public void setEndRow(int endRow) {
+		this.endRow = endRow;
+	}
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
 
 	public int getfId() {
 		return fId;

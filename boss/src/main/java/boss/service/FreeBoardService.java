@@ -14,16 +14,16 @@ public class FreeBoardService {
 	@Autowired
 	private FreeBoardDao fdao;
 	
-	public void insert(FreeBoard board) {
-		fdao.insert(board);
+	public int insert(FreeBoard board) {
+		return fdao.insert(board);
 	}
 
-	public int freeBoardListCount() {
-		return fdao.listcount();
+	public int freeBoardListCount(FreeBoard board) {
+		return fdao.listcount(board);
 	}
 
-	public List<FreeBoard> freeBoardList(int page) {
-		return fdao.selectList(page);
+	public List<FreeBoard> freeBoardList(FreeBoard board) {
+		return fdao.selectList(board);
 	}
 
 	public void readcount(int fId) {
@@ -32,6 +32,15 @@ public class FreeBoardService {
 
 	public FreeBoard getDetail(int fId) {
 		return fdao.getDetail(fId);
+	}
+
+	public void update(FreeBoard board) {
+		fdao.update(board);
+		
+	}
+
+	public void delete(int fId) {
+		fdao.delete(fId);
 	}
 
 
