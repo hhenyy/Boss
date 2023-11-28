@@ -24,6 +24,7 @@
 <body>
    <%@ include file="../common/masterNav.jsp"%>
 
+
    <div class="container">
 
       <h1 class="h1_caption">주 문 관 리</h1>
@@ -118,5 +119,8 @@
       <h4 class="info-message">마우스 드래그로 대략적인 내용을 볼 수 있습니다.</h4>
    </div>
    <%@ include file="../../common/footer.jsp"%>
+
+
+
 </body>
 </html>

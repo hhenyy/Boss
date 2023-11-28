@@ -13,6 +13,7 @@
 <!-- css 양식 include -->
 </head>
 <body>
+
    <%@ include file="../common/masterNav.jsp"%>
 
    <div class="container">
@@ -110,6 +111,7 @@
       <h4 class="info-message">클릭시 해당 회원으로 이동합니다.</h4>
    </div>
    <br>
+
 
 </body>
 </html>

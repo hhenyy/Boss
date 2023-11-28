@@ -12,6 +12,7 @@ import boss.common.Search;
 import boss.dao.MasterProductDao;
 import boss.model.Amount;
 import boss.model.MainImage;
+
 import boss.model.Member;
 import boss.model.Product;
 
@@ -93,6 +94,11 @@ public class MasterProductService {
 	public int deleteProduct(List<String> id) {
 
 		return dao.deleteProduct(id);
+	}
+	
+	// 구매이력이 있는 회원정보 구해오기.
+	public List<Member> selectMemberOfProduct(String id) {
+		return dao.selectMemberOfProduct(id);
 	}
 
 	// 구매이력이 있는 회원정보 구해오기.

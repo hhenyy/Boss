@@ -10,6 +10,8 @@ import boss.common.PagePgm;
 import boss.common.Search;
 import boss.model.Amount;
 import boss.model.MainImage;
+
+
 import boss.model.Member;
 import boss.model.Product;
 
@@ -54,6 +56,7 @@ public interface MasterProductDao {
 	// 구매이력이 있는 회원정보 구해오기.
 	List<Member> selectMemberOfProduct(String id);
 
+
 	// 메인 이미지 출력 리스트 구하기
 	List<MainImage> selectMainProductList();
 
@@ -63,3 +66,6 @@ public interface MasterProductDao {
 //	int updateMainImageInsert(@Param("product") Product product, @Param("block") String block);
 
 }
+
+
+

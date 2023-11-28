@@ -142,7 +142,7 @@
    		mainimage=#{mainimage}, mainpname = #{mainpname}, 
    		maincontent = #{maincontent}, mainimagereadcount = 0 where mainid=#{block}+1
    </update>
-   
+
 </mapper>
 
 

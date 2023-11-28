@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import boss.common.PagePgm;
 import boss.common.Search;
 import boss.model.Member;
-import boss.model.QnaBoard;
+import boss.model.Product;
 import boss.service.MasterMemberService;
 
 @Controller
@@ -57,7 +57,19 @@ public class MasterMemberController {
 	@RequestMapping("masterMemberSelect.do")
 	public String masterMemberSelect(String id, Model model) {
 		System.out.println("masterMemberSelect");
-		System.out.println(id);
+		System.out.println("mEmail : " + id);
+
+		List<Product> productList = new ArrayList<Product>();
+	
+		productList = ms.selectProductOfMember(id);
+		if (productList != null && productList.size() > 0) { // 상품목록을 구해옴.
+			System.out.println("상품목록을 구해옴.");
+			System.out.println("productList pid : " + productList.get(0).getPid());
+			model.addAttribute("productList", productList);
+		} else { // 상품목록을 못구해옴.
+			System.out.println("상품목록을 못구해옴.");
+		}
+
 		Member member = ms.selectOne(id);
 		System.out.println("id : " + member.getmEmail());
 		model.addAttribute("member", member);
@@ -138,68 +150,37 @@ public class MasterMemberController {
 		}
 		return "./master/member/masterMemberDelete";
 	}
-	
+
 	// 회원 옵션별 검색
 	@RequestMapping("masterMemberSearch.do")
 	public String masterMemberSearch(Search search, Model model) {
-		
+
 		System.out.println(search.getKeyword());
 		System.out.println(search.getSearchtype());
-		
-		if(search.getKeyword() != "" && search.getSearchtype() != "") {
+
+		if (search.getKeyword() != "" && search.getSearchtype() != "") {
 			List<Member> list = ms.searchMember(search);
 			System.out.println(list);
 			model.addAttribute("list", list);
-			//return "./master/product/masterProductList";
+			// return "./master/product/masterProductList";
 		}
-		if(search.getKeyword() == "" && search.getSearchtype() != "") {
+		if (search.getKeyword() == "" && search.getSearchtype() != "") {
 			model.addAttribute("type", "notKey");
 			model.addAttribute("msg", "검색어를 입력해 주세요.");
 			return "./master/product/masterMoveProductList";
 		}
-		if(search.getKeyword() != "" && search.getSearchtype() == "") {
+		if (search.getKeyword() != "" && search.getSearchtype() == "") {
 			model.addAttribute("type", "notType");
 			model.addAttribute("msg", "검색타입을 선택해 주세요.");
 			return "./master/product/masterMoveProductList";
 		}
-		if(search.getKeyword() == "" && search.getSearchtype() == "") {
+		if (search.getKeyword() == "" && search.getSearchtype() == "") {
 			model.addAttribute("type", "notKeynotType");
 			model.addAttribute("msg", "검색타입 & 검색어를 입력해 주세요.");
 			return "./master/product/masterMoveProductList";
 		}
-		
+
 		return "./master/member/masterMemberList";
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

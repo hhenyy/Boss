@@ -243,4 +243,5 @@ public class MasterQnaBoardController {
 		}
 		return "master/qnaBoard/masterQnaBoardDelete";
 	}
+
 }

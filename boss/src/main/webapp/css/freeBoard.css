@@ -59,16 +59,23 @@
 	/* 추가적인 스타일링을 원하는대로 추가할 수 있습니다. */
 }
 
-/*자유게시판 페이징 div*/
+/* 자유게시판 페이징 div */
 .div_feeboard_paging {
-	text-align: center;
-	margin-top: 20px;
-	margin-bottom: 20px;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    list-style: none; /* Remove default list styles */
+    padding: 0; /* Remove default padding */
+}
+
+.div_feeboard_paging li {
+    display: inline-block;
+    margin: 0 5px;
 }
 
 .div_feeboard_paging a {
+    display: block;
     padding: 5px 10px;
-    margin: 0 5px;
     text-decoration: none;
     color: #333;
     border: 1px solid #ccc;
@@ -107,6 +114,8 @@
 	background-color: #ffffff;
 	color: #000000;
 }
+
+
 /*자유게시판 목록 css끝 */
 
 

@@ -32,8 +32,8 @@ public class MasterQnaBoardService {
 	/*
 	 * Qna게시글 상세정보 구하기
 	 */
-	public QnaBoard selectQnaDetail(int pid) {
-		return dao.selectQnaDetail(pid);
+	public QnaBoard selectQnaDetail(int id) {
+		return dao.selectQnaDetail(id);
 	}
 
 	// qna답글 인서트

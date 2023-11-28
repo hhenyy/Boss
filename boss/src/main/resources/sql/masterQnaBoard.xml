@@ -4,13 +4,14 @@
 
 <mapper namespace="boss.dao.MasterQnaBoardDao">
 
-	<!-- 총상품 갯수 -->
-	<select id="totalQnaCount" resultType="int">
-		select count(*) from
-		qnaboard
-	</select>
+   <!-- 총상품 갯수 -->
+   <select id="totalQnaCount" resultType="int">
+      select count(*) from
+      qnaboard
+   </select>
 
  
+
 
 	<!-- 페이징 처리된 상품 리스트 -->
 	<select id="selectQnaBoardList" parameterType="pagePgm"
@@ -81,6 +82,8 @@
 		
 		 select * from qnaboard where
 		  <choose>
+  
+
         <when test="searchtype == 'memail'">
             memail like '%' || #{keyword} || '%'
         </when>
@@ -98,10 +101,9 @@
         </when>
         
     </choose>
-	</select>
-		
+   </select>
+      
 </mapper>
-
 
 
 
