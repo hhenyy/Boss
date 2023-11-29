@@ -7,8 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>커뮤니티</title>
-<!-- css 양식 include -->
-<%-- <%@include file="/WEB-INF/views/common/header.jsp"%> --%>
+<!--header css 양식 include -->
+ <%@include file="/WEB-INF/views/common/header.jsp"%>
 
 <!-- css 불러오기 -->
 <link rel="stylesheet" href="css/freeBoard.css">
@@ -19,9 +19,13 @@
 <iframe width="420" height="315"
 	src="https://www.youtube.com/embed/t0xYMEYyjgY"></iframe>
 <iframe width="420" height="315"
-	src="https://www.youtube.com/embed/GicK9l0cPp0&t=3s"></iframe>
+	src="https://www.youtube.com/embed/htHYzVnlHYQ"></iframe>
 <iframe width="420" height="315"
 	src="https://www.youtube.com/embed/ug0-BKfV0eQ"></iframe>
+<iframe width="420" height="315"
+	src="https://www.youtube.com/embed/GicK9l0cPp0"></iframe>
+<iframe width="420" height="315"
+	src="https://www.youtube.com/embed/uWONtFbb00E"></iframe>
 </div>
 </head>
 <body>
@@ -72,7 +76,7 @@
 								</c:if>
 					</a></td>
 					<td>${board.mEmail}</td>
-					<td>${board.fReg}</td>
+					<td><fmt:formatDate value="${board.fReg}" pattern="yyyy-MM-dd"/></td>
 					<td>${board.fReadCount}</td>
 					<td>${board.fLike}</td>
 					</c:if>

@@ -4,9 +4,9 @@
 
 <mapper namespace="boss.dao.BucketDao">
 
-   <!-- 세션을 통해 장바구니 전체리스트 구하기 -->
-   <select id="selectBucketList" parameterType="string" resultType="bucket">
-      select * from bucket where memail=#{memail}
-   </select>
-   
+	<!-- 세션을 통해 장바구니 전체리스트 구하기 -->
+	<select id="selectBucketList" parameterType="string" resultType="bucket">
+		select * from bucket where memail=#{memail}
+	</select>
+	
 </mapper>

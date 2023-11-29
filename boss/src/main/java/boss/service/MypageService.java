@@ -1,10 +1,14 @@
 package boss.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import boss.dao.MypageDao;
 import boss.model.Orders;
+import boss.model.QnaBoard;
+import boss.model.Review;
 
 @Service
 public class MypageService {
@@ -29,5 +33,13 @@ public class MypageService {
 		default:
 			return "관리자에게 문의";
 		}
+	}
+
+	public List<Review> myreviews(String mEmail) {
+		return dao.myreviews(mEmail);
+	}
+
+	public List<QnaBoard> myqnas(String mEmail) {
+		return dao.myqnas(mEmail);
 	}
 }

@@ -30,6 +30,26 @@ public class MasterNoticeService {
 		return dao.noticeInsert(notice);
 	}
 
+	public void noticeDelete(String mnId) {
+
+		dao.noticeDelete(mnId);
+	}
+
+	public void updateMnReadCount(int i) {
+
+		dao.updateMnReadCount(i);
+	}
+
+	public MasterNotice selectOne(int mnId) {
+
+		return dao.selectOne(mnId);
+	}
+
+	public void masterNoticeUpdate(MasterNotice mn) {
+
+		dao.masterNoticeUpdate(mn);
+	}
+
 	
  
 }

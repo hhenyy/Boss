@@ -11,12 +11,12 @@ import boss.model.Bucket;
 @Service
 public class BucketService {
 
-   @Autowired
-   private BucketDao dao;
+	@Autowired
+	private BucketDao dao;
 
-   // 장바구니 전체 리스트 구하기(세션)
-   public List<Bucket> selectBucketList(String memail) {
-      return dao.selectBucketList(memail);
-   }
+	// 장바구니 전체 리스트 구하기(세션)
+	public List<Bucket> selectBucketList(String memail) {
+		return dao.selectBucketList(memail);
+	}
 
 }

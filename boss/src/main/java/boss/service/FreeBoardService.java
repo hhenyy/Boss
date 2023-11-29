@@ -34,13 +34,13 @@ public class FreeBoardService {
 		return fdao.getDetail(fId);
 	}
 
-	public void update(FreeBoard board) {
-		fdao.update(board);
+	public int update(FreeBoard board) {
+		return fdao.update(board);
 		
 	}
 
-	public void delete(int fId) {
-		fdao.delete(fId);
+	public int delete(int fId) {
+		return fdao.delete(fId);
 	}
 
 

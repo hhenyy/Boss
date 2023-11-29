@@ -6,15 +6,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<title>내가 쓴 QnA</title>
 
 <link rel="stylesheet" href="css/sidebar.css">
-<!-- <link rel="stylesheet" href="css/mypage.css"> -->
 
+</head>
 <body>
-
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+
 	<!-- 세션이 없을때 마이페이지 -->
 	<c:if test="${member == null }">
 		<script>
@@ -24,7 +23,6 @@
 	</c:if>
 
 
-	<!-- 세션이 있을때 마이페이지 -->
 	<c:if test="${member != null }">
 		<ul>
 			<li><a class="mypage_sidebar" href='#'>메뉴</a></li>
@@ -34,49 +32,45 @@
 			<li><a href='mypageReview.do'>내가 쓴 Review</a></li>
 		</ul>
 
-		<c:if test="${not empty ordersList}">
+		<c:if test="${not empty qlist}">
 			<div class="content">
-				<h1>내 주문 내역</h1>
-
-				<div class="container_orders">
-					<table border="1" class="ordertable">
+				<h1>내가 쓴 QnA</h1>
+				<div class="container_QnaBoard">
+					<table border="1">
 						<tr>
-							<th>주문번호</th>
-							<th>상품명</th>
-							<th>상품 이미지</th>
-							<th>주문 상품 수량</th>
-							<th>상품 배송 상태</th>
-							<th>주문일</th>
+							<th>제목</th>
+							<th>내용</th>
+							<th>첨부파일</th>
+							<th>작성일</th>
 						</tr>
-
-						<c:forEach items="#{statusMsg }" var="msg" varStatus="loop">
-							<c:forEach items="${ordersList}" var="order" varStatus="loop">
-								<td>${order['OID']}</td>
-								<td>${order['PNAME']}</td>
+						<c:forEach items="${qlist }" varStatus="loop" var="QnaBoard">
+							<td>${QnaBoard.qnacontent }</td>
+							<c:if test="${QnaBoard.qnaorifile != null }">
 								<td style="position: relative;"><img
-									src="./images/${order['PIMAGE']}" width="50" height="50"
+									src="./images/${QnaBoard.qnaorifile }" width="50" height="50"
 									class="toggle-image"> <span class="text-on-image">${o.PTEXT}</span>
 								</td>
-								<td>${order['ODCOUNT']}</td>
-								<td>${msg }</td>
-								<fmt:formatDate value="${order['OREG']}" pattern="yyyy년 MM월 dd일"
-									var="formattedDate" />
-								<td>${formattedDate}</td>
-							</c:forEach>
+							</c:if>
+							<c:if test="${QnaBoard.qnaorifile == null }">
+								<td>첨부파일이 없습니다.</td>
+							</c:if>
+							<td>${QnaBoard.qnatitle }</td>
+							<td>${QnaBoard.qnareg }</td>
 						</c:forEach>
 					</table>
-				</div>
+		</c:if>
+
+		<c:if test="${empty qlist}">
+			<div class="content_noQnA">
+				<h1>작성한 QnA 글이 없습니다</h1>
 			</div>
 		</c:if>
 
-		<c:if test="${empty ordersList}">
-			<div class="content_noorderlist">
-				<h1>주문한 내역이 없습니다.</h1>
-			</div>
-		</c:if>
-
+		</div>
+		<!-- container_review end -->
+		</div>
 	</c:if>
-	<!-- 세션 확인 -->
+
 </body>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </html>

@@ -15,29 +15,29 @@ import boss.service.BucketService;
 
 @Controller
 public class BucketController {
-   
-   @Autowired
-   private BucketService service;
-   
-   /*
-    * 장바구니 폼 이동 메소드
-    */
-   @RequestMapping("cartFormMove.do")
-   public String cartFormMove(HttpSession session,Model model) {
-      
-      Member member = (Member)session.getAttribute("member");
-      System.out.println("member : " + member.getmEmail());
-      // 장바구니 전체 리스트 구해오기(세션)
-      String memail = member.getmEmail();
-      List<Bucket> list = service.selectBucketList(memail);
-      System.out.println(list);
-      if(!list.isEmpty()) {
-         System.out.println("list2에 들어있음" + list.get(0).getBimage());
-      }
-      
-      model.addAttribute("list", list);
-      
-      return "bucket/bucketList";
-   }
-   
+	
+	@Autowired
+	private BucketService service;
+	
+	/*
+	 * 장바구니 폼 이동 메소드
+	 */
+	@RequestMapping("cartFormMove.do")
+	public String cartFormMove(HttpSession session,Model model) {
+		
+		Member member = (Member)session.getAttribute("member");
+		System.out.println("member : " + member.getmEmail());
+		// 장바구니 전체 리스트 구해오기(세션)
+		String memail = member.getmEmail();
+		List<Bucket> list = service.selectBucketList(memail);
+		System.out.println(list);
+		if(!list.isEmpty()) {
+			System.out.println("list2에 들어있음" + list.get(0).getBimage());
+		}
+		
+		model.addAttribute("list", list);
+		
+		return "bucket/bucketList";
+	}
+	
 }
