@@ -1,0 +1,82 @@
+@charset "UTF-8";
+
+ul {
+	list-style-type: none;
+	background-color: #ccc;
+	width: 25%;
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	overflow-y: auto;
+}
+
+li a {
+	text-decoration: none;
+	display: block;
+	color: #000;
+	padding: 8px 15px 8px 15px;
+	font-weight: bold;
+}
+
+li a.mypage_sidebar {
+	background-color: black;
+	color: #fff;
+}
+
+li a:hover:not(.job) {
+	background-color: #333;
+	color: #fff;
+}
+
+.content {
+	position: absolute; /* 절대 위치 지정 */
+	top: 120px; /* 뭐 쓰려면 이 위치 밑으로 써야해 ( 기본 120 ) */ 
+	left: 25%; /* 왼쪽에서 25% 위치에 배치 */
+	padding: 16px;
+	overflow-y: auto;
+}
+
+.content_noorderlist,
+.content_noreview,
+.content_noQnA {
+	position: absolute; /* 절대 위치 지정 */
+	top: 300px; /* 뭐 쓰려면 이 위치 밑으로 써야해 */
+	left: 40%; /* 왼쪽에서 25% 위치에 배치 */
+	padding: 16px;
+	overflow-y: auto;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+/* 주문 테이블 */
+.reviewtable,
+.ordertable {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.reviewtable th, .reviewtable td,
+.ordertable th, .ordertable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.reviewtable th,
+.ordertable th {
+    background-color: #333;
+    color: white;
+}
+
+.reviewtable tr:nth-child(even),
+.ordertable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.reviewtable tr:hover,
+.ordertable tr:hover {
+    background-color: #ddd;
+}
+/* 여기 까지 주문 테이블 */

@@ -1,8 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+
 <!DOCTYPE html>
 <!--
 	Phantom by HTML5 UP
@@ -26,6 +26,14 @@
         var option = "width = 1000, height = 800, top = 100, left = 200, location = no"
         window.open(url, name, option);
     }
+    
+    function deleteCheck(abc) {
+        if(window.confirm("삭제하시겠습니까?")){
+        	location.href="masterNoticeDelete.do?mnId="+abc+"&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }"
+        	alert("삭제되었습니다!")		
+        }
+        console.log("삭제")
+      }
 </script>
 </head>
 
@@ -98,10 +106,12 @@
 				<section class="tiles">
 
 					<!-- 공지사항 테이블 출력 -->
+					<!-- 폼으로 만들 이유X 수정 필요 -->
 					<form method="post" action="javascript:popup()">
 						<div class="container">
 							<!-- 옵션선택 끝 -->
-							<table style="border:1px solid black;margin-left:auto;margin-right:auto;">
+							<table
+								style="border: 1px solid black; margin-left: auto; margin-right: auto;">
 								<tr>
 									<th>글번호</th>
 									<th>제목</th>
@@ -110,26 +120,27 @@
 									<th>조회수</th>
 								</tr>
 								<c:set var="i" value="1"></c:set>
-								<c:forEach var="masterNotice" items="${list}"
-									varStatus="loop">
+								<c:forEach var="masterNotice" items="${list}" varStatus="loop">
 									<tr>
 										<td id="${i }">${i }</td>
 										<td
-											onclick="location.href='masterNoticeDetail.do?mnid=${masterNotice.mnid}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' ">${masterNotice.mnTitle}</td>
+											onclick="location.href='masterNoticeDetail.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' ">${masterNotice.mnTitle}</td>
 										<td
-											onclick="location.href='masterNoticeDetail.do?mnid=${masterNotice.mnid}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' ">${masterNotice.mnContent}</td>
+											onclick="location.href='masterNoticeDetail.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' ">${masterNotice.mnContent}</td>
 										<td
-											onclick="location.href='masterNoticeDetail.do?mnid=${masterNotice.mnid}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' "><fmt:formatDate
-												pattern="yyyy-MM-dd hh:" value="${masterNotice.mnReg}" /></td>
+											onclick="location.href='masterNoticeDetail.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' "><fmt:formatDate
+												pattern="yyyy-MM-dd hh:mm" value="${masterNotice.mnReg}" /></td>
 										<td
-											onclick="location.href='masterNoticeDetail.do?mnid=${masterNotice.mnid}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' ">${masterNotice.mnReadCount}
-												</td>		
+											onclick="location.href='masterNoticeDetail.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' ">${masterNotice.mnReadCount}
+										</td>
 										<c:if test="${member ne null && member.mEmail eq 'master'}">
 											<td>
 												<button type="button"
-													onclick="location.href='masterNoticeUpdate.do?mnid=${masterNotice.mnid}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }'">수정</button>
-												<button type="button"
-													onclick="location.href='masterNoticeDelete.do?mnid=${masterNotice.mnid}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' ">삭제</button>
+													onclick="location.href='masterNoticeUpdateForm.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage}&cntPerPage=${pp.cntPerPage}'">수정</button>
+												<button type="button" id="delete"
+													value="${masterNotice.mnId}" id="deleteCheck" value="${masterNotice.mnId}"
+													onclick="javascript:deleteCheck(${masterNotice.mnId})">삭제</button> 
+												<!-- mnId는 items="{list}" 안에 포함된 정보.  -->
 											</td>
 										</c:if>
 									</tr>
@@ -138,21 +149,20 @@
 							</table>
 							<c:if test="${member ne null}">
 								<button type="submit" class="putsub">공지사항 등록</button>
-							</c:if>	
-								<div align="right" class="search">
+							</c:if>
+							<div align="right" class="search">
 					</form>
 				</section>
 			</div>
-			
-			
-			
+
+
+
 			<!-- 다른 페이지로 넘어가기 위한 숫자들 자리 -->
 			<div align="center">
 				<c:if test="${pp.startPage != 1 }">
 					<a style="text-decoration: none; color: deeppink"
 						href="./masterNotice.do?nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}">
-						<- 
-					</a>
+						<- </a>
 				</c:if>
 				<c:forEach begin="${pp.startPage }" end="${pp.endPage }" var="p">
 					<c:choose>
