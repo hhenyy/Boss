@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import boss.common.PagePgm;
 import boss.common.Search;
-import boss.model.OrderDetail;
 import boss.model.Orders;
 import boss.service.MasterOrdersService;
 
@@ -49,7 +49,9 @@ public class MasterOrdersController {
 
 	// 관리자 주문 상세정보
 	@RequestMapping("masterOrdersSelect.do")
-	public String masterOrdersSelect(String oid, Model model) throws Exception {
+	public String masterOrdersSelect(String oid, Model model,
+			@RequestParam(value = "nowPage", required = false) String nowPage,
+			@RequestParam(value = "cntPerPage", required = false) String cntPerPage) throws Exception {
 		System.out.println("masterOrdersSelect");
 		System.out.println("oid : " + oid);
 		List<HashMap<String, Object>> ordersList = new ArrayList<>();
@@ -130,61 +132,116 @@ public class MasterOrdersController {
 		}
 		return "./master/review/masterReviewDelete";
 	}
-	
+
 	@RequestMapping("masterOrdersSearch.do")
 	public String masterOrdersSearch(Search search, Model model) {
-		
+
 		System.out.println(search.getKeyword());
 		System.out.println(search.getSearchtype());
-		
-		if(search.getKeyword() != "" && search.getSearchtype() != "") {
+
+		if (search.getKeyword() != "" && search.getSearchtype() != "") {
 			List<Orders> list = ms.searchOrdersList(search);
 			System.out.println(list);
 			model.addAttribute("list", list);
-			//return "./master/product/masterProductList";
+			// return "./master/product/masterProductList";
 		}
-		if(search.getKeyword() == "" && search.getSearchtype() != "") {
+		if (search.getKeyword() == "" && search.getSearchtype() != "") {
 			model.addAttribute("type", "notKey");
 			model.addAttribute("msg", "검색어를 입력해 주세요.");
 			return "./master/product/masterMoveProductList";
 		}
-		if(search.getKeyword() != "" && search.getSearchtype() == "") {
+		if (search.getKeyword() != "" && search.getSearchtype() == "") {
 			model.addAttribute("type", "notType");
 			model.addAttribute("msg", "검색타입을 선택해 주세요.");
 			return "./master/product/masterMoveProductList";
 		}
-		if(search.getKeyword() == "" && search.getSearchtype() == "") {
+		if (search.getKeyword() == "" && search.getSearchtype() == "") {
 			model.addAttribute("type", "notKeynotType");
 			model.addAttribute("msg", "검색타입 & 검색어를 입력해 주세요.");
 			return "./master/product/masterMoveProductList";
 		}
-		
-		
+
 		return "master/orders/masterOrdersList";
 	}
+
+	// 문자를 보낼때 맵핑되는 메소드
+	@RequestMapping("sendSms.do")
+	public String sendSms(HttpServletRequest request, Model model, String type,
+			@RequestParam(value = "nowPage", required = false) String nowPage,
+			@RequestParam(value = "cntPerPage", required = false) String cntPerPage, String search) throws Exception {
+
+		String api_key = "NCSRYPBYYEAXEHUI"; // 위에서 받은 api key를 추가
+		String api_secret = "GQXOPEODU6IKF2VHTJCIUDAPOGS3BU2U"; // 위에서 받은 api secret를 추가
+
+		boss.common.Coolsms coolsms = new boss.common.Coolsms(api_key, api_secret);
+		// 이 부분은 홈페이지에서 받은 자바파일을 추가한다음 그 클래스를 import해야 쓸 수 있는 클래스이다.
+
+		HashMap<String, String> set = new HashMap<String, String>();
+		set.put("to", "010-8762-7517"); // 수신번호
+
+		set.put("from", (String) request.getParameter("from")); // 발신번호, jsp에서 전송한 발신번호를 받아 map에 저장한다.
+		set.put("text", (String) request.getParameter("text")); // 문자내용, jsp에서 전송한 문자내용을 받아 map에 저장한다.
+		set.put("type", "sms"); // 문자 타입
+
+		System.out.println(set);
+
+		JSONObject result = coolsms.send(set); // 보내기&전송결과받기
+
+		if ((boolean) result.get("status") == true) {
+
+			// 메시지 보내기 성공 및 전송결과 출력
+			System.out.println("성공");
+			System.out.println(result.get("group_id")); // 그룹아이디
+			System.out.println(result.get("result_code")); // 결과코드
+			System.out.println(result.get("result_message")); // 결과 메시지
+			System.out.println(result.get("success_count")); // 메시지아이디
+			System.out.println(result.get("error_count")); // 여러개 보낼시 오류난 메시지 수
+		} else {
+
+			// 메시지 보내기 실패
+			System.out.println("실패");
+			System.out.println(result.get("code")); // REST API 에러코드
+			System.out.println(result.get("message")); // 에러메시지
+		}
+
+		System.out.println("masterOrdersList");
+
+		int total = ms.total();
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) {
+			cntPerPage = "5";
+		}
+
+		return "redirect:/masterOrdersList.do";
+	}
+
+	@RequestMapping("masterOrdersSmsMove.do")
+	public String masterOrdersSmsMove(String type, String status, Model model, Orders orders, String ophone) {
+		System.out.println("masterOrdersSmsMove");
+		System.out.println("전송타입 : " + type);
+		System.out.println("ophone : " + ophone );
+		
+		if (type != null && type != "") { // 값이 하나라도 있을경우 자유작성인지, 배송작성인지 메시지작성 타입을 정해주는 조건.
+			if (type.equals("free")) { // 관리자의 임의작성인 경우.
+				System.out.println("오더 1 : " + ophone); 
+				System.out.println("오더 1 : " + orders.getOphone()); 
+				System.out.println("오더 1 : " + orders.getOname()); 
+				
+				
+				return "master/orders/masterOrdersSmsForm";
+			} else if (type.equals("delivery")) { // 배송탭인경우.
+				switch(status) {
+				case "1" :
+					
+					break;
+				}
+			}
+		}
+		return "master/orders/masterOrdersSmsMove";
+	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

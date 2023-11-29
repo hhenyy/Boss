@@ -95,11 +95,6 @@ public class MasterProductService {
 
 		return dao.deleteProduct(id);
 	}
-	
-	// 구매이력이 있는 회원정보 구해오기.
-	public List<Member> selectMemberOfProduct(String id) {
-		return dao.selectMemberOfProduct(id);
-	}
 
 	// 구매이력이 있는 회원정보 구해오기.
 	public List<Member> selectMemberOfProduct(String id) {
