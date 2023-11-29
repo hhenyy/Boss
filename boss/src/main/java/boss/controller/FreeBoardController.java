@@ -2,22 +2,34 @@ package boss.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import boss.common.PagingPgmf;
+import boss.common.PagingPgmHyesun;
 import boss.model.FreeBoard;
+import boss.model.Member;
 import boss.service.FreeBoardService;
+import boss.service.MemberService;
 
 @Controller
 public class FreeBoardController {
 
 	@Autowired
 	private FreeBoardService fservice;
+	
+	// 멤버 서비스
+	@Autowired
+	private MemberService service;
+	//패스워드 암호화 
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 
 	// 자유게시판 글등록폼 이동
 	@RequestMapping("freeBoardInsertform.do")
@@ -36,7 +48,7 @@ public class FreeBoardController {
 		int result=fservice.insert(board); // 글 insert
 		model.addAttribute("result", result);
 
-		return "freeboard/freeBoardInsertok";
+		return "freeboard/freeBoardInsertform";
 	}
 
 	// 자유게시판 목록 
@@ -58,7 +70,7 @@ public class FreeBoardController {
 		int endRow = startRow + rowPerPage - 1; //10,20,30,...
 		
 		//PagingPgmf : paging dto 
-		PagingPgmf pp = new PagingPgmf(total, rowPerPage, currentPage);
+		PagingPgmHyesun pp = new PagingPgmHyesun(total, rowPerPage, currentPage);
 		board.setStartRow(startRow);
 		board.setEndRow(endRow);
 
@@ -105,31 +117,75 @@ public class FreeBoardController {
 
 	// 글 수정
 	@RequestMapping("freeBoardUpdateok.do")
-	public String freeBoardUpdateok(@ModelAttribute FreeBoard board, 
+	public String freeBoardUpdateok(@RequestParam("fPassword") String fPassword,
+			                        @ModelAttribute FreeBoard board, 
+			                        @RequestParam("fId") int fId,
 			                        @RequestParam("page") String page, 
-			                        Model model) throws Exception {
+			                        Model model, Member member,HttpSession session) throws Exception {
 		System.out.println("freeBoardUpdateok");
-		int result=0;
 		
+		//session공유된 member를 불러와서 mEmail가져옴
+		member = (Member) session.getAttribute("member");
+		String mEmail = member.getmEmail();
+		System.out.println("mEmail:"+mEmail);
 		
-		fservice.update(board); // 글 insert
+		//mEmail로 DB에 저장된 member정보를 가져옴 
+		Member dbmember = service.selectOne(mEmail);
+		
+		// delete (삭제 여부 변경) 이 성공적으로 되었을때 조건문을 달기 위함
+		int result = 0;
 
-		return "redirect:/freeBoardDetail.do?fId=" + board.getfId()
-		+ "&page=" + page + "state=detail";
+		//dbmember 값이 있고 , fPassword과 DB에 저장된 pwd(실제비번)과 같으면 delete
+		if(dbmember != null && passwordEncoder.matches(fPassword, dbmember.getmPwd())) {
+			result = fservice.update(board); // 글 update
+		}else {
+			result=0;
+		}
+			model.addAttribute("result", result);
+			model.addAttribute("page", page);
+			model.addAttribute("fId", fId);
+
+		return "freeboard/freeBoardUpdateform";
 	}
 
 	// 글 삭제
 	@RequestMapping("freeBoardDeleteok.do")
-	public String freeBoardDeleteok(@RequestParam("fId") int fId,
+	public String freeBoardDeleteok(@RequestParam("fPassword") String fPassword,
+			                         @RequestParam("fId") int fId,
 			                        @RequestParam("page") String page, 
-			                        Model model) throws Exception {
-		//@RequestParam("page") String page, 
-		System.out.println("freeBoardUpdateok");
-		int result=0;
+			                        Model model, Member member,HttpSession session) throws Exception {
+		System.out.println("freeBoardDeleteok");
 		
-	
-       fservice.delete(fId); // 글 delete
+		//session공유된 member를 불러와서 mEmail가져옴
+		member = (Member) session.getAttribute("member");
+		String mEmail = member.getmEmail();
+		System.out.println("mEmail:"+mEmail);
+		
+		//mEmail로 DB에 저장된 member정보를 가져옴 
+		Member dbmember = service.selectOne(mEmail);
+		
+		// delete (삭제 여부 변경) 이 성공적으로 되었을때 조건문을 달기 위함
+		int result = 0;
 
-		return "redirect:/freeBoardDetail.do?page=" + page;
+		//dbmember 값이 있고 , fPassword과 DB에 저장된 pwd(실제비번)과 같으면 delete
+		if(dbmember != null && passwordEncoder.matches(fPassword, dbmember.getmPwd())) {
+			result = fservice.delete(fId); //delete이지만 Y값으로 update
+
+		}else {
+			result=0;
+		}
+		model.addAttribute("result", result);
+		model.addAttribute("page", page);
+		
+		return "freeboard/freeBoardDelete";
 	}
+	
+	//댓글 insert
+	
+	//댓글 list
+	
+
+
 }
+
+     

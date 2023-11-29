@@ -13,6 +13,21 @@
 <!-- css 불러오기 -->
 <link rel="stylesheet" href="css/freeBoardform.css">
 
+<!-- 글작성 성공 여부 판별 후 페이지 이동 -->
+	<c:if test="${result > 0 }">
+		<script type="text/javascript">
+			alert("글작성 성공");
+			location.href = "freeBoardList.do";
+		</script>
+	</c:if>
+	<c:if test="${result <= 0 }">
+		<script type="text/javascript">
+			alert("입력 실패");
+			history.go(-1);
+		</script>
+	</c:if>
+
+
 </head>
 <body>
 <!-- 전체 div시작 -->
