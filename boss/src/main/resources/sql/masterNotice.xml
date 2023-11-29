@@ -23,9 +23,33 @@
 		WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 
+	<!-- 새로운 공지글 등록 -->
 	<insert id="noticeInsert" parameterType="masterNotice">
 		insert into MasterNotice values(MASTERNOTICE_SEQ.nextval,#{mnTitle},#{mnContent},SYSDATE,#{mnOriFile,jdbcType=VARCHAR},#{mnReadCount})
 	</insert>
+	
+	<!-- 공지글 삭제 -->
+	<delete id="noticeDelete" parameterType="int">
+		delete from MasterNotice where mnId=#{mnId}
+	</delete>
+	
+	<!-- 상세 정보 구하기 -->
+	<select id="selectOne" parameterType="int" resultType="masterNotice">
+	<!-- 게터 메소드를 통해 자동으로 검색된 정보가 DTO 객체에 입력됨 -->
+		select #{mnId},#{mnTitle},#{mnContent},#{mnReg},
+		#{mnOriFile},#{mnReadCount} from MasterNotice where mnId=#{mnId}
+	</select>
+	
+	<!-- 조회수 1 증가 -->
+	<update id="updateMnReadCount" parameterType="int">
+		update MasterNotice set mnReadCount = mnReadCount + 1 where mnId=#{mnId}
+	</update>
+	
+	<!-- 공지글 수정 -->
+	<update id="masterNoticeUpdate" parameterType="masterNotice">
+		update MasterNotice set mnTitle=#{mnTitle},mnContent=#{mnContent},mnReg=SYSDATE,
+		mnOriFile=#{mnOriFile,jdbcType=VARCHAR},mnReadCount=#{mnReadCount}
+	</update>
 	
 	
 	<!-- total구하기 -->

@@ -36,10 +36,10 @@ public class MemberController {
 
 	@Autowired
 	private JavaMailSender mailSender;
-	
+
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
-	
+
 	/* NaverLoginBO */
 	private NaverLoginBO naverLoginBO;
 	private String apiResult = null;
@@ -53,13 +53,13 @@ public class MemberController {
 	@RequestMapping("insertMember.do")
 	public ResponseEntity<Map<String, String>> loginform(Member member) {
 		System.out.println("Insertmember");
-		
+
 		// member 폼에서 넘어온 값을 암호화
 		String encpassword = passwordEncoder.encode(member.getmPwd());
-		
+
 		// db에 넣을 member password 를 암호화 한걸로 넣기
 		member.setmPwd(encpassword);
-		
+
 		Map<String, String> response = new HashMap<>();
 
 		int result = service.insertMember(member);
@@ -72,28 +72,20 @@ public class MemberController {
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
-	
+
 	// 이메일 중복 검사
 	// end포인트라는 어노테이션
 	@PostMapping("dbCheckEmail.do")
 	@ResponseBody // 응답을 HTTP 응답으로 직접 전송된다.
 	public String dbCheckEmail(String mEmail) {
 		Member member = service.selectOne(mEmail);
-		
-		// 사용 불가능한 이메일
-		if(member != null) {
-			return "N";
-		}else
-		
-		return "Y";
-	}
 
-	/*
-	 * 메인 페이지 이동 메소드
-	 */
-	@RequestMapping(value = "main.do")
-	public String doMain() {
-		return "common/main";
+		// 사용 불가능한 이메일
+		if (member != null) {
+			return "N";
+		} else
+
+			return "Y";
 	}
 
 	// 로그인 첫 화면 요청 메소드 ( 기본 로그인 폼으로 이동 할때 꼭 써야 함 )
@@ -114,8 +106,8 @@ public class MemberController {
 
 	// 네이버 로그인 성공시 callback호출 메소드
 	@RequestMapping(value = "/callback.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session, Member member)
-			throws Exception {
+	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session,
+			Member member) throws Exception {
 //      public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, ParseException {
 
 		System.out.println("여기는 callback");
@@ -147,47 +139,47 @@ public class MemberController {
 		String mName = (String) response_obj.get("name");
 		String mEmail = (String) response_obj.get("email");
 		String nPhone = (String) response_obj.get("mobile");
-		
+
 		System.out.println("네이버 이름 : " + mName);
 		System.out.println("네이버 email : " + mEmail);
 		System.out.println("네이버 mobile : " + nPhone);
-		
+
 		// 010-0000-0000 을 파싱해서 01000000000으로 바꾸는 코드
 		String phone[] = nPhone.split("-");
 		String mPhone = "";
 		String Pwd = "";
-		
-		for(int i = 0; i < phone.length; i++) {
-				mPhone += phone[i];
-				Pwd = phone[i];			// 네이버 회원의 비밀번호는 회원 마지막 핸드폰 번호
+
+		for (int i = 0; i < phone.length; i++) {
+			mPhone += phone[i];
+			Pwd = phone[i]; // 네이버 회원의 비밀번호는 회원 마지막 핸드폰 번호
 		}
-		
+
 		// 마지막 핸드폰번호 (2311) 암호화
 		String mPwd = passwordEncoder.encode(Pwd);
-		
+
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("mName", mName);
 		map.put("mEmail", mEmail);
 		map.put("mPhone", mPhone);
 		map.put("mPwd", mPwd);
-		
+
 		Member checkmember = service.selectOne(mEmail);
-		
+
 		// 회원 가입이 안 되어 있을 경우
-		if(checkmember == null) {
+		if (checkmember == null) {
 			// 네이버 회원 가입
 			int loginresult = service.insertNMember(map);
 
-			if(loginresult == 1) {
+			if (loginresult == 1) {
 				// 네이버 회원 member 불러오기
 				member = service.selectOne(mEmail);
 				// 네이버 세션 올리기
-				session.setAttribute("member", member);				
+				session.setAttribute("member", member);
 			}
-		}else {	// 회원가입이 되어 있을경우 세션만 올림
+		} else { // 회원가입이 되어 있을경우 세션만 올림
 			session.setAttribute("member", checkmember);
 		}
-			
+
 		// 세션 생성 ( 이건 건들면 안돼 )
 		model.addAttribute("result", apiResult);
 		return "common/main";
@@ -206,7 +198,7 @@ public class MemberController {
 
 		System.out.println("###access_Token#### : " + access_Token);
 		// 위의 access_Token 받는 걸 확인한 후에 밑에 진행
-		
+
 		// 3번
 		HashMap<String, Object> userInfo = service.getUserInfo(access_Token);
 		System.out.println("###nickname#### : " + userInfo.get("nickname"));
@@ -218,7 +210,7 @@ public class MemberController {
 		model.addAttribute("nickname", nickname);
 		model.addAttribute("email", email);
 
-        session.setAttribute("member", nickname);
+		session.setAttribute("member", nickname);
 
 		return "common/main";
 	}
@@ -267,7 +259,7 @@ public class MemberController {
 		Map<String, String> response = new HashMap<>();
 
 		System.out.println(mEmail);
-		
+
 		Member dbmember = service.selectOne(mEmail);
 
 		if (dbmember != null && passwordEncoder.matches(mPwd, dbmember.getmPwd())) {
@@ -286,6 +278,5 @@ public class MemberController {
 		session.invalidate();
 		return "common/main";
 	}
-	
-	
+
 }
