@@ -5,7 +5,7 @@
 <c:if test="${result==1}">
 	<script>
 	alert("리뷰등록완료");
-	loaction.href="productDetail.do";
+	location.href="productDetail.do?pid=${pid}";
 	</script>
 </c:if>
 

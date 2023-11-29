@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import boss.common.PagePgm;
 import boss.dao.ProductDetailDao;
+import boss.model.Orders;
 import boss.model.Product;
 import boss.model.Review;
 
@@ -39,8 +40,8 @@ public class ProductDetailService {
 		return dao.total();
 	}
 	// 페이징
-	public List<Review> list(PagePgm pp) {
-		return dao.list(pp);
+	public List<Review> list(Map<String, Object> map) {
+		return dao.list(map);
 	}
 	// 리뷰 작성 리스트
 	public List<Review> selectMemberReview(String memail) {
@@ -50,9 +51,16 @@ public class ProductDetailService {
 	
 	// 리뷰 작성 
 
-	public int reviewInsert(Map<String, Object> map) {
-		return dao.reviewInsert(map);
+	public int reviewInsert(Review review) {
+		return dao.reviewInsert(review);
 	}
+
+	public Orders selectOrders(String mEmail) {
+		return dao.selectOrders(mEmail);
+	}
+	// 리뷰 업데이트 폼
+
+	
 	
 	
 
