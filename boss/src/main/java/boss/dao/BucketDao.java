@@ -1,5 +1,7 @@
 package boss.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import boss.model.Bucket;
@@ -7,7 +9,7 @@ import boss.model.Bucket;
 @Mapper
 public interface BucketDao {
 
-	int insert(Bucket bucket);
-	int update(Bucket bucket);
+   // 장바구니 전체리스트 구하기(세션)
+   List<Bucket> selectBucketList(String memail);
 
 }
