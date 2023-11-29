@@ -22,7 +22,8 @@ function goBack() {
 </script>
 
 <body>
-	<%@ include file="../common/masterNav.jsp"%>
+	<%@ include 
+="../common/masterNav.jsp"%>
 	<form method="post" action="masterProductInsert.do" id="myform"
 		enctype="multipart/form-data">
 		<div class="container">

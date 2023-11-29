@@ -34,18 +34,13 @@ public class MainController {
 		List<MainImage> mainImageList_db = service.selectMainProductList();
 
 		if (mainImageList_db.size() > 0) { // 1개라도 구해옴.
-			System.out.println("1개라도 구해옴.");
 			for (int i = 0; i < mainImageList_db.size(); i++) { // list size만큼 put
-
-				System.out.println("사이즈 : " + mainImageList_db.size());
 
 				// int s = Integer.parseInt(block);
 
 				model.addAttribute("block" + (i + 1), i + 1);
 
 				model.addAttribute("mainImageList" + i, mainImageList_db.get(i));
-				System.out.println(mainImageList_db.get(i).getMainimage());
-				System.out.println(mainImageList_db.get(i).getMainid());
 			}
 		} else {
 			System.out.println("1개도 못구해옴.");
@@ -65,12 +60,9 @@ public class MainController {
 		Product product = service.selectOne(id);
 		System.out.println("block : " + block+50);
 		
-		
 		String mainImage = product.getPimage();
 		String mainPname = product.getPname();
 		String mainContent = product.getPcontent();
-		
-		System.out.println(id);
 		
 		int bk = Integer.parseInt(block);
 		
@@ -81,10 +73,7 @@ public class MainController {
 		map.put("mainpname", mainPname);
 		map.put("maincontent", mainContent);
 		
-		System.out.println("쿼리문 돌기전");
 		int result = service.updateMainImageInsert(map);
-		System.out.println("쿼리문 돌음");
-		System.out.println("result : " + result);
 
 		model.addAttribute("block",block);
 		

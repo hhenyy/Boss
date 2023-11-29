@@ -1,5 +1,7 @@
 package boss.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,14 +14,9 @@ public class BucketService {
 	@Autowired
 	private BucketDao dao;
 
-	public int insert(Bucket bucket) {
-		return dao.insert(bucket);
+	// 장바구니 전체 리스트 구하기(세션)
+	public List<Bucket> selectBucketList(String memail) {
+		return dao.selectBucketList(memail);
 	}
-
-	public int update(Bucket bucket) {
-		return dao.update(bucket);
-	}
-
-
 
 }
