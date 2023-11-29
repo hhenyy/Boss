@@ -13,11 +13,24 @@
 <!-- css 불러오기 -->
 <link rel="stylesheet" href="css/freeBoardform.css">
 
+<!-- 글수정 성공 여부 판별 후 페이지 이동 -->
+	<c:if test="${result > 0 }">
+		<script type="text/javascript">
+			alert("글 수정 성공");
+			location.href = "freeBoardDetail.do?fId=${fId}&page=${page}&state=detail";
+		</script>
+	</c:if>
+	<c:if test="${result <= 0 }">
+		<script type="text/javascript">
+			alert("글 수정 실패");
+			history.go(-1);
+		</script>
+	</c:if>
 </head>
 <body>
 <!-- 전체 div시작 -->
 <div class="div_insertform">
-  <form action="freeBoardInsertok.do" method="post" onSubmit="return boardinsert_check()">
+  <form action="freeBoardUpdateok.do" method="post" onSubmit="return boardinsert_check()">
   <input type="hidden" name="fId" value="${detail.fId}"/>
   <input type="hidden" name="page" value="${page}"/>
   
@@ -31,13 +44,13 @@
   <td><textarea name="fContent" id="fContent" cols="90" rows="30">${detail.fContent}</textarea></td>
   </tr>
   <tr>
-  <th>작성자아이디</th>
+  <th>작성자</th>
   <td><input type="text" name="mEmail" id="mEmail" value="${detail.mEmail}" size="30" class="table_td_text"></td>
   </tr>
- <!-- <tr>
+ <tr>
   <th>비밀번호</th>
   <td><input type="password" name="fPassword" id="fPassword"  size="30" class="table_td_text"></td>
-  </tr>  -->  
+  </tr> 
   </table>
   
   

@@ -13,10 +13,21 @@
 <!-- css 불러오기 -->
 <link rel="stylesheet" href="css/freeBoardform.css">
 
-<script>
 
-</script>
-
+<!-- 글삭제 성공 여부 판별 후 페이지 이동 -->
+	<c:if test="${result > 0 }">
+		<script type="text/javascript">
+			alert("삭제 성공");
+			location.href = "freeBoardList.do?page=${page}";
+		</script>
+	</c:if>
+	<c:if test="${result <= 0 }">
+		<script type="text/javascript">
+			alert("삭제 실패");
+			history.go(-1);
+		</script>
+	</c:if>
+	
 </head>
 <body>
 <!-- 전체 div시작 -->
@@ -39,8 +50,6 @@
 <input type="submit" class="boardform_button" value="삭제"></button>
 </div>
 <!-- button div 끝-->
-		
-		
 		
   </form>
 </div><!-- 전체 div끝 -->

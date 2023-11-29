@@ -50,19 +50,19 @@ update FreeBoard set fReadCount=fReadCount+1
 where fId=#{fId}
 </update>
 
-<!-- 게시판 내용 가져오기 -->
+<!-- 게시판 내용 가져오기 --> <!-- 조건에 fDrop='Y' 넣기 , parameterType map?..-->
 <select id="getDetail" parameterType="int" resultType="FreeBoard">
 select * from FreeBoard where fId=#{fId}
 </select>
 
 <!-- 글수정 -->
 <update id="update" parameterType="FreeBoard">
-update FreeBoard set fTitle=#{fTitle}, fContent=#{fContent} where fId=#{fID}
+update FreeBoard set fTitle=#{fTitle}, fContent=#{fContent} where fId=#{fId}
 </update>
 
-<!-- 글삭제 -->
+<!-- 글삭제 : 삭제시 Y  -->
 <update id="delete" parameterType="int">
-update FreeBoard set fDrop="Y" where fId=#{fId}
+	update FreeBoard set fDrop='Y' where fId=#{fId}
 </update>
 
 </mapper>
