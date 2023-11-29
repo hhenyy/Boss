@@ -15,6 +15,13 @@ public interface MasterNoticeDao {
 		List<MasterNotice> noticeList(PagePgm page);
 
 		int noticeInsert(MasterNotice notice);
-	
+
+		void noticeDelete(String mnId);
+
+		void updateMnReadCount(int i);
+
+		MasterNotice selectOne(int mnId);
+
+		void masterNoticeUpdate(MasterNotice mn);
 
 }
