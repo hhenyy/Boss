@@ -1,7 +1,7 @@
 package boss.model;
 
-public class Bucket {
-
+public class Bucket {  
+     
 	private int bid;
 	private String memail;
 	private int pid;
