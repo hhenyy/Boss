@@ -126,7 +126,7 @@ public class MasterProductController {
       // 파일 저장될 경로
 
       String path = "C:\\bossRepository\\boss\\src\\main\\webapp\\images";
-
+ 
       System.out.println("oldpath : " + path);
       // String path = request.getRealPath("upload");
       System.out.println(path);

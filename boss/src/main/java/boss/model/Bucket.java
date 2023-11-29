@@ -1,95 +1,83 @@
 package boss.model;
 
 public class Bucket {
-	private int bId; /* 장바구니 고유번호(시퀀스) */
-	private String mEmail; /* 이메일 */
-	private int pId; /* 상품 고유코드 */
-	private String bName; /* 상품명 */
-	private String bImage; /* 상품 이미지 */
-	private int bCount; /* 상품 수량 */
-	private String bSize; /* 상품 사이즈 */
-	private String bColor; /* 상품 색상 */
-	private int bPrice; /* 상품 가격 */
-	private String bDrop; /* 상품 삭제여부 */
 
-	public int getbId() {
-		return bId;
+	private int bid;
+	private String memail;
+	private int pid;
+	private String bname;
+	private String bimage;
+	private int bcount;
+	private String bsize;
+	private String bcolor;
+	private int bprice;
+	private String bdrop;
+	
+	public int getBid() {
+		return bid;
 	}
-
-	public void setbId(int bId) {
-		this.bId = bId;
+	public void setBid(int bid) {
+		this.bid = bid;
 	}
-
-	public String getmEmail() {
-		return mEmail;
+	public String getMemail() {
+		return memail;
 	}
-
-	public void setmEmail(String mEmail) {
-		this.mEmail = mEmail;
+	public void setMemail(String memail) {
+		this.memail = memail;
 	}
-
-	public int getpId() {
-		return pId;
+	public int getPid() {
+		return pid;
 	}
-
-	public void setpId(int pId) {
-		this.pId = pId;
+	public void setPid(int pid) {
+		this.pid = pid;
 	}
-
-	public String getbName() {
-		return bName;
+	public String getBname() {
+		return bname;
 	}
-
-	public void setbName(String bName) {
-		this.bName = bName;
+	public void setBname(String bname) {
+		this.bname = bname;
 	}
-
-	public String getbImage() {
-		return bImage;
+	public String getBimage() {
+		return bimage;
 	}
-
-	public void setbImage(String bImage) {
-		this.bImage = bImage;
+	public void setBimage(String bimage) {
+		this.bimage = bimage;
 	}
-
-	public int getbCount() {
-		return bCount;
+	public int getBcount() {
+		return bcount;
 	}
-
-	public void setbCount(int bCount) {
-		this.bCount = bCount;
+	public void setBcount(int bcount) {
+		this.bcount = bcount;
 	}
-
-	public String getbSize() {
-		return bSize;
+	public String getBsize() {
+		return bsize;
 	}
-
-	public void setbSize(String bSize) {
-		this.bSize = bSize;
+	public void setBsize(String bsize) {
+		this.bsize = bsize;
 	}
-
-	public String getbColor() {
-		return bColor;
+	public String getBcolor() {
+		return bcolor;
 	}
-
-	public void setbColor(String bColor) {
-		this.bColor = bColor;
+	public void setBcolor(String bcolor) {
+		this.bcolor = bcolor;
 	}
-
-	public int getbPrice() {
-		return bPrice;
+	public int getBprice() {
+		return bprice;
 	}
-
-	public void setbPrice(int bPrice) {
-		this.bPrice = bPrice;
+	public void setBprice(int bprice) {
+		this.bprice = bprice;
 	}
-
-	public String getbDrop() {
-		return bDrop;
+	public String getBdrop() {
+		return bdrop;
 	}
-
-	public void setbDrop(String bDrop) {
-		this.bDrop = bDrop;
+	public void setBdrop(String bdrop) {
+		this.bdrop = bdrop;
 	}
-
+	
+	
 }
+
+
+
+
+
