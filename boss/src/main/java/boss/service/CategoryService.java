@@ -26,6 +26,16 @@ public class CategoryService {
 		System.out.println("서비스");
 		return dao.categoryList(c);
 	}
+
+	public List<Product> categorySearch(Category c) {
+
+		return dao.categorySearch(c);
+	}
+
+	public int categorySearchCount(String cid) {
+
+		return dao.categorySearchCount(cid);
+	}
 	
 	
 	

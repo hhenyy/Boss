@@ -18,11 +18,20 @@
 	<link rel="stylesheet" href="assets/css/noscript.css" />
 </noscript>
 <script>
+		var a = '${category.keyword}'
+		
+	function selChange() {
+			
+		var sel = document.getElementById('cntPerPage').value;
+		location.href = "categorySearch.do?nowPage=${pp.nowPage}&newCid=${cid}&cntPerPage="
+				+ sel+"&keyword="+a;
+	}
 	
 	function enterkey() {
 		if (window.event.keyCode == 13) {
 	    	// 엔터키가 눌렸을 때
 	    	var s = document.getElementById("search").value;
+	    	console.log(a)
 	    	location.href="categorySearch.do?newCid=${cid}&keyword="+s;
 	    }
 	}
@@ -53,8 +62,11 @@
 						style="text-decoration: none"><br>로그아웃</a>
 				</c:if>
 				<div align="center" width="100px" height="100px">
-					<input type="text" id="search" maxlength="50" placeholder="검색어를 입력하세요."
+					<input type="text" id="search" maxlength="50" value ="${category.keyword }"
 					onkeyup="enterkey()"><br>
+					<input type="hidden" id="hide" value="${category.keyword }">
+					
+
 				</div>
 				<div style="float: right;">
 					<select id="cntPerPage" name="sel" onchange="selChange()"
@@ -116,6 +128,8 @@
 
 				<section class="tiles">
 				<!-- if문을 넣어 해당 카테고리의 상품이 없을 경우 화면 중앙에 '등록된 상품이 없습니다' 출력 -->
+				
+				
 					<c:forEach var="list" items="${list }" varStatus="loop">
 						<article class="style1">
 							<span class="image"> <img src="images/${list.pimage}" onerror="this.src='images/1.png'">
@@ -126,18 +140,17 @@
 									<p>${list.pcontent }</p>
 								</div>
 							</a>
-						<c:if test="${none != null }">
-						<h1>등록된 상품이 없습니다</h1>
-						</c:if>
 						</article>
 					</c:forEach>
+					
+					
 				</section>
 			</div>
 			<!-- 다른 페이지로 넘어가기 위한 숫자들 자리 -->
 			<div align="center">
 				<c:if test="${pp.startPage != 1 }">
 					<a style="text-decoration: none; color: deeppink"
-						href="./category.do?cid=${cid }&newCid=${cid }&nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}">
+						href="./category.do?cid=${cid }&newCid=${cid }&nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}&keyword=${category.keyword}">
 						<- 
 					</a>
 				</c:if>
@@ -148,13 +161,13 @@
 						</c:when>
 						<c:when test="${p != pp.nowPage }">
 							<a style="text-decoration: none; color: deeppink"
-								href="./category.do?cid=${cid }&newCid=${cid }&nowPage=${p }&cntPerPage=${pp.cntPerPage}">${p }</a>
+								href="./category.do?cid=${cid }&newCid=${cid }&nowPage=${p }&cntPerPage=${pp.cntPerPage}&keyword=${category.keyword}">${p }</a>
 						</c:when>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${pp.endPage != pp.lastPage}">
 					<a style="text-decoration: none; color: deeppink"
-						href="./category.do?cid=${cid }&newCid=${cid }&nowPage=${pp.endPage+1 }&cntPerPage=${pp.cntPerPage}">
+						href="./category.do?cid=${cid }&newCid=${cid }&nowPage=${pp.endPage+1 }&cntPerPage=${pp.cntPerPage}&keyword=${category.keyword}">
 						-> </a>
 				</c:if>
 			</div>

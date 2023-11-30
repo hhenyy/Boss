@@ -30,7 +30,7 @@ public class MasterNoticeService {
 		return dao.noticeInsert(notice);
 	}
 
-	public void noticeDelete(String mnId) {
+	public void noticeDelete(int mnId) {
 
 		dao.noticeDelete(mnId);
 	}
