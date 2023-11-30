@@ -27,8 +27,8 @@ public class ProductDetailService {
 		return dao.selectReview(pid);
 	}
 
-	public Review selectReviewOne(String memail) {
-		return dao.selectReviewOne(memail);
+	public List<Review> selectReviewOne(Map<String, Object> map) {
+		return dao.selectReviewOne(map);
 	}
 	
 	public Review prselect(int rid) {
@@ -58,7 +58,14 @@ public class ProductDetailService {
 	public Orders selectOrders(String mEmail) {
 		return dao.selectOrders(mEmail);
 	}
-	// 리뷰 업데이트 폼
+	// 리뷰 작성 시 주문 결과 확인
+	public List<Orders> selectlist(Map<String, Object> map) {
+		return dao.selectlist(map);
+	}
+
+	public Review rcheck(int oid) {
+		return dao.rcheck(oid);
+	}
 
 	
 	
