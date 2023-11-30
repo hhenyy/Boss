@@ -3,22 +3,38 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
  <mapper namespace="boss.dao.CategoryDao">
-
+ 
 	<!-- 카테고리 별 상품 갯수 -->
 	<select id="categoryCount" parameterType="string" resultType="int">
 		select count(*) from product where cid=#{cid}
+	</select>
+	
+	<!-- 검색 시 상품 갯수 -->
+	<select id="categorySearchCount" parameterType="string" resultType="int">
+		select count(*) from product where cid=#{cid}
+		and pname like '%'||#{keyword}||'%'
 	</select>
 
 	<!-- 페이징 처리된 카테고리 리스트 -->
 	<select id="categoryList" parameterType="category"
 		resultType="product">
 		select *
-		from (select rownum rnum, category.*
-		from (select * from product where cid=#{newCid} order by preg desc) category)
-		where rnum between #{newStartRow} and #{newEndRow}
+		from (select rownum rnum, category.* from 
+		(select * from product where cid=#{newCid} order by preg desc
+		) category
+		) where rnum between #{newStartRow} and #{newEndRow}
 	</select>
 
-
+	<!-- 검색 -->
+	<select id="categorySearch" parameterType="category"
+		resultType="product">
+		select *
+		from (select rownum rnum, category.* from 
+		(select * from product where cid=#{newCid} order by preg desc
+		) category
+		where pname like '%'||#{keyword}||'%'
+		) where rnum between #{newStartRow} and #{newEndRow}
+	</select>
 
 
 </mapper> 

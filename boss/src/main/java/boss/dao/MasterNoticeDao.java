@@ -16,7 +16,7 @@ public interface MasterNoticeDao {
 
 		int noticeInsert(MasterNotice notice);
 
-		void noticeDelete(String mnId);
+		void noticeDelete(int mnId);
 
 		void updateMnReadCount(int i);
 

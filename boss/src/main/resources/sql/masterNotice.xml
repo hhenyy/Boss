@@ -36,8 +36,8 @@
 	<!-- 상세 정보 구하기 -->
 	<select id="selectOne" parameterType="int" resultType="masterNotice">
 	<!-- 게터 메소드를 통해 자동으로 검색된 정보가 DTO 객체에 입력됨 -->
-		select #{mnId},#{mnTitle},#{mnContent},#{mnReg},
-		#{mnOriFile},#{mnReadCount} from MasterNotice where mnId=#{mnId}
+		select mnId,mnTitle,mnContent,mnReg,
+		mnOriFile,mnReadCount from MasterNotice where mnId=#{mnId}
 	</select>
 	
 	<!-- 조회수 1 증가 -->
@@ -48,7 +48,7 @@
 	<!-- 공지글 수정 -->
 	<update id="masterNoticeUpdate" parameterType="masterNotice">
 		update MasterNotice set mnTitle=#{mnTitle},mnContent=#{mnContent},mnReg=SYSDATE,
-		mnOriFile=#{mnOriFile,jdbcType=VARCHAR},mnReadCount=#{mnReadCount}
+		mnOriFile=#{mnOriFile,jdbcType=VARCHAR},mnReadCount=#{mnReadCount} where mnId=#{mnId}
 	</update>
 	
 	

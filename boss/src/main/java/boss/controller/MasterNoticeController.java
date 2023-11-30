@@ -48,7 +48,8 @@ public class MasterNoticeController {
 		// 전송된 파일에서 이름만 채취
 		System.out.println("파일이름:" + filename);
 		String path = "C:\\bossRepository\\boss\\src\\main\\webapp\\images";
-		// String path = request.getRealPath("upload");
+		 //path = request.getRealPath("upload");
+		 System.out.println(path);
 		// 파일 저장될 경로 path
 		int size = (int) mfile.getSize();
 		// 첨부 파일 사이즈 (Byte) int size
@@ -69,11 +70,11 @@ public class MasterNoticeController {
 			file[1] = st.nextToken();
 			// file[0]에 파일명, file[1] 에 확장자가 저장됨.
 
-			if (size > 600) { // 사이즈가 설정된 범위 초과할 경우
+			if (size > 6000) { // 사이즈가 설정된 범위 초과할 경우
 				sizeCheck = -1;
 				model.addAttribute("sizeCheck", sizeCheck);
 				System.out.println("설정범위 초과");
-				return "./master/notice/masterNotice"; // 이동 대신 경고메세지 출력 후 복귀가 좋을 듯
+				return "redirect:/masterNotice.do"; // 이동 대신 경고메세지 출력 후 복귀가 좋을 듯
 			} else if (!file[1].equals("jpg") && 
 					   !file[1].equals("png") && 
 					   !file[1].equals("jpeg")&& 
@@ -84,7 +85,7 @@ public class MasterNoticeController {
 				model.addAttribute("extensionCheck", extensionCheck);
 
 				System.out.println("올바른 확장자가 아닙니다");
-				return "./master/notice/masterNotice"; // 이동 대신 경고메세지 출력 후 복귀가 좋을 듯
+				return "redirect:/masterNotice.do"; // 이동 대신 경고메세지 출력 후 복귀가 좋을 듯
 
 			}
 
@@ -115,7 +116,7 @@ public class MasterNoticeController {
 
 	// 글 삭제
 	@RequestMapping("masterNoticeDelete.do")
-	public String masterNoticeDeleteForm(String mnId) {
+	public String masterNoticeDelete(int mnId,PagePgm pp) {
 
 		System.out.println("masterNoticeDelete");
 		service.noticeDelete(mnId);
@@ -139,8 +140,11 @@ public class MasterNoticeController {
 
 	// 글 수정
 	@RequestMapping(value = "masterNoticeUpdate.do", method = RequestMethod.POST)
-	public String masterNoticeUpdate(@RequestParam(value = "mnOriFile1", required = false) MultipartFile mfile,
-	PagePgm pp, Model model, MasterNotice mn, @RequestParam(value = "nowPage", required = false) String nowPage,		@RequestParam(value = "cntPerPage", required = false) String cntPerPage) throws Exception {
+	public String masterNoticeUpdate(
+	PagePgm pp, Model model, MasterNotice mn, 
+	@RequestParam(value = "nowPage", required = false) String nowPage,		
+	@RequestParam(value = "cntPerPage", required = false) String cntPerPage,
+	@RequestParam(value = "mnOriFile1", required = false) MultipartFile mfile) throws Exception {
 		
 		System.out.println("수정 진입");
 		int sizeCheck, extensionCheck;
@@ -201,6 +205,7 @@ public class MasterNoticeController {
 
 		if (size == 0) { // 첨부 파일이 수정되지 않으면 파일 유지
 						 // 이 코드가 없으면 null값으로 변해버림
+			System.out.println(mn.getmnId());
 			MasterNotice oldmn = service.selectOne(mn.getmnId());
 			System.out.println(oldmn.getMnOriFile());
 			
@@ -229,7 +234,9 @@ public class MasterNoticeController {
 		System.out.println("조회1");
 		// 해당 공지 번호의 자료 조회
 		mn = service.selectOne(mn.getmnId());
+		System.out.println(mn.getMnOriFile());
 		System.out.println("조회2");
+		System.out.println(mn.getmnId());
 
 		model.addAttribute("mnId", mn.getmnId());
 		model.addAttribute("pp", pp);

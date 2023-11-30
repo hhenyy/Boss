@@ -1,6 +1,8 @@
 package boss.model;
 
-public class Category {
+import boss.common.Search;
+
+public class Category extends Search {
 
 	private int newStartRow; // SQL쿼리에 쓸 start, end
 	private int newEndRow;  //SQL쿼리에 쓸 end
