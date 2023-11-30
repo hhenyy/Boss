@@ -85,7 +85,7 @@
 							onclick="location.href='masterOrdersSelect.do?oid=${orders.oid}' ">${orders.oreg}</td>
 						<td>
 							<button type="button"
-								onclick="location.href='masterOrdersSmsMove.do?type=free&ophone=${orders.ophone}' ">전송하기</button>
+								onclick="location.href='masterOrdersSmsMove.do?type=free&oid=${orders.oid}' ">전송하기</button>
 						</td>
 
 					</tr>
@@ -129,15 +129,7 @@
 	</div>
 
 	<%@ include file="../../common/footer.jsp"%>
-
-	<script>
-		function sendSMS(pageName) {
-
-			console.log("문자를 전송합니다.");
-			$("#smsForm").attr("action", pageName + ".do"); //위에 있는 폼태그를 컨트롤러로 전송한다.
-			$("#smsForm").submit();
-		}
-	</script>
+ 
 
 </body>
 </html>
