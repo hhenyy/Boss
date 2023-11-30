@@ -32,14 +32,14 @@
 <body>
 <!-- 전체 div시작 -->
 <div class="div_insertform">
-  <form action="freeBoardDeleteok.do" method="post" onSubmit="return del_check()">
+  <form action="freeBoardDeleteok.do" method="post" onSubmit="return board_check()">
   <input type="hidden" name="fId" value="${detail.fId}"/>
   <input type="hidden" name="page" value="${page}"/>
   
   <table class="table_insertform">
   <tr>
   <th>비밀번호</th>
-  <td><input type="password" name="fPassword" id="fPassword"  size="30" class="table_td_text"></td>
+  <td><input type="password" name="fPassword" id="fPassword"  size="30" class="table_td_text" required="required"></td>
   </tr>  
   </table>
   

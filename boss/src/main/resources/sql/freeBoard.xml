@@ -5,7 +5,7 @@
 <mapper namespace="boss.dao.FreeBoardDao">
 
 <!-- 글등록 -->
-<insert id="insert" parameterType="FreeBoard">
+<insert id="insert" parameterType="freeboard">
 insert into FreeBoard
 (fId,mEmail,fTitle,fContent,fReadCount,fLike,fReg,fDrop)
 values
@@ -13,7 +13,7 @@ values
 </insert>
 
 <!-- 게시글 수 구하기 (검색기능 추가) -->
-<select id="listcount" parameterType="FreeBoard" resultType="int">
+<select id="listcount" parameterType="freeboard" resultType="int">
 		select count(*) from FreeBoard 
 		<where> <!--제목,내용,작성자명으로 검색하는 경우 -->
 			<if test="keyword != null and search !='subcon'">
@@ -27,7 +27,7 @@ values
 </select>
 
 <!-- 페이징 목록 구하기 (검색기능 추가) -->
-	<select id="selectList" parameterType="FreeBoard" resultType="FreeBoard">
+	<select id="selectList" parameterType="freeboard" resultType="freeboard">
 		select * from (select a.*,rowNum rn from (
 			select * from FreeBoard
 		<where> <!--제목,내용,작성자명으로 검색하는 경우 -->
@@ -51,12 +51,12 @@ where fId=#{fId}
 </update>
 
 <!-- 게시판 내용 가져오기 --> <!-- 조건에 fDrop='Y' 넣기 , parameterType map?..-->
-<select id="getDetail" parameterType="int" resultType="FreeBoard">
+<select id="getDetail" parameterType="int" resultType="freeboard">
 select * from FreeBoard where fId=#{fId}
 </select>
 
 <!-- 글수정 -->
-<update id="update" parameterType="FreeBoard">
+<update id="update" parameterType="freeboard">
 update FreeBoard set fTitle=#{fTitle}, fContent=#{fContent} where fId=#{fId}
 </update>
 

@@ -30,26 +30,26 @@
 <body>
 <!-- 전체 div시작 -->
 <div class="div_insertform">
-  <form action="freeBoardUpdateok.do" method="post" onSubmit="return boardinsert_check()">
+  <form action="freeBoardUpdateok.do" method="post" onSubmit="return board_check()">
   <input type="hidden" name="fId" value="${detail.fId}"/>
   <input type="hidden" name="page" value="${page}"/>
   
   <table class="table_insertform">
   <tr>
   <th>제목</th>
-  <td><input type="text" name="fTitle" id="fTitle" value="${detail.fTitle}" size="90"></td>
+  <td><input type="text" name="fTitle" id="fTitle" value="${detail.fTitle}" size="90" required="required"></td>
   </tr>
   <tr>
   <th>내용</th>
-  <td><textarea name="fContent" id="fContent" cols="90" rows="30">${detail.fContent}</textarea></td>
+  <td><textarea name="fContent" id="fContent" cols="90" rows="30" required="required">${detail.fContent}</textarea></td>
   </tr>
   <tr>
   <th>작성자</th>
-  <td><input type="text" name="mEmail" id="mEmail" value="${detail.mEmail}" size="30" class="table_td_text"></td>
+  <td><input type="text" name="mEmail" id="mEmail" value="${detail.mEmail}" size="30" class="table_td_text" required="required"></td>
   </tr>
  <tr>
   <th>비밀번호</th>
-  <td><input type="password" name="fPassword" id="fPassword"  size="30" class="table_td_text"></td>
+  <td><input type="password" name="fPassword" id="fPassword"  size="30" class="table_td_text" required="required"></td>
   </tr> 
   </table>
   
