@@ -113,7 +113,7 @@
                         <button type="button"
                            onclick="location.href='masterQnaBoardDetail.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }'">답변</button>
                         <button type="button"
-                           onclick="location.href='masterQnaBoardDelete.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">삭제</button>
+                           onclick="location.href='masterQnaBoardDelete.do?id=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">삭제</button>
                      </c:if> <c:if test="${qnaBoard.qnayn == 'Y'}">
                         <button type="button"
                            onclick="location.href='masterQnaBoardDetail.do?qid=${qnaBoard.qid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }'">수정</button>

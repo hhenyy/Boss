@@ -17,6 +17,12 @@
     }
 </script>
 
+<script>
+	function moveToCart() {
+		 var quantity = document.getElementById('bucketCount').value;
+		 window.location.href = 'cartFormMove.do?pid=${product.pid}&quantity=' + quantity;
+	}
+</script>
 
 <!-- css 양식 include -->
 <%@include file="/WEB-INF/views/common/header.jsp"%>
@@ -70,11 +76,15 @@
 					<th>상품사이즈</th>
 					<td>${product.psize }</td>
 				</tr>
+				<tr>
+					<th>상품수량</th>
+					<td class="bucket_count"><input type="number" value="1" id="bucketCount">개</td>
+				</tr>
 			</table>
 
 			<div class="button-container">
 				<button type="button" id="buy" class="button1">구매하기</button>
-				<button type="button" id="bucket" class="button1" onclick="location.href='cartFormMove.do'" >장바구니</button>
+				<button type="button" id="bucket" class="button1" onclick="moveToCart();" >장바구니</button>
 
 
 			</div>

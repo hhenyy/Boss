@@ -1,38 +1,72 @@
 package boss.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import boss.model.Bucket;
 import boss.model.Member;
+import boss.model.Product;
 import boss.service.BucketService;
+import boss.service.MasterProductService;
+import edu.emory.mathcs.backport.java.util.Arrays;
 
 @Controller
 public class BucketController {
 	
 	@Autowired
 	private BucketService service;
+	@Autowired
+	private MasterProductService mp;
 	
 	/*
 	 * 장바구니 폼 이동 메소드
 	 */
 	@RequestMapping("cartFormMove.do")
-	public String cartFormMove(HttpSession session,Model model) {
+	public String cartFormMove(HttpSession session,
+			@RequestParam(value = "pid", required = false, defaultValue = "0") String pid, String quantity,Model model) {
 		
 		Member member = (Member)session.getAttribute("member");
-		System.out.println("member : " + member.getmEmail());
-		// 장바구니 전체 리스트 구해오기(세션)
 		String memail = member.getmEmail();
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("memail", memail);
+		
+		// 상품 디테일에서 장바구니로 올 경우
+		if(!pid.equals("0")) {
+			Product product = mp.selectOne(pid);
+			map.put("product", product);
+			map.put("quantity", quantity);
+			map.put("pid", pid);
+			// 장바구니에 이미 pid가 일치하는 상품이 있을경우
+			Bucket bucket = service.selectBucket(map);
+			if(bucket != null) {
+				// 상품 수량 업데이트
+				if(bucket.getBdrop() == "N") {
+					int updateCart = service.updateCart(map);
+				}else {
+					// pid가 일치하는 상품이 있고 삭제된 상태이면
+					int updateBdrop = service.updateBdrop(map);
+				}
+			}else {
+				// 상품 인서트
+				int InsertCart = service.InsertCart(map);
+			}
+			
+		}
+		
 		List<Bucket> list = service.selectBucketList(memail);
-		System.out.println(list);
 		if(!list.isEmpty()) {
-			System.out.println("list2에 들어있음" + list.get(0).getBimage());
 		}
 		
 		model.addAttribute("list", list);
@@ -40,4 +74,57 @@ public class BucketController {
 		return "bucket/bucketList";
 	}
 	
+	@RequestMapping("cartListDelete.do")
+	public String cartListDelete(String bid,Model model,HttpServletRequest request) {
+		
+		int result = 0;
+		List<String> list = new ArrayList<String>();
+		System.out.println("bid : " + bid);
+		String[] str = request.getParameterValues("checkOne");
+		if((bid != null) || (str != null)) {
+			System.out.println("bid : " + bid);
+			System.out.println("checkOne : " + request.getParameterValues("checkOne"));
+			if((bid != null) && (str == null)) {
+				// 1개 or 여러개
+				int id = Integer.parseInt(bid);
+				result = service.deleteCartOne(id);
+			}else if((bid == null) && (str != null)) {
+				list = Arrays.asList(str);
+				result = service.deleteCartList(list);
+			}
+			
+		}else {
+			System.out.println("둘다 null이야");
+			model.addAttribute("resultCheck", "checkBoxNull");
+			model.addAttribute("resultMsg", "삭제할 사항을 선택해 주세요.");
+			return "master/product/masterMoveProductList";
+		}
+		
+		return "redirect:/cartFormMove.do";
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
