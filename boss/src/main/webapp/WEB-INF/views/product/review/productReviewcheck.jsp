@@ -4,14 +4,14 @@
 
 <c:if test="${result==1}">
 	<script>
-	alert("리뷰등록완료");
+	alert("리뷰 등록 완료");
 	location.href="productDetail.do?pid=${pid}";
 	</script>
 </c:if>
 
 <c:if test="${result !=1}">
 	<script>
-	alert("등록 실패");
-	history.go(-1);
+	alert("상품을 구매 후 이용 가능합니다.");
+	location.href="productDetail.do?pid=${pid}";
 	</script>
 </c:if>

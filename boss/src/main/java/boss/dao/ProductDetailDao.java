@@ -21,7 +21,8 @@ public interface ProductDetailDao {
 
 	Review selectReview(String pid);
 	
-	Review selectReviewOne(String memail);
+	// 내가 쓴 review 구해오기
+	List<Review> selectReviewOne(Map<String, Object> map);
 	
 	
 	// 리뷰 불러오기
@@ -40,6 +41,11 @@ public interface ProductDetailDao {
 	int reviewInsert(Review review);
 
 	Orders selectOrders(String mEmail);
+	
+	// order에서 pid 뽑기 
+	List<Orders> selectlist(Map<String, Object> map);
+
+	Review rcheck(int oid);
 	
 
 

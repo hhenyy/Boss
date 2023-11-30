@@ -27,8 +27,8 @@ public class ProductDetailController {
 
 	@Autowired
 	private ProductDetailService service;
-	
-	// 상세페이지 
+
+	// 상세페이지
 	@RequestMapping("productDetail.do")
 	public String productDetail(String pid, PagePgm pp, Model model,
 			@RequestParam(value = "nowPage", required = false) String nowPage,
@@ -64,117 +64,90 @@ public class ProductDetailController {
 		System.out.println("pid : " + pid);
 		List<Review> list = service.list(map);
 
-		// Review review = service.list(map);
-
 		if (!list.equals(null) && list.size() > 0) { // 1개라도 구해옴.
 			System.out.println("list를 구해옴 : " + list.size());
 			model.addAttribute("reviewList", list);
 		} else { // 1개도 못구해옴
 			System.out.println("list를 못구해옴 : " + list.size());
-
 		}
 
-		// 무슨경우에도 상품은 띄워주어야함.
-		model.addAttribute("product", product); // 상품 불러오기
+		model.addAttribute("product", product);
 		model.addAttribute("pid", pid);
 		return "./product/productDetail";
 	}
 
 	// 리뷰 작성 페이지 이동
 	@RequestMapping("productReviewInsertForm.do")
-	public String productReviewInsertForm(String pid, Model model, Review review, Orders orders,
-			@RequestParam(name = "oid", required = false) Integer oid, HttpSession session) {
+	public String productReviewInsertForm(String pid, Model model, HttpSession session) {
 		System.out.println("productReviewInsertForm");
 
-//		 // 세션을 통해서 이메일을 가져감		
-//		Member member = (Member) session.getAttribute("member");
-
-		String memail = "wooas0105";
-
-		List<Review> reviewList = new ArrayList<Review>();
-		reviewList = service.selectMemberReview(memail);
-		System.out.println("list size : " + reviewList.size());
+		// 세션을 통해서 이메일을 가져감
+		Member member = (Member) session.getAttribute("member");
+		String mEmail = member.getmEmail();
 
 		// 작성하는 실시간 날짜
 		Date date = new Date();
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String reviewDate = sdf.format(date);
-
-		// 내 아이디가 pid 를 주문 헀는지 확인시키기 위한 로직 추가중
-
-//		   if(oid != null) {							// 주문결과가 있는 경우 	
-//			   
-//			   Orders orders = service.					// oid를 가져올려고 함 
-//			   if(orders(oid,pid)) {					// oid 와 pid로 주문 여부 확인
-//				   
-//				   model.addAttribute("oid", oid);
-//				   
-//			   }else {
-//				   
-//				   return"redirect:/productDetail";		//주문 정보가 없거나, 주문한 상품이 아닐경우
-//				   
-//			   }
-//			   
-//			   	return"redirect:/productDetail";		// 주문 정보가 없을 경우
-//		   }
-
-		if (review != null) {
-			System.out.println("productReviewInsertForm : " + "리뷰 작성하러 옴");
-			review = reviewList.get(0);
-
-			model.addAttribute("review", review);
-			model.addAttribute("pid", pid);
-			model.addAttribute("reviewDate", reviewDate); // 오늘 날짜 띄우기
-
-		} else {
-			System.out.println("productReviewInsertForm : " + "리뷰가 없는 페이지");
-		}
+		
+		model.addAttribute("mEmail", mEmail);
+		model.addAttribute("pid", pid);
+		model.addAttribute("reviewDate", reviewDate); // 오늘 날짜 띄우기
 
 		return "./product/review/productReviewInsertForm";
 	}
 
-	// order 테이블에서 oid pid 주문 여부 확인
-//	private boolean orders(Integer oid, int pid, String memail) {	
-//		
-//		return false;
-//	}
-
 	// 리뷰 등록
 	@RequestMapping("productReviewcheck.do")
 	public String prInsert(Model model, Review review, HttpSession session, String pid) {
-		System.out.println("productReviewcheck:" + "등록 확인중");
+
+		int result = 0;
 
 		// 세션 얻어오기
 		Member member = (Member) session.getAttribute("member");
 
 		// 이메일 얻기
 		String mEmail = member.getmEmail();
-
+		System.out.println("세션 이메일 확인 : " + mEmail);
+		
 		// pid set하기
 		int pid1 = Integer.parseInt(pid);
 
-		// 내 이메일로 주문 번호 가져오기 oid 얻어오기 ( 나중에 list로 바꿔야함)
-		Orders order = service.selectOrders(mEmail);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memail", mEmail);
+		map.put("pid", pid);
 
-		int oid = order.getOid();
+		// 내 이메일, pid 로 orders에서 정보 추출 (주문 내역이 있나)
+		List<Orders> olist = service.selectlist(map);
 
-		review.setOid(oid);
-		review.setPid(pid1);
-		review.setMemail(mEmail);
+		// 내가 쓴 리뷰 갯수 구하기
+		List<Review> rlist = service.selectReviewOne(map); // 내가 쓴 리뷰의 갯수
 
-		// 리뷰 등록 (서비스로 가는 곳)
-		int result = service.reviewInsert(review);
+		int oid[] = new int[olist.size()]; 				// oid
 
-		System.out.println("리뷰작성결과:" + result);
-		if (result == 1) {
-			System.out.println("리뷰 작성 성공");
-		} else {
-			System.out.println("리뷰 적성 안됐음");
-		}
+		if (olist != null && rlist.size() <= olist.size()) { // 리뷰등록이 가능한지 검사
+			for (int i = 0; i < olist.size(); i++) {
+				oid[i] = olist.get(i).getOid();
+				// 여기에 review테이블에 이미 oid를 가지고 리뷰를 썼는지 확인 해야함
+				Review rcheck = service.rcheck(oid[i]);
+				
+				if(rcheck == null) { // oid로 리뷰를 작성 한 적이 없다면
+					review.setOid(oid[i]);							
+					review.setPid(pid1);
+					review.setMemail(mEmail);
+					result = service.reviewInsert(review);
+					break;
+				}else {
+					continue;
+				}
+				
+			} // for문 end
+		} // if문 end
 
 		model.addAttribute("pid", pid1);
 		model.addAttribute("result", result);
+
 		return "./product/review/productReviewcheck";
 	}
 
@@ -193,14 +166,13 @@ public class ProductDetailController {
 		return "./product/review/productReviewSelect";
 	}
 
-	// 리뷰 수정폼으로 이동 
+	// 리뷰 수정폼으로 이동
 	@RequestMapping("productReviewUpdateForm.do")
-	public String productReviewUpdateForm(int pid, Model model, Review review,int rid) {
+	public String productReviewUpdateForm(int pid, Model model, Review review, int rid) {
 		System.out.println("productReviewUpdateForm :" + "수정");
-		
+
 		review = service.prselect(rid);
-		
-		
+
 		model.addAttribute("review", review);
 		model.addAttribute("pid", pid);
 		return "./product/review/productReviewUpdateForm";
