@@ -122,7 +122,7 @@ td {
 }
 
 .cart__list__detail :nth-child(5) button {
-  background-color: limegreen;
+  background-color: black;
   color: white;
   border: none;
   border-radius: 5px;
@@ -157,7 +157,7 @@ td {
 }
 
 .cart__bigorderbtn.right {
-  background-color: limegreen;
+  background-color: black;
   color: white;
   border: none;
 }
