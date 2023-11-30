@@ -37,7 +37,8 @@
 			<a href="mypage.do"><img src="./images/my.png"
 				style="text-decoration: none"></a>
 			<a href="productInsertForm.do"><img src="./images/cart.png"
-				style="text-decoration: none"></a>
+				style="text-decoration: none"></a><br>
+				${member.mName }님 환영합니다.
 			<a href="productInsertForm.do" onclick="alert('상품등록')"
 				style="text-decoration: none"><br>상품등록</a>
 			<br>
@@ -53,7 +54,8 @@
 		<a href="mypage.do"><img src="./images/my.png"
 			style="text-decoration: none"></a>
 		<a href="productInsertForm.do"><img src="./images/cart.png"
-			style="text-decoration: none"></a>
+			style="text-decoration: none"></a><br>
+				${member.mName }님 환영합니다.
 				<br>
 		</c:if>
 	

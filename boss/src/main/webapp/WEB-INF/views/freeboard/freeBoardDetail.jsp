@@ -14,35 +14,78 @@
 <link rel="stylesheet" href="css/freeBoardDetail.css">
 <!-- css 불러오기 -->
 <link rel="stylesheet" href="css/freeBoard.css">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+	/* 	window.onload=function() {
+	 } */
+	$(function() {
+		//기존 댓글 목록 요청 
+		//load함수로 불러온 결과 페이지(freeboardReplyList.jsp)의 댓글 목록을 div태그사이에 출력
+		//상세페이지 들어오자마자 자동으로 처리됨. 
+		$('#replylist').load('FreeReplyList.do?fId=${detail.fId}')
+//		$('#list').load('${path}/list/pageNum/${pageNum}');
+		
+		$('#replyInsert').click(function() {
+			if ($('#frContent').val() == '') {
+				alert('댓글 입력후에 클릭하시오');
+				$('#frContent').focus();
+				return false;
+			}
+			var frmData = $('form').serialize();
+			//form태그의 전달값들을 한꺼번에 구해옴 
+			// var frmData = 'replyer='+frm.replyer.value+'&bno='+
+			//				  frm.bno.value+'&replytext='+frm.replytext.value;	
+			//post함수로 요청: 새로추가된 댓글목록을 콜백함수로 돌려받고 freeBoardDetail.jsp div태그사이에 다시 출력함. 
+			//post함수대신 ajax로도 가능함. 
+// 			$.post('replyInsert.do', frmData, function(data) {
+// 				$('#replylist').html(data);
+// 				$('#frContent').val('');
+// 			});
+			//#replylist 아이디 값에 data값을 출력하고, #frContent에 공백처리
+			$.ajax({
+				url : 'replyInsert.do',
+				type : 'post',
+				data : frmData,
+				success : function(data){
+					$('#replylist').html(data);
+					$('#frContent').val('');
+				}				
+			}); // $.ajax() end			
+		});
+	});
+</script>
 </head>
-
 <body>
 	<!-- 전체 div시작 -->
 	<div class="div_freeBoardDetail">
 		<table class="table_freeBoardDetail">
-
 			<tr>
-				<td colspan="4"><h3>${detail.fTitle}</h3></td>
+				<td>제목</td>
+				<td><h1>${detail.fTitle}</h1></td>
 			</tr>
 			<tr>
-				<td colspan="4">${detail.mEmail}</td>
+				<td>작성자</td>
+				<td>${detail.mEmail}</td>
 			</tr>
 			<tr>
-				<td colspan="4"><fmt:formatDate value="${detail.fReg}"
-						pattern="yyyy-MM-dd" /></td>
+				<td>작성일</td>
+				<td><fmt:formatDate value="${detail.fReg}" pattern="yyyy-MM-dd" /></td>
 			</tr>
 			<tr>
-				<td colspan="4"><pre>${detail.fContent}</pre></td>
+				<td>내용</td>
+				<td><h2>
+						<pre>${detail.fContent}</pre>
+					</h2></td>
 			</tr>
-
 			<tr>
 				<td>조회수</td>
 				<td>${detail.fReadCount}</td>
+			</tr>
+			<tr>
 				<td>좋아요</td>
 				<td>${detail.fLike}</td>
 			</tr>
 		</table>
-	</div>
 
 	<!-- button div 끝-->
 	<div class="div_boardform_button" align="center">
@@ -56,91 +99,17 @@
 	<!-- button div 끝-->
 	<!-- 전체 div끝 -->
 
-
-
-
-
-
-	<!---------------------댓글 목록 div시작------------------------------>
-	<div class="community">
-		<table class="table_community">
-			<caption>댓글</caption>
-			<tr>
-				<th width="8%">번호</th>
-				<th width="47%">제목</th>
-				<th width="13%">작성자</th>
-				<th width="13%">작성일</th>
-				<th width="7%">조회수</th>
-				<th width="7%">좋아요</th>
-			</tr>
-
-			<c:if test="${empty list}">
-				<tr>
-					<td colspan="6">아직 댓글이 없습니다. 댓글을 남겨보세요.</td>
-				</tr>
-			</c:if>
-
-
-			<c:if test="${not empty list}">
-				<!-- 글번호 변수 정의 -->
-				<c:set var="num" value="${no}" />
-
-				<!-- 글목록 list출력 시작 -->
-				<c:forEach var="board" items="${list}">
-					<tr>
-						<!-- 글번호 출력부분 -->
-						<td><c:out value="${num}" /> <c:set var="num"
-								value="${num-1}" /></td>
-
-						<!-- 삭제글인지 아닌지 판별 -->
-						<c:if test="${board.fDrop =='Y' }">
-							<td colspan="6">삭제된 데이터 입니다</td>
-						</c:if>
-
-						<c:if test="${board.fDrop !='Y' }">
-							<!-- 제목 출력 부분 -->
-							<td><a
-								href="freeBoardDetail.do?page=${pp.currentPage}&fId=${board.fId}&state=detail">
-									${board.fTitle} <!-- 조회수 30 초과 인기글 표시 --> <c:if
-										test="${board.fReadCount > 30 }">
-										<img alt="" src="images/hot.gif">
-									</c:if>
-							</a></td>
-							<td>${board.mEmail}</td>
-							<td><fmt:formatDate value="${board.fReg}"
-									pattern="yyyy-MM-dd" /></td>
-							<td>${board.fReadCount}</td>
-							<td>${board.fLike}</td>
-						</c:if>
-					</tr>
-				</c:forEach>
-			</c:if>
-			<!-- 글목록 list출력 끝-->
-		</table>
-	</div>
-	<!---------------------댓글 목록 div시작------------------------------>
-
-
-
-	<!-- 댓글입력 div 시작-->
-	<div class="div_freeBoardDetail">
-		<table class="table_freeBoardDetail">
-
-			<h3>댓글 입력</h3>
-			<tr>
-				<!-- login된 다른유저의 정보가져와야함. -->
-				<td>${detail.mEmail}</td>
-				<td><textarea name="fContent" id="fContent" cols="90" rows="4">댓글 달기..</textarea></td>
-				<td>
-					<!--댓글 button div 끝-->
-					<div class="div_boardform_button" align="center">
-						<input type="submit" class="boardform_button" value="등록">
-						</button>
-					</div> <!-- button div 끝-->
-
-				</td>
-			</tr>
-		</table>
+<p>
+	<!--------- 댓글입력 div 시작------->
+  <!--freereplycontroller로 부모글의fId전달  댓글단사람의  mEmail로해야함 추후 수정  -->
+		<form name="frm" id="frm">
+			<input type="hidden" name="mEmail" value="${detail.mEmail}">
+			<input type="hidden" name="fId" value="${detail.fId}"> 댓글 :
+			<textarea rows="3" cols="50" name="frContent" id="frContent" placeholder="댓글 달기.."></textarea>
+			<input type="button" value="확인" id="replyInsert">
+		</form>
+			<div id="replylist"></div>
+		<!-- <div id="list"></div> -->
 	</div>
 	<!-- 댓글입력 div 끝 -->
 

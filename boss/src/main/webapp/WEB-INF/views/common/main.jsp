@@ -25,13 +25,14 @@
 <noscript>
 	<link rel="stylesheet" href="assets/css/noscript.css" />
 </noscript>
+
+
 </head>
 
 <body class="is-preload">
 
 	<!-- Wrapper -->
 	<div id="wrapper">
-
 
 		<!-- Header -->
 		<header id="header">
@@ -40,13 +41,12 @@
 				<!-- 쇼핑몰 로고 & 상단 아이콘 불러오기 -->
 				<%@include file="header.jsp"%>
 
-
 				<!--1. 비회원 페이지 -->
 				<c:if test="${empty sessionScope.member}">
-					<div align="center" width="100px" height="100px">
+				<div align="center" width="100px" height="100px">
 						<input type="text" maxlength="30" placeholder="검색어를 입력하세요. 연말준비는 ? BOSS에서 !">
 						<br> <br>
-					</div>
+					</div> 
 
 					<!-- Nav -->
 					<nav>
@@ -67,7 +67,7 @@
 				<li><a href="productDetail.do">CART</a></li>
 				<li><a href="freeBoardList.do">COMMUNITY</a></li>
 				<li><a href="elements.do">Elements</a></li>
-				<li><a href="category.do?cid=맨투맨">맨투맨</a></li>
+				<li><a href="category.do?newCid=맨투맨">맨투맨</a></li>
 				<li><a href="masterNotice.do">공지사항</a></li>
 				<!-- 최종에서는 관리자페이지 빼기 -->
 				<input type="button" value="관리자페이지"
@@ -229,14 +229,7 @@
 		<!--2.관리자페이지  -->
 		<c:if
 			test="${!empty sessionScope.member && member.mEmail eq 'master'}">
-				<a href="Logout.do" onclick="alert('로그아웃')"><img src="./images/logout.png" style="text-decoration: none"></a>
-				<a href="mypage.do"><img src="./images/my.png" style="text-decoration: none"></a>
-				<a href="cartFormMove.do"><img src="./images/cart.png" style="text-decoration: none"></a>
-				<br>${member.mName }님 환영합니다.
-			<a href="productInsertForm.do" onclick="alert('상품등록')"
-				style="text-decoration: none"><br>상품등록</a><br>
-					<input type="button" value="관리자페이지"
-				onclick="location.href='masterMain.do'">
+							
 			<!-- --------------------------회원 비회원 관리자 각각 넣을 내용---------------------------------- -->
 			<div align="center" width="100px" height="100px">
 				<input type="text" maxlength="50" placeholder="검색어를 입력하세요."><br>
@@ -263,7 +256,7 @@
 			<li><a href="productDetail.do">CART</a></li>
 			<li><a href="freeBoardList.do">COMMUNITY</a></li>
 			<li><a href="elements.do">Elements</a></li>
-			<li><a href="category.do?cid=맨투맨">맨투맨</a></li>
+			<li><a href="category.do?newCid=맨투맨">맨투맨</a></li>
 			<li><a href="masterNotice.do">공지사항</a></li>
 			<input type="button" value="관리자페이지"
 				onclick="location.href='masterMain.do'">
@@ -459,7 +452,7 @@
 
 	<!-- 3.회원페이지 -->
 	<c:if test="${!empty sessionScope.member && member.mEmail ne 'master'}">
-				${member.mName }님 환영합니다.
+			
 
 		<!-- --------------------------회원 비회원 관리자 각각 넣을 내용---------------------------------- -->
 		<div align="center" width="100px" height="100px">
@@ -489,7 +482,7 @@
 				<li><a href="productDetail.do">CART</a></li>
 				<li><a href="freeBoardList.do">COMMUNITY</a></li>
 				<li><a href="elements.do">Elements</a></li>
-				<li><a href="category.do?cid=맨투맨">맨투맨</a></li>
+				<li><a href="category.do?newCid=맨투맨">맨투맨</a></li>
 				<li><a href="masterNotice.do">공지사항</a></li>
 				<br>
 			</ul>
