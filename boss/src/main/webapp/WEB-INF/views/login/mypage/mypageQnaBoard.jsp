@@ -27,7 +27,7 @@
 		<ul>
 			<li><a class="mypage_sidebar" href='#'>메뉴</a></li>
 			<li><a href='mypage.do'>내 주문내역</a></li>
-			<li><a href='#'>장바구니</a></li>
+			<li><a href='cartFormMove.do'>장바구니</a></li>
 			<li><a href='mypageQnA.do'>내가 쓴 QnA</a></li>
 			<li><a href='mypageReview.do'>내가 쓴 Review</a></li>
 		</ul>

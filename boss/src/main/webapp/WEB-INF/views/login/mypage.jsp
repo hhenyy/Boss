@@ -29,7 +29,7 @@
 		<ul>
 			<li><a class="mypage_sidebar" href='#'>메뉴</a></li>
 			<li><a href='mypage.do'>내 주문내역</a></li>
-			<li><a href='#'>장바구니</a></li>
+			<li><a href='cartFormMove.do'>장바구니</a></li>
 			<li><a href='mypageQnA.do'>내가 쓴 QnA</a></li>
 			<li><a href='mypageReview.do'>내가 쓴 Review</a></li>
 		</ul>
@@ -51,17 +51,19 @@
 
 						<c:forEach items="#{statusMsg }" var="msg" varStatus="loop">
 							<c:forEach items="${ordersList}" var="order" varStatus="loop">
-								<td>${order['OID']}</td>
-								<td>${order['PNAME']}</td>
-								<td style="position: relative;"><img
-									src="./images/${order['PIMAGE']}" width="50" height="50"
-									class="toggle-image"> <span class="text-on-image">${o.PTEXT}</span>
-								</td>
-								<td>${order['ODCOUNT']}</td>
-								<td>${msg }</td>
-								<fmt:formatDate value="${order['OREG']}" pattern="yyyy년 MM월 dd일"
-									var="formattedDate" />
-								<td>${formattedDate}</td>
+								<tr>
+									<td>${order['OID']}</td>
+									<td>${order['PNAME']}</td>
+									<td style="position: relative;"><img
+										src="./images/${order['PIMAGE']}" width="50" height="50"
+										class="toggle-image"> <span class="text-on-image">${o.PTEXT}</span>
+									</td>
+									<td>${order['ODCOUNT']}</td>
+									<td>${msg }</td>
+									<fmt:formatDate value="${order['OREG']}"
+										pattern="yyyy년 MM월 dd일" var="formattedDate" />
+									<td>${formattedDate}</td>
+								</tr>
 							</c:forEach>
 						</c:forEach>
 					</table>
