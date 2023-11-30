@@ -36,7 +36,7 @@
 				src="./images/logout.png" style="text-decoration: none"></a>
 			<a href="mypage.do"><img src="./images/my.png"
 				style="text-decoration: none"></a>
-			<a href="productInsertForm.do"><img src="./images/cart.png"
+			<a href="cartFormMove.do"><img src="./images/cart.png"
 				style="text-decoration: none"></a><br>
 				${member.mName }님 환영합니다.
 			<a href="productInsertForm.do" onclick="alert('상품등록')"

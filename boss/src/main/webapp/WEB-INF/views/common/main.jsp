@@ -62,9 +62,9 @@
 			<h2>Menu</h2>
 			<ul>
 				<li><a href="index.do">JOIN</a></li>
-				<li><a href="productDetail.do">LOGIN</a></li>
+				<li><a href="NaverLogin.do">LOGIN</a></li>
 				<li><a href="mypage.do">MYPAGE</a></li>
-				<li><a href="productDetail.do">CART</a></li>
+				<li><a href="CartFormMove.do">CART</a></li>
 				<li><a href="freeBoardList.do">COMMUNITY</a></li>
 				<li><a href="elements.do">Elements</a></li>
 				<li><a href="category.do?newCid=맨투맨">맨투맨</a></li>
@@ -251,9 +251,9 @@
 		<h2>Menu</h2>
 		<ul>
 			<li><a href="index.do">JOIN</a></li>
-			<li><a href="productDetail.do">LOGIN</a></li>
+			<li><a href="NaverLogin.do">LOGIN</a></li>
 			<li><a href="mypage.do">MYPAGE</a></li>
-			<li><a href="productDetail.do">CART</a></li>
+			<li><a href="cartFormMove.do">CART</a></li>
 			<li><a href="freeBoardList.do">COMMUNITY</a></li>
 			<li><a href="elements.do">Elements</a></li>
 			<li><a href="category.do?newCid=맨투맨">맨투맨</a></li>
@@ -477,9 +477,9 @@
 			<h2>Menu</h2>
 			<ul>
 				<li><a href="index.do">JOIN</a></li>
-				<li><a href="productDetail.do">LOGIN</a></li>
+				<li><a href="NaverLogin.do">LOGIN</a></li>
 				<li><a href="mypage.do">MYPAGE</a></li>
-				<li><a href="productDetail.do">CART</a></li>
+				<li><a href="cartFormMove.do">CART</a></li>
 				<li><a href="freeBoardList.do">COMMUNITY</a></li>
 				<li><a href="elements.do">Elements</a></li>
 				<li><a href="category.do?newCid=맨투맨">맨투맨</a></li>
