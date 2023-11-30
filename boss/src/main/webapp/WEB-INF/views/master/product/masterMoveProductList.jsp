@@ -89,6 +89,13 @@
 		</script>
 	</c:if>
 	
+	<c:if test="${resultCheck == 'checkBoxNull'}">
+		<script>
+		alert("${resultMsg}");
+		history.go(-1);
+		</script>
+	</c:if>
+	
 </body>
 </html>
 
