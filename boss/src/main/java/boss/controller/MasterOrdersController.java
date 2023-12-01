@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import boss.common.PagePgm;
 import boss.common.Search;
@@ -49,9 +50,7 @@ public class MasterOrdersController {
 
 	// 관리자 주문 상세정보
 	@RequestMapping("masterOrdersSelect.do")
-	public String masterOrdersSelect(String oid, Model model,
-			@RequestParam(value = "nowPage", required = false) String nowPage,
-			@RequestParam(value = "cntPerPage", required = false) String cntPerPage) throws Exception {
+	public String masterOrdersSelect(String oid, Model model) throws Exception {
 		System.out.println("masterOrdersSelect");
 		System.out.println("oid : " + oid);
 		List<HashMap<String, Object>> ordersList = new ArrayList<>();
@@ -75,22 +74,29 @@ public class MasterOrdersController {
 
 	// 관리자 주문 상세 - 배송상태 변경
 	@RequestMapping("masterOrdersStatus.do")
-	public String masterOrdersStatus(String odid, String odstatus, Model model) throws Exception {
+	@ResponseBody
+	public String masterOrdersStatus(@RequestParam String odid,@RequestParam String odstatus, Model model) throws Exception {
 		System.out.println("masterOrdersStatus");
+		System.out.println("odid = " + odid);
+		System.out.println("odstatus = "+odstatus);
 		int oid = mos.selectOrderDetail(odid).getOid();
 		System.out.println("oid : " + oid);
 		System.out.println("odid : " + odid);
 		System.out.println("odstatus : " + odstatus);
 		if (odstatus != null) {
+			// 상태변경
 			int result = mos.updateStatus(odid, odstatus);
 			if (result == 1) { // 수정 완료시
 				System.out.println("수정성공");
 				model.addAttribute("oid", oid);
+				return "Y";
 			} else { // 수정 실패시
 				System.out.println("수정실패");
+				return "N";
 			}
+		}else {
+			return "N";
 		}
-		return "redirect:/masterOrdersSelect.do";
 	}
 
 	// 관리자 주문 삭제
@@ -164,64 +170,9 @@ public class MasterOrdersController {
 		return "master/orders/masterOrdersList";
 	}
 
-	// 문자를 보낼때 맵핑되는 메소드
-	@RequestMapping("sendSms.do")
-	public String sendSms(HttpServletRequest request, Model model) throws Exception {
-		Orders orders = new Orders();
-		// oid를 기준으로 삼음.
-		String oid = request.getParameter("oid");
-		if (oid != null && oid != "") {
-			orders = mos.selectOrders(oid);
-		}
-		;
-
-		String ophone = request.getParameter("to");
-		String type = request.getParameter("type");
-		String msg = "";
-		int resultMy = 0;
-		System.out.println("ophone : " + ophone);
-		System.out.println("type : " + type);
-		String api_key = "NCSRYPBYYEAXEHUI"; // 위에서 받은 api key를 추가
-		String api_secret = "GQXOPEODU6IKF2VHTJCIUDAPOGS3BU2U"; // 위에서 받은 api secret를 추가
-
-		// 이 부분은 홈페이지에서 받은 자바파일을 추가한다음 그 클래스를 import해야 쓸 수 있는 클래스이다.
-		boss.common.Coolsms coolsms = new boss.common.Coolsms(api_key, api_secret);
-
-		HashMap<String, String> set = new HashMap<String, String>();
-		set.put("to", ophone); // 수신번호
-
-		set.put("from", (String) request.getParameter("from")); // 발신번호, jsp에서 전송한 발신번호를 받아 map에 저장한다.
-		set.put("text", (String) request.getParameter("text")); // 문자내용, jsp에서 전송한 문자내용을 받아 map에 저장한다.
-		set.put("type", "sms"); // 문자 타입
-
-		System.out.println(set);
-
-		JSONObject result = coolsms.send(set); // 보내기&전송결과받기
-
-		if (((boolean) result.get("status") == true) && result.get("result_message") != null) {
-			// 메시지 보내기 성공 및 전송결과 출력
-			System.out.println("문자전송 결과 : " + result.get("result_message")); // 결과 메시지
-			resultMy = 1;
-			msg = orders.getOname() + "님에게" + "문자를 전송하였습니다.";
-			model.addAttribute("msg", msg);
-			model.addAttribute("result", resultMy);
-		} else {
-			// 메시지 보내기 실패
-			System.out.println("문자전송 결과 : " + result.get("result_message")); // 결과 메시지
-			resultMy = -1;
-			msg = orders.getOname() + "님에게" + "문자전송에 실패하였습니다.";
-			model.addAttribute("msg", msg);
-			model.addAttribute("result", resultMy);
-		}
-
-		System.out.println("masterOrdersList");
-
-		return "master/orders/masterOrdersSmsResult";
-
-	}
-
+	// 문자전송을 방식을 검증
 	@RequestMapping("masterOrdersSmsMove.do")
-	public String masterOrdersSmsMove(String type, String status, Model model, Orders orders, String oid) {
+	public String masterOrdersSmsMove(String type, String status, Orders orders, String oid, Model model) {
 		System.out.println("masterOrdersSmsMove");
 		System.out.println("전송타입 : " + type);
 		System.out.println("oid : " + oid);
@@ -251,6 +202,54 @@ public class MasterOrdersController {
 			}
 		}
 		return "master/orders/masterOrdersSmsMove";
+	}
+
+	// 문자 전송시 검증
+	@RequestMapping("sendSms.do")
+	public String sendSms(HttpServletRequest request, Model model) throws Exception {
+		String ophone = request.getParameter("to"); // 수령인 휴대폰번호 (관리자 입력에 따라 바뀔 여지가 있음.)
+		String type = request.getParameter("type"); // 전송방식을 구해옴.(개별,배송별)
+		String msg = "";
+		int resultMy = 0;
+		String oid = request.getParameter("oid");
+		Orders orders = mos.selectOrders(oid);
+
+		// ** 아래부턴 문자 API관련 메서드이다.**
+		String api_key = "NCSRYPBYYEAXEHUI"; // 위에서 받은 api key를 추가
+		String api_secret = "GQXOPEODU6IKF2VHTJCIUDAPOGS3BU2U"; // 위에서 받은 api secret를 추가
+
+		// 이 부분은 홈페이지에서 받은 자바파일을 추가한다음 그 클래스를 import해야 쓸 수 있는 클래스이다.
+		boss.common.Coolsms coolsms = new boss.common.Coolsms(api_key, api_secret);
+
+		HashMap<String, String> set = new HashMap<String, String>();
+		set.put("to", ophone); // 수신번호
+
+		set.put("from", (String) request.getParameter("from")); // 발신번호, jsp에서 전송한 발신번호를 받아 map에 저장한다.
+		set.put("text", (String) request.getParameter("text")); // 문자내용, jsp에서 전송한 문자내용을 받아 map에 저장한다.
+		set.put("type", "sms"); // 문자 타입
+
+		System.out.println(set);
+
+		JSONObject result = coolsms.send(set); // 보내기&전송결과받기
+//		if() {
+		// 모든 인증과정을 통과한경우.
+		if (((boolean) result.get("status") == true) && result.get("result_message") != null) {
+			System.out.println("문자전송 결과 : " + result.get("result_message")); // 결과 메시지
+			resultMy = 1;
+			msg = orders.getOname() + " 님에게" + " 문자를 전송하였습니다.";
+			model.addAttribute("msg", msg);
+			model.addAttribute("result", resultMy);
+		} else { // 인증과정을 통과하지 못한경우.
+			System.out.println("문자전송 결과 : " + result.get("result_message")); // 결과 메시지
+			resultMy = -1;
+			msg = orders.getOname() + " 님에게" + " 문자전송을 실패하였습니다.";
+			model.addAttribute("msg", msg);
+			model.addAttribute("result", resultMy);
+		}
+//		}
+
+		return "master/orders/masterOrdersSmsResult";
+
 	}
 
 }

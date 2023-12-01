@@ -46,8 +46,12 @@ public class BucketService {
 	}
 
 	public int updateBdrop(Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		return dao.updateBdrop(map);
+	}
+	
+	// 결제폼 이동 전 bid일치하는 장바구니 한개 구함.
+	public Bucket selectBucketOne(String bid) {
+		return dao.selectBucketOne(bid);
 	}
 
 }

@@ -18,7 +18,7 @@
 	<c:if test="${result eq -1 }">
 		<script>
 			alert("${msg}");
-			history.go(-1);
+			location.href = "masterOrdersList.do";
 		</script>
 	</c:if>
 </body>

@@ -29,5 +29,7 @@ public interface BucketDao {
 	int updateCart(Map<String, Object> map);
 
 	int updateBdrop(Map<String, Object> map);
+
+	Bucket selectBucketOne(String bid);
   
 }

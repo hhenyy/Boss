@@ -1,12 +1,15 @@
 package boss.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import boss.model.Bucket;
-import boss.model.Product;
+import boss.model.Member;
+import boss.service.BucketService;
 import boss.service.MasterProductService;
 import boss.service.OrdersService;
 
@@ -17,20 +20,21 @@ public class OrdersController {
 	OrdersService os;
 	@Autowired
 	MasterProductService mps;
+	@Autowired
+	BucketService bs;
 
 	/*
 	 * 결제 폼 이동 메소드
 	 */
 	@RequestMapping("ordersForm.do")
-	public String ordersForm(Bucket bucket, Model model) {
+	public String ordersForm(Bucket bucket, Model model, HttpSession session, String bid) {
 		System.out.println("ordersForm");
-
-		Product product = new Product();
-		product = mps.selectOne("100");
-		
-		System.out.println("product.getPprice() : " + product.getPprice());
-		model.addAttribute("product", product);
-
+		Member member = (Member) session.getAttribute("member");
+		int result = 0;
+		String msg = "";
+		bucket = bs.selectBucketOne(bid);
+		model.addAttribute("bucket", bucket);
+		model.addAttribute("member", member);
 		return "orders/ordersForm";
 	}
 

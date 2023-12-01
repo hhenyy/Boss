@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>결제 폼</title>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<link rel="stylesheet" href="css/ordersForm.css">
 
 </head>
 <!-- jQuery -->
@@ -27,69 +27,140 @@
 	var milliseconds = today.getMilliseconds();
 	var makeMerchantUid = hours + minutes + seconds + milliseconds;
 
-	
-	// 사용자 임의의 변수값들 들어올곳.
-	var pid = '${product.pid}';
-	var pname = '${product.pname}';
-	var pprice = '${product.pprice}';
-	
+	var name = '${member.mName}';
+	var amount = '${bucket.bprice}';
+	var buyer_email = '${member.mEmail}';
+	var buyer_name = '${member.mName};'
+	var buyer_tel = '${member.mPhone}';
+	var buyer_addr = '${member.mAddress}';
+	var buyer_postcode = '${member.mPost}';
+
 	function requestPay() {
 		IMP.request_pay({
 			pg : 'kcp',
 			pay_method : 'card',
 			merchant_uid : "IMP" + makeMerchantUid,
-			name : pname,
-			amount : pprice,
-			
-			
-			buyer_email : 'Iamport@chai.finance',
-			buyer_name : '아임포트 기술지원팀',
-			buyer_tel : '010-1234-5678',
-			buyer_addr : '서울특별시 강남구 삼성동',
-			buyer_postcode : '123-456'
+			name : name,
+			amount : amount,
+
+			buyer_email : buyer_email,
+			buyer_name : buyer_name,
+			buyer_tel : buyer_tel,
+			buyer_addr : buyer_addr,
+			buyer_postcode : buyer_postcode
 		}, function(rsp) { // callback
-			
-// 		    // 결제검증
-// 	        $.ajax({
-// 	            type : "POST",
-// 	            url : "/verifyIamport/" + res.imp_uid
-			
+
+			// 		    // 결제검증
+			// 	        $.ajax({
+			// 	            type : "POST",
+			// 	            url : "/verifyIamport/" + res.imp_uid
+
 			// 검증완료시
 			if (rsp.success) {
 				console.log(rsp);
-				
-			// 검증 실패시
+
+				// 검증 실패시
 			} else {
 				console.log(rsp);
 			}
 		});
 	}
 </script>
-<meta charset="UTF-8">
-<title>Sample Payment</title>
-</head>
+
 <body>
 	<form>
-		<table border="1">
-			<tr>
-				<th></th>
-				<th></th>
-				<th></th>
-				<th></th>
-			</tr>
-			<tr>
-				<td><input type="text" id="name"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-		</table>
+		<div class="container_main">
+			<div class="container_left">
+
+				<h2>배송지 입력</h2>
+				<table class="table_orders1">
+					<tr>
+						<td><input type="text" value="${member.mName }"
+							style="color: palegreen; font-size: 30px"></td>
+					</tr>
+					<tr>
+						<td><input type="text" value="${member.mPhone }"></td>
+					</tr>
+					<tr>
+						<td><input type="text" value="${member.mPost }"></td>
+					</tr>
+					<tr>
+						<td><input type="text" value="${member.mAddress }"></td>
+					</tr>
+				</table>
+				<h2>주문자 입력</h2>
+				<table class="table_orders2">
+					<tr>
+						<td><input type="text" value="${member.mName }"
+							style="color: palegreen; font-size: 30px"></td>
+					</tr>
+					<tr>
+						<td><input type="text" value="${member.mPhone }"></td>
+					</tr>
+				</table>
+
+
+
+				<h2>주문상품</h2>
+				<table class="table_product">
+					<tr>
+						<td class="class_td" rowspan="5"><img
+							src="imeges/${bucket.bimage}"></td>
+					<tr>
+						<td><input type="text" value="${bucket.bname}"
+							style="color: palegreen; font-size: 30px"></td>
+					</tr>
+
+					<tr>
+						<td>${bucket.bsize}</td>
+					</tr>
+					<tr>
+						<td>${bucket.bcolor}</td>
+					</tr>
+					<tr>
+						<td>${bucket.bprice}&#8361;${bucket.bcount}개</td>
+					</tr>
+
+				</table>
+
+			</div>
+			<div class="container_right">
+				<table class="table_point">
+
+
+
+					<tr>
+						<h2>결제정보</h2>
+					</tr>
+					<tr>
+						<td>${bucket.bname}</td>
+						<td>${bucket.bcolor}</td>
+					</tr>
+					<tr>
+						<td>${bucket.bsize}</td>
+					</tr>
+					<tr>
+						<td>${bucket.bcount}</td>
+					</tr>
+					<tr>
+						<td>${bucket.bsize}</td>
+					</tr>
+				</table>
+				<div class="img_logo">
+					<a><img src="./images/logo.png" style="width: 350px"></a>
+				</div>
+			</div>
 	</form>
 
 
 
 
+
+
+
 	<button onclick="requestPay()">결제하기</button>
-	<!-- 결제하기 버튼 생성 -->
+
+
 </body>
+
 </html>
