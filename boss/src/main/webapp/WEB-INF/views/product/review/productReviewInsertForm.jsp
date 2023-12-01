@@ -15,7 +15,7 @@
 <body>
 	<div class="insert_main">
 		<h1 class="" align="center">리뷰 작성</h1>
-		<form method="post" action="productReviewcheck.do">
+		<form method="post" action="productReviewcheck.do" enctype="multipart/form-data">
 
 
 			<table class="insert_table">
@@ -51,8 +51,8 @@
 				</tr>
 				<tr>
 					<th>이미지</th>
-					<td><input type="file" id="rimage" class="input_box"
-						name="rimage"></td>
+					<td><input type="file" class="input_box"
+						name="rimage1"></td>
 				</tr>
 				<tr>
 					<th>글내용</th>

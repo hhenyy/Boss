@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>리뷰 페이지</title>
+
 <!-- css 양식 include -->
 <%@include file="/WEB-INF/views/common/header.jsp"%>
 <!-- css 불러오기 -->
@@ -52,7 +53,8 @@
 		</table>
 
 		<div class="button_select">
-			<button type="button" class="review_button1" onclick="location.href='productReviewUpdateForm.do?rid=${review.rid}&pid=${review.pid}'">수정</button>
+			<button type="button" class="review_button1"
+				onclick="location.href='productReviewUpdateForm.do?rid=${review.rid}&pid=${review.pid}'">수정</button>
 			<button type="button" class="review_button1" onclick="history.go(-1)">취소</button>
 		</div>
 	</form>
