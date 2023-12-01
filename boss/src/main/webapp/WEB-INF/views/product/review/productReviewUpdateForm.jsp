@@ -14,7 +14,7 @@
 </head>
 <body>
 	<div class="insert_main">
-		<h1 class="" align="center">리뷰 작성</h1>
+		<h1 class="" align="center">리뷰 수정</h1>
 		<form method="post" action="productReviewcheck.do">
 
 
@@ -37,7 +37,7 @@
 				<tr>
 					<th>작성자</th>
 					<td><input type="text" id="rwriter" class="input_box"
-						name="rwriter" ></td>
+						name="rwriter" value="${review.rwriter }" ></td>
 				</tr>
 
 				<tr>
@@ -47,17 +47,17 @@
 				<tr>
 					<th>글제목</th>
 					<td><input type="text" class="input_box" id="rtitle"
-						name="rtitle"></td>
+						name="rtitle" value="${review.rtitle }"></td>
 				</tr>
 				<tr>
 					<th>이미지</th>
 					<td><input type="file" id="rimage" class="input_box"
-						name="rimage"></td>
+						name="rimage" value="${review.rimage }"></td>
 				</tr>
 				<tr>
 					<th>글내용</th>
 					<td><textarea rows="10" cols="50" class="input_box"
-							id="rcontent" name="rcontent"></textarea></td>
+							id="rcontent" name="rcontent">${review.rcontent }</textarea></td>
 				</tr>
 			</table>
 
