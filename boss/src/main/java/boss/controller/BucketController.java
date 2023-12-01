@@ -52,8 +52,10 @@ public class BucketController {
 			Bucket bucket = service.selectBucket(map);
 			if(bucket != null) {
 				// 상품 수량 업데이트
-				if(bucket.getBdrop() == "N") {
+				if(bucket.getBdrop().equals("N")) {
+					model.addAttribute("msg", "같은 상품이 담겨있습니다, 수량이 추가 됩니다.");
 					int updateCart = service.updateCart(map);
+					return "bucket/bucketMoveForm";
 				}else {
 					// pid가 일치하는 상품이 있고 삭제된 상태이면
 					int updateBdrop = service.updateBdrop(map);

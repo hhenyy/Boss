@@ -6,6 +6,7 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <title>장바구니 폼</title>
 
+
 <!-- 체크박스 전체선택/해제  -->
 	<script>$(document).ready(
 			function() {
@@ -19,11 +20,14 @@
 								});
 						});
 	</script>
-
-
 <body>
-	<%@include file="/WEB-INF/views/common/header.jsp"%>
+	<div>
+		<a href="main.do" class="logo"> <span class=" "><img
+				src="images/logo.png" alt="" style="width: 200px; height: 100px;"></span>
+		</a>
+	</div>
 	<link rel="stylesheet" href="css/bucket.css">
+	<%-- <%@include file="/WEB-INF/views/common/header.jsp"%>  --%>
     <section class="cart">
         <div class="cart__information">
             <ul>
@@ -85,7 +89,7 @@
         </table>
         <div class="cart__mainbtns">
             <button class="cart__bigorderbtn left" onclick="location.href='main.do'">쇼핑 계속하기</button>
-            <button class="cart__bigorderbtn right" id="payClick" onclick="location.href='ordersForm.do'">주문하기</button>
+            <button class="cart__bigorderbtn right" id="payClick" onclick="location.href='moveOrdersForm.do'">주문하기</button>
         </div>
     </section>
 </body>
