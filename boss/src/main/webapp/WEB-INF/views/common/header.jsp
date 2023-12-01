@@ -38,13 +38,14 @@
 			<a href="mypage.do"><img src="./images/my.png"
 				style="text-decoration: none"></a>
 			<a href="cartFormMove.do"><img src="./images/cart.png"
+				style="text-decoration: none"></a>
+		<a href="masterMain"><img src="./images/master.png"
 				style="text-decoration: none"></a><br>
-				${member.mName }님 환영합니다.
-			<a href="productInsertForm.do" onclick="alert('상품등록')"
+					${member.mName }님 환영합니다.
+		<!--	<a href="productInsertForm.do" onclick="alert('상품등록')"
 				style="text-decoration: none"><br>상품등록</a>
-			<br>
 			<input type="button" value="관리자페이지"
-				onclick="location.href='masterMain.do'">
+				onclick="location.href='masterMain.do'"> -->
 					<br>
 		</c:if>
 		
@@ -60,14 +61,6 @@
 				<br>
 		</c:if>
 		</div>
-		<div class="category-links" align="center">
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px;">OUTER</a>
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px;">KNIT</a>
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px;">TOP</a>
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px;">BOTTOM</a>
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px;">SHIRT</a>
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px;">SHOES</a>
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px;">ACC</a>
-	</div>
+
 </body>
 </html>

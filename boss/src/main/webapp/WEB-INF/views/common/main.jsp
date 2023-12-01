@@ -43,10 +43,18 @@
 
 				<!--1. 비회원 페이지 -->
 				<c:if test="${empty sessionScope.member}">
-				<div align="center" width="100px" height="100px">
+	<div class="category-link" align="center">
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none" style="text-decoration: none">OUTER</a>
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none" style="text-decoration: none">KNIT</a>
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
+	</div>
+				<div align="center" width="30px" height="100px">
 						<input type="text" maxlength="30" placeholder="검색어를 입력하세요. 연말준비는 ? BOSS에서 !">
-						<br> <br>
-					</div> 
+			</div> 
 
 					<!-- Nav -->
 					<nav>
@@ -61,10 +69,7 @@
 		<nav id="menu">
 			<h2>Menu</h2>
 			<ul>
-				<li><a href="index.do">JOIN</a></li>
-				<li><a href="NaverLogin.do">LOGIN</a></li>
-				<li><a href="mypage.do">MYPAGE</a></li>
-				<li><a href="CartFormMove.do">CART</a></li>
+				<li><a href="category.do">카테고리</a></li>
 				<li><a href="freeBoardList.do">커뮤니티</a></li>
 				<li><a href="masterNotice.do">공지사항</a></li>
 				<li><a href="elements.do">Elements</a></li>
@@ -228,6 +233,15 @@
 		<!--2.관리자페이지  -->
 		<c:if
 			test="${!empty sessionScope.member && member.mEmail eq 'master'}">
+	<div class="category-link" align="center">
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">OUTER</a>
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">KNIT</a>
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
+	</div>
 							
 			<!-- --------------------------회원 비회원 관리자 각각 넣을 내용---------------------------------- -->
 			<div align="center" width="100px" height="100px">
@@ -249,10 +263,7 @@
 	<nav id="menu">
 		<h2>Menu</h2>
 		<ul>
-				<li><a href="index.do">JOIN</a></li>
-				<li><a href="NaverLogin.do">LOGIN</a></li>
-				<li><a href="mypage.do">MYPAGE</a></li>
-				<li><a href="CartFormMove.do">CART</a></li>
+				<li><a href="category.do">카테고리</a></li>
 				<li><a href="freeBoardList.do">커뮤니티</a></li>
 				<li><a href="masterNotice.do">공지사항</a></li>
 				<li><a href="elements.do">Elements</a></li>
@@ -445,12 +456,17 @@
 
 
 
-
-
-
 	<!-- 3.회원페이지 -->
 	<c:if test="${!empty sessionScope.member && member.mEmail ne 'master'}">
-			
+	<div class="category-link" align="center">
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">OUTER</a>
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">KNIT</a>
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
+	</div>
 
 		<!-- --------------------------회원 비회원 관리자 각각 넣을 내용---------------------------------- -->
 		<div align="center" width="100px" height="100px">
@@ -474,10 +490,7 @@
 		<nav id="menu">
 			<h2>Menu</h2>
 			<ul>
-				<li><a href="index.do">JOIN</a></li>
-				<li><a href="NaverLogin.do">LOGIN</a></li>
-				<li><a href="mypage.do">MYPAGE</a></li>
-				<li><a href="CartFormMove.do">CART</a></li>
+				<li><a href="category.do">카테고리</a></li>
 				<li><a href="freeBoardList.do">커뮤니티</a></li>
 				<li><a href="masterNotice.do">공지사항</a></li>
 				<li><a href="elements.do">Elements</a></li>
