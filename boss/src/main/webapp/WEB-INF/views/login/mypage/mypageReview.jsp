@@ -9,6 +9,36 @@
 <title>내가 쓴 리뷰</title>
 
 <link rel="stylesheet" href="css/sidebar.css">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+	function doDetailPage(pid){
+		location.href = "productDetail.do?pid=" + pid;
+	}
+	
+	function deleteReview(rid) {
+	   var confirmDelete = confirm("진짜 삭제하시겠습니까?");
+	   if(confirmDelete){
+		   
+		$.ajax({
+	        type: "POST",
+	        url: "mypageDeleteReview.do",
+	        data: { rid: rid },
+	        success: function (response) {
+	            if (response === "Y") {
+	                alert("리뷰가 삭제 되었습니다.");
+	                location.href = "mypageReview.do";
+	            } else {
+	                alert("리뷰 삭제에 실패했습니다.");
+	                history.go(-1);
+	            }
+	        },
+	        error: function () {
+	            alert("서버 오류가 발생했습니다.");
+	        }
+	    });
+	   }
+	}
+</script>
 
 </head>
 <body>
@@ -48,21 +78,23 @@
 
 							<c:forEach items="${rlist }" varStatus="loop" var="review">
 								<tr>
-									<td>${review.rtitle }</td>
-									<td>${review.rcontent }</td>
+									<td onclick="doDetailPage(${review.pid})">${review.rtitle }</td>
+									<td onclick="doDetailPage(${review.pid})">${review.rcontent }</td>
 									<c:if test="${not empty review.rimage }">
-										<td style="position: relative;"><img
+										<td style="position: relative;"
+											onclick="doDetailPage(${review.pid})"><img
 											src="./images/${review.rimage }" width="50" height="50"
 											class="toggle-image"> <span class="text-on-image">${o.PTEXT}</span>
 										</td>
 									</c:if>
 									<c:if test="${empty review.rimage }">
-										<td>x</td>
+										<td onclick="doDetailPage(${review.pid})">x</td>
 									</c:if>
 									<fmt:formatDate value="${review.rreg }" pattern="yyyy년 MM월 dd일"
 										var="formattedDate" />
-									<td>${formattedDate}</td>
-									<td><button class="deleteReview_btn">리뷰삭제</button></td>
+									<td onclick="doDetailPage(${review.pid})">${formattedDate}</td>
+									<td><button class="deleteReview_btn"
+											onclick="deleteReview(${review.rid})">리뷰삭제</button></td>
 								</tr>
 							</c:forEach>
 						</table>

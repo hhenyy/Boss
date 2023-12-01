@@ -3,6 +3,7 @@ package boss.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import boss.model.Member;
 import boss.model.OrderDetail;
@@ -64,7 +67,7 @@ public class MypageController {
 				int odstatus = ((Number) odStatusValue).intValue();
 				statusMsg[i] = service.statusMsg(odstatus);
 
-				System.out.println("배송 상태 : " + statusMsg[i]);
+				System.out.println("배송 상태 : " + statusMsg[i] + odstatus);
 			}
 
 			// 배송처리 한 메세지 model로 뿌리기
@@ -106,6 +109,46 @@ public class MypageController {
 
 		model.addAttribute("qlist", qlist);
 		return "login/mypage/mypageQnaBoard";
+	}
+
+	// 리뷰 삭제
+	@RequestMapping("mypageDeleteReview.do")
+	@ResponseBody
+	public String mypageDeleteReview(@RequestParam("rid") String rid) {
+
+		int result = service.mypageDeleteReview(rid);
+
+		if (result == 1) {
+			return "Y";
+		} else {
+			return "N";
+		}
+
+	}
+
+	// 환불 요청
+	@RequestMapping("refund.do")
+	@ResponseBody
+	public String refund(@RequestParam("odid") String odid) {
+		
+		System.out.println("odid : " + odid);
+		int result = 0;
+		
+		OrderDetail od = service.myorderDetail(odid);
+		
+		int odstatus = od.getOdstatus();
+		
+		if (odstatus == 0) {
+			result = service.refund(odid);
+			return "Y"; // 환불 요청 완료
+		} else if (odstatus == 1) {
+			return "A"; // arrive 배송 완료
+		} else if (odstatus == 2) {
+			return "R"; // already 환불 처리중 이미
+		} else {
+			return "F"; // finish 환불 처리 완료.
+		}
+
 	}
 
 }
