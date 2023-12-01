@@ -76,15 +76,18 @@
 					<th>상품사이즈</th>
 					<td>${product.psize }</td>
 				</tr>
-				<tr>
+				<tr >
+				<!-- class="product_count" -->
 					<th>상품수량</th>
-					<td class="bucket_count"><input type="number" value="1" id="bucketCount">개</td>
+					<td class="bucket_count"><input type="number" value="1"
+						id="bucketCount" class="product_count">개</td>
 				</tr>
-			</table>
 
+			</table>
 			<div class="button-container">
 				<button type="button" id="buy" class="button1">구매하기</button>
-				<button type="button" id="bucket" class="button1" onclick="moveToCart();" >장바구니</button>
+				<button type="button" id="bucket" class="button1"
+					onclick="moveToCart();">장바구니</button>
 
 
 			</div>
@@ -132,14 +135,15 @@
 				</tr>
 				<c:set var="i" value="1"></c:set>
 				<c:if test="${not empty reviewList}">
-					<c:forEach var="review" items="${reviewList }">
+					<c:forEach var="review" items="${reviewList }" varStatus="loop">
 						<tr
 							onclick="location.href='productReviewSelect.do?rid=${review.rid}&pid=${review.pid}'">
 							<td>${review.rid}</td>
 							<td>${review.memail}</td>
 							<c:if test="${review.rimage != null}">
-							<td><img alt="상품이미지" src="./images/${review.rimage }"
-								style="max-width: 100px; max-height: 100px;" /></td>
+								<td style="position: relative;"><img
+									src="./images/${review.rimage }" width="50" height="50"
+									class="toggle-image"> <span class="text-on-image">${o.PTEXT}</span>
 							</c:if>
 							<c:if test="${review.rimage == null}">
 								<td>첨부 파일이 없습니다.</td>
@@ -152,8 +156,8 @@
 					</c:forEach>
 				</c:if>
 				<c:if test="${empty reviewList}">
-					작성된 리뷰글이 없습니다.
-				
+					<p>작성된 리뷰글이 없습니다.</p>
+
 				</c:if>
 			</table>
 			<!-- 여기 추가함 -->

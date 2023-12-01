@@ -48,10 +48,7 @@
 	border-radius: 5px;
 	transition: background-color 0.3s ease, color 0.3s ease;
 	margin-right: 10px;
-	버튼
-	사이
-	간격
-	설정
+	
 }
 
 /* 선 css */
@@ -89,33 +86,39 @@
 }
 
 .table_product td {
-	font-size: 25px;
+	font-size: 35px;
 	color: black;
 	text-align: left;
 	padding: 15px 0;
-
 }
 
 .th_product {
 	background-color: black;
 }
+
+.product_count th, .product_count td {
+	padding: 5px; /* 조절 가능한 값으로 변경 */
+	font-size: 12px; /* 조절 가능한 값으로 변경 */
+	width: 30px;
+}
 /* 내용 글씨 css */
 .detail_content h1 {
-    font-size: 24px;
-    font-weight: bold; /* 굵게 */
-    color: #0066cc; /* 파란색 */
-    margin-bottom: 10px; /* 각 제목 아래 여백 */
+	font-size: 24px;
+	font-weight: bold; /* 굵게 */
+	color: #0066cc; /* 파란색 */
+	
 }
 
 /* right 컨테이너쪽 버튼 2개(장바구니,구매하기) */
-.button-container {
+.button-container{
 	display: flex;
-	margin-top: 30px; /* 상품 갯수와 버튼 사이의 간격을 조절할 여백 크기를 설정하세요 */
+ 	margin-top: 200px; /*상품 갯수와 버튼 사이의 간격을 조절할 여백 크기를 설정하세요 */
+/* 	margin-right: 10px; */
 }
 
 .button1 {
 	flex: 0.3;
-/* 	margin-left: 100px; 오른쪽으로 10px만큼 이동 */
+	margin-left: 10px; /*오른쪽으로 10px만큼 이동*/
 	padding: 8px 14px;
 	font-size: 14px;
 	font-weight: bold;
@@ -144,7 +147,7 @@
 	border-radius: 8px;
 	overflow: hidden;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-/* 	margin-bottom: 10%; 여기에 간격을 조절하는 값 추가 */
+	/* 	margin-bottom: 10%; 여기에 간격을 조절하는 값 추가 */
 }
 
 /* 리뷰 caption */
@@ -198,6 +201,7 @@
 	text-align: center;
 	margin-top: 20px; /* 버튼 위 간격 조절을 위해 값을 조정하세요 */
 }
-.detail_page{
-    text-align: center; /* 텍스트 내용을 가운데 정렬 */
+
+.detail_page {
+	text-align: center; /* 텍스트 내용을 가운데 정렬 */
 }

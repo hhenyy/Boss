@@ -17,6 +17,6 @@ public interface CategoryDao {
 
 	List<Product> categorySearch(Category c);
 
-	int categorySearchCount(String cid);
+	int categorySearchCount(Category c);
 
 }

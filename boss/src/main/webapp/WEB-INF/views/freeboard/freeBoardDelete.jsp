@@ -6,9 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>자유게시판 글삭제폼</title>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="./js/freeboard.js"></script>
 <!-- css 양식 include -->
-<%-- <%@include file="/WEB-INF/views/common/header.jsp"%> --%>
+<%@include file="/WEB-INF/views/common/header.jsp"%> 
 
 <!-- css 불러오기 -->
 <link rel="stylesheet" href="css/freeBoardform.css">
@@ -32,14 +33,16 @@
 <body>
 <!-- 전체 div시작 -->
 <div class="div_insertform">
-  <form action="freeBoardDeleteok.do" method="post" onSubmit="return board_check()">
+  <form action="freeBoardDeleteok.do" method="post" onSubmit="return board_del_check()">
   <input type="hidden" name="fId" value="${detail.fId}"/>
   <input type="hidden" name="page" value="${page}"/>
+  <!-- 비회원 글삭제 방지를 위한 id값설정 -->
+   <input type="hidden" id="mEmail" value="${sessionScope.member.mEmail}">
   
   <table class="table_insertform">
   <tr>
   <th>비밀번호</th>
-  <td><input type="password" name="fPassword" id="fPassword"  size="30" class="table_td_text" required="required"></td>
+  <td><input type="password" name="fPassword" id="fPassword"  size="30" class="table_td_text"></td>
   </tr>  
   </table>
   

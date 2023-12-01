@@ -65,10 +65,9 @@
 				<li><a href="NaverLogin.do">LOGIN</a></li>
 				<li><a href="mypage.do">MYPAGE</a></li>
 				<li><a href="CartFormMove.do">CART</a></li>
-				<li><a href="freeBoardList.do">COMMUNITY</a></li>
-				<li><a href="elements.do">Elements</a></li>
-				<li><a href="category.do?newCid=맨투맨">맨투맨</a></li>
+				<li><a href="freeBoardList.do">커뮤니티</a></li>
 				<li><a href="masterNotice.do">공지사항</a></li>
+				<li><a href="elements.do">Elements</a></li>
 				<!-- 최종에서는 관리자페이지 빼기 -->
 				<input type="button" value="관리자페이지"
 					onclick="location.href='masterMain.do'">
@@ -250,14 +249,13 @@
 	<nav id="menu">
 		<h2>Menu</h2>
 		<ul>
-			<li><a href="index.do">JOIN</a></li>
-			<li><a href="NaverLogin.do">LOGIN</a></li>
-			<li><a href="mypage.do">MYPAGE</a></li>
-			<li><a href="cartFormMove.do">CART</a></li>
-			<li><a href="freeBoardList.do">COMMUNITY</a></li>
-			<li><a href="elements.do">Elements</a></li>
-			<li><a href="category.do?newCid=맨투맨">맨투맨</a></li>
-			<li><a href="masterNotice.do">공지사항</a></li>
+				<li><a href="index.do">JOIN</a></li>
+				<li><a href="NaverLogin.do">LOGIN</a></li>
+				<li><a href="mypage.do">MYPAGE</a></li>
+				<li><a href="CartFormMove.do">CART</a></li>
+				<li><a href="freeBoardList.do">커뮤니티</a></li>
+				<li><a href="masterNotice.do">공지사항</a></li>
+				<li><a href="elements.do">Elements</a></li>
 			<input type="button" value="관리자페이지"
 				onclick="location.href='masterMain.do'">
 			<br>
@@ -479,11 +477,10 @@
 				<li><a href="index.do">JOIN</a></li>
 				<li><a href="NaverLogin.do">LOGIN</a></li>
 				<li><a href="mypage.do">MYPAGE</a></li>
-				<li><a href="cartFormMove.do">CART</a></li>
-				<li><a href="freeBoardList.do">COMMUNITY</a></li>
-				<li><a href="elements.do">Elements</a></li>
-				<li><a href="category.do?newCid=맨투맨">맨투맨</a></li>
+				<li><a href="CartFormMove.do">CART</a></li>
+				<li><a href="freeBoardList.do">커뮤니티</a></li>
 				<li><a href="masterNotice.do">공지사항</a></li>
+				<li><a href="elements.do">Elements</a></li>
 				<br>
 			</ul>
 		</nav>

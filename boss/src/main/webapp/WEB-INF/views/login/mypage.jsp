@@ -9,8 +9,46 @@
 <title>Insert title here</title>
 </head>
 
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet" href="css/sidebar.css">
 <!-- <link rel="stylesheet" href="css/mypage.css"> -->
+
+<script>
+	function doDetailPage(pid){
+		location.href = "productDetail.do?pid=" + pid;
+	}
+	
+	function refund(odid) {
+		   var confirmDelete = confirm("환불 요청을 하시겠습니까?");
+		  
+		   if(confirmDelete){
+			$.ajax({
+		        type: "POST",
+		        url: "refund.do",
+		        data: { odid: odid },
+		        success: function (response) {
+		            if (response === "Y") {
+		                alert("환불요청이 되었습니다.");
+		                location.href = "mypage.do";
+		            } else if (response === "A"){
+		                alert("배송 완료된 상품에 대해서는 환불 요청을 할 수 없습니다.");
+		                location.href = "mypage.do";
+		            } else if(response === "R"){
+		            	alert("이미 환불 요청을 처리중 입니다.");
+		            	location.href = "mypage.do";
+		            } else{
+		            	alert("환불 처리가 완료 되었습니다.");
+		            	location.href = "mypage.do";
+		            }
+		        },
+		        error: function () {
+		            alert("서버 오류가 발생했습니다.");
+		        }
+		    });
+		   }
+		}
+	
+</script>
 
 <body>
 
@@ -47,22 +85,25 @@
 							<th>주문 상품 수량</th>
 							<th>상품 배송 상태</th>
 							<th>주문일</th>
+							<th>환불 요청</th>
 						</tr>
 
 						<c:forEach items="#{statusMsg }" var="msg" varStatus="loop">
 							<c:forEach items="${ordersList}" var="order" varStatus="loop">
 								<tr>
-									<td>${order['OID']}</td>
-									<td>${order['PNAME']}</td>
-									<td style="position: relative;"><img
+									<td onclick = "doDetailPage(${order['PID']})">${order['OID']}</td>
+									<td onclick = "doDetailPage(${order['PID']})">${order['PNAME']}</td>
+									<td style="position: relative;" onclick = "doDetailPage(${order['PID']})"><img
 										src="./images/${order['PIMAGE']}" width="50" height="50"
 										class="toggle-image"> <span class="text-on-image">${o.PTEXT}</span>
 									</td>
-									<td>${order['ODCOUNT']}</td>
-									<td>${msg }</td>
+									<td onclick = "doDetailPage(${order['PID']})">${order['ODCOUNT']}</td>
+									<td onclick = "doDetailPage(${order['PID']})">${msg }</td>
 									<fmt:formatDate value="${order['OREG']}"
 										pattern="yyyy년 MM월 dd일" var="formattedDate" />
-									<td>${formattedDate}</td>
+									<td onclick = "doDetailPage(${order['PID']})">${formattedDate}</td>
+									<td><button class="refund_btn"
+											onclick="refund(${order['ODID']})">환불요청</button></td>
 								</tr>
 							</c:forEach>
 						</c:forEach>

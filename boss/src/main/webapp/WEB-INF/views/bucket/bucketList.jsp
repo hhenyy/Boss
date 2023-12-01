@@ -6,6 +6,7 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <title>장바구니 폼</title>
 
+
 <!-- 체크박스 전체선택/해제  -->
 <script>
 	$(document).ready(
@@ -21,10 +22,14 @@
 			});
 </script>
 
-
 <body>
-	<%@include file="/WEB-INF/views/common/header.jsp"%>
+	<div>
+		<a href="main.do" class="logo"> <span class=" "><img
+				src="images/logo.png" alt="" style="width: 200px; height: 100px;"></span>
+		</a>
+	</div>
 	<link rel="stylesheet" href="css/bucket.css">
+
 	<section class="cart">
 		<div class="cart__information">
 			<ul>

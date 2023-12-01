@@ -19,5 +19,16 @@
 		select * from qnaBoard where mEmail = #{mEmail} and qnaDrop = 'N'
 	</select>
 
-
+	<update id="mypageDeleteReview" parameterType="String">
+		update review set rdrop = 'Y' where rid = #{rid}
+	</update>
+	
+	<update id="refund" parameterType="String">
+		update orderdetail set odstatus = 2 where odid = #{odid}
+	</update>
+	
+	<select id="myorderDetail" parameterType="String" resultType="orderDetail">
+		select * from orderDetail where odid = #{odid}
+	</select>
+	
 </mapper>

@@ -62,7 +62,7 @@
 
 		<c:if test="${empty qlist}">
 			<div class="content_noQnA">
-				<h1>작성한 QnA 글이 없습니다</h1>
+				<h1>작성한 QnA글이 없습니다</h1>
 			</div>
 		</c:if>
 

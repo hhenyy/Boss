@@ -182,7 +182,7 @@ public class MemberController {
 
 		// 세션 생성 ( 이건 건들면 안돼 )
 		model.addAttribute("result", apiResult);
-		return "common/main";
+		return "redirect:/main.do";
 	}
 
 	// kakao 코드 받기
@@ -248,7 +248,6 @@ public class MemberController {
 	// 회원가입 폼 이동 ( insert )
 	@RequestMapping("insertForm.do")
 	public String insertMember() {
-		System.out.println("회원가입 폼으로 이동 할게");
 		return "login/InsertForm";
 	}
 
@@ -276,7 +275,7 @@ public class MemberController {
 	@RequestMapping(value = "Logout.do")
 	public String Logout(HttpSession session) {
 		session.invalidate();
-		return "common/main";
+		return "redirect:/main.do";
 	}
 
 }
