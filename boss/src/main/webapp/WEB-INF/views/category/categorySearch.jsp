@@ -23,7 +23,7 @@
 	function selChange() {
 			
 		var sel = document.getElementById('cntPerPage').value;
-		location.href = "categorySearch.do?nowPage=${pp.nowPage}&newCid=${cid}&cntPerPage="
+		location.href = "categorySearch.do?nowPage=${pp.nowPage}&newCid=${category.newCid}&cntPerPage="
 				+ sel+"&keyword="+a;
 	}
 	
@@ -32,7 +32,7 @@
 	    	// 엔터키가 눌렸을 때
 	    	var s = document.getElementById("search").value;
 	    	console.log(a)
-	    	location.href="categorySearch.do?newCid=${cid}&keyword="+s;
+	    	location.href="categorySearch.do?newCid=${category.newCid}&keyword="+s;
 	    }
 	}
 </script>
@@ -150,7 +150,7 @@
 			<div align="center">
 				<c:if test="${pp.startPage != 1 }">
 					<a style="text-decoration: none; color: deeppink"
-						href="./category.do?cid=${cid }&newCid=${cid }&nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}&keyword=${category.keyword}">
+						href="./categorySearch.do?cid=${cid }&newCid=${cid }&nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}&keyword=${category.keyword}">
 						<- 
 					</a>
 				</c:if>
@@ -161,13 +161,13 @@
 						</c:when>
 						<c:when test="${p != pp.nowPage }">
 							<a style="text-decoration: none; color: deeppink"
-								href="./category.do?cid=${cid }&newCid=${cid }&nowPage=${p }&cntPerPage=${pp.cntPerPage}&keyword=${category.keyword}">${p }</a>
+								href="./categorySearch.do?cid=${cid }&newCid=${cid }&nowPage=${p }&cntPerPage=${pp.cntPerPage}&keyword=${category.keyword}">${p }</a>
 						</c:when>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${pp.endPage != pp.lastPage}">
 					<a style="text-decoration: none; color: deeppink"
-						href="./category.do?cid=${cid }&newCid=${cid }&nowPage=${pp.endPage+1 }&cntPerPage=${pp.cntPerPage}&keyword=${category.keyword}">
+						href="./categorySearch.do?cid=${cid }&newCid=${cid }&nowPage=${pp.endPage+1 }&cntPerPage=${pp.cntPerPage}&keyword=${category.keyword}">
 						-> </a>
 				</c:if>
 			</div>
