@@ -44,5 +44,8 @@
 		update bucket set bcount=bcount*0+#{quantity}, bdrop='N' where memail=#{memail} and pid=#{pid}
 	</update>
 	
+	<select id="selectBucketOne" parameterType="String" resultType="bucket">
+		select * from bucket where bid = #{bid}
+	</select>
 </mapper>
 

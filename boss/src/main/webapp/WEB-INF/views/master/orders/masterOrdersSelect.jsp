@@ -13,6 +13,8 @@
 <script>
 	// 해당 스크립트를 js로 이동시 작동 X 
 	// 초기 배경색 설정 반드시필요)
+	var  odid = '${orders.odid}';
+	
 $(document).ready(function() {
   function startcolor() {
     $(".select-Dtype").each(function() {
@@ -32,10 +34,33 @@ $(document).ready(function() {
     $(this).css("color", color);
   });
 });
+ 
+function ajax_change(status, odid) {
+    var odstatus = status.value;
 
+    $.ajax({
+        type: "POST",
+        url: "masterOrdersStatus.do",
+        data: {
+            odstatus: odstatus,
+            odid: odid
+        },
+        success: function(response) {
+            if (response === "Y") {
+                alert("상태 변경 성공");
+                location.href = "masterOrdersSelect.do";
+            } else {
+                alert("상태 변경 실패");
+                location.href = "masterOrdersList.do";
+            }
+        },
+        error: function(xhr, status, error) {
+            // AJAX 오류 시 실행할 코드
+            console.error("오류 발생:", error);
+        }
+    });
+}
 
-  
-  
 </script>
 
 
@@ -130,6 +155,7 @@ $(document).ready(function() {
 				</script>
 				<c:forEach var="o" items="${ordersList}">
 					<tr>
+						<c:set var="odid" value="${o.PID}" />
 						<td onclick="location.href='masterProductDetail.do?id=${o.PID }' ">${o.PID }</td>
 						<td onclick="location.href='masterProductDetail.do?id=${o.PID }' ">${o.PNAME }</td>
 						<!-- HTML -->
@@ -142,6 +168,7 @@ $(document).ready(function() {
 						<td onclick="location.href='masterProductDetail.do?id=${o.PID }' ">${o.PSIZE }</td>
 						<td onclick="location.href='masterProductDetail.do?id=${o.PID }' ">${o.ODCOUNT}</td>
 						<td onclick="location.href='masterProductDetail.do?id=${o.PID }' ">${o.PPRICE }</td>
+						<td><input type="text"></td>
 						<td><script>
 						        var result = ${o.PPRICE} * ${o.ODCOUNT};
 						    	document.write(result);
@@ -153,8 +180,7 @@ $(document).ready(function() {
 
 
 							<select class="select-Dtype"
-							onchange="location.href='masterOrdersStatus.do?odid=${o.ODID}&odstatus='
-							+ this.value;"
+							onchange="ajax_change(this,${o.ODID})"
 							style="color: black; background-color: gray; font-size: 15px">
 								<option value="0" style="color: black; background-color: gray;"
 									<c:if test="${o.ODSTATUS == 0}"> selected 
@@ -201,44 +227,8 @@ $(document).ready(function() {
 			<h4 class=info-message>상품수정 클릭시 해당상품 수정창으로 이동합니다. (재고추가)</h4>
 			<h4 class=info-message>배송상태 클릭시 배송상태를 변경합니다.</h4>
 	</form>
-	<!-- 문자보내는 폼 -->
-	<form method="post" id="smsForm" class="fancy_table">
-		<table border="1" align="right" width="300" height="200">
-			<input type="hidden" name="nowPage" value="${pp.nowPage }">
-			<input type="hidden" name="cntPerPage" value="${pp.cntPerPage}">
-			<tr>
-				<td>
-					<center>
-						<br> <span style="color: green; font-weight: bold;">SMS
-							전송 (문자보내기)</span>
-					</center>
-					<ul>
-						<li>보낼사람 : <input type="text" name="from"
-							placeholder=" 전화번호 입력 ( '-' 포함 )" /></li>
-						<br>
-						<li>내용 : <textarea name="text" placeholder=" 보낼 내용 입력 "></textarea>
-						</li>
-						<br>
-						<center>
-							<button type="button"
-								onclick="location.href='masterOrdersSmsMove.do?type=free' " value="전송하기" /></button>
-						</center>
-					</ul>
-
-				</td>
-			</tr>
-		</table>
-	</form>
 	</div>
-	<script>
-			function sendSMS(pageName) {
-				
-				console.log("문자를 전송합니다.");
-				var type = #();
-				$("#smsForm").attr("action", pageName + ".do?type=" +); //위에 있는 폼태그를 컨트롤러로 전송한다.
-				$("#smsForm").submit();
-			}
-		</script>
+
 	<%@ include file="../../common/footer.jsp"%>
 </body>
 </html>
