@@ -17,7 +17,7 @@ public class OrdersController {
 	OrdersService os;
 	@Autowired
 	MasterProductService mps;
-
+	
 	/*
 	 * 결제 폼 이동 메소드
 	 */
@@ -39,4 +39,20 @@ public class OrdersController {
 
 		return "orders/ordersCheck";
 	}
+	
+	@RequestMapping("moveOrdersForm.do")
+	public String moveOrdersForm() {
+		
+		return "./orders/moveOrdersForm";
+	}
 }
+
+
+
+
+
+
+
+
+
+
