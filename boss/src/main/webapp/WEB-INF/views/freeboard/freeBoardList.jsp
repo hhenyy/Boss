@@ -35,12 +35,13 @@
 		<table class="table_community">
 			<caption>BOSS COMMUNITY</caption>
 			<tr>
-				<th width="8%">번호</th>
-				<th width="47%">제목</th>
+				<th width="5%">번호</th>
+				<th width="40%">제목</th>
+				<th width="15%">첨부파일</th>
 				<th width="13%">작성자</th>
 				<th width="13%">작성일</th>
 				<th width="7%">조회수</th>
-				<th width="7%">좋아요</th>
+				<th width="8%">좋아요</th>
 			</tr>
 			
 			<c:if test="${empty list}">
@@ -57,17 +58,19 @@
 			<!-- 글목록 list출력 시작 -->
 			<c:forEach var="board" items="${list}">
 				<tr>
+					<c:if test="${board.fDrop =='N' }">
 					<!-- 글번호 출력부분 -->
 					<td><c:out value="${num}" /> 
 					<c:set var="num" value="${num-1}" />
 					</td>
 					
 					<!-- 삭제글인지 아닌지 판별 -->
-						<c:if test="${board.fDrop =='Y' }">
+					<%-- <c:if test="${board.fDrop =='Y' }">
 							<td colspan="6">삭제된 데이터 입니다</td>
-						</c:if>
+						</c:if> --%>
+					<%-- 	<c:if test="${board.fDrop !='Y' }">
+						</c:if> --%>
 						
-						<c:if test="${board.fDrop !='Y' }">
                    <!-- 제목 출력 부분 -->	
 					<td><a href="freeBoardDetail.do?page=${pp.currentPage}&fId=${board.fId}&state=detail">
 					${board.fTitle}
@@ -76,6 +79,12 @@
 										<img alt="" src="images/hot.gif">
 								</c:if>
 					</a></td>
+					<td><c:if test="${empty board.fImage}">
+                  &nbsp;
+                </c:if> <c:if test="${!empty board.fImage}">
+						<img src="<%=request.getContextPath()%>/images/${board.fImage}"
+							height="100" width="100" />
+					</c:if></td>
 					<td>${board.mEmail}</td>
 					<td><fmt:formatDate value="${board.fReg}" pattern="yyyy-MM-dd"/></td>
 					<td>${board.fReadCount}</td>
@@ -137,9 +146,9 @@
 		<!-- button div 끝-->
 		<div class="div_boardlist_button" style="text-align: center; margin-top: 20px;">
 		<button type="button"  class="boardlist_button"
-		onClick="location.href='freeBoardInsertform.do'">글쓰기</button>
-		<button type="button"  class="boardlist_button"
 		onClick="location.href='main.do'">메인</button>
+		<button type="button"  class="boardlist_button"
+		onClick="location.href='freeBoardInsertform.do'">글쓰기</button>
 		</div>
 		<!-- button div 끝-->
 		

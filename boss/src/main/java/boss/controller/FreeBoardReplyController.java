@@ -24,8 +24,9 @@ public class FreeBoardReplyController {
 	@RequestMapping("FreeReplyList.do")
 	public String FreeReplyList(int fId, Model model) {
 		System.out.println("FreeReplyList");
-		FreeBoard board = fservice.getDetail(fId); // 부모글 상세정보
-		System.out.println("board:"+board);
+		FreeBoard detail = fservice.getDetail(fId); // 부모글 상세정보
+		System.out.println("detail:"+detail);
+		System.out.println("mEmail:"+detail.getmEmail());
 		List<FreeReply> freplylist = frservice.freplylist(fId); // 댓글 목록
 		System.out.println("freplylist:"+freplylist);
 		System.out.println("fId:"+fId);
@@ -37,7 +38,7 @@ public class FreeBoardReplyController {
 		
 		
 		model.addAttribute("freplylist", freplylist);
-		model.addAttribute("board", board);
+		model.addAttribute("detail", detail);
 		return "freeboard/freeboardReplyList";
 	}
 	
@@ -50,18 +51,20 @@ public class FreeBoardReplyController {
 	}
 	
 	//댓글 삭제
-	@RequestMapping("repDelete.do")
-	public String delete(FreeReply frboard, Model model) {
+	@RequestMapping("freereplyDelete.do")
+	public String replyDelete(FreeReply frboard, Model model) {
 		frservice.delete(frboard.getFrId()); //frId값으로만 삭제가능하지만 다시 돌아갈떄 fId값 필요  //frId : 댓글 글번호값 
-		return "redirect:FreeReplyList.do?fId=" + frboard.getfId(); //삭제후 다시돌아갈때 fId값을 전달시켜서 FreeReplyList로 요청(댓글목록) 
+		return "redirect:FreeReplyList.do?fId="+frboard.getfId(); //삭제후 다시돌아갈때 fId값을 전달시켜서 FreeReplyList로 요청(댓글목록) 
 	}
 
 	
 	//댓글 수정 
-	@RequestMapping("repUpdate.do")
-	public String repUpdate(FreeReply frboard, Model model) {
+	@RequestMapping("freereplyUpdate.do")
+	public String freereplyUpdate(FreeReply frboard, Model model) {
+		System.out.println("freereplyUpdate");
+		
 		frservice.update(frboard);
-		return "redirect:FreeReplyList.do?fId=" + frboard.getfId();
+		return "redirect:FreeReplyList.do?fId="+frboard.getfId();
 	}
 
 }

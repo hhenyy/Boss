@@ -1,7 +1,11 @@
 package boss.controller;
 
+import java.io.File;
 import java.util.List;
+import java.util.StringTokenizer;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import boss.common.PagingPgmHyesun;
 import boss.model.FreeBoard;
@@ -40,12 +45,69 @@ public class FreeBoardController {
 
 	// 자유게시판 글등록 ok 
 	@RequestMapping("freeBoardInsertok.do")
-	public String freeBoardInsertok(@ModelAttribute FreeBoard board, Model model) throws Exception {
+	public String freeBoardInsertok(@ModelAttribute FreeBoard board, 
+			                        @RequestParam("freeImage") MultipartFile mf,
+			                        HttpServletRequest request,
+			                         Model model) throws Exception {
 		// @ModelAttribute 을 이용해서 form에서 넘어온 값을 dto객체로 값을 받고
 		// name값이 일치되면 set메소드로 값이 저장됨
 		System.out.println("freeBoardInsertok");
 
-		int result=fservice.insert(board); // 글 insert
+		//첨부파일 저장 (중복문제 난수발생으로 파일명 다르게함)
+		String filename = mf.getOriginalFilename();		// 첨부파일명
+		int size = (int) mf.getSize(); 	
+		// 첨부파일의 크기 (단위:Byte) getSize():long형 ->int형 자료형변환 
+
+		String path = request.getRealPath("images");
+		System.out.println("mf=" + mf);
+		System.out.println("filename=" + filename); 	// filename="Koala.jpg"
+		System.out.println("size=" + size);
+		System.out.println("Path=" + path);
+		int result=0;
+		
+		String file[] = new String[2];
+//		file = filename.split(".");
+//		System.out.println(file.length);
+//		System.out.println("file0="+file[0]);
+//		System.out.println("file1="+file[1]);
+		
+		String newfilename = "";
+	
+	if(size > 0){	 	// 첨부파일이 전송된 경우	
+		
+		// 파일 중복문제 해결
+		//.을기준으로 파일길이만큼 파일명과 확장자를 분리 
+		String extension = filename.substring(filename.lastIndexOf("."), filename.length());
+		System.out.println("extension:"+extension);
+		
+		UUID uuid = UUID.randomUUID();//난수발생 
+		
+		newfilename = uuid.toString() + extension;
+		System.out.println("newfilename:"+newfilename);		
+		
+		StringTokenizer st = new StringTokenizer(filename, ".");
+		file[0] = st.nextToken();		// 파일명		
+		file[1] = st.nextToken();		// 확장자	    jpg 등
+		
+		if(size > 100000){				// 100KB
+			result=2;     
+			
+		}else if(!file[1].equals("jpg")  &&
+				 !file[1].equals("jpeg") &&
+				 !file[1].equals("gif")  &&
+				 !file[1].equals("png") ){
+			
+			result=3;
+		}
+	}	
+
+	//	if(filename != ""){	 // 첨부파일이 전송된 경우	
+		if (size > 0) { 	// 첨부파일이 전송된 경우
+			mf.transferTo(new File(path + "/" + newfilename)); //실제로 첨부파일을 업로드하는 코드 
+		}
+		board.setfImage(newfilename);
+		
+		result=fservice.insert(board); // 글 insert
 		model.addAttribute("result", result);
 
 		return "freeboard/freeBoardInsertform";
@@ -100,6 +162,7 @@ public class FreeBoardController {
 		}
 
 		FreeBoard board = fservice.getDetail(fId);
+		System.out.println("fImage:"+board.getfImage());
 
 		model.addAttribute("detail", board);
 		model.addAttribute("page", page);
@@ -121,8 +184,76 @@ public class FreeBoardController {
 			                        @ModelAttribute FreeBoard board, 
 			                        @RequestParam("fId") int fId,
 			                        @RequestParam("page") String page, 
+			                        @RequestParam("freeImage") MultipartFile mf,
+			                        HttpServletRequest request,
 			                        Model model, Member member,HttpSession session) throws Exception {
 		System.out.println("freeBoardUpdateok");
+		
+		
+		//첨부파일 저장 (중복문제 난수발생으로 파일명 다르게함)
+		String filename = mf.getOriginalFilename();		// 첨부파일명
+		int size = (int) mf.getSize(); 	
+		// 첨부파일의 크기 (단위:Byte) getSize():long형 ->int형 자료형변환 
+
+		String path = request.getRealPath("images");
+		System.out.println("mf=" + mf);
+		System.out.println("filename=" + filename); 	// filename="Koala.jpg"
+		System.out.println("size=" + size);
+		System.out.println("Path=" + path);
+		int result=0;
+		
+		String file[] = new String[2];
+//		file = filename.split(".");
+//		System.out.println(file.length);
+//		System.out.println("file0="+file[0]);
+//		System.out.println("file1="+file[1]);
+		
+		String newfilename = "";
+	
+	if(size > 0){	 	// 첨부파일이 전송된 경우	
+		
+		// 파일 중복문제 해결
+		//.을기준으로 파일길이만큼 파일명과 확장자를 분리 
+		String extension = filename.substring(filename.lastIndexOf("."), filename.length());
+		System.out.println("extension:"+extension);
+		
+		UUID uuid = UUID.randomUUID();//난수발생 
+		
+		newfilename = uuid.toString() + extension;
+		System.out.println("newfilename:"+newfilename);		
+		
+		StringTokenizer st = new StringTokenizer(filename, ".");
+		file[0] = st.nextToken();		// 파일명		
+		file[1] = st.nextToken();		// 확장자	    jpg 등
+		
+		if(size > 100000){				// 100KB
+			result=2;     
+			
+		}else if(!file[1].equals("jpg")  &&
+				 !file[1].equals("jpeg") &&
+				 !file[1].equals("gif")  &&
+				 !file[1].equals("png") ){
+			
+			result=3;
+		}
+	}	
+
+	//	if(filename != ""){	 // 첨부파일이 전송된 경우	
+		if (size > 0) { 	// 첨부파일이 전송된 경우
+			mf.transferTo(new File(path + "/" + newfilename)); //실제로 첨부파일을 업로드하는 코드 
+		}
+		board.setfImage(newfilename);
+		
+	
+		
+		//fId로 DB에 저장된 FreeBoard정보를 가져옴 
+		FreeBoard fboard = fservice.getDetail(fId);
+		
+		if (size > 0 ) { 			// 첨부 파일이 수정되면
+			board.setfImage(newfilename);			
+		} else { 					// 첨부파일이 수정되지 않으면
+			board.setfImage(fboard.getfImage()); //db에 저장된 image 
+		}
 		
 		//session공유된 member를 불러와서 mEmail가져옴
 		member = (Member) session.getAttribute("member");
@@ -132,12 +263,12 @@ public class FreeBoardController {
 		//mEmail로 DB에 저장된 member정보를 가져옴 
 		Member dbmember = service.selectOne(mEmail);
 		
-		// delete (삭제 여부 변경) 이 성공적으로 되었을때 조건문을 달기 위함
-		int result = 0;
+		// update (삭제 여부 변경) 이 성공적으로 되었을때 조건문을 달기 위함
+		result = 0;
 
 		//dbmember 값이 있고 , fPassword과 DB에 저장된 pwd(실제비번)과 같으면 delete
 		if(dbmember != null && passwordEncoder.matches(fPassword, dbmember.getmPwd())) {
-			result = fservice.update(board); // 글 update
+			result = fservice.update(board); // 글 update result=1
 		}else {
 			result=0;
 		}
@@ -152,7 +283,8 @@ public class FreeBoardController {
 	@RequestMapping("freeBoardDeleteok.do")
 	public String freeBoardDeleteok(@RequestParam("fPassword") String fPassword,
 			                         @RequestParam("fId") int fId,
-			                        @RequestParam("page") String page, 
+			                        @RequestParam("page") String page,
+			                        @ModelAttribute FreeBoard board, 
 			                        Model model, Member member,HttpSession session) throws Exception {
 		System.out.println("freeBoardDeleteok");
 		
@@ -169,9 +301,23 @@ public class FreeBoardController {
 
 		//dbmember 값이 있고 , fPassword과 DB에 저장된 pwd(실제비번)과 같으면 delete
 		if(dbmember != null && passwordEncoder.matches(fPassword, dbmember.getmPwd())) {
+			
+			
+			//첨부파일 삭제 (Y값으로 놔두는거니까 이미지 데이터 그냥 놔둘지?)
+//			String path = session.getServletContext().getRealPath("images");
+//			String fname = board.getfImage();
+//			System.out.println("path:"+path);
+//			
+//			// 디비에 저장된 첩부파일명을 가져옴
+//			if (fname != null) {		// 첨부파일이 있으면ㄴ
+//				File file = new File(path +"/"+fname);
+//				file.delete();			// 첨부파일 삭제
+//			}
+				
+			
 			result = fservice.delete(fId); //delete이지만 Y값으로 update
 
-		}else {
+		}else {   //비번이 같지 않으면
 			result=0;
 		}
 		model.addAttribute("result", result);
@@ -179,13 +325,6 @@ public class FreeBoardController {
 		
 		return "freeboard/freeBoardDelete";
 	}
-	
-	//댓글 insert
-	
-	//댓글 list
-	
-
-
 }
 
      

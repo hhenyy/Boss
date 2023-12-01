@@ -15,6 +15,7 @@
 	<div>
 		<a href="main.do" class="logo"> <span class=" "><img
 				src="images/logo.png" alt="" style="width: 200px; height: 100px;"></span>
+				<br>
 			<div>JY & HB</div>
 		</a>
 
@@ -58,7 +59,15 @@
 				${member.mName }님 환영합니다.
 				<br>
 		</c:if>
-	
+		</div>
+		<div class="category-links" align="center">
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px;">OUTER</a>
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px;">KNIT</a>
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px;">TOP</a>
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px;">BOTTOM</a>
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px;">SHIRT</a>
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px;">SHOES</a>
+		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px;">ACC</a>
 	</div>
 </body>
 </html>
