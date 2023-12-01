@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import boss.dao.MypageDao;
+import boss.model.OrderDetail;
 import boss.model.Orders;
 import boss.model.QnaBoard;
 import boss.model.Review;
@@ -41,5 +42,17 @@ public class MypageService {
 
 	public List<QnaBoard> myqnas(String mEmail) {
 		return dao.myqnas(mEmail);
+	}
+
+	public int mypageDeleteReview(String rid) {
+		return dao.mypageDeleteReview(rid);
+	}
+
+	public int refund(String odid) {
+		return dao.refund(odid);
+	}
+
+	public OrderDetail myorderDetail(String odid) {
+		return dao.myorderDetail(odid);
 	}
 }

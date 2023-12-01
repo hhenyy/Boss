@@ -100,6 +100,7 @@ h1 {
 	background-color: #ddd;
 }
 /* 여기 까지 주문 테이블 */
+.refund_btn , 
 .deleteReview_btn {
 	background-color: black;
     color: white;
@@ -110,6 +111,7 @@ h1 {
     white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
 }
 
+.refund_btn:hover ,
 .deleteReview_btn:hover{
 	background-color: #ffffff;
 	color: #000000;
