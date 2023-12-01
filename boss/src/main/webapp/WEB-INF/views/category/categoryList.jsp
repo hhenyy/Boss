@@ -23,7 +23,7 @@
 		if (window.event.keyCode == 13) {
 	    	// 엔터키가 눌렸을 때
 	    	var s = document.getElementById("search").value;
-	    	location.href="categorySearch.do?newCid=${cid}&keyword="+s;
+	    	location.href="categorySearch.do?newCid=${category.newCid}&keyword="+s;
 	    }
 	}
 </script>

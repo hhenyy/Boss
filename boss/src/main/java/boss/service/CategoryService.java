@@ -32,9 +32,9 @@ public class CategoryService {
 		return dao.categorySearch(c);
 	}
 
-	public int categorySearchCount(String cid) {
+	public int categorySearchCount(Category c) {
 
-		return dao.categorySearchCount(cid);
+		return dao.categorySearchCount(c);
 	}
 	
 	

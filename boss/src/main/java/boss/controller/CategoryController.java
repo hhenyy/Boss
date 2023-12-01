@@ -65,9 +65,10 @@ public class CategoryController {
 				@RequestParam(value = "nowPage", required = false) String nowPage,
 				@RequestParam(value = "cntPerPage", required = false) String cntPerPage) {
 			
-			int categorySearchCount = cs.categorySearchCount(c.getNewCid());
+			int categorySearchCount = cs.categorySearchCount(c);
 			//카테고리 내에서 해당 검색어를 가진 상품의 갯수를 파악
-			
+			System.out.println("categorySearchCount:"+categorySearchCount);
+			System.out.println(c.getNewCid());
 			
 			if (nowPage == null && cntPerPage == null) {
 				nowPage = "1";
@@ -85,11 +86,12 @@ public class CategoryController {
 			c.setNewEndRow(pp.getEndRow());
 			System.out.println(c.getNewStartRow());
 			System.out.println(c.getNewEndRow());
+			System.out.println(pp.getEndPage());
 			
 			model.addAttribute("pp", pp);  //상품 갯수, 현재페이지번호, 한 페이지에 출력될 번호를 공유
 			List<Product> list = cs.categorySearch(c);
 			
-			System.out.println(list);
+			model.addAttribute("list", list);
 			model.addAttribute("cid",c.getNewCid());
 			model.addAttribute("category",c);
 			//cid로 찾아낸 해당 카테고리 상품 목록을 페이징 처리하여 공유
