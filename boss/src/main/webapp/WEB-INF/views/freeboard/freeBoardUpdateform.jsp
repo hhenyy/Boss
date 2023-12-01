@@ -6,9 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>자유게시판 글수정폼</title>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="./js/freeboard.js"></script>
 <!-- css 양식 include -->
-<%-- <%@include file="/WEB-INF/views/common/header.jsp"%> --%>
+ <%@include file="/WEB-INF/views/common/header.jsp"%> 
 
 <!-- css 불러오기 -->
 <link rel="stylesheet" href="css/freeBoardform.css">
@@ -26,13 +27,28 @@
 			history.go(-1);
 		</script>
 	</c:if>
+		<c:if test="${result == 2 }">
+	<script>
+		alert("파일은 100KB까지 업로드 가능합니다.");
+		history.go(-1);
+	</script>
+</c:if>
+
+<c:if test="${result == 3 }">
+	<script>
+		alert("첨부파일은 jpg, gif, png파일만 업로드 가능합니다.");
+		history.go(-1);
+	</script>
+</c:if>
 </head>
 <body>
 <!-- 전체 div시작 -->
 <div class="div_insertform">
-  <form action="freeBoardUpdateok.do" method="post" onSubmit="return board_check()">
+  <form action="freeBoardUpdateok.do" method="post" onSubmit="return board_edit_check()" enctype="multipart/form-data">
   <input type="hidden" name="fId" value="${detail.fId}"/>
   <input type="hidden" name="page" value="${page}"/>
+   <!-- 비회원 글삭제 방지를 위한 id값설정, freeboard.js -->
+   <input type="hidden" id="mEmail" value="${sessionScope.member.mEmail}">
   
   <table class="table_insertform">
   <tr>
@@ -43,13 +59,19 @@
   <th>내용</th>
   <td><textarea name="fContent" id="fContent" cols="90" rows="30" required="required">${detail.fContent}</textarea></td>
   </tr>
-  <tr>
+ <%--  <tr>
   <th>작성자</th>
-  <td><input type="text" name="mEmail" id="mEmail" value="${detail.mEmail}" size="30" class="table_td_text" required="required"></td>
-  </tr>
- <tr>
+  <td><input type="text" name="mEmail" id="mEmail" value="${detail.mEmail}" size="30" class="table_td_text"></td>
+  </tr>--%>
+    <tr>
+     <th>첨부파일</th>
+     <td>
+      <input type="file" name="freeImage" />
+     </td><!-- name: 프로퍼티명과 다르게해야 오류가 안뜸 -->
+    </tr>
+    <tr> 
   <th>비밀번호</th>
-  <td><input type="password" name="fPassword" id="fPassword"  size="30" class="table_td_text" required="required"></td>
+  <td><input type="password" name="fPassword" id="fPassword"  size="30" class="table_td_text"></td>
   </tr> 
   </table>
   

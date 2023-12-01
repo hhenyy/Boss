@@ -1,55 +1,84 @@
-/* 자유게시판 목록 CSS 시작 */
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f4f4f4;
+}
+
 .div_freeBoardDetail {
-    width: 55%;
-    margin: 5% auto;
-    border-collapse: collapse;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-top: 1%;
-    margin-bottom: 5%;
+	width: 55%;
+	margin: 20px auto;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	padding: 40px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .table_freeBoardDetail {
-    width: 100%;
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 20px;
 }
 
-.table_freeBoardDetail tr:hover {
-    background-color: #ddd;
+.table_freeBoardDetail td {
+	padding: 30px;
+	border-bottom: 1px solid #ddd;
 }
 
-.table_freeBoardDetail tr:first-child {
-    background-color: #your_color; /* 첫 번째 행에 원하는 색상을 지정하세요 */
+h1, h2 {
+	color: #333;
 }
 
-.table_freeBoardDetail tr:not(:first-child) {
-    background-color: #fff; /* 나머지 행은 흰색 배경 */
-}
-
-/* 자유게시판 버튼 div */
 .div_boardform_button {
-    margin: 1% auto;
-    text-align: center; /* Center align the child elements */
+	text-align: center;
+	margin-top: 20px;
 }
 
 .boardform_button {
-    flex: 0.3;
-    margin: auto;
-    padding: 8px 14px;
-    font-size: 14px;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    background-color: #000000;
-    color: #ffffff;
-    border: 2px solid #000000;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    margin-bottom: 2%;
+	padding: 10px;
+	margin: 0 5px;
+	background-color: #4CAF50;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
 }
 
-.boardform_button:hover {
-    background-color: #ffffff;
-    color: #000000;
+.div_reply {
+	margin-top: 20px;
+	text-align: center;
 }
-/* 자유게시판 목록 CSS 끝 */
+
+form {
+	margin-bottom: 20px;
+}
+
+textarea {
+	width: 40%;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	margin-bottom: 10px;
+}
+
+/*댓글 버튼*/
+.button_replyok {
+	padding: 10px;
+	background-color: #4CAF50;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+
+/*댓글 목록 버튼 */
+.edit1 {
+		padding: 10px;
+	background-color: #4CAF50;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	
+}

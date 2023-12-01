@@ -11,7 +11,8 @@ public class FreeBoard {
 	private int fLike; 			/* 좋아요 */
 	private Date fReg; 			/* 작성일 */
 	private String fDrop; 		/* free 삭제 여부 */
-	
+	private String fImage;      /*첨부파일*/
+
 	// page
 	private int startRow;
 	private int endRow;
@@ -114,6 +115,15 @@ public class FreeBoard {
 
 	public void setfDrop(String fDrop) {
 		this.fDrop = fDrop;
+	}
+
+	
+	public String getfImage() {
+		return fImage;
+	}
+
+	public void setfImage(String fImage) {
+		this.fImage = fImage;
 	}
 
 }

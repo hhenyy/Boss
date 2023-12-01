@@ -7,9 +7,9 @@
 <!-- 글등록 -->
 <insert id="insert" parameterType="freeboard">
 insert into FreeBoard
-(fId,mEmail,fTitle,fContent,fReadCount,fLike,fReg,fDrop)
+(fId,mEmail,fTitle,fContent,fReadCount,fLike,fReg,fDrop,fImage)
 values
-(FreeBoard_seq.nextval,#{mEmail},#{fTitle},#{fContent},0,0,SYSDATE,'N')
+(FreeBoard_seq.nextval,#{mEmail},#{fTitle},#{fContent},0,0,SYSDATE,'N',#{fImage, jdbcType=VARCHAR})
 </insert>
 
 <!-- 게시글 수 구하기 (검색기능 추가) -->
@@ -57,7 +57,8 @@ select * from FreeBoard where fId=#{fId}
 
 <!-- 글수정 -->
 <update id="update" parameterType="freeboard">
-update FreeBoard set fTitle=#{fTitle}, fContent=#{fContent} where fId=#{fId}
+update FreeBoard set fTitle=#{fTitle}, fContent=#{fContent},
+     fImage=#{fImage, jdbcType=VARCHAR} where fId=#{fId}
 </update>
 
 <!-- 글삭제 : 삭제시 Y  -->
