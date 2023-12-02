@@ -18,7 +18,13 @@
 <body>
 
 	<!-- 		<h1 class="bbswrite_title" align="center">리뷰 작성</h1> -->
-	<form method="post" action="productReviewUpdateForm.do">
+	<form method="post" action="productReviewUpdateForm.do"
+		enctype="multipart/form-data">
+		<input type="hidden" name="rid" value="${review.rid}"> 
+		<input	type="hidden" name="pid" value="${review.pid}">
+
+
+<%-- 		productReviewUpdateForm.do?rid=${review.rid}&pid=${review.pid}'" --%>
 		<table class="review_select">
 
 
@@ -53,8 +59,11 @@
 		</table>
 
 		<div class="button_select">
-			<button type="button" class="review_button1"
-				onclick="location.href='productReviewUpdateForm.do?rid=${review.rid}&pid=${review.pid}'">수정</button>
+			<!-- 			<button type="button" class="review_button1" -->
+			<%-- 				onclick="location.href='productReviewUpdateForm.do?rid=${review.rid}&pid=${review.pid}'">수정</button> --%>
+			<button type="submit" class="review_button1" onclick="submit()">수정</button>
+
+
 			<button type="button" class="review_button1" onclick="history.go(-1)">취소</button>
 		</div>
 	</form>

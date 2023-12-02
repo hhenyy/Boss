@@ -47,6 +47,9 @@ public interface ProductDetailDao {
 
 	Review rcheck(int oid);
 	
+	// review 업데이트
+	int reviewupdate(Review review);
+	
 
 
 
