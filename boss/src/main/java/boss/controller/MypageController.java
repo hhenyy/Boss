@@ -39,21 +39,38 @@ public class MypageController {
 
 		Member member = (Member) session.getAttribute("member");
 
+		List<Orders> orders = service.myoders(member.getmEmail()); // 내 주문내역 구해오기 -> 문제 list 로 받아와야함
+		int totalcount = 0;
+		// 주문 한 내역이 있다면
+		if (orders != null) {      // 주문번호가 있다면.
+	        model.addAttribute("orders", orders);
+		}
+		
+		return "login/mypage";
+	}
+	
+	@RequestMapping("mypageOrderDetail.do")
+	public String mypageOrderDetail(String oid,HttpSession session,Model model) {
+		
+		Member member = (Member) session.getAttribute("member");
+
 		List<Orders> list = new ArrayList<Orders>();
-		Orders orders = service.myoders(member.getmEmail()); // 내 주문내역 구해오기
+		List<Orders> orders = service.myoders(member.getmEmail()); // 내 주문내역 구해오기
 
 		List<HashMap<String, Object>> ordersList = new ArrayList<>();
-
+		
+		//int oid = Integer.parseInt(oid)
+		
 		// 주문 한 내역이 있다면
 		if (orders != null) { // 주문번호가 있다면.
 			System.out.println("주문 번호가 있다면??");
+			
 			// 이제 주문 상세를 뽑아올 수 있어야해
-			int oid = orders.getOid();
-			ordersList = ms.listProduct(oid);
+			ordersList = service.listProduct(Integer.parseInt(oid));
 
 			// 모든정보의 List
 			model.addAttribute("ordersList", ordersList);
-			System.out.println(ordersList);
+			System.out.println("ordersList.size() : " + ordersList.size());
 
 			// 메세지 넣을 배열을 주문 갯수만큼 빼오기
 			String statusMsg[] = new String[ordersList.size()]; // 주문 갯수
@@ -76,11 +93,11 @@ public class MypageController {
 			// 단일정보 (뷰에서 쓰기쉽게 foreach안돌려도됨)
 			model.addAttribute("orders", ordersList.get(0));
 			System.out.println(ordersList.get(0));
-
 		}
-		return "login/mypage";
+		return "login/mypage/mypageOrderDetail";
 	}
-
+	
+	
 	@RequestMapping("mypageReview.do")
 	public String mypageReview(HttpSession session, Model model) {
 
