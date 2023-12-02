@@ -15,8 +15,8 @@
 <body>
 	<div class="insert_main">
 		<h1 class="" align="center">리뷰 수정</h1>
-		<form method="post" action="productReviewcheck.do">
-
+		<form method="post" action="productReviewUpdateCheck.do" enctype="multipart/form-data">
+		<input type="hidden" name="rid" value="${review.rid }">
 
 			<table class="insert_table">
 				<tr>
@@ -52,7 +52,7 @@
 				<tr>
 					<th>이미지</th>
 					<td><input type="file" id="rimage" class="input_box"
-						name="rimage" value="${review.rimage }"></td>
+						name="rimage1"></td>
 				</tr>
 				<tr>
 					<th>글내용</th>
@@ -62,7 +62,7 @@
 			</table>
 
 			<div class="review_insert_button2">
-				<input type="submit" value="등록" class="review_insert_button" /> <input
+				<input type="submit" value="수정" class="review_insert_button" /> <input
 					type="reset" value="취소" class="review_insert_button"
 					onclick="history.go(-1)" />
 			</div>

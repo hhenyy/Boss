@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -241,16 +242,15 @@ public class ProductDetailController {
 
 		String mEmailreview = member.getmEmail();
 		System.out.println("mEmail 왔냐? " + mEmailreview);
-		
+
 		// 작성하는 실시간 날짜
 		Date date = new Date();
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String reviewDate = sdf.format(date);
-		 
+
 		review = service.prselect(rid);
 
- 
 		if (review != null && mEmailreview.equals(review.getMemail())) {
 			model.addAttribute("review", review);
 			model.addAttribute("pid", pid);
@@ -264,4 +264,119 @@ public class ProductDetailController {
 
 	}
 
-}	
+	// 리뷰 수정
+	@RequestMapping(value = "productReviewUpdateCheck.do", method = { RequestMethod.POST, RequestMethod.GET })
+	public String productReviewUpdateCheck(Model model, Review review, HttpSession session,
+			@RequestParam(value = "rimage1", required = false) MultipartFile mfile) throws Exception {
+		
+		//System.out.println("mfile : " + mfile.getName());
+		
+		System.out.println("memail : " + review.getMemail());
+		System.out.println(" pid " + review.getPid() );
+		System.out.println(" rid " + review.getRid() );
+	//	System.out.println(" rimage1 " +  rimage1);
+		System.out.println("review값 : " + review.getRid());
+		int result = 0;
+
+		// 세션 얻어오기
+		Member member = (Member) session.getAttribute("member");
+
+		// 이메일 얻기
+		String mEmail = member.getmEmail();
+		System.out.println("수정 리뷰 세션 이메일 확인 : " + mEmail);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memail", mEmail);
+		map.put("pid", review.getPid());
+
+		// 내 이메일, pid 로 orders에서 정보 추출 (주문 내역이 있나)
+		List<Orders> olist = service.selectlist(map);
+
+		// 내가 쓴 리뷰 갯수 구하기
+		List<Review> rlist = service.selectReviewOne(map); // 내가 쓴 리뷰의 갯수
+
+		int oid[] = new int[olist.size()]; // oid
+
+		if (olist != null && rlist.size() <= olist.size()) { // 리뷰 수정이 가능한지 검사
+			for (int i = 0; i < olist.size(); i++) {
+				oid[i] = olist.get(i).getOid();
+
+				// 여기에 review 테이블에 이미 oid를 가지고 리뷰를 썼는지 확인 해야함
+				Review Review = service.rcheck(oid[i]);
+
+				System.out.println("수정 리뷰 파일 직전");
+
+				// 파일 set 코드 들어갈 공간
+				int sizeCheck, extensionCheck;
+				System.out.println("setcode");
+				// 첨부 파일명
+				String filename = mfile.getOriginalFilename();
+				System.out.println("파일이름" + filename);
+
+				// 첨부 파일 사이즈 (Byte)
+				int size = (int) mfile.getSize();
+
+				// 파일 저장될 경로
+				String path = "C:\\Users\\ock2k\\OneDrive\\바탕 화면\\bossproject\\boss\\src\\main\\webapp\\images";
+
+				System.out.println("oldpath : " + path);
+				System.out.println(path);
+
+				// 확장자 잘라서 저장할 배열
+				String[] file = new String[2];
+
+				// 새로운 파일명 저장 번수
+				String newfilename = "";
+
+				if (filename != "") { // 첨부 파일이 전송된 경우
+					// .뒤에 확장자만 자르기
+					String extension = filename.substring(filename.lastIndexOf("."), filename.length());
+
+					UUID uuid = UUID.randomUUID();
+
+					// 난수를 발생시켜 중복 문제 해결후 확장자 결합
+					newfilename = uuid.toString() + extension;
+
+					// 확장자를 구분해 조건을 주기 위해 잘라줌 file[1] 에 확장자가 저장됨.
+					StringTokenizer st = new StringTokenizer(filename, ".");
+					file[0] = st.nextToken();
+					file[1] = st.nextToken();
+
+					if (size > 10000000) {
+						// 사이즈가 설정된 범위 초과할 경우
+						sizeCheck = -1;
+						model.addAttribute("sizeCheck", sizeCheck);
+						System.out.println("설정범위 초과");
+						return "./product/productDetail.do?pid=" + review.getPid();
+					} else if (!file[1].equals("jpg") && !file[1].equals("png") && !file[1].equals("jpeg")
+							&& !file[1].equals("gif")) {
+						// 확장자가 jpg, png, jpeg, gif 가 아닐경우
+						extensionCheck = -1;
+						model.addAttribute("extensionCheck", extensionCheck);
+						return "./product/productDetail.do?pid=" + review.getPid();
+					}
+				}
+
+				// 첨부파일이 전송된 경우
+				if (size > 0) {
+					mfile.transferTo(new File(path + "/" + newfilename));
+					Review.setRimage(newfilename);
+					System.out.println("전송됐음!!");
+				}
+				review.setRimage(newfilename);
+				review.setRid(review.getRid());
+				review.setMemail(mEmail);
+				// 리뷰를 업데이트합니다.
+				result = service.reviewupdate(review);
+
+				break;
+			} // for문 end
+		} // if문 end
+
+		model.addAttribute("rid", review.getRid());
+		model.addAttribute("result", result);
+		model.addAttribute("pid", review.getPid());
+
+		return "./product/review/productReviewUpdateCheck";
+	}
+}

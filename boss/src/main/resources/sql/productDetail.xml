@@ -78,7 +78,9 @@
 	
 
 	<!-- 리뷰 업데이트 폼 -->
-
+	<update id="reviewupdate" parameterType="review" >
+		update review set rwriter=#{rwriter}, rtitle=#{rtitle}, rimage=#{rimage}, rreg=sysdate, rcontent=#{rcontent} where rid = #{rid}
+	</update>
 
 	<!-- oid로 review정보 가져오기 -->
 	<select id="rcheck" resultType="review" parameterType="int">

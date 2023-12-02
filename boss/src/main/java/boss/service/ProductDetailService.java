@@ -58,6 +58,7 @@ public class ProductDetailService {
 	public Orders selectOrders(String mEmail) {
 		return dao.selectOrders(mEmail);
 	}
+	
 	// 리뷰 작성 시 주문 결과 확인
 	public List<Orders> selectlist(Map<String, Object> map) {
 		return dao.selectlist(map);
@@ -66,6 +67,13 @@ public class ProductDetailService {
 	public Review rcheck(int oid) {
 		return dao.rcheck(oid);
 	}
+	
+	// 리뷰 수정
+	public int reviewupdate(Review review) {
+		return dao.reviewupdate(review);
+	}
+
+	
 
 	
 	
