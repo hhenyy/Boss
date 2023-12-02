@@ -9,6 +9,23 @@
 		select * from orders where mEmail = #{mEmail}
 	</select>	
 	
+	<!-- 주문번호안에 pid목록들 -->
+	<select id="listProduct" parameterType="integer"
+		resultType="Map">
+		select *
+		from orderdetail join
+		orders using(oid)
+		join product
+		on orderdetail.pid = product.pid
+		where oid = #{oid}
+	</select>
+	
+	<!-- order 객체 -->
+	<select id="myorders" parameterType="String" resultType="orders">
+		select * from orders where mEmail = #{mEmail}
+	</select>
+	
+	
 	<!-- 내 리뷰 불러오기 -->	
 	<select id="myreviews" parameterType="String" resultType="review">
 		select * from review where mEmail = #{mEmail} and rDrop = 'N'
@@ -18,17 +35,24 @@
 	<select id="myqnas" parameterType="String" resultType="qnaBoard">
 		select * from qnaBoard where mEmail = #{mEmail} and qnaDrop = 'N'
 	</select>
-
+	
+	<!-- 리뷰 삭제 -->
 	<update id="mypageDeleteReview" parameterType="String">
 		update review set rdrop = 'Y' where rid = #{rid}
 	</update>
 	
+	<!-- 배송상태 변경 ( 환불 요청 ) -->
 	<update id="refund" parameterType="String">
 		update orderdetail set odstatus = 2 where odid = #{odid}
 	</update>
 	
+	<!-- odid를 통해서 주문상세 구해오기 -->
 	<select id="myorderDetail" parameterType="String" resultType="orderDetail">
 		select * from orderDetail where odid = #{odid}
 	</select>
 	
+	<!-- oid를 통해서 주문상세 구해오기 -->
+	<select id="mypageOrderDetail" parameterType="String" resultType="orderDetail">
+		select * from orderDetail where oid = #{oid}
+	</select>
 </mapper>

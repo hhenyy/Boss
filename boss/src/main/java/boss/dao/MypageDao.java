@@ -1,6 +1,8 @@
 package boss.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,7 +14,7 @@ import boss.model.Review;
 @Mapper
 public interface MypageDao {
 
-	Orders myoders(String mEmail);
+	List<Orders> myoders(String mEmail);
 
 	List<Review> myreviews(String mEmail);
 
@@ -23,5 +25,11 @@ public interface MypageDao {
 	int refund(String odid);
 
 	OrderDetail myorderDetail(String odid);
+
+	List<OrderDetail> mypageOrderDetail(String oid);
+
+	List<HashMap<String, Object>> listProduct(Integer oid);
+
+	Orders myorders(String mEmail);
 
 }

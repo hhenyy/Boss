@@ -1,6 +1,8 @@
 package boss.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,7 @@ public class MypageService {
 	@Autowired
 	private MypageDao dao;
 
-	public Orders myoders(String mEmail) {
+	public List<Orders> myoders(String mEmail) {
 		return dao.myoders(mEmail);
 	}
 
@@ -55,4 +57,18 @@ public class MypageService {
 	public OrderDetail myorderDetail(String odid) {
 		return dao.myorderDetail(odid);
 	}
+
+	public List<OrderDetail> mypageOrderDetail(String oid) {
+		return dao.mypageOrderDetail(oid);
+	}
+
+	public List<HashMap<String, Object>> listProduct(Integer oid) {
+		return dao.listProduct(oid);
+	}
+
+	public Orders myorders(String mEmail) {
+		return dao.myorders(mEmail);
+	}
+	
+
 }
