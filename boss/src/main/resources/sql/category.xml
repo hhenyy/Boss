@@ -32,6 +32,7 @@
 		from (select rownum rnum, category.* from 
 		(select * from product where cid=#{newCid} order by preg desc
 		) category
+		
 		where pname like '%'||#{keyword}||'%'
 		) where rnum between #{newStartRow} and #{newEndRow}
 	</select>

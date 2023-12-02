@@ -26,12 +26,6 @@
 	    	location.href="categorySearch.do?newCid=${category.newCid}&keyword="+s;
 	    }
 	}
-	function selChange() {
-		
-		var sel = document.getElementById('cntPerPage').value;
-		location.href = "category.do?nowPage=${pp.nowPage}&newCid=${category.newCid}&cntPerPage="
-				+ sel;
-	}
 </script>
 </head>
 
@@ -128,7 +122,7 @@
 
 				<section class="tiles">
 				<!-- if문을 넣어 해당 카테고리의 상품이 없을 경우 화면 중앙에 '등록된 상품이 없습니다' 출력 -->
-					<c:forEach var="list" items="${list }" varStatus="loop">
+					<c:forEach var="list" items="${search }" varStatus="loop">
 						<article class="style1">
 							<span class="image"> <img src="images/${list.pimage}" onerror="this.src='images/1.png'">
 							<!-- 일단은 엑박 대신 1.png가 출력되도록 처리. 클릭이 안되게 하려면? -->
@@ -138,9 +132,6 @@
 									<p>${list.pcontent }</p>
 								</div>
 							</a>
-						<c:if test="${none != null }">
-						<h1>등록된 상품이 없습니다</h1>
-						</c:if>
 						</article>
 					</c:forEach>
 				</section>
