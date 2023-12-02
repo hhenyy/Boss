@@ -24,17 +24,30 @@ public class OrdersController {
 	BucketService bs;
   
 	/*
-	 * 결제 폼 이동 메소드
+	 * 결제하기 이동 메소드
 	 */
 	@RequestMapping("ordersForm.do")
-	public String ordersForm(Bucket bucket, Model model, HttpSession session, String bid) {
-		System.out.println("ordersForm");
-		Member member = (Member) session.getAttribute("member");
-		int result = 0;
-		String msg = "";
-		bucket = bs.selectBucketOne(bid);
+	public String ordersForm(Member member, Model model, String bid, String mEmail) {
+		
+		Bucket bucket = bs.selectBucketOne(bid);
 		model.addAttribute("bucket", bucket);
+		
+		if(bucket != null) {
+			System.out.println("bucket : " + bucket);
+			System.out.println("bname : " + bucket.getBname());
+			System.out.println("mEmail : " + member.getmEmail());
+			System.out.println("mName : " + member.getmName());
+			System.out.println("mPhone : " + member.getmPhone());
+			System.out.println("mAddress : " + member.getmAddress());
+			System.out.println("mPost : " + member.getmPost());
+			System.out.println("bprice : " + bucket.getBprice());
+			System.out.println("bcount : " + bucket.getBcount());
+		} else {
+			System.out.println("bucket null : " + bucket);
+		}
+		
 		model.addAttribute("member", member);
+		
 		return "orders/ordersForm";
 	}
 
@@ -44,10 +57,30 @@ public class OrdersController {
 		return "orders/ordersCheck";
 	}
 	
+	/*
+	 * 결제 폼 이동 메소드
+	 */
 	@RequestMapping("moveOrdersForm.do")
-	public String moveOrdersForm() {
+	public String moveOrdersForm(Bucket bucket, Model model, HttpSession session, String bid) {
+		
+		System.out.println("ordersForm");
+		Member member = (Member) session.getAttribute("member");
+		int result = 0;
+		String msg = "";
+		bucket = bs.selectBucketOne(bid);
+		model.addAttribute("bucket", bucket);
+		model.addAttribute("member", member);
 		
 		return "./orders/moveOrdersForm";
+	}
+	
+	@RequestMapping("orderResult.do")
+	public String orderResult(String mEmail, String bid) {
+		
+		System.out.println("mEmail : " + mEmail);
+		System.out.println("bid : " + bid);
+		
+		return "main.do";
 	}
 }
 
