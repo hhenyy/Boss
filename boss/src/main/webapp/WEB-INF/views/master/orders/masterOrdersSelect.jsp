@@ -35,26 +35,29 @@ $(document).ready(function() {
   });
 });
  
+ // 배송상태 변경 / 변경에따른 문자 전송 여부
 function ajax_change(status, odid) {
     var odstatus = status.value;
 
-    $.ajax({
+    $.ajax({ // 배송상태 변경 에이작스
         type: "POST",
         url: "masterOrdersStatus.do",
         data: {
             odstatus: odstatus,
             odid: odid
         },
-        success: function(response) {
+        success: function(response) { 
             if (response === "Y") {
-                alert("상태 변경 성공");
-                location.href = "masterOrdersSelect.do";
+            	if(confirm("배송 메시지를 보내시겠습니까?")){
+            		location.href="masterOrdersSmsMove.do?type=delivery&odstatus="+odstatus+"&odid="+odid;
+            	}
+                
             } else {
                 alert("상태 변경 실패");
                 location.href = "masterOrdersList.do";
             }
         },
-        error: function(xhr, status, error) {
+        error: function(xhr, error) {
             // AJAX 오류 시 실행할 코드
             console.error("오류 발생:", error);
         }
@@ -139,6 +142,7 @@ function ajax_change(status, odid) {
 
 				</tr>
 				<tr>
+					<th>상세번호</th>
 					<th>상품코드</th>
 					<th>상품이름</th>
 					<th>이미지</th>
@@ -155,7 +159,8 @@ function ajax_change(status, odid) {
 				</script>
 				<c:forEach var="o" items="${ordersList}">
 					<tr>
-						<c:set var="odid" value="${o.PID}" />
+
+						<td onclick="location.href='masterProductDetail.do?id=${o.PID }' ">${o.ODID }</td>
 						<td onclick="location.href='masterProductDetail.do?id=${o.PID }' ">${o.PID }</td>
 						<td onclick="location.href='masterProductDetail.do?id=${o.PID }' ">${o.PNAME }</td>
 						<!-- HTML -->
@@ -168,7 +173,6 @@ function ajax_change(status, odid) {
 						<td onclick="location.href='masterProductDetail.do?id=${o.PID }' ">${o.PSIZE }</td>
 						<td onclick="location.href='masterProductDetail.do?id=${o.PID }' ">${o.ODCOUNT}</td>
 						<td onclick="location.href='masterProductDetail.do?id=${o.PID }' ">${o.PPRICE }</td>
-						<td><input type="text"></td>
 						<td><script>
 						        var result = ${o.PPRICE} * ${o.ODCOUNT};
 						    	document.write(result);
@@ -177,27 +181,25 @@ function ajax_change(status, odid) {
 						<td>
 							<button type="button" class="putsub2"
 								onclick="location.href='masterProductUpdateForm.do?id=${o.PID}'">상품수정</button>
-
-
 							<select class="select-Dtype"
 							onchange="ajax_change(this,${o.ODID})"
 							style="color: black; background-color: gray; font-size: 15px">
 								<option value="0" style="color: black; background-color: gray;"
-									<c:if test="${o.ODSTATUS == 0}"> selected 
+									<c:if test="${empty o.ODSTATUS or o.ODSTATUS eq ''}"> selected 
 									</c:if>>배송상태
 								</option>
-								<option value="1"
+								<option value="0"
 									style="color: black; background-color: papayawhip;"
-									<c:if test="${o.ODSTATUS == 1}"> selected </c:if>>배송대기</option>
-								<option value="2"
+									<c:if test="${o.ODSTATUS == 0}"> selected </c:if>>배송대기</option>
+								<option value="1"
 									style="color: black; background-color: MediumSpringGreen;"
-									<c:if test="${o.ODSTATUS == 2}"> selected </c:if>>배송완료</option>
-								<option value="3"
+									<c:if test="${o.ODSTATUS == 1}"> selected </c:if>>배송완료</option>
+								<option value="2"
 									style="color: black; background-color: deeppink;"
-									<c:if test="${o.ODSTATUS == 3}"> selected </c:if>>취소대기</option>
-								<option value="4"
+									<c:if test="${o.ODSTATUS == 2}"> selected </c:if>>취소대기</option>
+								<option value="3"
 									style="color: black; background-color: darkorange;"
-									<c:if test="${o.ODSTATUS == 4}"> selected </c:if>>취소완료</option>
+									<c:if test="${o.ODSTATUS == 3}"> selected </c:if>>취소완료</option>
 						</select>
 
 
@@ -219,7 +221,7 @@ function ajax_change(status, odid) {
 					<th>배송비</th>
 					<td>${orders.ODELIVERY}</td>
 					<th>결제금액</th>
-					<td><script>
+					<td colspan="2"><script>
 					  document.write(total);
 					</script></td>
 				</tr>

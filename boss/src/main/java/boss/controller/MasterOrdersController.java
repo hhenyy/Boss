@@ -17,14 +17,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import boss.common.PagePgm;
 import boss.common.Search;
+import boss.model.OrderDetail;
 import boss.model.Orders;
+import boss.model.Product;
 import boss.service.MasterOrdersService;
+import boss.service.MasterProductService;
 
 @Controller
 public class MasterOrdersController {
 
 	@Autowired
 	MasterOrdersService mos;
+	@Autowired
+	MasterProductService mps;
 
 	// 관리자 리뷰리스트
 	@RequestMapping("masterOrdersList.do")
@@ -75,10 +80,11 @@ public class MasterOrdersController {
 	// 관리자 주문 상세 - 배송상태 변경
 	@RequestMapping("masterOrdersStatus.do")
 	@ResponseBody
-	public String masterOrdersStatus(@RequestParam String odid,@RequestParam String odstatus, Model model) throws Exception {
+	public String masterOrdersStatus(@RequestParam String odid, @RequestParam String odstatus, Model model)
+			throws Exception {
 		System.out.println("masterOrdersStatus");
 		System.out.println("odid = " + odid);
-		System.out.println("odstatus = "+odstatus);
+		System.out.println("odstatus = " + odstatus);
 		int oid = mos.selectOrderDetail(odid).getOid();
 		System.out.println("oid : " + oid);
 		System.out.println("odid : " + odid);
@@ -94,7 +100,7 @@ public class MasterOrdersController {
 				System.out.println("수정실패");
 				return "N";
 			}
-		}else {
+		} else {
 			return "N";
 		}
 	}
@@ -145,6 +151,8 @@ public class MasterOrdersController {
 		System.out.println(search.getKeyword());
 		System.out.println(search.getSearchtype());
 
+		String msg = "";
+		int result = 0;
 		if (search.getKeyword() != "" && search.getSearchtype() != "") {
 			List<Orders> list = mos.searchOrdersList(search);
 			System.out.println(list);
@@ -172,15 +180,19 @@ public class MasterOrdersController {
 
 	// 문자전송을 방식을 검증
 	@RequestMapping("masterOrdersSmsMove.do")
-	public String masterOrdersSmsMove(String type, String status, Orders orders, String oid, Model model) {
+	public String masterOrdersSmsMove(Orders orders, OrderDetail orderDetail, String type, String odstatus, String oid,
+			String odid, Model model) {
 		System.out.println("masterOrdersSmsMove");
 		System.out.println("전송타입 : " + type);
-		System.out.println("oid : " + oid);
+		System.out.println("리스트로 들어옴 OID  : " + oid);
+		System.out.println("에이작스 버튼으로 들어옴 ODID : " + odid);
+		System.out.println("배송상태가 어떤지 status : " + odstatus);
 
 		// 값이 하나라도 있을경우 자유작성인지, 배송작성인지 메시지작성 타입을 정해주는 조건.
-		if ((type != null && type != "") || (status != null & status != "")) {
+		if (((oid != null) && (type != null)) || // 자유작성인 경우 검증.
+				((odid != null) && (type != null)) && (odstatus != null)) { // 배송작성인 경우 검증.
 
-			if (type.equals("free")) { // 관리자의 임의작성인 경우.
+			if (type.equals("free")) { // 관리자의 임의작성인 경우.(oid)
 				System.out.println("관리자 임의작성 메시지");
 				orders = mos.selectOrders(oid);
 				if (orders != null) { // oid를 기준으로 orders를 구해온경우.
@@ -193,15 +205,40 @@ public class MasterOrdersController {
 					return "master/orders/masterOrdersSmsForm";
 				}
 
-			} else if (type.equals("delivery")) { // 배송탭인경우.
-				switch (status) {
-				case "1":
+			} else if (type.equals("delivery")) { // 배송탭인경우. (odid)
+				System.out.println("배송메시지 작성");
+				orderDetail = mos.selectOrderDetail(odid);
+				Product product = mps.selectOne("" + orderDetail.getPid());
+				String pname = product.getPname();
+				switch (odstatus) {
+				case "0": // 배송대기
+					model.addAttribute("msg", "주문하신 " + pname + " 상품이 현재 출발하였습니다. \n구매에 진심으로 감사드립니다.\n-Boss_Mall-");
+					model.addAttribute("result", "delevary" + odstatus);
+					break;
+				case "1": // 배송완료
+					model.addAttribute("msg", "주문하신 " + pname + " 상품이 배송완료 되었습니다. \n구매에 진심으로 감사드립니다.\n-Boss_Mall-");
+					model.addAttribute("result", "delevary" + odstatus);
+					break;
+				case "2": // 취소대기
+					model.addAttribute("msg", "주문하신 " + pname + " 상품의 취소신청이 수락 되었습니다. \n-Boss_Mall-");
+					model.addAttribute("result", "delevary" + odstatus);
+					break;
 
+				case "3": // 취소완료
+					model.addAttribute("msg", "주문하신 " + pname + " 상품의 취소신청이 완료 되었습니다. \n-Boss_Mall-");
+					model.addAttribute("result", "delevary" + odstatus);
+					System.out.println("케이스 3");
 					break;
 				}
+				System.out.println("스위치 빠져나옴");
+				// 해당 주문상세를 공유함. (정보 출력용)
+				model.addAttribute("orderDetail", mos.selectOrderDetail(odid));
+				model.addAttribute("orders", mos.selectOrders(orderDetail.getOid() + ""));
+				System.out.println("마지막 폰번 : " + mos.selectOrders(orderDetail.getOdid() + ""));
 			}
 		}
-		return "master/orders/masterOrdersSmsMove";
+		return "master/orders/masterOrdersSmsForm";
+
 	}
 
 	// 문자 전송시 검증
