@@ -2,7 +2,6 @@ package boss.controller;
 
 import java.io.File;
 import java.util.List;
-import java.util.StringTokenizer;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +18,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import boss.common.PagingPgmHyesun;
 import boss.model.FreeBoard;
+import boss.model.Likes;
 import boss.model.Member;
 import boss.service.FreeBoardService;
+import boss.service.LikeService;
 import boss.service.MemberService;
 
 @Controller
@@ -28,6 +29,9 @@ public class FreeBoardController {
 
 	@Autowired
 	private FreeBoardService fservice;
+	
+	@Autowired
+	private LikeService lservice;
 	
 	// 멤버 서비스
 	@Autowired
@@ -58,14 +62,17 @@ public class FreeBoardController {
 		int size = (int) mf.getSize(); 	
 		// 첨부파일의 크기 (단위:Byte) getSize():long형 ->int형 자료형변환 
 
+		//배포전에 업로드한 이미지는 aws의 realpath에 직접 업로드를 시켜야함. (내폴더에만 있어서)
+		//배포후에 업로드한 이미지는 aws에 업로드되어있어서 직접 업로드 하지않아도됨.(주석처리한경로는 절대경로라서 배포후에는 불러올수없음)
 		String path = request.getRealPath("images");
+		//String path = "C:\\Users\\haham\\Downloads\\프로젝트\\상단이미지\\bossproject\\boss\\src\\main\\webapp\\images";
 		System.out.println("mf=" + mf);
 		System.out.println("filename=" + filename); 	// filename="Koala.jpg"
 		System.out.println("size=" + size);
 		System.out.println("Path=" + path);
 		int result=0;
 		
-		String file[] = new String[2];
+//		String file[] = new String[2];
 //		file = filename.split(".");
 //		System.out.println(file.length);
 //		System.out.println("file0="+file[0]);
@@ -85,19 +92,23 @@ public class FreeBoardController {
 		newfilename = uuid.toString() + extension;
 		System.out.println("newfilename:"+newfilename);		
 		
-		StringTokenizer st = new StringTokenizer(filename, ".");
-		file[0] = st.nextToken();		// 파일명		
-		file[1] = st.nextToken();		// 확장자	    jpg 등
+//		StringTokenizer st = new StringTokenizer(filename, ".");
+//		file[0] = st.nextToken();		// 파일명		
+//		file[1] = st.nextToken();		// 확장자	    jpg 등
 		
 		if(size > 100000){				// 100KB
-			result=2;     
+			result=2;  
+			model.addAttribute("result", result);
+			return "freeboard/freeBoardInsertform";
 			
-		}else if(!file[1].equals("jpg")  &&
-				 !file[1].equals("jpeg") &&
-				 !file[1].equals("gif")  &&
-				 !file[1].equals("png") ){
+		}else if(!extension.equals(".jpg")  &&
+				 !extension.equals(".jpeg") &&
+				 !extension.equals(".gif")  &&
+				 !extension.equals(".png") ){
 			
 			result=3;
+			model.addAttribute("result", result);
+			return "freeboard/freeBoardInsertform";
 		}
 	}	
 
@@ -109,7 +120,6 @@ public class FreeBoardController {
 		
 		result=fservice.insert(board); // 글 insert
 		model.addAttribute("result", result);
-
 		return "freeboard/freeBoardInsertform";
 	}
 
@@ -166,9 +176,23 @@ public class FreeBoardController {
 
 		model.addAttribute("detail", board);
 		model.addAttribute("page", page);
+		
+		//좋아요
+		Likes like = new Likes();
+		String mEmail = board.getmEmail();
+		
+		//좋아요 되있는지 찾는 메소드: 게시글번호와 회원번호를 보냄.
+		like = lservice.findLike(fId, mEmail);
+		// 찾은 정보를 like로 담아서 보냄
+		System.out.println("like:"+like);
+		model.addAttribute("like",like);
 
 		// state가 detail과 같다면(목록에서 제목클릭시 상세페이지로 이동) if(state.equals("detail")) {
 		if (state.equals("detail")) {
+			
+			
+			
+			
 			return "freeboard/freeBoardDetail";
 		} else if (state.equals("update")) { // 수정폼
 			return "freeboard/freeBoardUpdateform";
@@ -195,14 +219,17 @@ public class FreeBoardController {
 		int size = (int) mf.getSize(); 	
 		// 첨부파일의 크기 (단위:Byte) getSize():long형 ->int형 자료형변환 
 
+		//배포전에 업로드한 이미지는 aws의 realpath에 직접 업로드를 시켜야함. (내폴더에만 있어서)
+		//배포후에 업로드한 이미지는 aws에 업로드되어있어서 직접 업로드 하지않아도됨.(주석처리한경로는 절대경로라서 배포후에는 불러올수없음)
 		String path = request.getRealPath("images");
+		//String path = "C:\\Users\\haham\\Downloads\\프로젝트\\상단이미지\\bossproject\\boss\\src\\main\\webapp\\images";
 		System.out.println("mf=" + mf);
 		System.out.println("filename=" + filename); 	// filename="Koala.jpg"
 		System.out.println("size=" + size);
 		System.out.println("Path=" + path);
 		int result=0;
 		
-		String file[] = new String[2];
+//		String file[] = new String[2];
 //		file = filename.split(".");
 //		System.out.println(file.length);
 //		System.out.println("file0="+file[0]);
@@ -222,19 +249,23 @@ public class FreeBoardController {
 		newfilename = uuid.toString() + extension;
 		System.out.println("newfilename:"+newfilename);		
 		
-		StringTokenizer st = new StringTokenizer(filename, ".");
-		file[0] = st.nextToken();		// 파일명		
-		file[1] = st.nextToken();		// 확장자	    jpg 등
+//		StringTokenizer st = new StringTokenizer(filename, ".");
+//		file[0] = st.nextToken();		// 파일명		
+//		file[1] = st.nextToken();		// 확장자	    jpg 등
 		
 		if(size > 100000){				// 100KB
-			result=2;     
+			result=2; 
+			model.addAttribute("result", result);
+		return "freeboard/freeBoardUpdateform";
 			
-		}else if(!file[1].equals("jpg")  &&
-				 !file[1].equals("jpeg") &&
-				 !file[1].equals("gif")  &&
-				 !file[1].equals("png") ){
+		}else if(!extension.equals(".jpg")  &&
+				 !extension.equals(".jpeg") &&
+				 !extension.equals(".gif")  &&
+				 !extension.equals(".png") ){
 			
 			result=3;
+			model.addAttribute("result", result);
+		return "freeboard/freeBoardUpdateform";
 		}
 	}	
 
@@ -244,7 +275,6 @@ public class FreeBoardController {
 		}
 		board.setfImage(newfilename);
 		
-	
 		
 		//fId로 DB에 저장된 FreeBoard정보를 가져옴 
 		FreeBoard fboard = fservice.getDetail(fId);
@@ -303,7 +333,7 @@ public class FreeBoardController {
 		if(dbmember != null && passwordEncoder.matches(fPassword, dbmember.getmPwd())) {
 			
 			
-			//첨부파일 삭제 (Y값으로 놔두는거니까 이미지 데이터 그냥 놔둘지?)
+			//첨부파일 삭제 (Y값으로 놔두는거니까 이미지 데이터 그냥 놔두고 실제 삭제원하면 구현)
 //			String path = session.getServletContext().getRealPath("images");
 //			String fname = board.getfImage();
 //			System.out.println("path:"+path);
@@ -313,7 +343,6 @@ public class FreeBoardController {
 //				File file = new File(path +"/"+fname);
 //				file.delete();			// 첨부파일 삭제
 //			}
-				
 			
 			result = fservice.delete(fId); //delete이지만 Y값으로 update
 

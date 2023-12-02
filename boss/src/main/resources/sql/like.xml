@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boss.dao.LikeDao">
+
+<!-- 좋아요 되있는지 찾기 -->
+<select id="findLike" parameterType="java.util.HashMap" resultType="like">
+	select * from Likes where fId=#{fId} and mEmail=#{mEmail}
+</select>
+
+<!--  좋아요 확인-->
+<select id="findLikes" parameterType="like" resultType="like">
+	select * from Likes where fId=#{fId} and mEmail=#{mEmail}
+</select>
+
+<!--  좋아요 저장-->
+<insert id="insertLike" parameterType="like">
+	insert into Likes(fId, mEmail, likeDrop)
+		values(#{fId}, #{mEmail}, 1)
+</insert>
+
+<!--  좋아요 삭제-->
+<delete id="deleteLike" parameterType="like">
+	delete from Likes where fId=#{fId} and mEmail=#{mEmail}
+</delete>
+
+
+</mapper>

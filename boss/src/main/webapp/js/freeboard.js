@@ -64,3 +64,11 @@ function board_edit_check() {
 		return false;
 	}
 }
+
+/* 댓글작성 유효성 검사*/
+function board_replyinsert_check() {
+	if(sessionscope.member == null){
+		alert("로그인 후에 글작성을 해주세요.");
+		return false;
+	}
+	}

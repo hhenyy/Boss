@@ -10,11 +10,14 @@
 <!-- css 양식 include -->
 <%@include file="/WEB-INF/views/common/header.jsp"%>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+
 <!-- css 불러오기 -->
 <link rel="stylesheet" href="css/freeBoardDetail.css">
 <!-- css 불러오기 -->
 <!-- <link rel="stylesheet" href="css/freeBoard.css"> -->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+
 <script type="text/javascript">
 	/* 	window.onload=function() {
 	 } */
@@ -25,6 +28,17 @@
 		$('#replylist').load('FreeReplyList.do?fId=${detail.fId}')
 		//		$('#list').load('${path}/list/pageNum/${pageNum}');
 
+		
+		//로그인 했는지 확인
+// 	   $('#replyInsert').click(function() {
+// 			//return function board_replyinsert_check();
+// 	          if('${sessionscope.member}' == null){
+// 		alert("로그인 후에 글작성을 해주세요.");
+// 		return false;
+// 	      }
+// 		}); 
+		
+		
 		$('#replyInsert').click(function() {
 			if ($('#frContent').val() == '') {
 				alert('댓글 입력후에 클릭하시오');
@@ -52,7 +66,41 @@
 				}
 			}); // $.ajax() end			
 		});
-	});
+		});
+		
+	 $(function() {	
+				// 좋아요가 있는지 확인한 값을 likeval에 저장
+			        var likeval = ${like.likeDrop}
+			        // likeval이 1이면 좋아요가 이미 되있는것이므로 fill-heart.svg를 출력하는 코드
+			        if(likeval>0) {
+			            console.log(likeval);
+			            $("#heart").prop("src", "images/suit-heart-fill.svg");
+			            $(".heart").prop('name',likeval)
+			        }
+			        else {
+			            console.log(likeval);
+			            $("#heart").prop("src", "images/suit-heart.svg");
+			            $(".heart").prop('name',likeval)
+			        }
+
+				// 좋아요 버튼을 클릭 시 실행되는 코드
+			        $(".heart").on("click", function () {
+			            var that = $(".heart");
+				    $.ajax({
+				    	url :'heart.do',
+				        type :'POST',
+				        data : {'fId':${board.fId}, 'mEmail':${sessionScope.mEmail}},
+				    	success : function(data){
+				    		that.prop('name',data);
+				        	if(data==1) {
+				            	     $('#heart').prop("src","images/suit-heart-fill.svg");
+				        	} else {
+			                    	 $('#heart').prop("src","images/suit-heart.svg");
+				        	}
+			             	}
+				    });
+			        });
+			    });
 </script>
 </head>
 <body>
@@ -83,7 +131,7 @@
 				<c:if test="${empty detail.fImage}">
                   &nbsp;
                 </c:if> <c:if test="${!empty detail.fImage}">
-						<img src="<%=request.getContextPath() %>/images/${detail.fImage}"
+						<img src="images/${detail.fImage}"
 							height="100" width="100" />
 					</c:if></td>
 			<tr>
@@ -92,16 +140,28 @@
 			</tr>
 			<tr>
 				<td>좋아요</td>
-				<td>${detail.fLike}</td>
+<!--  좋아요 이미지는 부트스트랩 아이콘의 heart.svg, heart-fill.svg 저장해서 사용 -->
+<!--  heart : 좋아요O, heart-fill : 좋아요X -->
+<!--  경로는 resouces폴더의 like폴더안에 저장 -->
+	<td>
+	<div>
+	<a class="text-dark heart" style="text-decoration-line: none;">
+		<img id="heart" src="images/suit-heart-fill.svg">
+		좋아요
+	</a></div>
+				</td>
 			</tr>
 		</table>
 
-		<!-- button div 끝-->
+		<!-- button div 시작-->
+	<!-- 로그인 되어있고 글작성자와 mEmail이 같을때 삭제/수정 버튼 보임 -->
 		<div class="div_boardform_button" align="center">
+	<c:if test="${!empty sessionScope.member && member.mEmail == detail.mEmail}">
 			<input type="button" class="boardform_button" value="수정"
 				onClick="location.href='freeBoardDetail.do?fId=${detail.fId}&page=${page}&state=update'">
 			<input type="button" class="boardform_button" value="삭제"
 				onClick="location.href='freeBoardDetail.do?fId=${detail.fId}&page=${page}&state=delete'">
+			</c:if>
 			<input type="button" class="boardform_button" value="목록"
 				onClick="location.href='freeBoardList.do?page=${page}'">
 		</div>

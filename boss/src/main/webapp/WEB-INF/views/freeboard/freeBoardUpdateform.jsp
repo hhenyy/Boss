@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="css/freeBoardform.css">
 
 <!-- 글수정 성공 여부 판별 후 페이지 이동 -->
-	<c:if test="${result > 0 }">
+	<c:if test="${result == 1 }">
 		<script type="text/javascript">
 			alert("글 수정 성공");
 			location.href = "freeBoardDetail.do?fId=${fId}&page=${page}&state=detail";
