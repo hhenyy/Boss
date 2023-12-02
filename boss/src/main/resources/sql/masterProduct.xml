@@ -15,7 +15,7 @@
       select *
       from (select rownum rnum, product.*
       from (select *
-      from product order by preg desc) product)
+      from product order by pdrop asc,preg desc) product)
       where rnum between
       #{startRow} and #{endRow}
    </select>

@@ -65,7 +65,7 @@
 								<td><a href="#">Bo$$Mall</a><span
 									class="cart__list__smartstore"> HB & CM</span>
 									<p>${bucket.bname }</p> <sapn class="price">${bucket.bprice }원</sapn><span
-									style="text-decoration: line-through; color: lightgray;">119,000</span>
+									style="text-decoration: line-through; color: lightgray;">${bucket.bprice}</span>
 								</td>
 								<td class="cart__list__option">
 									<p>상품명 : ${bucket.bname } / 수량 : (${bucket.bcount }개)</p>
@@ -73,7 +73,7 @@
 								</td>
 								<td><span class="price">${bucket.bprice * bucket.bcount}원</span><br>
 									<button type="button" class="cart__list__orderbtn"
-										onclick="location.href='ordersForm.do?bid=${bucket.bid }'">주문하기</button>
+										onclick="location.href='moveOrdersForm.do?bid=${bucket.bid }'">주문하기</button>
 									<button type="button" class="cart__list__orderbtn"
 										onclick="location.href='cartListDelete.do?bid=${bucket.bid}'">삭제하기</button>
 								</td>
@@ -89,7 +89,8 @@
 								삭제</button>
 							<button type="button" class="cart__list__optionbtn">선택상품
 								찜</button></td>
-						<td></td>
+						<td>총 결제 금액 : ${totalPrice}원</td>
+						
 						<td></td>
 						<td></td>
 					</tr>
@@ -100,7 +101,7 @@
 			<button class="cart__bigorderbtn left"
 				onclick="location.href='main.do'">쇼핑 계속하기</button>
 			<button class="cart__bigorderbtn right" id="payClick"
-				onclick="location.href='ordersForm.do'">주문하기</button>
+				onclick="location.href='moveOrdersForm.do?bid=${bucket.bid }'">주문하기</button>
 		</div>
 	</section>
 </body>

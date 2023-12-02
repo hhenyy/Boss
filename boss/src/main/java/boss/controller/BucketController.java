@@ -64,14 +64,22 @@ public class BucketController {
 				// 상품 인서트
 				int InsertCart = service.InsertCart(map);
 			}
-			
 		}
 		
 		List<Bucket> list = service.selectBucketList(memail);
-		if(!list.isEmpty()) {
+		
+		// 총 결제 금액 구하기
+		int totalPrice = 0;
+		
+		for(int i = 0; i < list.size(); i++) {
+			Bucket b = list.get(i);
+			int price = b.getBprice();
+			int count = b.getBcount();
+			totalPrice += price * count;
 		}
 		
 		model.addAttribute("list", list);
+		model.addAttribute("totalPrice", totalPrice);
 		
 		return "bucket/bucketList";
 	}
