@@ -1,11 +1,17 @@
 package boss.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import boss.model.Bucket;
 import boss.model.Member;
@@ -15,7 +21,7 @@ import boss.service.OrdersService;
 
 @Controller
 public class OrdersController {
-
+	
 	@Autowired
 	OrdersService os;
 	@Autowired
@@ -74,13 +80,21 @@ public class OrdersController {
 		return "./orders/moveOrdersForm";
 	}
 	
+	/*
+	 * 주문 정보 db 저장
+	 */
+	@ResponseBody
 	@RequestMapping("orderResult.do")
-	public String orderResult(String mEmail, String bid) {
+	public Map<String,Object> orderResult(String mEmail, String bid) {
 		
 		System.out.println("mEmail : " + mEmail);
 		System.out.println("bid : " + bid);
 		
-		return "main.do";
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("bid", bid);
+		map.put("mEmail", mEmail);
+		
+		return map;
 	}
 }
 
