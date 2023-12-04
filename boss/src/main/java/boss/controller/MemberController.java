@@ -250,6 +250,45 @@ public class MemberController {
 	public String insertMember() {
 		return "login/InsertForm";
 	}
+	
+	// 회원수정 폼 이동 (update)
+	@RequestMapping("updateForm.do")
+	public String updateForm(HttpSession session, Model model) {
+		
+		// 세션에 있는 Member 값 구해오기
+		Member dbMember = (Member) session.getAttribute("member");
+		
+		String mEmail = dbMember.getmEmail();
+		
+		Member member = service.selectOne(mEmail);
+		
+		model.addAttribute("member", member);
+		return "login/updateForm";
+	}
+	
+	// 회원수정
+	@RequestMapping("updateMember.do")
+	public String updateForm(Member member,Model model) {
+		
+		int result = 0;
+		String mEmail = member.getmEmail();
+		
+		Member dbmember = service.selectOne(mEmail);
+		
+		// 비번 비교
+		if(passwordEncoder.matches(member.getmPwd(), dbmember.getmPwd())) {
+			result = service.updateMember(member);
+		}
+		
+		model.addAttribute("result", result);
+		return "login/updateMemberCheck";
+	}
+	
+	// 회원 탈퇴 폼 이동
+	@RequestMapping("deleteForm.do")
+	public String deleteForm() {
+		return "login/deleteForm";
+	}
 
 	// 로그인 기능
 	@RequestMapping("login.do")
