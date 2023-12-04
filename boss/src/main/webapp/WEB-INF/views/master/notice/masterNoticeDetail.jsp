@@ -46,7 +46,13 @@
             </c:if>
 
 	</table>
-	<button type="button" class="review_button1" onclick="location.href='masterNotice.do'">목록으로</button>
+	<c:if test="${masterNoticeDetail.rnum != 1 }">
+	<a href="masterNoticeDetailMove.do?rnum=${masterNoticeDetail.rnum-1 }">다음글</a><br>
+	</c:if>
+	<c:if test="${masterNoticeDetail.rnum != masterNoticeDetail.rnumMax }">
+	<a href="masterNoticeDetailMove.do?rnum=${masterNoticeDetail.rnum+1 }">이전글</a><br><br>
+	</c:if>
+	<button type="button" class="review_button1" onclick="location.href='masterNotice.do?nowPage=${pp.nowPage}'">목록으로</button>
 	
 	<!-- css 양식 include -->
 	<%@include file="/WEB-INF/views/common/footer.jsp"%>

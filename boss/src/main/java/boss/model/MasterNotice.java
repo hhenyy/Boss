@@ -2,7 +2,9 @@ package boss.model;
 
 import java.util.Date;
 
-public class MasterNotice {
+import boss.common.RowNum;
+
+public class MasterNotice extends RowNum {
 
 	private int mnId;
 	private String mnTitle;
