@@ -30,7 +30,7 @@
    var name = '${member.mName}';
    var amount = '${bucket.bprice}';
    var buyer_email = '${member.mEmail}';
-   var buyer_name = '${member.mName}'
+   var buyer_name = '${member.mName}';
    var buyer_tel = '${member.mPhone}';
    var buyer_addr = '${member.mAddress}';
    var buyer_postcode = '${member.mPost}';
@@ -58,23 +58,28 @@
          // 검증완료시
          if (rsp.success) {
 			alert('결제완료');
-			
-			var toSend = {
-				mEmail: 'buyer_email'
-			};
-			
+             
+             var toSend = {
+			   mEmail: buyer_email,
+			   bid: '${bucket.bid}',
+			   name: name,
+			   
+		     };
+			        
 			 $.ajax({
-			     url: 'orderResult.do',
-			     method: 'POST',
-			     data: toSend,
-			     success: function(response) {
-			            
-			        alert('함수 로직 성공');
-			            
-			        },
-			
-            // 검증 실패시
-         } else {
+				url: 'orderResult.do',
+				method: 'POST',
+				data: toSend,
+				success: function(map){
+					
+					alert('함수 리턴 성공');
+					location.href='cartFormMove.do';
+					
+					},
+							 
+				 });
+             
+		} else {
             alert('결제실패');
             history.go(-2);
          }
