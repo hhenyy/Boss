@@ -50,6 +50,26 @@ public class MasterNoticeService {
 		dao.masterNoticeUpdate(mn);
 	}
 
+	public int noticeCount(String keyword) {
+
+		return dao.noticeCount(keyword);
+	}
+
+	public List<MasterNotice> noticeSearchList(PagePgm pp) {
+
+		return dao.noticeSearchList(pp);
+	}
+
+	public int noticeMax() {
+
+		return dao.noticeMax();
+	}
+
+	public MasterNotice selectMove(int rnum) {
+		
+		return dao.selectMove(rnum);
+	}
+
 	
  
 }

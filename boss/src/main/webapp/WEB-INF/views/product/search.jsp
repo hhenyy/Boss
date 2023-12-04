@@ -18,14 +18,19 @@
 	<link rel="stylesheet" href="assets/css/noscript.css" />
 </noscript>
 <script>
-	
 	function enterkey() {
 		if (window.event.keyCode == 13) {
-	    	// 엔터키가 눌렸을 때
-	    	var s = document.getElementById("search").value;
-	    	location.href="categorySearch.do?newCid=${category.newCid}&keyword="+s;
-	    }
+			// 엔터키가 눌렸을 때
+			var s = document.getElementById("search").value;
+			location.href = "allSearch.do?keyword=" + s;
+		}
 	}
+	function selChange() {
+
+		var sel = document.getElementById('cntPerPage').value;
+		location.href = "allSearch.do?keyword=${pp.keyword}&nowPage=${pp.nowPage}&cntPerPage="
+		+ sel;
+		}
 </script>
 </head>
 
@@ -36,8 +41,8 @@
 		<!-- Header -->
 		<header id="header">
 			<div class="inner">
-			
-			<!-- 쇼핑몰 로고 & 상단 아이콘 불러오기 -->
+
+				<!-- 쇼핑몰 로고 & 상단 아이콘 불러오기 -->
 				<%@include file="../common/header.jsp"%>
 
 				<c:if test="${sessionId eq null}">
@@ -56,8 +61,8 @@
 						style="text-decoration: none"><br>로그아웃</a>
 				</c:if>
 				<div align="center" width="100px" height="100px">
-					<input type="text" id="search" maxlength="50" placeholder="검색어를 입력하세요."
-					onkeyup="enterkey()"><br>
+					<input type="text" id="search" maxlength="50"
+						value ="${pp.keyword }" onkeyup="enterkey()"><br>
 				</div>
 				<div style="float: right;">
 					<select id="cntPerPage" name="sel" onchange="selChange()"
@@ -80,11 +85,11 @@
 					class="title">JY & HB</span>
 				</a>
 				<!-- Nav -->
-					<nav>
-						<ul>
-							<li><a href="#menu">Menu</a></li>
-						</ul>
-					</nav>
+				<nav>
+					<ul>
+						<li><a href="#menu">Menu</a></li>
+					</ul>
+				</nav>
 			</div>
 		</header>
 
@@ -121,11 +126,11 @@
 				</header>
 
 				<section class="tiles">
-				<!-- if문을 넣어 해당 카테고리의 상품이 없을 경우 화면 중앙에 '등록된 상품이 없습니다' 출력 -->
+					<!-- if문을 넣어 해당 카테고리의 상품이 없을 경우 화면 중앙에 '등록된 상품이 없습니다' 출력 -->
 					<c:forEach var="list" items="${search }" varStatus="loop">
 						<article class="style1">
-							<span class="image"> <img src="images/${list.pimage}" onerror="this.src='images/1.png'">
-							<!-- 일단은 엑박 대신 1.png가 출력되도록 처리. 클릭이 안되게 하려면? -->
+							<span class="image"> <img src="images/${list.pimage}"
+								onerror="this.src='images/1.png'"> <!-- 일단은 엑박 대신 1.png가 출력되도록 처리. 클릭이 안되게 하려면? -->
 							</span> <a href="productDetail.do?pid=${list.pid }">
 								<h2>${list.pname }</h2>
 								<div class="content">
@@ -140,9 +145,8 @@
 			<div align="center">
 				<c:if test="${pp.startPage != 1 }">
 					<a style="text-decoration: none; color: deeppink"
-						href="./category.do?cid=${cid }&newCid=${cid }&nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}">
-						<- 
-					</a>
+						href="./allSearch.do?keyword=${pp.keyword }&nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}">
+						<- </a>
 				</c:if>
 				<c:forEach begin="${pp.startPage }" end="${pp.endPage }" var="p">
 					<c:choose>
@@ -151,13 +155,13 @@
 						</c:when>
 						<c:when test="${p != pp.nowPage }">
 							<a style="text-decoration: none; color: deeppink"
-								href="./category.do?cid=${cid }&newCid=${cid }&nowPage=${p }&cntPerPage=${pp.cntPerPage}">${p }</a>
+								href="./allSearch.do?keyword=${pp.keyword }&nowPage=${p }&cntPerPage=${pp.cntPerPage}">${p }</a>
 						</c:when>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${pp.endPage != pp.lastPage}">
 					<a style="text-decoration: none; color: deeppink"
-						href="./category.do?cid=${cid }&newCid=${cid }&nowPage=${pp.endPage+1 }&cntPerPage=${pp.cntPerPage}">
+						href="./allSearch.do?keyword=${pp.keyword }&nowPage=${pp.endPage+1 }&cntPerPage=${pp.cntPerPage}">
 						-> </a>
 				</c:if>
 			</div>

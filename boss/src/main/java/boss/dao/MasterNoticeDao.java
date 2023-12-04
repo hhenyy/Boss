@@ -24,4 +24,12 @@ public interface MasterNoticeDao {
 
 		void masterNoticeUpdate(MasterNotice mn);
 
+		int noticeCount(String keyword);
+
+		List<MasterNotice> noticeSearchList(PagePgm pp);
+
+		int noticeMax();
+
+		MasterNotice selectMove(int rnum);
+
 }

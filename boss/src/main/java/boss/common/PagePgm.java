@@ -1,6 +1,6 @@
 package boss.common;
 
-public class PagePgm {
+public class PagePgm extends Search {
 
 	private int nowPage; // 현재페이지
 	private int startPage; // 시작페이지 
@@ -20,6 +20,18 @@ public class PagePgm {
 		setNowPage(nowPage);
 		setCntPerPage(cntPerPage);
 		setTotal(total);
+
+		calcLastPage(getTotal(), getCntPerPage());
+		calcStartEndPage(getNowPage(), cntPage);
+		calcStartEnd(getNowPage(), getCntPerPage());
+	}
+	
+	//검색용 생성자
+	public PagePgm(int total, int nowPage, int cntPerPage, String search) {
+		setNowPage(nowPage);
+		setCntPerPage(cntPerPage);
+		setTotal(total);
+		setKeyword(search);
 
 		calcLastPage(getTotal(), getCntPerPage());
 		calcStartEndPage(getNowPage(), cntPage);

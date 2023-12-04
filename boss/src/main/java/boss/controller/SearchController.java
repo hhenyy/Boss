@@ -23,22 +23,26 @@ public class SearchController {
 			@RequestParam(value = "nowPage", required = false) String nowPage,
 			@RequestParam(value = "cntPerPage", required = false) String cntPerPage, Model model) {
 		
+		
 		if (nowPage == null && cntPerPage == null) {
-			nowPage = "1";
-			cntPerPage = "15";
+			pp.setNowPage(1);
+			pp.setCntPerPage(15);
 		} else if (nowPage == null) {
-			nowPage = "1";
+			pp.setNowPage(1);
 		} else if (cntPerPage == null) {
-			cntPerPage = "15";
+			pp.setCntPerPage(15);
+		}else {
+			pp.setNowPage(Integer.parseInt(nowPage));
+			pp.setCntPerPage(Integer.parseInt(cntPerPage));
 		}
+		
 		int total = ss.searchCount(pp.getKeyword());
-		System.out.println(total);
-		
-		PagePgm sl = new PagePgm(total,Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		
 		
-		List<Product> searchList = ss.allSearch(sl);
-		System.out.println(searchList.get(0).getPname());
+		
+		pp = new PagePgm(total,pp.getNowPage(), pp.getCntPerPage(), pp.getKeyword());
+		
+		List<Product> searchList = ss.allSearch(pp);
 		model.addAttribute("search", searchList);
 		model.addAttribute("pp", pp);
 		

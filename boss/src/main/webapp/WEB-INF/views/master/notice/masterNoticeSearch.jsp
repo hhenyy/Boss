@@ -39,7 +39,6 @@
 			// 엔터키가 눌렸을 때
 			var s = document.getElementById("search").value;
 			location.href = "masterNoticeSearch.do?keyword=" + s;
-			/* searchType을 적용시킨 검색도 필요 */
 		}
 	}
 </script>
@@ -70,8 +69,8 @@
 				</c:if>
 
 				<div align="center" width="100px" height="100px">
-					<input type="text" maxlength="50" placeholder="검색어를 입력하세요."
-						id="search" onkeyup="enterkey()"><br>
+					<input type="text" maxlength="50" value ="${pp.keyword }"
+					id="search" onkeyup="enterkey()"><br>
 
 
 				</div>
@@ -147,9 +146,8 @@
 												<button type="button"
 													onclick="location.href='masterNoticeUpdateForm.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage}&cntPerPage=${pp.cntPerPage}'">수정</button>
 												<button type="button" id="delete"
-													value="${masterNotice.mnId}" id="deleteCheck"
-													value="${masterNotice.mnId}"
-													onclick="javascript:deleteCheck(${masterNotice.mnId})">삭제</button>
+													value="${masterNotice.mnId}" id="deleteCheck" value="${masterNotice.mnId}"
+													onclick="javascript:deleteCheck(${masterNotice.mnId})">삭제</button> 
 												<!-- mnId는 items="{list}" 안에 포함된 정보.  -->
 											</td>
 										</c:if>
@@ -168,7 +166,7 @@
 			<div align="center">
 				<c:if test="${pp.startPage != 1 }">
 					<a style="text-decoration: none; color: deeppink"
-						href="./masterNotice.do?nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}">
+						href="./masterNoticeSearch.do?keyword=${pp.keyword }&nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}">
 						<- </a>
 				</c:if>
 				<c:forEach begin="${pp.startPage }" end="${pp.endPage }" var="p">
@@ -178,13 +176,13 @@
 						</c:when>
 						<c:when test="${p != pp.nowPage }">
 							<a style="text-decoration: none; color: deeppink"
-								href="./masterNotice.do?nowPage=${p }&cntPerPage=${pp.cntPerPage}">${p }</a>
+								href="./masterNoticeSearch.do?keyword=${pp.keyword }&nowPage=${p }&cntPerPage=${pp.cntPerPage}">${p }</a>
 						</c:when>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${pp.endPage != pp.lastPage}">
 					<a style="text-decoration: none; color: deeppink"
-						href="./masterNotice.do?nowPage=${pp.endPage+1 }&cntPerPage=${pp.cntPerPage}">
+						href="./masterNoticeSearch.do?keyword=${pp.keyword }&nowPage=${pp.endPage+1 }&cntPerPage=${pp.cntPerPage}">
 						-> </a>
 				</c:if>
 			</div>
