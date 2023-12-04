@@ -12,28 +12,89 @@
 
 <!-- css 불러오기 -->
 <link rel="stylesheet" href="css/freeBoard.css">
+<!-- <script src="https://apis.google.com/js/api.js"></script> -->
+<!-- <script src="./js/freeboardyoutube.js"></script> -->
 
+<!-- 유투브 API 시작 -->
+<script async>
+	async function fetchData() {
+// 		var startOfWeek = moment().startOf('week').toDate();
+// 		var endOfWeek   = moment().endOf('week').toDate();
+// 		var w_start_date = startOfWeek
+// 		var w_end_date = endOfWeek
+		var queries = [
+			"q=남성패션",
+			"order=viewCount",
+			"maxResults=9",
+// 			`publishedAfter=${w_start_date}`,
+// 			`publishedBefore=${w_end_date}`
+		];
+		var query = "";
+		queries.forEach((item,index) => {
+			if(index == 0)
+				query += item
+			else
+				query += "&" + item 
+		});
+		var API_KEY = "AIzaSyAarAezWQSHuQQRYZ7hm_SIk5uOoKYX77w"
+		var youtube_url = "https://youtube.googleapis.com"
+		var search_endpoint = "/youtube/v3/search" 
+		var req = youtube_url + search_endpoint + "?" + query + "&key=" + API_KEY
+		console.log(req)
+		var video_url = []
+		var response = fetch(req, {
+		  headers: {
+		    'Authorization': 'Bearer',
+		    'Accept': 'application/json'
+		  }
+		}).then(res => {return res.json()})
+	      .then((result) => {
+		          result.items.forEach(function(item, index) {
+		        	  var youtube_embed_url = "https://www.youtube.com/embed/";
+		        	  if('videoId' in item.id)
+		        		  video_url.push(youtube_embed_url+item.id.videoId);
+		          });
+		          const iframes = document.querySelectorAll('.div_iframe iframe');
+		          iframes.forEach((iframe, index) => {
+		        	if(index < video_url.length)
+	        	    	iframe.src = video_url[index];
+	        	  });
+		        })
+		      .catch((error) => { window.alert("error", error);
+		        console.log("authentication failed");
+		      });
+		
+		return video_url
+	}
+	
+	(async () => {
+		var video_url = await fetchData();
+	})();
+	
+	
+</script>
 <div class="div_iframe">
-<iframe width="420" height="315"
-	src="https://www.youtube.com/embed/7y1DWwz3Wfs"></iframe>
-<iframe width="420" height="315"
-	src="https://www.youtube.com/embed/t0xYMEYyjgY"></iframe>
-<iframe width="420" height="315"
-	src="https://www.youtube.com/embed/htHYzVnlHYQ"></iframe>
+<caption><h2>유투브 '남성 패션' 검색 조회수 TOP 9 유투브 영상</h2></caption>
+<br>
+<iframe width="400" height="300"></iframe>
+<iframe width="400" height="300"></iframe>
+<iframe width="400" height="300"></iframe>
 	<br>
-<iframe width="420" height="315"
-	src="https://www.youtube.com/embed/ug0-BKfV0eQ"></iframe>
-<iframe width="420" height="315"
-	src="https://www.youtube.com/embed/GicK9l0cPp0"></iframe>
-<iframe width="420" height="315"
-	src="https://www.youtube.com/embed/uWONtFbb00E"></iframe>
+<iframe width="400" height="300"></iframe>
+<iframe width="400" height="300"></iframe>
+<iframe width="400" height="300"></iframe>
+	<br>
+<iframe width="400" height="300"></iframe>
+<iframe width="400" height="300"></iframe>
+<iframe width="400" height="300"></iframe>
 </div>
+<!-- 유투브 API 끝 -->
 </head>
 <body>
 <!-- 전체 div시작 -->
 	<div class="community">
 		<table class="table_community">
-			<caption>BOSS COMMUNITY</caption>
+			<caption><a2>BOSS COMMUNITY</a2></caption>
 			<tr>
 				<th width="5%">번호</th>
 				<th width="40%">제목</th>

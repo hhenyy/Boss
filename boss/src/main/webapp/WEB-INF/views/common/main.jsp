@@ -21,10 +21,21 @@
 
 <!-- buttons_master css -->
 <link rel="stylesheet" href="assets/css/mainhs.css" />
+<!-- <link rel="stylesheet" href="assets/css/mainhsSlide.css" /> -->
+
+<!-- <!-- 슬라이드CSS --> 
+<!-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/> -->
+<!-- <!--   <link rel="stylesheet" type="text/css" href="slick/slick.css"/> --> 
+<!--   <!-- 슬라이드 테마 CSS --> 
+<!--   <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/> -->
+
+
+<!-- <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> -->
 
 <noscript>
 	<link rel="stylesheet" href="assets/css/noscript.css" />
 </noscript>
+
 
 </head>
 
@@ -40,20 +51,31 @@
 				<!-- 쇼핑몰 로고 & 상단 아이콘 불러오기 -->
 				<%@include file="header.jsp"%>
 
-				<!--1. 비회원 페이지 -->
-				<c:if test="${empty sessionScope.member}">
-	<div class="category-link" align="center">
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none" style="text-decoration: none">OUTER</a>
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none" style="text-decoration: none">KNIT</a>
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
-	</div>
-				<div align="center" width="30px" height="100px">
-						<input type="text" maxlength="30" placeholder="검색어를 입력하세요. 연말준비는 ? BOSS에서 !">
-			</div> 
+				<!--1. 회원 or 비회원 페이지 -->
+				<c:if
+					test="${!empty sessionScope.member && member.mEmail ne 'master' || empty sessionScope.member}">
+					<div class="category-link" align="center">
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
+							style="text-decoration: none">OUTER</a> <a
+							href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
+							style="text-decoration: none">KNIT</a> <a
+							href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
+					</div>
+					<div align="center" width="30px" height="100px">
+						<input type="text" maxlength="30"
+							placeholder="검색어를 입력하세요. 연말준비는 ? BOSS에서 !">
+					</div>
 
 					<!-- Nav -->
 					<nav>
@@ -72,27 +94,64 @@
 				<li><a href="freeBoardList.do">커뮤니티</a></li>
 				<li><a href="masterNotice.do">공지사항</a></li>
 				<li><a href="elements.do">Elements</a></li>
-				<!-- 최종에서는 관리자페이지 빼기 -->
-				<input type="button" value="관리자페이지"
-					onclick="location.href='masterMain.do'">
 				<br>
 			</ul>
 		</nav>
-
 		<!-- Main -->
 		<div id="main">
 			<div class="inner">
 				<header align="center">
 
-					<h1>
+					<!-- 	<h1>
 						<b>시선이 교차하는 순간</b>
-					</h1>
+					</h1> -->
+
+
+
+					<!-- 슬라이드 -->
+<!-- 					<div class="content_area"> -->
+<!-- 						page slider -->
+<!-- 						<div class="slide_div_wrap"> -->
+<!-- 							<div class="slide_div"> -->
+<!-- 								<div> -->
+<!-- 									<a> <img src="images/slide1.png"> -->
+<!-- 									</a> -->
+<!-- 								</div> -->
+<!-- 								<div> -->
+<!-- 									<a> <img src="images/slide2.png"> -->
+<!-- 									</a> -->
+<!-- 								</div> -->
+<!-- 								<div> -->
+<!-- 									<a> <img src="images/slide3.png"> -->
+<!-- 									</a> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						post slider -->
+<!-- 					</div> -->
+<!-- 					슬라이드끝 -->
+<!-- 	 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script> -->
+<!--   <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
+<!--   <script type="text/javascript" src="slick/slick.min.js"></script> -->
+<!--   <script type="text/javascript"> -->
+<!--  	$(function() { 
+<!-- 		$('.slide_div').slick({ 
+<!-- 			dots : true, 
+<!--  			autoplay : true,
+<!--  			autoplaySpeed : 5000 
+<!--  		}); 
+<!--  	}); 
+<!-- </script> -->
+					
 
 					<h3>
 						자연스럽고 특별한 아름다움은 한 순간에 시선과 마음을 사로잡습니다<br>
 					</h3>
 					<h3>눈과 마음을 열어보세요</h3>
 					<br>
+
+
+
 					<p align="left">
 						남성을 위한 수트<br> 포멀함과 세심한 디자인의 기능성이 만난 남성 수트를 소개합니다.<br> 포멀
 						& 캐주얼 스타일을 선보이는 우아한 컬렉션에서 소개하는 BO$$만의 실루엣을 발견해보세요.<br> 슬림핏과
@@ -223,7 +282,6 @@
 				</section>
 			</div>
 		</div>
-		<!-- --------------------------회원 비회원 관리자 각각 넣을 내용---------------------------------- -->
 		</c:if>
 
 
@@ -232,17 +290,23 @@
 		<!--2.관리자페이지  -->
 		<c:if
 			test="${!empty sessionScope.member && member.mEmail eq 'master'}">
-	<div class="category-link" align="center">
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">OUTER</a>
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">KNIT</a>
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
-	</div>
-							
-			<!-- --------------------------회원 비회원 관리자 각각 넣을 내용---------------------------------- -->
+			<div class="category-link" align="center">
+				<a href="category.do?newCid=맨투맨"
+					style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">OUTER</a>
+				<a href="category.do?newCid=맨투맨"
+					style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">KNIT</a>
+				<a href="category.do?newCid=맨투맨"
+					style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
+				<a href="category.do?newCid=맨투맨"
+					style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
+				<a href="category.do?newCid=맨투맨"
+					style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
+				<a href="category.do?newCid=맨투맨"
+					style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
+				<a href="category.do?newCid=맨투맨"
+					style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
+			</div>
+
 			<div align="center" width="100px" height="100px">
 				<input type="text" maxlength="50" placeholder="검색어를 입력하세요."><br>
 				<br> <br>
@@ -262,10 +326,10 @@
 	<nav id="menu">
 		<h2>Menu</h2>
 		<ul>
-				<li><a href="category.do">카테고리</a></li>
-				<li><a href="freeBoardList.do">커뮤니티</a></li>
-				<li><a href="masterNotice.do">공지사항</a></li>
-				<li><a href="elements.do">Elements</a></li>
+			<li><a href="category.do">카테고리</a></li>
+			<li><a href="freeBoardList.do">커뮤니티</a></li>
+			<li><a href="masterNotice.do">공지사항</a></li>
+			<li><a href="elements.do">Elements</a></li>
 			<input type="button" value="관리자페이지"
 				onclick="location.href='masterMain.do'">
 			<br>
@@ -449,200 +513,10 @@
 			</section>
 		</div>
 	</div>
-	<!-- --------------------------회원 비회원 관리자 각각 넣을 내용---------------------------------- -->
 	</c:if>
 
 
 
-
-	<!-- 3.회원페이지 -->
-	<c:if test="${!empty sessionScope.member && member.mEmail ne 'master'}">
-	<div class="category-link" align="center">
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">OUTER</a>
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">KNIT</a>
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
-		<a href="category.do?newCid=맨투맨" style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
-	</div>
-
-		<!-- --------------------------회원 비회원 관리자 각각 넣을 내용---------------------------------- -->
-		<div align="center" width="100px" height="100px">
-			<input type="text" maxlength="50" placeholder="검색어를 입력하세요."><br>
-			<br> <br>
-
-		</div>
-
-
-		<!-- Nav -->
-		<nav>
-			<ul>
-				<li><a href="#menu">Menu</a></li>
-			</ul>
-		</nav>
-
-		</div>
-		</header>
-
-		<!-- Menu -->
-		<nav id="menu">
-			<h2>Menu</h2>
-			<ul>
-				<li><a href="category.do">카테고리</a></li>
-				<li><a href="freeBoardList.do">커뮤니티</a></li>
-				<li><a href="masterNotice.do">공지사항</a></li>
-				<li><a href="elements.do">Elements</a></li>
-				<br>
-			</ul>
-		</nav>
-
-		<!-- Main -->
-		<div id="main">
-			<div class="inner">
-				<header align="center">
-
-					<h1>시선이 교차하는 순간</h1>
-
-					<h3>
-						자연스럽고 특별한 아름다움은 한 순간에 시선과 마음을 사로잡습니다<br>
-					</h3>
-					<h3>눈과 마음을 열어보세요</h3>
-					<br>
-					<p align="left">
-						남성을 위한 수트<br> 포멀함과 세심한 디자인의 기능성이 만난 남성 수트를 소개합니다.<br> 포멀
-						& 캐주얼 스타일을 선보이는 우아한 컬렉션에서 소개하는 BO$$만의 실루엣을 발견해보세요.<br> 슬림핏과
-						가벼운 여름 스타일부터 턱시도와 스리피스 디자인까지, 세심한 스타일링에 중점을 둔 수트 컬렉션을 지금 확인해보세요.
-					</p>
-					<br>
-					<h3 text-align="center">WEEKLY BEST</h3>
-				</header>
-				<section class="tiles">
-					<article class="style1">
-						<span class="image"> 
-						  <!-- maincontroller에서 block,minImageList 값을 가져옴-->
-						<c:if test="${block1 == 1 }">
-								<img src="images/${mainImageList1.mainimage} " alt="" />
-							</c:if>
-
-						</span> <a href="productDetail.do?pid=${mainImageList1.pid }">
-							<h2>${mainImageList1.mainpname }</h2>
-							<div class="content">
-								<p>${mainImageList1.maincontent}</p>
-							</div>
-						</a>
-						<div class="buttons_master"></div>
-					</article>
-					<article class="style1">
-						<span class="image"> <c:if test="${block2 == 2 }">
-								<img src="images/${mainImageList2.mainimage} " alt="" />
-							</c:if>
-
-						</span> <a href="productDetail.do?pid=${mainImageList2.pid }">
-							<h2>${mainImageList2.mainpname }</h2>
-							<div class="content">
-								<p>${mainImageList2.maincontent}</p>
-							</div>
-						</a>
-						<div class="buttons_master"></div>
-					</article>
-					<article class="style1">
-						<span class="image"> <c:if test="${block3 == 3 }">
-								<img src="images/${mainImageList3.mainimage} " alt="" />
-							</c:if>
-
-						</span> <a href="productDetail.do?pid=${mainImageList3.pid }">
-							<h2>${mainImageList3.mainpname }</h2>
-							<div class="content">
-								<p>${mainImageList3.maincontent}</p>
-							</div>
-						</a>
-						<div class="buttons_master"></div>
-					</article>
-					<article class="style1">
-						<span class="image"> <c:if test="${block4 == 4 }">
-								<img src="images/${mainImageList4.mainimage} " alt="" />
-							</c:if>
-
-						</span> <a href="productDetail.do?pid=${mainImageList4.pid }">
-							<h2>${mainImageList4.mainpname }</h2>
-							<div class="content">
-								<p>${mainImageList4.maincontent}</p>
-							</div>
-						</a>
-						<div class="buttons_master"></div>
-					</article>
-					<article class="style1">
-						<span class="image"> <c:if test="${block5 == 5 }">
-								<img src="images/${mainImageList5.mainimage} " alt="" />
-							</c:if>
-
-						</span> <a href="productDetail.do?pid=${mainImageList5.pid }">
-							<h2>${mainImageList5.mainpname }</h2>
-							<div class="content">
-								<p>${mainImageList5.maincontent}</p>
-							</div>
-						</a>
-						<div class="buttons_master"></div>
-					</article>
-					<article class="style1">
-						<span class="image"> <c:if test="${block6 == 6 }">
-								<img src="images/${mainImageList6.mainimage} " alt="" />
-							</c:if>
-
-						</span> <a href="productDetail.do?pid=${mainImageList6.pid }">
-							<h2>${mainImageList6.mainpname }</h2>
-							<div class="content">
-								<p>${mainImageList6.maincontent}</p>
-							</div>
-						</a>
-						<div class="buttons_master"></div>
-					</article>
-					<!-- 에러시작 -->
-					<article class="style1">
-						<span class="image"> <c:if test="${block7 == 7 }">
-								<img src="images/${mainImageList7.mainimage} " alt="" />
-							</c:if>
-
-						</span> <a href="productDetail.do?pid=${mainImageList7.pid }">
-							<h2>${mainImageList7.mainpname }</h2>
-							<div class="content">
-								<p>${mainImageList7.maincontent}</p>
-							</div>
-						</a>
-						<div class="buttons_master"></div>
-					</article>
-					<article class="style1">
-						<span class="image"> <c:if test="${block8 == 8 }">
-								<img src="images/${mainImageList8.mainimage} " alt="" />
-							</c:if>
-
-						</span> <a href="productDetail.do?pid=${mainImageList8.pid }">
-							<h2>${mainImageList8.mainpname }</h2>
-							<div class="content">
-								<p>${mainImageList8.maincontent}</p>
-							</div>
-						</a>
-						<div class="buttons_master"></div>
-					</article>
-					<article class="style1">
-						<span class="image"> <c:if test="${block9 == 9 }">
-								<img src="images/${mainImageList9.mainimage} " alt="" />
-							</c:if>
-
-						</span> <a href="productDetail.do?pid=${mainImageList9.pid }">
-							<h2>${mainImageList9.mainpname }</h2>
-							<div class="content">
-								<p>${mainImageList9.maincontent}</p>
-							</div>
-						</a>
-						<div class="buttons_master"></div>
-					</article>
-				</section>
-			</div>
-		</div>
-		<!-- --------------------------회원 비회원 관리자 각각 넣을 내용---------------------------------- -->
-	</c:if>
 
 
 
