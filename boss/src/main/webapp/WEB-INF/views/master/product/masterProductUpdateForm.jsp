@@ -9,26 +9,26 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet" href="css/masterCss.css">
 <script src="js/master.js"></script>
-<title>수정 페이지</title>
+<title>상품 정보수정</title>
 
 
 </head>
 
 <script>
-function goBack() {
-    alert('이전 페이지로 돌아갑니다.');
-    history.go(-1);
-}
+	function goBack() {
+		alert('이전 페이지로 돌아갑니다.');
+		history.go(-1);
+	}
 </script>
 
 <body>
 	<%@ include file="../common/masterNav.jsp"%>
 	<form method="post" action="masterProductUpdate.do" id="myform">
-		
+
 		<div class="container">
 			<div class="table-container">
+				<h1 class="h1_caption">상품 정보수정</h1>
 				<table>
-					<caption>상품 수정</caption>
 					<tr>
 						<th>상품코드</th>
 						<th>이미지</th>
@@ -44,20 +44,23 @@ function goBack() {
 					<tr align="center">
 						<td><input type="text" value="${product.pid}" id="mgrade"
 							name="pid" readonly></td>
-						<td><img src="images/${product.pimage }" width="50" height="50"></td>
+						<td><img src="images/${product.pimage }" width="50"
+							height="50"></td>
 						<td><input type="text" value="${product.pname}" id="mgrade"
 							name="pname" maxlength="3" class="phone" autofocus></td>
 						<td><input type="text" value="${product.pcolor}" id="mgrade"
 							name="pcolor"></td>
 						<td><input type="text" value="${product.psize}" id="mgrade"
 							name="psize"></td>
-						<td><input type="text" value="${product.pcontent }" id="mgrade" name="pcontent"></td>
-							
+						<td><input type="text" value="${product.pcontent }"
+							id="mgrade" name="pcontent"></td>
+
 
 						<td><fmt:formatDate pattern="yyyy-MM-dd" var="formattedDate"
 								value="${product.preg}" /> <input type="text"
-							value="${formattedDate}" readonly/></td>
-						<td><input type="text" value="${amount.acount }" name="acount"></td>
+							value="${formattedDate}" readonly /></td>
+						<td><input type="text" value="${amount.acount }"
+							name="acount"></td>
 						<td><input type="text" value="${product.pdrop}" id="mgrade"
 							name="pdrop"></td>
 						<td>

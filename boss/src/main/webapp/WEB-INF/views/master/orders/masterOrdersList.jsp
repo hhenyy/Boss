@@ -10,7 +10,7 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet" href="css/masterCss.css">
 <script src="js/master.js"></script>
-<title>회원관리</title>
+<title>주 문 관 리</title>
 
 <script>
 	function selChange() {
@@ -126,6 +126,7 @@
 		</div>
 		<h4 class="info-message">클릭시 해당 주문으로 이동합니다.</h4>
 		<h4 class="info-message">마우스 드래그로 대략적인 내용을 볼 수 있습니다.</h4>
+		<h4 class="info-message">회원별 개별 문자 전송이 가능합니다.</h4>
 	</div>
 
 	<%@ include file="../../common/footer.jsp"%>

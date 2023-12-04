@@ -9,7 +9,7 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet" href="css/masterCss.css">
 <script src="js/master.js"></script>
-<title>Insert title here</title>
+<title>리뷰 상세정보</title>
 
 
 </head>

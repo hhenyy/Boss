@@ -10,41 +10,46 @@
 <link rel="stylesheet" href="css/masterCss.css">
 <script src="js/master.js"></script>
 
-<title>Insert title here</title>
+<title>관리자 페이지</title>
 <!-- css 양식 include -->
 </head>
 <body>
 	<%@ include file="../common/masterNav.jsp"%>
-	<table>
-		<caption>관리자 페이지</caption>
-		<tr>
+	<h1 class="h1_caption">관리자 페이지</h1>
+	<div class="container_2" style="margin-top: 100px">
 
-			<th><button type="button"
-					onclick="location.href='masterMemberList.do' ">회원관리</button></th>
-			<th><button type="button"
-					onclick="location.href='masterProductList.do' ">상품관리</button></th>
-			<th><button type="button"
-					onclick="location.href='masterQnaBoardList.do' ">Q&A관리</button></th>
-			<th><button type="button"
-					onclick="location.href='masterReviewList.do' ">리뷰관리</button></th>
-			<th><button type="button"
-					onclick="location.href='masterOrdersList.do' ">주문관리</button></th>
-		</tr>
-
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-	</table>
+		<table style="width: 75%; height: 450px; margin-left: 150px; font-size: 25px;">
+			<tr>
+				<th><button type="button"
+						onclick="location.href='masterMemberList.do' ">회원관리</button></th>
+				<td onclick="location.href='masterMemberList.do' ">회원 전체목록과
+					회원정보 수정을 관리합니다.</td>
+			</tr>
+			<tr>
+				<th><button type="button"
+						onclick="location.href='masterProductList.do' ">상품관리</button></th>
+				<td onclick="location.href='masterProductList.do' ">상품 전체목록과
+					상품추가 및 수정을 관리합니다.</td>
+			</tr>
+			<tr>
+				<th><button type="button"
+						onclick="location.href='masterQnaBoardList.do' ">Q&A관리</button></th>
+				<td onclick="location.href='masterQnaBoardList.do' ">Q&A 전체목록과
+					QnA답변 및 삭제를 관리합니다.</td>
+			</tr>
+			<tr>
+				<th><button type="button"
+						onclick="location.href='masterReviewList.do' ">리뷰관리</button></th>
+				<td onclick="location.href='masterReviewList.do' ">리뷰 전체목록과 리뷰
+					삭제를 관리합니다.</td>
+			</tr>
+			<tr>
+				<th><button type="button"
+						onclick="location.href='masterOrdersList.do' ">주문관리</button></th>
+				<td onclick="location.href='masterOrdersList.do' ">주문 전체목록과
+					배송상태 변경 및 배송메시지 전송을 관리합니다.</td>
+			</tr>
+		</table>
 	</div>
 </body>
 </html>
