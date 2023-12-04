@@ -21,7 +21,9 @@
 		SELECT * FROM MEMBER where mEmail = #{mEmail}
 	</select>
 
-
+	<update id="updateMember" parameterType="member">
+		update member set mPhone = #{mPhone}, mPost = #{mPost}, mAddress = #{mAddress} where mEmail = #{mEmail}
+	</update>
 
 
 
