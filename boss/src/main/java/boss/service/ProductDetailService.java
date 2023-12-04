@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import boss.common.PagePgm;
 import boss.dao.ProductDetailDao;
+import boss.model.AskBoard;
 import boss.model.Orders;
 import boss.model.Product;
+import boss.model.QnaBoard;
 import boss.model.Review;
 
 @Service
@@ -39,7 +41,7 @@ public class ProductDetailService {
 	public int total() {
 		return dao.total();
 	}
-	// 페이징
+	// 리뷰 페이징
 	public List<Review> list(Map<String, Object> map) {
 		return dao.list(map);
 	}
@@ -71,6 +73,10 @@ public class ProductDetailService {
 	// 리뷰 수정
 	public int reviewupdate(Review review) {
 		return dao.reviewupdate(review);
+	}
+	
+	public List<AskBoard> asklist(Map<String, Object> map) {
+		return dao.asklist(map);
 	}
 
 	
