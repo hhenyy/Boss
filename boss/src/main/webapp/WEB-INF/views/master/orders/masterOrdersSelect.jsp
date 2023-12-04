@@ -67,16 +67,16 @@ function ajax_change(status, odid) {
 </script>
 
 
-<title>Insert title here</title>
+<title>주문 상세정보</title>
 </head>
 <body>
 
 
-	</script>
+
 	<%@ include file="../common/masterNav.jsp"%>
 	<form method="post" action="masteroDelete.do">
+		<h1 class="h1_caption">주문 상세정보</h1>
 		<div class="container">
-			<h1 class="h1_caption">주문 상세정보</h1>
 
 			<table>
 				<tr>
@@ -228,6 +228,7 @@ function ajax_change(status, odid) {
 			</table>
 			<h4 class=info-message>상품수정 클릭시 해당상품 수정창으로 이동합니다. (재고추가)</h4>
 			<h4 class=info-message>배송상태 클릭시 배송상태를 변경합니다.</h4>
+			<h4 class=info-message>배송상태 변경시 상태에 따른 문자를 전송 합니다.</h4>
 	</form>
 	</div>
 

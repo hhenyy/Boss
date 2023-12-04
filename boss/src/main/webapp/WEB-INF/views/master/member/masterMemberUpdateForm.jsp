@@ -9,7 +9,7 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet" href="css/masterCss.css">
 <script src="js/master.js"></script>
-<title>Insert title here</title>
+<title>회원 정보수정</title>
 
 </head>
 <body>
@@ -18,8 +18,8 @@
 		<input type="hidden" id="mPwd" name="mPwd" value="${member.mPwd }">
 		<input type="hidden" id="mReg" name="mReg" value="${member.mReg }">
 		<div class="container">
+			<h1 class="h1_caption">회원 정보수정</h1>
 			<table>
-				<caption>회원 정보수정</caption>
 				<tr>
 					<th>ID</th>
 					<th>이름</th>

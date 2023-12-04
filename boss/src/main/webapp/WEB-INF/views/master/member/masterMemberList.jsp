@@ -10,7 +10,7 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet" href="css/masterCss.css">
 <script src="js/master.js"></script>
-<title>회원관리</title>
+<title>회 원 관 리</title>
 
 <script>
 	function selChange() {
@@ -77,14 +77,16 @@
 							onclick="location.href='masterMemberSelect.do?id=${member.mEmail}' ">${member.mReg}</td>
 						<c:if test="${member.mDrop == 'N'}">
 							<td
-							onclick="location.href='masterMemberSelect.do?id=${member.mEmail}' " style="color: red;">${member.mDrop}</td>
-						</c:if>	
-						
+								onclick="location.href='masterMemberSelect.do?id=${member.mEmail}' "
+								style="color: red;">${member.mDrop}</td>
+						</c:if>
+
 						<c:if test="${member.mDrop == 'Y'}">
 							<td
-							onclick="location.href='masterMemberSelect.do?id=${member.mEmail}' " style="color: cyan;">${member.mDrop}</td>
-						</c:if>	
-						
+								onclick="location.href='masterMemberSelect.do?id=${member.mEmail}' "
+								style="color: cyan;">${member.mDrop}</td>
+						</c:if>
+
 						<td>
 							<button type="button"
 								onclick="location.href='masterMemberUpdateForm.do?id=${member.mEmail}'">수정</button>
@@ -95,7 +97,7 @@
 					<c:set var="i" value="${i + 1}"></c:set>
 				</c:forEach>
 			</table>
- 
+
 			<button type="submit" align="left" class="putsub">삭제여부 수정</button>
 			<div align="right" class="search">
 	</form>

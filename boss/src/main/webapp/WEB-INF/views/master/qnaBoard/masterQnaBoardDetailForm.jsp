@@ -9,7 +9,7 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet" href="css/masterCss.css">
 <script src="js/master.js"></script>
-<title>qna상세정보</title>
+<title>Qna 상세정보</title>
 
 
 </head>
@@ -17,9 +17,9 @@
 
 	<%@ include file="../common/masterNav.jsp"%>
 	<form method="post" action="masterQnaReplyInsert.do">
-		<input type="hidden" name="memail" value="${qnaBoard.memail  }"> 
+		<input type="hidden" name="memail" value="${qnaBoard.memail  }">
 		<input type="hidden" name="qid" value="${qnaBoard.qid }">
-		
+
 		<div class="container">
 			<h1 class="h1_caption">Qna 상세정보</h1>
 
@@ -81,33 +81,35 @@
 				<tr>
 					<th colspan="5">답변</th>
 				</tr>
-			<c:if test="${qnaReply.qrcontent == null}">	
-				<tr>
-					<td colspan="5" autofocus="autofocus"><textarea name="qrcontent">${qnaReply.qrcontent }</textarea></td>
-							
-				</tr>
+				<c:if test="${qnaReply.qrcontent == null}">
+					<tr>
+						<td colspan="5" autofocus="autofocus"><textarea
+								name="qrcontent">${qnaReply.qrcontent }</textarea></td>
+
+					</tr>
 			</table>
 			<%-- <c:if test="${qnaReply.qrcontent == null}"> --%>
-				<button type="submit">답변</button>
+			<button type="submit">답변</button>
 			</c:if>
-			
-			</div>
-		</form>
-			
-			<c:if test="${qnaReply.qrcontent != null}">
-				<form method="post" action="masterQnaBoardUpdate.do">
-					<input type="hidden" name="qid" value="${qnaReply.qid}">
-				<tr>
-					<td colspan="5" autofocus="autofocus"><textarea name="qrcontent">${qnaReply.qrcontent }</textarea></td>
-							
-				</tr>
-				</table>
-					<button type="submit">답변수정</button>
-				</form>
-				<%-- <button type="submit" onclick="location.href='masterQnaBoardUpdate.do?qrid=${qnaReply.qrid}'">답변수정</button> --%>
-			</c:if>
-			
 
-		
+		</div>
+	</form>
+
+	<c:if test="${qnaReply.qrcontent != null}">
+		<form method="post" action="masterQnaBoardUpdate.do">
+			<input type="hidden" name="qid" value="${qnaReply.qid}">
+			<tr>
+				<td colspan="5" autofocus="autofocus"><textarea
+						name="qrcontent">${qnaReply.qrcontent }</textarea></td>
+
+			</tr>
+			</table>
+			<button type="submit">답변수정</button>
+		</form>
+		<%-- <button type="submit" onclick="location.href='masterQnaBoardUpdate.do?qrid=${qnaReply.qrid}'">답변수정</button> --%>
+	</c:if>
+
+
+
 </body>
 </html>

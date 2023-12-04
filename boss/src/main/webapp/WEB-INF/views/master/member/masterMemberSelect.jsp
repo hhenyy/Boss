@@ -9,14 +9,14 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet" href="css/masterCss.css">
 <script src="js/master.js"></script>
-<title>Insert title here</title>
+<title>회원 개인정보</title>
 <!-- css 양식 include -->
 </head>
 <body>
 	<%@ include file="../common/masterNav.jsp"%>
 	<div class="container">
+		<h1 class="h1_caption">회원 개인정보</h1>
 		<table>
-			<caption>회원 개인정보</caption>
 			<tr>
 				<th>ID</th>
 				<th>이름</th>

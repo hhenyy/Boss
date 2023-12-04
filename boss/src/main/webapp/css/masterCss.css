@@ -33,6 +33,14 @@ body {
 	padding-right: 200px;
 }
 
+.container_2 {
+	width: 60%;
+	margin: auto;
+	position: relative;
+	padding-right: 200px;
+	height: 50%;
+}
+
 table {
 	table-layout: fixed; /* 셀 너비를 균일하게 조절 */
 	width: 100%;
@@ -182,8 +190,6 @@ table {
 	margin-right: 0; /* 가장 마지막 버튼에 오른쪽 여백 제거 */
 }
 /* 하단 버튼 스타일 끝 */
-
-/* 네비게이션 스타일 끝 */
 .h1_caption {
 	font-size: 70px;
 	margin-bottom: 10px;
