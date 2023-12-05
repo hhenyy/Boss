@@ -23,7 +23,6 @@ ul {
 	height: 100%;
 	overflow-y: auto;
 	float: left; /* 왼쪽으로 부유시킴 */
-	margin-top: 30px; 
 }
 
 li a {
@@ -51,7 +50,7 @@ li a:hover:not(.job) {
 	margin-left: 25%; /* 사이드바 너비만큼 여백을 주기 위해 조절 */
 }
 
-.content_noorderlist, .content_noreview, .content_noQnA {
+.content_noorderlist, .content_noreview, .content_noQnA, .content_noask {
 	display: inline-block;
 	vertical-align: top;
 	position: relative;

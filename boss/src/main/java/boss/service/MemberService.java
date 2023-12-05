@@ -167,4 +167,8 @@ public class MemberService  {
 		return dao.updateMember(member);
 	}
 
+	public int deleteMember(String mEmail) {
+		return dao.deleteMember(mEmail);
+	}
+
 }
