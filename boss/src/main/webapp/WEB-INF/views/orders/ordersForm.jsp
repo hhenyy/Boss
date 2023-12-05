@@ -27,6 +27,7 @@
    var milliseconds = today.getMilliseconds();
    var makeMerchantUid = hours + minutes + seconds + milliseconds;
 
+   var pid = '${pid}';
    var name = '${member.mName}';
    var amount = '${bucket.bprice}';
    var buyer_email = '${member.mEmail}';
@@ -34,6 +35,10 @@
    var buyer_tel = '${member.mPhone}';
    var buyer_addr = '${member.mAddress}';
    var buyer_postcode = '${member.mPost}';
+   var omessage = '${omessage}';
+   var bprice = ${bucket.bprice};
+   var bcount = ${bucket.bcount};
+   var ototalprice = bprice * bcount;
 
    function requestPay() {
       IMP.request_pay({
@@ -42,7 +47,7 @@
          merchant_uid : "IMP" + makeMerchantUid,
          name : name,
          amount : amount,
-
+		 
          buyer_email : buyer_email,
          buyer_name : buyer_name,
          buyer_tel : buyer_tel,
@@ -58,11 +63,19 @@
          // 검증완료시
          if (rsp.success) {
 			alert('결제완료');
-             
+            console.log(rsp);
              var toSend = {
 			   mEmail: buyer_email,
 			   bid: '${bucket.bid}',
-			   name: name,
+			   pid: pid,
+			   bcount:'${bcount}',
+			   oname: buyer_name,
+			   ophone: buyer_tel,
+			   opost: buyer_postcode,
+			   oaddress: buyer_addr,
+			   ototalprice: ototalprice,
+			   odelivery: 4000,
+			   omessage: omessage
 			   
 		     };
 			        
@@ -72,7 +85,7 @@
 				data: toSend,
 				success: function(map){
 					
-					alert('함수 리턴 성공');
+					alert('구매 완료');
 					location.href='cartFormMove.do';
 					
 					},
@@ -81,7 +94,7 @@
              
 		} else {
             alert('결제실패');
-            history.go(-2);
+            location.href='cartFormMove.do';
          }
       });
    }
@@ -93,6 +106,9 @@
 	if(result){
 		alert('결제 창으로 이동 합니다.');
 		requestPay();
+	} else{
+		alert('결제가 취소 됩니다.');
+		location.href='cartFormMove.do';
 	}
 </script>
 
