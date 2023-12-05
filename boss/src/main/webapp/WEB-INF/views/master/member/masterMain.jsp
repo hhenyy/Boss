@@ -18,7 +18,8 @@
 	<h1 class="h1_caption">관리자 페이지</h1>
 	<div class="container_2" style="margin-top: 100px">
 
-		<table style="width: 75%; height: 450px; margin-left: 150px; font-size: 25px;">
+		<table
+			style="width: 75%; height: 450px; margin-left: 150px; font-size: 25px;">
 			<tr>
 				<th><button type="button"
 						onclick="location.href='masterMemberList.do' ">회원관리</button></th>
@@ -39,6 +40,12 @@
 			</tr>
 			<tr>
 				<th><button type="button"
+						onclick="location.href='masterReportList.do' ">신고관리</button></th>
+				<td onclick="location.href='masterReportList.do' ">신고 전체목록과
+					신고답변 및 삭제를 관리합니다.</td>
+			</tr>
+			<tr>
+				<th><button type="button"
 						onclick="location.href='masterReviewList.do' ">리뷰관리</button></th>
 				<td onclick="location.href='masterReviewList.do' ">리뷰 전체목록과 리뷰
 					삭제를 관리합니다.</td>
@@ -50,6 +57,7 @@
 					배송상태 변경 및 배송메시지 전송을 관리합니다.</td>
 			</tr>
 		</table>
+		<button type="button" onclick="location.href='reportWriteForm.do' " ">신고하기 : 회원</button>
 	</div>
 </body>
 </html>

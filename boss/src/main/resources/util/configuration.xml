@@ -27,6 +27,7 @@
 		<typeAlias alias="like" type="boss.model.Likes" />
 		<typeAlias alias="masterNotice" type="boss.model.MasterNotice" />
 		<typeAlias alias="mainImage" type="boss.model.MainImage" />
+		<typeAlias alias="report" type="boss.model.Report" />
 		<typeAlias alias="askboard" type="boss.model.AskBoard" />
 		<typeAlias alias="askreply" type="boss.model.AskReply" />
 
