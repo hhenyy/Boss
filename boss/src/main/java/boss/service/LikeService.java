@@ -49,4 +49,8 @@ public class LikeService {
 	    	// 0 or 1이 담겨져서 @Controller에 보냄.
 		return result;
 	}
+
+	public int countLike(int fId) {
+		return ldao.countLike(fId);
+	}
 }

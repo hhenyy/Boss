@@ -20,5 +20,10 @@
 	delete from Likes where fId=#{fId} and mEmail=#{mEmail}
 </delete>
 
+<!-- 좋아요 갯수 -->
+<select id="countLike" parameterType="int" resultType="int">
+	select count(*) from Likes where fId=#{fId}
+</select>
+
 
 </mapper>

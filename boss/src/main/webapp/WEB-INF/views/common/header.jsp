@@ -10,8 +10,9 @@
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 
 <!-- lottie -->
-<script
-	src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+<!-- <script
+	src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script> -->
+
 </head>
 
 <body class=" ">
@@ -43,7 +44,7 @@
 				style="text-decoration: none"></a>
 			<a href="cartFormMove.do"><img src="./images/cart.png"
 				style="text-decoration: none"></a>
-			<a href="masterMain"><img src="./images/master.png"
+			<a href="masterMain.do"><img src="./images/master.png"
 				style="text-decoration: none"></a>
 			<br>
 					${member.mName }님 환영합니다.
@@ -68,6 +69,7 @@
 				<br>
 		</c:if>
 	</div>
+
 
 </body>
 </html>
