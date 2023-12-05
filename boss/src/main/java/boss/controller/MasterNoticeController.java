@@ -294,7 +294,8 @@ public class MasterNoticeController {
 
 			model.addAttribute("mnId", mn.getmnId());
 			model.addAttribute("pp", pp);
-			model.addAttribute("masterNoticeDetail", mn);
+			model.addAttribute("mnd", mn);
+			//mnId,pp,mnd 값들을 다음 페이지로 전송
 
 			return "./master/notice/masterNoticeDetail";
 		}
@@ -305,22 +306,29 @@ public class MasterNoticeController {
 				@RequestParam(value = "nowPage", required = false) String nowPage,
 				@RequestParam(value = "cntPerPage", required = false) String cntPerPage) {
 
+			System.out.println(mn.getRnum());
+			
 			// 조회수 + 1
 			service.updateMnReadCount(mn.getRnum());
 			//글 번호의 최대값 구하기
-			mn.setRnumMax(service.noticeMax());
+			
+			int rm = service.noticeMax();
+			mn.setRnumMax(rm);
+			System.out.println("최대값:"+mn.getRnumMax());
+			
 			// 해당 글 번호의 자료 조회
 			mn = service.selectMove(mn.getRnum());
-			//해당 메소드는 id를 통해 값을 찾음. 이 부분 수정 필요
-			System.out.println(mn.getmnId());
-			System.out.println("최대값:"+mn.getRnumMax());
-			System.out.println(mn.getRnum());
+			
+			System.out.println("글 아이디:"+mn.getmnId());
+			System.out.println("글번호:"+mn.getRnum());
 
 			model.addAttribute("mnId", mn.getmnId());
+			model.addAttribute("cntPerPage", pp.getCntPerPage());
+			//model.addAttribute를 통해 단일값을 공유하면 get방식으로 공유됨. url 주소에서 확인 가능
 			model.addAttribute("pp", pp);
-			model.addAttribute("masterNoticeDetail", mn);
+			model.addAttribute("mnd", mn);
 
-			return "./master/notice/masterNoticeDetail";
+			return "redirect:/masterNoticeDetail.do";
 		}
 
 }

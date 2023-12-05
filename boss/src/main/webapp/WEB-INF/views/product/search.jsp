@@ -18,26 +18,30 @@
 	<link rel="stylesheet" href="assets/css/noscript.css" />
 </noscript>
 <script>
-	function enterkey() {
-		if (window.event.keyCode == 13) {
-			// 엔터키가 눌렸을 때
-			var s = document.getElementById("search").value;
-			location.href = "allSearch.do?keyword=" + s;
-		}
-	}
+		
 	function selChange() {
-
+			
 		var sel = document.getElementById('cntPerPage').value;
-		location.href = "allSearch.do?keyword=${pp.keyword}&nowPage=${pp.nowPage}&cntPerPage="
-		+ sel;
-		}
+		var a = document.getElementById('search').value;
+		location.href = "allSearch.do?nowPage=${pp.nowPage}&cntPerPage="+ sel+"&keyword="+a;
+	}
+	
+	function enterkey() {
+	   	var s = document.getElementById("search").value;
+		if (window.event.keyCode == 13) {
+	    	// 엔터키가 눌렸을 때
+	    	console.log(a)
+	    	location.href="categorySearch.do?newCid=${category.newCid}&keyword="+s;
+	    }
+	}
 </script>
 </head>
 
 <body class="is-preload">
 
-	<!-- Wrapper -->
+<!-- Wrapper -->
 	<div id="wrapper">
+
 		<!-- Header -->
 		<header id="header">
 			<div class="inner">
@@ -45,22 +49,26 @@
 				<!-- 쇼핑몰 로고 & 상단 아이콘 불러오기 -->
 				<%@include file="../common/header.jsp"%>
 
-				<c:if test="${sessionId eq null}">
-					<a href="NaverLogin.do" style="text-decoration: none">로그인</a>
-				</c:if>
-				<c:if test="${sessionId ne null && sessionId eq 'boss'}">
-				${sessionId }님 환영합니다.
-				<a href="Logout.do" onclick="alert('로그아웃')"
-						style="text-decoration: none"><br>로그아웃</a>
-					<a href="productInsertForm.do" onclick="alert('상품등록')"
-						style="text-decoration: none"><br>상품등록</a>
-				</c:if>
-				<c:if test="${sessionId ne null && sessionId ne 'boss'}">
-				${sessionId }님 환영합니다.
-				<a href="Logout.do" onclick="alert('로그아웃')"
-						style="text-decoration: none"><br>로그아웃</a>
-				</c:if>
-				<div align="center" width="100px" height="100px">
+				<!--1. 회원 or 비회원 페이지 -->
+					<div class="category-link" align="center">
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
+							style="text-decoration: none">OUTER</a> <a
+							href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
+							style="text-decoration: none">KNIT</a> <a
+							href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
+					</div>				
+					<div align="center" width="100px" height="100px">
 					<input type="text" id="search" maxlength="50"
 						value ="${pp.keyword }" onkeyup="enterkey()"><br>
 				</div>
@@ -85,11 +93,11 @@
 					class="title">JY & HB</span>
 				</a>
 				<!-- Nav -->
-				<nav>
-					<ul>
-						<li><a href="#menu">Menu</a></li>
-					</ul>
-				</nav>
+					<nav>
+						<ul>
+							<li><a href="#menu">Menu</a></li>
+						</ul>
+					</nav>
 			</div>
 		</header>
 
@@ -97,16 +105,10 @@
 		<nav id="menu">
 			<h2>Menu</h2>
 			<ul>
-				<li><a href="index.do">JOIN</a></li>
-				<li><a href="NaverLogin.do">LOGIN</a></li>
-				<li><a href="mypage.do">MYPAGE</a></li>
-				<li><a href="CartFormMove.do">CART</a></li>
+				<li><a href="category.do">카테고리</a></li>
 				<li><a href="freeBoardList.do">커뮤니티</a></li>
 				<li><a href="masterNotice.do">공지사항</a></li>
 				<li><a href="elements.do">Elements</a></li>
-				<!-- 최종에서는 관리자페이지 빼기 -->
-				<input type="button" value="관리자페이지"
-					onclick="location.href='masterMain.do'">
 				<br>
 			</ul>
 		</nav>
