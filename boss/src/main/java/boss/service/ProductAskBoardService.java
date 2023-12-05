@@ -21,4 +21,9 @@ public class ProductAskBoardService {
 	public AskBoard askselect(int askid) {
 		return dao.askselect(askid);
 	}
+	
+	// 상품 문의 업데이트 
+	public int askupdate(AskBoard askboard) {
+		return dao.askupdate(askboard);
+	}
 }

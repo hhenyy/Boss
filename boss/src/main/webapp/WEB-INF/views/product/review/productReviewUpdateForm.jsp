@@ -9,6 +9,8 @@
 <title>리뷰 페이지</title>
 <!-- css 불러오기 -->
 <link rel="stylesheet" href="css/productDetailReview.css">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="./js/product.js"></script>
 <!-- css 양식 include -->
 <%@include file="/WEB-INF/views/common/header.jsp"%>
 </head>
@@ -51,7 +53,7 @@
 				</tr>
 				<tr>
 					<th>이미지</th>
-					<td><input type="file" id="rimage" class="input_box"
+					<td><input type="file" id="rimage1" class="input_box"
 						name="rimage1"></td>
 				</tr>
 				<tr>
@@ -62,7 +64,7 @@
 			</table>
 
 			<div class="review_insert_button2">
-				<input type="submit" value="수정" class="review_insert_button" /> <input
+				<input type="submit" value="수정" id="review_insert_button"  class="review_insert_button" /> <input
 					type="reset" value="취소" class="review_insert_button"
 					onclick="history.go(-1)" />
 			</div>

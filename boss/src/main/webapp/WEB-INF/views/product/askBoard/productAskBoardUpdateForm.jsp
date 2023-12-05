@@ -6,7 +6,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>상품 문의 작성폼</title>
+<title>상품 문의</title>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<script>
+$(document).ready(function(){
+	
+	$("#ask_insert_button2").click(function() {
+		
+		if($('#askcontent').val() == ""){
+			alert("문의내용을 입력해주세요.");
+			return false;
+		}
+	});
+	
+}); /* ask_insert_button2 end */
+</script>
 
 <!-- css 양식 include -->
 <%@include file="/WEB-INF/views/common/header.jsp"%>
@@ -52,8 +67,8 @@
 			</table>
 
 			<div class="ask_insert_button">
-				<input type="submit" value="수정" class="review_insert_button" /> <input
-					type="reset" value="취소" class="review_insert_button"
+				<input type="submit" value="수정" id= "ask_insert_button2" class="ask_insert_button2" /> <input
+					type="reset" value="취소" class="ask_insert_button2"
 					onclick="history.go(-1)" />
 			</div>
 		</form>
