@@ -65,6 +65,7 @@
 					<input type="text" id="search" maxlength="50" placeholder="검색어를 입력하세요."
 					onkeyup="enterkey()"><br>
 				</div>
+				<c:if test="${not empty search}">
 				<div style="float: right;">
 					<select id="cntPerPage" name="sel" onchange="selChange()"
 						class="selected-five">
@@ -79,12 +80,8 @@
 							보기</option>
 					</select>
 				</div>
+				</c:if>
 
-				<!-- Logo -->
-				<a href="main.do" class="logo"> <span class="symbol"><img
-						src="images/logo.png" alt="" style="width: 200px; height: 100px;"></span><span
-					class="title">JY & HB</span>
-				</a>
 				<!-- Nav -->
 					<nav>
 						<ul>
@@ -117,15 +114,10 @@
 			<div class="inner">
 				<header align="left">
 
-					<h1>카테고리</h1>
-					<br>
-					<p align="left">
-						남성을 위한 수트<br> 포멀함과 세심한 디자인의 기능성이 만난 남성 수트를 소개합니다.<br> 포멀
-						& 캐주얼 스타일을 선보이는 우아한 컬렉션에서 소개하는 BO$$만의 실루엣을 발견해보세요.<br> 슬림핏과
-						가벼운 여름 스타일부터 턱시도와 스리피스 디자인까지, 세심한 스타일링에 중점을 둔 수트 컬렉션을 지금 확인해보세요.
-					</p>
+					<h1>${category.newCid}</h1>
 				</header>
 
+				<c:if test="${not empty list}">
 				<section class="tiles">
 				<!-- if문을 넣어 해당 카테고리의 상품이 없을 경우 화면 중앙에 '등록된 상품이 없습니다' 출력 -->
 					<c:forEach var="list" items="${list }" varStatus="loop">
@@ -144,6 +136,16 @@
 						</article>
 					</c:forEach>
 				</section>
+				</c:if>
+				
+				<c:if test="${empty list}">
+					<br><br><br>
+					<div align="center">
+					<h1>등록된 상품이 없습니다</h1>
+					</div>
+				</c:if>
+				
+				
 			</div>
 			<!-- 다른 페이지로 넘어가기 위한 숫자들 자리 -->
 			<div align="center">
