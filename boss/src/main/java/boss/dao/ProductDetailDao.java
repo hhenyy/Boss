@@ -21,8 +21,6 @@ public interface ProductDetailDao {
 
 	Product selectProduct(String pid);
 
-	Review selectReview(String pid);
-	
 	// 내가 쓴 review 구해오기
 	List<Review> selectReviewOne(Map<String, Object> map);
 	
@@ -44,8 +42,8 @@ public interface ProductDetailDao {
 
 	Orders selectOrders(String mEmail);
 	
-	// order에서 pid 뽑기 
-	List<Orders> selectlist(Map<String, Object> map);
+	// order
+	List<Orders> selectlist(String mEmail);
 
 	Review rcheck(int oid);
 	
@@ -54,6 +52,9 @@ public interface ProductDetailDao {
 	
 	// ask리스트 불러오기 
 	List<AskBoard> asklist(Map<String, Object> map);
+	
+	// 리뷰 등록 pid 불러오기 
+	List<Map<String, Object>> plist(String mEmail);
 	
 
 

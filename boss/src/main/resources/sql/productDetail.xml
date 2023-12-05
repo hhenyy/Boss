@@ -86,10 +86,19 @@
 		#{rimage}, sysdate, 0, 'N', #{rcontent}
 		)
 	</insert>
+	
+	<!-- 리뷰 작성할 시 pid 가져오기  -->
+	<select id="plist" parameterType="String" resultType="Map">
+		select * 
+		from orderdetail 
+		join orders 
+		on orderdetail.oid = orders.oid 
+		where memail = #{memail}
+	</select>
 
 	<!-- 리뷰 작성할 시 주문 내역 확인 -->
-	<select id="selectlist" resultType="orders" parameterType="Map">
-		select * from orders where memail = #{memail} and pid = #{pid}
+	<select id="selectlist" resultType="orders" parameterType="String">
+		select * from orders where memail = #{mEmail}
 	</select>
 
 
