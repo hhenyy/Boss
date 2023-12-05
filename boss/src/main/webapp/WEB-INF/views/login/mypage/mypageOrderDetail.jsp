@@ -94,7 +94,7 @@
 							<c:forEach items="${ordersList}" var="order" varStatus="orderLoop">
 								<tr>
 									<td onclick = "doDetailPage(${order['PID']})">${order['ODID']}</td>
-									<td onclick = "doDetailPage(${order['PID']})">${order['PNAME']}</td>
+									<td onclick = "doDetailPage(${order['PID']})">${order.ODNAME}</td>
 									<td style="position: relative;" onclick = "doDetailPage(${order['PID']})"><img
 										src="./images/${order['PIMAGE']}" width="50" height="50"
 										class="toggle-image"> <span class="text-on-image">${o.PTEXT}</span>
