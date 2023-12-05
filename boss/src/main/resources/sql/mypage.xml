@@ -10,14 +10,13 @@
 	</select>	
 	
 	<!-- 주문번호안에 pid목록들 -->
-	<select id="listProduct" parameterType="integer"
+	<select id="listProduct" parameterType="String"
 		resultType="Map">
 		select *
-		from orderdetail join
-		orders using(oid)
-		join product
-		on orderdetail.pid = product.pid
-		where oid = #{oid}
+		from orderdetail
+		join orders
+		using (oid)
+		where mEmail = #{mEmail}
 	</select>
 	
 	<!-- order 객체 -->
@@ -55,4 +54,14 @@
 	<select id="mypageOrderDetail" parameterType="String" resultType="orderDetail">
 		select * from orderDetail where oid = #{oid}
 	</select>
+
+	<!-- 내 상품문의 ask 불러오기 (이메일을 통해) -->
+	<select id="productlist" parameterType="String" resultType="Map">
+		select *
+		from askboard
+		join Product ON askboard.pid = Product.pid
+		where
+		askboard.mEmail = #{mEmail} AND askboard.askdrop = 'N'
+	</select>
+
 </mapper>

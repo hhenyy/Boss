@@ -51,7 +51,6 @@
 						<tr>
 							<th>주문번호</th>
 							<th>주문 금액</th>
-							<th>주문 상품 수량</th>
 							<th>수령인 성함</th>
 							<th>우편번호</th>
 							<th>주소</th>
@@ -63,7 +62,6 @@
 								<tr>
 									<td onclick = "mypageOrderDetail(${order.oid})">${order.oid}</td>
 									<td onclick = "mypageOrderDetail(${order.oid})">${order.ototalprice}</td>
-									<td onclick = "mypageOrderDetail(${order.oid})">${order.ocount}</td>
 									<td onclick = "mypageOrderDetail(${order.oid})">${order.oname}</td>
 									<td onclick = "mypageOrderDetail(${order.oid})">${order.opost}</td>
 									<td onclick = "mypageOrderDetail(${order.oid})">${order.oaddress}</td>

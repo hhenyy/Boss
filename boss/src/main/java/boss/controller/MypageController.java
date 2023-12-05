@@ -30,9 +30,6 @@ public class MypageController {
 	@Autowired
 	private MypageService service;
 
-	@Autowired
-	private MasterOrdersService ms;
-
 	@RequestMapping("mypage.do")
 	public String doMypage(HttpSession session, Model model) {
 		System.out.println("마이 페이지 이동");
@@ -53,20 +50,19 @@ public class MypageController {
 	public String mypageOrderDetail(String oid,HttpSession session,Model model) {
 		
 		Member member = (Member) session.getAttribute("member");
-
-		List<Orders> list = new ArrayList<Orders>();
+		
+		String mEmail = member.getmEmail();
+		
 		List<Orders> orders = service.myoders(member.getmEmail()); // 내 주문내역 구해오기
 
 		List<HashMap<String, Object>> ordersList = new ArrayList<>();
-		
-		//int oid = Integer.parseInt(oid)
 		
 		// 주문 한 내역이 있다면
 		if (orders != null) { // 주문번호가 있다면.
 			System.out.println("주문 번호가 있다면??");
 			
 			// 이제 주문 상세를 뽑아올 수 있어야해
-			ordersList = service.listProduct(Integer.parseInt(oid));
+			ordersList = service.listProduct(mEmail);
 
 			// 모든정보의 List
 			model.addAttribute("ordersList", ordersList);
@@ -74,7 +70,7 @@ public class MypageController {
 
 			// 메세지 넣을 배열을 주문 갯수만큼 빼오기
 			String statusMsg[] = new String[ordersList.size()]; // 주문 갯수
-
+			
 			// 배송상태 처리
 			for (int i = 0; i < ordersList.size(); i++) {
 				HashMap<String, Object> orderstatus = ordersList.get(i); // 개별 주문 구해오기

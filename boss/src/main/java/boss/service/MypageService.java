@@ -58,12 +58,8 @@ public class MypageService {
 		return dao.myorderDetail(odid);
 	}
 
-	public List<OrderDetail> mypageOrderDetail(String oid) {
-		return dao.mypageOrderDetail(oid);
-	}
-
-	public List<HashMap<String, Object>> listProduct(Integer oid) {
-		return dao.listProduct(oid);
+	public List<HashMap<String, Object>> listProduct(String mEmail) {
+		return dao.listProduct(mEmail);
 	}
 
 	public Orders myorders(String mEmail) {
