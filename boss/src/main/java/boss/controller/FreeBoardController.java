@@ -96,7 +96,7 @@ public class FreeBoardController {
 //		file[0] = st.nextToken();		// 파일명		
 //		file[1] = st.nextToken();		// 확장자	    jpg 등
 		
-		if(size > 200000){				// 200KB
+		if(size > 1000000){				// 1000KB
 			result=2;  
 			model.addAttribute("result", result);
 			return "freeboard/freeBoardInsertform";
@@ -183,18 +183,21 @@ public class FreeBoardController {
 		//좋아요 되있는지 찾는 메소드: 게시글번호와 회원번호를 보냄.
 		Likes like = lservice.findLike(fId, mEmail);
 		String hasLike = "";
-		if(like == null)
+		if(like == null) {
 			hasLike = "N";
-		else
+		}else {
 			hasLike = "Y";
-		
+		}
 		// 찾은 정보를 like로 담아서 보냄
 		System.out.println("hasLike:"+hasLike);
 		model.addAttribute("hasLike",hasLike);
 		
 		//좋아요 갯수
-		//fservice.countLike(fLike);
-
+		int countLike=lservice.countLike(fId);
+		System.out.println("countLike:"+countLike);
+		model.addAttribute("countLike",countLike);
+		
+		
 		// state가 detail과 같다면(목록에서 제목클릭시 상세페이지로 이동) if(state.equals("detail")) {
 		if (state.equals("detail")) {
 			return "freeboard/freeBoardDetail";
@@ -257,7 +260,7 @@ public class FreeBoardController {
 //		file[0] = st.nextToken();		// 파일명		
 //		file[1] = st.nextToken();		// 확장자	    jpg 등
 		
-		if(size > 200000){				// 200KB
+		if(size > 1000000){				// 1000KB
 			result=2; 
 			model.addAttribute("result", result);
 		return "freeboard/freeBoardUpdateform";

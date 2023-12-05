@@ -4,8 +4,14 @@ public class Likes {
 	   private int likeId; /* 좋아요 Id */
 	   private int fId;/* 자유 게시글 번호 */
 	   private String mEmail;/* 이메일 */
-	   /*likeDrop : 좋아요 여부는 안씀.*/
+	   //private String likeDrop; /* 좋아요 여부 */
 	   
+//	public String getLikeDrop() {
+//		return likeDrop;
+//	}
+//	public void setLikeDrop(String likeDrop) {
+//		this.likeDrop = likeDrop;
+//	}
 	public int getLikeId() {
 		return likeId;
 	}
