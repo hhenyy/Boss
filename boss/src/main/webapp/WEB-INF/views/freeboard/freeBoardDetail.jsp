@@ -10,13 +10,13 @@
 <!-- css 양식 include -->
 <%@include file="/WEB-INF/views/common/header.jsp"%>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
-
 <!-- css 불러오기 -->
 <link rel="stylesheet" href="css/freeBoardDetail.css">
 <!-- css 불러오기 -->
 <!-- <link rel="stylesheet" href="css/freeBoard.css"> -->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="./js/freeboard.js"></script>
+<!-- <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script> -->
 
 <script type="text/javascript">
 	/* 	window.onload=function() {
@@ -26,20 +26,14 @@
 		//load함수로 불러온 결과 페이지(freeboardReplyList.jsp)의 댓글 목록을 div태그사이에 출력
 		//상세페이지 들어오자마자 자동으로 처리됨. 
 		$('#replylist').load('FreeReplyList.do?fId=${detail.fId}')
-		//		$('#list').load('${path}/list/pageNum/${pageNum}');
-
 		
-		//로그인 했는지 확인
-// 	   $('#replyInsert').click(function() {
-// 			//return function board_replyinsert_check();
-// 	          if('${sessionscope.member}' == null){
-// 		alert("로그인 후에 글작성을 해주세요.");
-// 		return false;
-// 	      }
-// 		}); 
-		
-		
+		//로그인 했는지 확인 & 유효성 검사 
 		$('#replyInsert').click(function() {
+			console.log('${sessionScope.member}');
+			if('${sessionScope.member}' == ''){
+		 		alert("로그인 후에 글작성을 해주세요.");
+		 		return false;
+	 	    }
 			if ($('#frContent').val() == '') {
 				alert('댓글 입력후에 클릭하시오');
 				$('#frContent').focus();
@@ -66,41 +60,47 @@
 				}
 			}); // $.ajax() end			
 		});
-		});
-		
-	 $(function() {	
-				// 좋아요가 있는지 확인한 값을 likeval에 저장
-			        var likeval = ${like.likeDrop}
-			        // likeval이 1이면 좋아요가 이미 되있는것이므로 fill-heart.svg를 출력하는 코드
-			        if(likeval>0) {
-			            console.log(likeval);
-			            $("#heart").prop("src", "images/suit-heart-fill.svg");
-			            $(".heart").prop('name',likeval)
-			        }
-			        else {
-			            console.log(likeval);
-			            $("#heart").prop("src", "images/suit-heart.svg");
-			            $(".heart").prop('name',likeval)
-			        }
 
-				// 좋아요 버튼을 클릭 시 실행되는 코드
-			        $(".heart").on("click", function () {
-			            var that = $(".heart");
-				    $.ajax({
-				    	url :'heart.do',
-				        type :'POST',
-				        data : {'fId':${board.fId}, 'mEmail':${sessionScope.mEmail}},
-				    	success : function(data){
-				    		that.prop('name',data);
-				        	if(data==1) {
-				            	     $('#heart').prop("src","images/suit-heart-fill.svg");
-				        	} else {
-			                    	 $('#heart').prop("src","images/suit-heart.svg");
-				        	}
-			             	}
-				    });
-			        });
-			    });
+		// 좋아요가 있는지 확인한 값을 likeval에 저장
+		var likeval = '${hasLike}'
+        // likeval이 1이면 좋아요가 이미 되있는것이므로 fill-heart.svg를 출력하는 코드
+        if(likeval == 'Y') {
+            console.log(likeval);
+            $("#heart").prop("src", "images/fill-heart.png");
+            $(".heart").prop('name',likeval)
+        }
+        else {
+            console.log(likeval);
+            $("#heart").prop("src", "images/bin-heart.png");
+            $(".heart").prop('name',likeval)
+        }
+
+		// 좋아요 버튼을 클릭 시 실행되는 코드
+        $(".heart").on("click", function () {
+         	if('${sessionScope.member}' == ''){
+ 		 		alert("로그인 후에 이용 해주세요.");
+ 		 		return false;
+ 	 	    }
+           // var that = $(".heart");
+		    $.ajax({
+		    	url :'toggleLike.do',
+		        type :'POST',
+		        data : {'fId':${detail.fId}, 'mEmail':'${member.mEmail}'},
+		    	success : function(data){
+		    		//that.prop('name',data);
+		        	if(data==1) {
+// 		        		const newSource = 'https://lottie.host/embed/76218272-a8ce-4468-93a0-e0db07f1225d/X6Dc2iwNGF.json'
+// 		        		const lottiePlayer = document.getElementById('lottie');
+// 		        		lottiePlayer.setAttribute('src', newSource);
+// 		        		lottiePlayer.play();
+		            	     $('#heart').prop("src","images/fill-heart.png");
+		        	} else {
+	                    	 $('#heart').prop("src","images/bin-heart.png");
+		        	}
+             	}
+		    });
+        });
+    });
 </script>
 </head>
 <body>
@@ -139,16 +139,14 @@
 				<td>${detail.fReadCount}</td>
 			</tr>
 			<tr>
+<!--  heart : 좋아요O, fill-heart : 좋아요X -->
 				<td>좋아요</td>
-<!--  좋아요 이미지는 부트스트랩 아이콘의 heart.svg, heart-fill.svg 저장해서 사용 -->
-<!--  heart : 좋아요O, heart-fill : 좋아요X -->
-<!--  경로는 resouces폴더의 like폴더안에 저장 -->
 	<td>
 	<div>
-	<a class="text-dark heart" style="text-decoration-line: none;">
-		<img id="heart" src="images/suit-heart-fill.svg">
-		좋아요
-	</a></div>
+	<a class="heart" style="text-decoration-line: none; cursor: pointer;">
+		<img id="heart" src="images/fill-heart.png">
+		${detail.fLike}
+    </a></div>
 				</td>
 			</tr>
 		</table>
@@ -174,9 +172,9 @@
 		<div class="div_reply form">
 			<form name="frm" id="frm">
 				<input type="hidden" name="mEmail" value="${member.mEmail}">
-				<input type="hidden" name="fId" value="${detail.fId}"> 댓글 :
-				<textarea rows="3" cols="50" name="frContent" id="frContent"
-					placeholder="댓글 달기.."></textarea>
+				<input type="hidden" name="fId" value="${detail.fId}"> 
+				댓글 : <textarea rows="2" cols="50" name="frContent" id="frContent"
+					placeholder="댓글을 입력해 주세요."></textarea>
 				<input type="button" value="확인" id="replyInsert"
 					class="button_replyok">
 			</form>

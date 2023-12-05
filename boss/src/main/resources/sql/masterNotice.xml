@@ -13,14 +13,14 @@
 	<select id="noticeList" resultType="masterNotice" parameterType="pagePgm">
 		SELECT *
 		FROM (
-		SELECT ROWNUM RN, NOTICE.*
+		SELECT ROWNUM RNUM, NOTICE.*
 		FROM (
 		SELECT *
 		FROM MasterNotice
 		ORDER BY mnReg DESC
 		) NOTICE
 		)
-		WHERE RN BETWEEN #{startRow} AND #{endRow}
+		WHERE RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 
 	<!-- 새로운 공지글 등록 -->
@@ -36,8 +36,17 @@
 	<!-- 상세 정보 구하기 -->
 	<select id="selectOne" parameterType="int" resultType="masterNotice">
 	<!-- 게터 메소드를 통해 자동으로 검색된 정보가 DTO 객체에 입력됨 -->
-		select mnId,mnTitle,mnContent,mnReg,
-		mnOriFile,mnReadCount from MasterNotice where mnId=#{mnId}
+		SELECT *
+		FROM (
+		SELECT ROWNUM RNUM, NOTICE.*
+		FROM (
+		SELECT *
+		FROM MasterNotice
+		ORDER BY mnReg DESC
+		) NOTICE
+		)
+		WHERE mnId=#{mnId}
+		<!-- 여기서 가변형을 사용해야 함.  -->
 	</select>
 	
 	<!-- 조회수 1 증가 -->
@@ -65,4 +74,45 @@
 		mGrade = #{mGrade}, mReg = #{mReg}, mDrop = #{mDrop}
 		where mEmail = #{mEmail}
 	</update>
+	
+	<!-- 검색된 글 수 구하기 -->
+	<select id="noticeCount" parameterType="string" resultType="int">
+		SELECT COUNT(*) FROM masterNotice where mnTitle like '%'||#{keyword}||'%'
+	</select>
+	
+	<!-- 페이징 처리된 검색 게시글 -->
+	<select id="noticeSearchList" resultType="masterNotice" parameterType="pagePgm">
+		SELECT *
+		FROM (
+		SELECT ROWNUM RN, NOTICE.*
+		FROM (
+		SELECT *
+		FROM MasterNotice where mnTitle like '%' || #{keyword} || '%'
+		ORDER BY mnReg DESC
+		) NOTICE
+		)
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<select id="selectMove" parameterType="int" resultType="masterNotice">
+	<!-- 게터 메소드를 통해 자동으로 검색된 정보가 DTO 객체에 입력됨 -->
+		SELECT *
+		FROM (
+		SELECT ROWNUM RNUM, NOTICE.*
+		FROM (
+		SELECT *
+		FROM MasterNotice
+		ORDER BY mnReg DESC
+		) NOTICE
+		)
+		WHERE RNUM=#{RNUM}
+	</select>
+	
+	<!-- 공지글의 최대 번호 구하기 -->
+	<select id="noticeMax" resultType="int">
+	select max(RNUM) from 
+       (SELECT ROWNUM RNUM, MasterNotice.*
+		FROM MasterNotice
+		ORDER BY mnReg DESC)
+	</select>
 </mapper>

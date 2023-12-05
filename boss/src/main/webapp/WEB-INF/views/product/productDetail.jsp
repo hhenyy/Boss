@@ -76,8 +76,8 @@
 					<th>상품사이즈</th>
 					<td>${product.psize }</td>
 				</tr>
-				<tr >
-				<!-- class="product_count" -->
+				<tr>
+					<!-- class="product_count" -->
 					<th>상품수량</th>
 					<td class="bucket_count"><input type="number" value="1"
 						id="bucketCount" class="product_count">개</td>
@@ -156,8 +156,9 @@
 					</c:forEach>
 				</c:if>
 				<c:if test="${empty reviewList}">
-					<p>작성된 리뷰글이 없습니다.</p>
-
+					<tr>
+						<td colspan="7">상품 리뷰글이 없습니다.</td>
+					</tr>
 				</c:if>
 			</table>
 			<!-- 여기 추가함 -->
@@ -193,14 +194,6 @@
 			</script>
 
 
-			<%-- 				<tr onclick="location.href='productReviewSelect.do?rid=${review.rid }&pid=${review.pid}'"> --%>
-			<%-- 					<td>${review.rid }</td> --%>
-			<%-- 					<td>${review.memail }</td> --%>
-			<%-- 					<td>${review.rcontent }</td> --%>
-			<%-- 					<td>${review.rwriter }</td> --%>
-			<%-- 					<td>${review.rreg }</td> --%>
-			<!-- 					<td>별점추가예정</td> -->
-			<!-- 				</tr> -->
 		</div>
 		<!-- 비로그인일 때 리뷰 작성 버튼이 안보임 -->
 		<c:if test="${member != null }">
@@ -213,31 +206,41 @@
 	</div>
 
 	<!-- 문의게시판 -->
-	<div class="askboard">
+	<div class="askBoard">
 		<div class="reivew_button">
 			<table class="table_ask" align="center" border="1">
 				<caption>문의 게시판</caption>
 				<tr align="center">
 					<th>문의 번호</th>
-					<th>아이디</th>
+					<th>이메일</th>
 					<th>문의 게시글</th>
-					<th>이름</th>
 					<th>날짜</th>
 				</tr>
 
-
-				<tr>
-					<td>${review.rid }</td>
-					<td>${review.memail }</td>
-					<td>${review.rcontent }</td>
-					<td>${review.rwriter }</td>
-					<td>${review.rreg }</td>
-				</tr>
-
+				<c:set var="i" value="1"></c:set>
+				<c:if test="${not empty asklist}">
+					<c:forEach var="askboard" items="${asklist }" varStatus="loop">
+						<tr onclick="location.href='productAskBoardSelectForm.do?askid=${askboard.askid}&pid=${askboard.pid}'">
+							<td>${askboard.askid }</td>
+							<td>${askboard.memail}</td>
+							<td>${askboard.askcontent }</td>
+							<fmt:formatDate value="${askboard.askreg }" pattern="yyyy년 MM월 dd일"
+										var="formattedDate" />
+										<td>${formattedDate}</td>
+						</tr>
+					</c:forEach>
+				</c:if>
+				<c:if test="${empty asklist}">
+					<tr>
+						<td colspan="4">상품 문의글이 없습니다.</td>
+					</tr>
+				</c:if>
 
 			</table>
-			<button type="button" class="button1"
-				onclick="location.href='productReviewInsert.do'">리뷰 작성</button>
+			<c:if test="${member != null }">
+			<button type="button" class="askbutton1" onclick="location.href='productAskBoardInsertForm.do?pid=${pid}'">문의
+				작성</button>
+				</c:if>
 		</div>
 	</div>
 

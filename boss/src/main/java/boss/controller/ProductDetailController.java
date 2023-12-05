@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import boss.common.PagePgm;
+import boss.model.AskBoard;
 import boss.model.Member;
 import boss.model.Orders;
 import boss.model.Product;
+import boss.model.QnaBoard;
 import boss.model.Review;
 import boss.service.ProductDetailService;
 
@@ -67,13 +69,24 @@ public class ProductDetailController {
 		System.out.println("pp. sr: " + pp.getStartRow());
 		System.out.println("pp. er: " + pp.getEndRow());
 		System.out.println("pid : " + pid);
+		
+		// 리뷰 
 		List<Review> list = service.list(map);
+		
+		// Ask
+		List<AskBoard> asklist = service.asklist(map);
 
-		if (!list.equals(null) && list.size() > 0) { // 1개라도 구해옴.
+		if (!list.equals(null) && list.size() > 0) { //review 1개라도 구해옴.
 			System.out.println("list를 구해옴 : " + list.size());
 			model.addAttribute("reviewList", list);
 		} else { // 1개도 못구해옴
 			System.out.println("list를 못구해옴 : " + list.size());
+		}
+		if (!asklist.equals(null) && asklist.size() > 0) {		// askBoard 1개라도 구해옴
+			System.out.println("asklist :" + asklist.size());
+			model.addAttribute("asklist", asklist);
+		}else {	// askBoard 1개라도 못구해옴
+			System.out.println("asklist 못구함:" + asklist.size());
 		}
 
 		model.addAttribute("product", product);
@@ -95,7 +108,7 @@ public class ProductDetailController {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String reviewDate = sdf.format(date);
-
+		
 		model.addAttribute("mEmail", mEmail);
 		model.addAttribute("pid", pid);
 		model.addAttribute("reviewDate", reviewDate); // 오늘 날짜 띄우기

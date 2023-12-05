@@ -7,22 +7,27 @@
 	<!-- 회원 가입 -->
 	<insert id="insertMember" parameterType="member">
 	INSERT INTO MEMBER VALUES (#{mEmail}, #{mPwd}, #{mName}, #{mPhone}, 
-		#{mPost}, #{mAddress}, 'WhiteStar', sysdate, 'N')
+		#{mPost}, #{mAddress}, default, sysdate, default)
 	</insert>
 	
 	<!-- 네이버 회원 가입 -->
 	<insert id="insertNMember" parameterType="java.util.Map">
 	INSERT INTO MEMBER (mEmail, mPwd, mName, mPhone, mGrade, mReg, mDrop)
-    VALUES (#{mEmail}, #{mPwd}, #{mName}, #{mPhone}, 'WhiteStar', sysdate, 'N')
+    VALUES (#{mEmail}, #{mPwd}, #{mName}, #{mPhone}, default, sysdate, default)
 	</insert>
 	
 	<!-- 1명의 정보 뽑기 ( 비번 비교 ) -->
 	<select id="selectOne" resultType="member" parameterType="string">
-		SELECT * FROM MEMBER where mEmail = #{mEmail}
+		SELECT * FROM MEMBER where mEmail = #{mEmail} and mdrop = 'N'
 	</select>
 
-
-
-
+	<update id="updateMember" parameterType="member">
+		update member set mPhone = #{mPhone}, mPost = #{mPost}, mAddress = #{mAddress} where mEmail = #{mEmail}
+	</update>
+	
+	<!-- 회원 탈퇴 하기 -->
+	<update id="deleteMember">
+		update member set mdrop = 'Y' where mEmail = #{mEmail}
+	</update>
 
 </mapper>

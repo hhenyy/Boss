@@ -18,7 +18,7 @@
 		location.href = "productDetail.do?pid=" + pid;
 	}
 	
-	function refund(odid) {
+	function refund(odid,oid) {
 		   var confirmDelete = confirm("환불 요청을 하시겠습니까?");
 		  
 		   if(confirmDelete){
@@ -29,16 +29,16 @@
 		        success: function (response) {
 		            if (response === "Y") {
 		                alert("환불요청이 되었습니다.");
-		                location.href = "mypage.do";
+		                location.href = "mypageOrderDetail.do?oid="+ oid;
 		            } else if (response === "A"){
 		                alert("배송 완료된 상품에 대해서는 환불 요청을 할 수 없습니다.");
-		                location.href = "mypage.do";
+		                location.href = "mypageOrderDetail.do?oid="+ oid;
 		            } else if(response === "R"){
 		            	alert("이미 환불 요청을 처리중 입니다.");
-		            	location.href = "mypage.do";
+		            	location.href = "mypageOrderDetail.do?oid="+ oid;
 		            } else{
 		            	alert("환불 처리가 완료 되었습니다.");
-		            	location.href = "mypage.do";
+		            	location.href = "mypageOrderDetail.do?oid="+ oid;
 		            }
 		        },
 		        error: function () {
@@ -70,6 +70,9 @@
 			<li><a href='cartFormMove.do'>장바구니</a></li>
 			<li><a href='mypageQnA.do'>내가 쓴 QnA</a></li>
 			<li><a href='mypageReview.do'>내가 쓴 Review</a></li>
+			<li><a href='mypageAskBoard.do'>내가 물어본 상품문의</a></li>
+			<li><a href='updateForm.do'>내 정보 수정</a></li>
+			<li><a href='deleteForm.do'>회원 탈퇴</a></li>
 		</ul>
 
 		<c:if test="${not empty ordersList}">
@@ -102,7 +105,7 @@
 										pattern="yyyy년 MM월 dd일" var="formattedDate" />
 									<td onclick = "doDetailPage(${order['PID']})">${formattedDate}</td>
 									<td><button class="refund_btn"
-											onclick="refund(${order['ODID']})">환불요청</button></td>
+											onclick="refund(${order['ODID']},${order['OID']})">환불요청</button></td>
 								</tr>
 							</c:forEach>
 					</table>

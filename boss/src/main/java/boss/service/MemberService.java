@@ -163,4 +163,12 @@ public class MemberService  {
 		return dao.insertNMember(map);
 	}
 
+	public int updateMember(Member member) {
+		return dao.updateMember(member);
+	}
+
+	public int deleteMember(String mEmail) {
+		return dao.deleteMember(mEmail);
+	}
+
 }

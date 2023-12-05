@@ -222,29 +222,6 @@ public class MasterNoticeController {
 		return "redirect:/masterNoticeDetail.do?mnId=" + mn.getmnId();
 	}
 
-	// 공지 내용 : 세부 내용 띄우면서 조회수 + 1
-	@RequestMapping("masterNoticeDetail.do")
-	public String masterNoticeDetail(PagePgm pp, Model model, MasterNotice mn,
-			@RequestParam(value = "nowPage", required = false) String nowPage,
-			@RequestParam(value = "cntPerPage", required = false) String cntPerPage) {
-
-		// 조회수 + 1
-		// 수정 시의 재요청의 경우 조회수가 오르지 않도록 하고싶은데...
-		service.updateMnReadCount(mn.getmnId());
-		System.out.println("조회1");
-		// 해당 공지 번호의 자료 조회
-		mn = service.selectOne(mn.getmnId());
-		System.out.println(mn.getMnOriFile());
-		System.out.println("조회2");
-		System.out.println(mn.getmnId());
-
-		model.addAttribute("mnId", mn.getmnId());
-		model.addAttribute("pp", pp);
-		model.addAttribute("masterNoticeDetail", mn);
-
-		return "./master/notice/masterNoticeDetail";
-	}
-
 	// 공지사항 목록 페이지 출력
 	@RequestMapping("masterNotice.do")
 	public String masterNotice(PagePgm pp, Model model,
@@ -274,5 +251,84 @@ public class MasterNoticeController {
 
 		return "./master/notice/masterNotice";
 	}
+	
+	@RequestMapping("masterNoticeSearch.do")
+	public String masterNoticeSearch(PagePgm pp, 
+			@RequestParam(value = "nowPage", required = false) String nowPage,
+			@RequestParam(value = "cntPerPage", required = false) String cntPerPage,
+			Model model) {
+		
+		if (nowPage == null) {
+			nowPage = "1";
+		}else {
+			pp.setNowPage(Integer.parseInt(nowPage));
+		}
+		cntPerPage="20";
+		
+		int total = service.noticeCount(pp.getKeyword());
+		
+		pp=new PagePgm(total,Integer.parseInt(nowPage),Integer.parseInt(cntPerPage),pp.getKeyword());
+		List<MasterNotice> noticeSearch=service.noticeSearchList(pp);
+		
+		model.addAttribute("pp", pp);
+		model.addAttribute("list", noticeSearch);
+		
+		return "./master/notice/masterNoticeSearch";
+	}
+	
+	// 공지 내용 : 세부 내용 띄우면서 조회수 + 1
+		@RequestMapping("masterNoticeDetail.do")
+		public String masterNoticeDetail(PagePgm pp, Model model, MasterNotice mn) {
+
+			// 조회수 + 1
+			service.updateMnReadCount(mn.getmnId());
+			System.out.println("조회1");
+			// 해당 공지 번호의 자료 조회
+			mn = service.selectOne(mn.getmnId());
+			//글 번호의 최대값 구하기
+			mn.setRnumMax(service.noticeMax());
+			System.out.println(mn.getMnOriFile());
+			System.out.println("조회2");
+			System.out.println(mn.getmnId());
+			System.out.println(mn.getRnum());
+
+			model.addAttribute("mnId", mn.getmnId());
+			model.addAttribute("pp", pp);
+			model.addAttribute("mnd", mn);
+			//mnId,pp,mnd 값들을 다음 페이지로 전송
+
+			return "./master/notice/masterNoticeDetail";
+		}
+	
+		// 공지 내용 : 이전글/다음글로 이동
+		@RequestMapping("masterNoticeDetailMove.do")
+		public String masterNoticeDetailMove(PagePgm pp, Model model, MasterNotice mn,
+				@RequestParam(value = "nowPage", required = false) String nowPage,
+				@RequestParam(value = "cntPerPage", required = false) String cntPerPage) {
+
+			System.out.println(mn.getRnum());
+			
+			// 조회수 + 1
+			service.updateMnReadCount(mn.getRnum());
+			//글 번호의 최대값 구하기
+			
+			int rm = service.noticeMax();
+			mn.setRnumMax(rm);
+			System.out.println("최대값:"+mn.getRnumMax());
+			
+			// 해당 글 번호의 자료 조회
+			mn = service.selectMove(mn.getRnum());
+			
+			System.out.println("글 아이디:"+mn.getmnId());
+			System.out.println("글번호:"+mn.getRnum());
+
+			model.addAttribute("mnId", mn.getmnId());
+			model.addAttribute("cntPerPage", pp.getCntPerPage());
+			//model.addAttribute를 통해 단일값을 공유하면 get방식으로 공유됨. url 주소에서 확인 가능
+			model.addAttribute("pp", pp);
+			model.addAttribute("mnd", mn);
+
+			return "redirect:/masterNoticeDetail.do";
+		}
 
 }

@@ -34,6 +34,14 @@
         }
         console.log("삭제")
       }
+    function enterkey() {
+		if (window.event.keyCode == 13) {
+			// 엔터키가 눌렸을 때
+			var s = document.getElementById("search").value;
+			location.href = "masterNoticeSearch.do?keyword=" + s;
+			/* searchType을 적용시킨 검색도 필요 */
+		}
+	}
 </script>
 </head>
 
@@ -45,24 +53,32 @@
 		<header id="header">
 			<div class="inner">
 
-				<c:if test="${sessionId eq null}">
-					<a href="NaverLogin.do" style="text-decoration: none">로그인</a>
-				</c:if>
-				<c:if test="${member ne null && member.mEmail eq 'master'}">
-				${sessionId }님 환영합니다.
-				<a href="Logout.do" onclick="alert('로그아웃')"
-						style="text-decoration: none"><br>로그아웃</a>
-					<a href="productInsertForm.do" onclick="alert('상품등록')"
-						style="text-decoration: none"><br>상품등록</a>
-				</c:if>
-				<c:if test="${member ne null && member.mEmail ne 'master'}">
-				${sessionId }님 환영합니다.
-				<a href="Logout.do" onclick="alert('로그아웃')"
-						style="text-decoration: none"><br>로그아웃</a>
-				</c:if>
+				<!-- 쇼핑몰 로고 & 상단 아이콘 불러오기 -->
+				<%@include file="../../common/header.jsp"%>
+
+				<!--1. 회원 or 비회원 페이지 -->
+					<div class="category-link" align="center">
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
+							style="text-decoration: none">OUTER</a> <a
+							href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
+							style="text-decoration: none">KNIT</a> <a
+							href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
+					</div>
 
 				<div align="center" width="100px" height="100px">
-					<input type="text" maxlength="50" placeholder="검색어를 입력하세요."><br>
+					<input type="text" maxlength="50" placeholder="검색어를 입력하세요."
+						id="search" onkeyup="enterkey()"><br>
 
 
 				</div>
@@ -73,10 +89,10 @@
 				</a>
 				<!-- Nav -->
 				<nav>
-					<ul>
-						<li><a href="#menu">Menu</a></li>
-					</ul>
-				</nav>
+						<ul>
+							<li><a href="#menu">Menu</a></li>
+						</ul>
+					</nav>
 			</div>
 		</header>
 
@@ -84,13 +100,10 @@
 		<nav id="menu">
 			<h2>Menu</h2>
 			<ul>
-				<li><a href="main.do">Home</a></li>
 				<li><a href="category.do">카테고리</a></li>
-				<li><a href="productDetail.do">Tempus etiam</a></li>
-				<li><a href="productDetail.do">Consequat dolor</a></li>
+				<li><a href="freeBoardList.do">커뮤니티</a></li>
+				<li><a href="masterNotice.do">공지사항</a></li>
 				<li><a href="elements.do">Elements</a></li>
-				<input type="button" value="관리자페이지"
-					onclick="location.href='masterMain.do'">
 				<br>
 			</ul>
 		</nav>
@@ -138,8 +151,9 @@
 												<button type="button"
 													onclick="location.href='masterNoticeUpdateForm.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage}&cntPerPage=${pp.cntPerPage}'">수정</button>
 												<button type="button" id="delete"
-													value="${masterNotice.mnId}" id="deleteCheck" value="${masterNotice.mnId}"
-													onclick="javascript:deleteCheck(${masterNotice.mnId})">삭제</button> 
+													value="${masterNotice.mnId}" id="deleteCheck"
+													value="${masterNotice.mnId}"
+													onclick="javascript:deleteCheck(${masterNotice.mnId})">삭제</button>
 												<!-- mnId는 items="{list}" 안에 포함된 정보.  -->
 											</td>
 										</c:if>
@@ -147,15 +161,12 @@
 									<c:set var="i" value="${i + 1}"></c:set>
 								</c:forEach>
 							</table>
-							<c:if test="${member ne null}">
+							<%-- <c:if test="${member ne null}"> --%>
 								<button type="submit" class="putsub">공지사항 등록</button>
-							</c:if>
-							<div align="right" class="search">
+							<%-- </c:if> --%>
 					</form>
 				</section>
 			</div>
-
-
 
 			<!-- 다른 페이지로 넘어가기 위한 숫자들 자리 -->
 			<div align="center">

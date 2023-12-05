@@ -6,8 +6,10 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import boss.common.PagePgm;
+import boss.model.AskBoard;
 import boss.model.Orders;
 import boss.model.Product;
+import boss.model.QnaBoard;
 import boss.model.Review;
 
 @Mapper
@@ -49,6 +51,9 @@ public interface ProductDetailDao {
 	
 	// review 업데이트
 	int reviewupdate(Review review);
+	
+	// ask리스트 불러오기 
+	List<AskBoard> asklist(Map<String, Object> map);
 	
 
 

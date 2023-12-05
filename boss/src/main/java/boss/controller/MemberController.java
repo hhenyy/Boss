@@ -51,7 +51,7 @@ public class MemberController {
 
 	// 회원가입 진행하고 ajax 콜백하기
 	@RequestMapping("insertMember.do")
-	public ResponseEntity<Map<String, String>> loginform(Member member) {
+	public String loginform(Member member,Model model) {
 		System.out.println("Insertmember");
 
 		// member 폼에서 넘어온 값을 암호화
@@ -60,17 +60,11 @@ public class MemberController {
 		// db에 넣을 member password 를 암호화 한걸로 넣기
 		member.setmPwd(encpassword);
 
-		Map<String, String> response = new HashMap<>();
-
 		int result = service.insertMember(member);
+		
+		model.addAttribute("result", result);
+		return "login/insertMemberCheck";
 
-		if (result == 1) {
-			response.put("result", "Y");
-		} else {
-			response.put("result", "N");
-		}
-
-		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 	// 이메일 중복 검사
@@ -250,6 +244,40 @@ public class MemberController {
 	public String insertMember() {
 		return "login/InsertForm";
 	}
+	
+	// 회원수정 폼 이동 (update)
+	@RequestMapping("updateForm.do")
+	public String updateForm(HttpSession session, Model model) {
+		
+		// 세션에 있는 Member 값 구해오기
+		Member dbMember = (Member) session.getAttribute("member");
+		
+		String mEmail = dbMember.getmEmail();
+		
+		Member member = service.selectOne(mEmail);
+		
+		model.addAttribute("member", member);
+		return "login/updateForm";
+	}
+	
+	// 회원수정
+	@RequestMapping("updateMember.do")
+	public String updateForm(Member member,Model model) {
+		
+		int result = 0;
+		String mEmail = member.getmEmail();
+		
+		Member dbmember = service.selectOne(mEmail);
+		
+		// 비번 비교
+		if(passwordEncoder.matches(member.getmPwd(), dbmember.getmPwd())) {
+			result = service.updateMember(member);
+		}
+		
+		model.addAttribute("result", result);
+		return "login/updateMemberCheck";
+	}
+	
 
 	// 로그인 기능
 	@RequestMapping("login.do")
@@ -276,6 +304,34 @@ public class MemberController {
 	public String Logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/main.do";
+	}
+	
+	// 회원 탈퇴 폼 이동
+	@RequestMapping("deleteForm.do")
+	public String deleteForm() {
+		return "login/deleteForm";
+	}
+
+	// 회원 탈퇴 ( mPwd 넘어오는데 이미 암호화 된게 넘어옴 )
+	@RequestMapping("deleteMember.do")
+	@ResponseBody
+	public String deleteMember(@RequestParam("mEmail") String mEmail,@RequestParam("mPwd") String mPwd) {
+		int result = 0;
+		Member member = service.selectOne(mEmail);
+		
+		if(member != null) {
+			if(mPwd.equals(member.getmPwd())) {
+			result = service.deleteMember(mEmail);
+			}
+		}
+		
+		System.out.println("result : " + result);
+		
+		if(result == 1) {
+			return "Y";
+		}else {
+			return "N";
+		}
 	}
 
 }
