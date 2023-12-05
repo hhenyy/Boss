@@ -7,10 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>자유게시판 상세페이지</title>
-
-
- <%@include file="/WEB-INF/views/common/chatbot.jsp"%>
-
 <!-- css 양식 include -->
 <%@include file="/WEB-INF/views/common/header.jsp"%>
 
@@ -20,6 +16,7 @@
 <!-- <link rel="stylesheet" href="css/freeBoard.css"> -->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="./js/freeboard.js"></script>
+<!-- <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script> -->
 
 <script type="text/javascript">
 	/* 	window.onload=function() {
@@ -66,7 +63,7 @@
 
 		// 좋아요가 있는지 확인한 값을 likeval에 저장
 		var likeval = '${hasLike}'
-        // likeval이 Y이면 좋아요가 이미 되있는것이므로 fill-heart.svg를 출력하는 코드
+        // likeval이 1이면 좋아요가 이미 되있는것이므로 fill-heart.svg를 출력하는 코드
         if(likeval == 'Y') {
             console.log(likeval);
             $("#heart").prop("src", "images/fill-heart.png");
@@ -130,38 +127,38 @@
 			</tr>
 			<tr>
 				<td>첨부파일</td>
-				<td><c:if test="${empty detail.fImage}">
+				<td>
+				<c:if test="${empty detail.fImage}">
                   &nbsp;
                 </c:if> <c:if test="${!empty detail.fImage}">
-						<img src="images/${detail.fImage}" height="100" width="100" />
+						<img src="images/${detail.fImage}"
+							height="100" width="100" />
 					</c:if></td>
 			<tr>
 				<td>조회수</td>
 				<td>${detail.fReadCount}</td>
 			</tr>
 			<tr>
-				<!--  heart : 좋아요O, fill-heart : 좋아요X -->
+<!--  heart : 좋아요O, fill-heart : 좋아요X -->
 				<td>좋아요</td>
-				<td>
-					<div>
-						<a class="heart"
-							style="text-decoration-line: none; cursor: pointer;"> <img
-							id="heart" src="images/bin-heart.png"> 좋아요 ${countLike} 개
-						</a>
-					</div>
+	<td>
+	<div>
+	<a class="heart" style="text-decoration-line: none; cursor: pointer;">
+		<img id="heart" src="images/fill-heart.png">
+		${detail.fLike}
+    </a></div>
 				</td>
 			</tr>
 		</table>
 
 		<!-- button div 시작-->
-		<!-- 로그인 되어있고 글작성자와 mEmail이 같을때 삭제/수정 버튼 보임 -->
+	<!-- 로그인 되어있고 글작성자와 mEmail이 같을때 삭제/수정 버튼 보임 -->
 		<div class="div_boardform_button" align="center">
-			<c:if
-				test="${!empty sessionScope.member && member.mEmail == detail.mEmail}">
-				<input type="button" class="boardform_button" value="수정"
-					onClick="location.href='freeBoardDetail.do?fId=${detail.fId}&page=${page}&state=update'">
-				<input type="button" class="boardform_button" value="삭제"
-					onClick="location.href='freeBoardDetail.do?fId=${detail.fId}&page=${page}&state=delete'">
+	<c:if test="${!empty sessionScope.member && member.mEmail == detail.mEmail}">
+			<input type="button" class="boardform_button" value="수정"
+				onClick="location.href='freeBoardDetail.do?fId=${detail.fId}&page=${page}&state=update'">
+			<input type="button" class="boardform_button" value="삭제"
+				onClick="location.href='freeBoardDetail.do?fId=${detail.fId}&page=${page}&state=delete'">
 			</c:if>
 			<input type="button" class="boardform_button" value="목록"
 				onClick="location.href='freeBoardList.do?page=${page}'">
@@ -175,8 +172,8 @@
 		<div class="div_reply form">
 			<form name="frm" id="frm">
 				<input type="hidden" name="mEmail" value="${member.mEmail}">
-				<input type="hidden" name="fId" value="${detail.fId}"> 댓글 :
-				<textarea rows="2" cols="50" name="frContent" id="frContent"
+				<input type="hidden" name="fId" value="${detail.fId}"> 
+				댓글 : <textarea rows="2" cols="50" name="frContent" id="frContent"
 					placeholder="댓글을 입력해 주세요."></textarea>
 				<input type="button" value="확인" id="replyInsert"
 					class="button_replyok">

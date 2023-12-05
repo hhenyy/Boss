@@ -224,9 +224,7 @@
 							<td>${askboard.askid }</td>
 							<td>${askboard.memail}</td>
 							<td>${askboard.askcontent }</td>
-							<fmt:formatDate value="${askboard.askreg }" pattern="yyyy년 MM월 dd일"
-										var="formattedDate" />
-										<td>${formattedDate}</td>
+							<td>${askboard.askreg }</td>
 						</tr>
 					</c:forEach>
 				</c:if>
@@ -237,10 +235,8 @@
 				</c:if>
 
 			</table>
-			<c:if test="${member != null }">
 			<button type="button" class="askbutton1" onclick="location.href='productAskBoardInsertForm.do?pid=${pid}'">문의
 				작성</button>
-				</c:if>
 		</div>
 	</div>
 

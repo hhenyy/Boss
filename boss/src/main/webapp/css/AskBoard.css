@@ -55,8 +55,8 @@ textarea {
 	text-align: center;
 }
 
-.ask_insert_button2 {
-	background-color: #000;
+.review_insert_button {
+	background-color: #000; /* 검은색으로 변경 */
 	color: #fff;
 	padding: 10px 20px;
 	border: none;

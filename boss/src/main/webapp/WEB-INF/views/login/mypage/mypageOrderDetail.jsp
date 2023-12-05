@@ -70,9 +70,6 @@
 			<li><a href='cartFormMove.do'>장바구니</a></li>
 			<li><a href='mypageQnA.do'>내가 쓴 QnA</a></li>
 			<li><a href='mypageReview.do'>내가 쓴 Review</a></li>
-			<li><a href='mypageAskBoard.do'>내가 물어본 상품문의</a></li>
-			<li><a href='updateForm.do'>내 정보 수정</a></li>
-			<li><a href='deleteForm.do'>회원 탈퇴</a></li>
 		</ul>
 
 		<c:if test="${not empty ordersList}">

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import boss.dao.MypageDao;
-import boss.model.AskBoard;
 import boss.model.OrderDetail;
 import boss.model.Orders;
 import boss.model.QnaBoard;
@@ -65,10 +64,6 @@ public class MypageService {
 
 	public Orders myorders(String mEmail) {
 		return dao.myorders(mEmail);
-	}
-
-	public List<Map<String, Object>> productlist(String mEmail) {
-		return dao.productlist(mEmail);
 	}
 	
 

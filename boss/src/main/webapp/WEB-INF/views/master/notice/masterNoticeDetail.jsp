@@ -2,8 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@page import="java.lang.Math"%>
-<%@page import="java.lang.Integer"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,39 +23,36 @@
 		<tr>
 			<th>작성일</th>
 			<td style="color: black;"><fmt:formatDate
-												pattern="yyyy-MM-dd hh:mm" value="${mnd.mnReg}" /></td>
+												pattern="yyyy-MM-dd hh:mm" value="${masterNoticeDetail.mnReg}" /></td>
 			<th>조회수</th>
-			<td style="color: black;">${mnd.mnReadCount }</td>
+			<td style="color: black;">${masterNoticeDetail.mnReadCount }</td>
 		</tr>
 		<tr>
 			<th>제목</th>
 			<td colspan="3" style="color: black;">
-				${mnd.mnTitle }
+				${masterNoticeDetail.mnTitle }
 			</td>
 		</tr>
 
 
 		<tr>
-			<td colspan="4" style="color: black;">${mnd.mnContent }</td>
+			<td colspan="4" style="color: black;">${masterNoticeDetail.mnContent }</td>
 		</tr>
 
-		<c:if test="${mnd.mnOriFile != null }">
+		<c:if test="${masterNoticeDetail.mnOriFile != null }">
                <td colspan="4">
-               	<img src="C:\\bossRepository\\boss\\src\\main\\webapp\\images\\${mnd.mnOriFile}">
+               	<img src="C:\\bossRepository\\boss\\src\\main\\webapp\\images\\${masterNoticeDetail.mnOriFile}">
                </td>
             </c:if>
 
 	</table>
-	
-	<c:if test="${mnd.rnum != 1 }">
-	<a href="masterNoticeDetailMove.do?rnum=${mnd.rnum-1 }&cntPerPage=${pp.cntPerPage}">다음글</a><br>
+	<c:if test="${masterNoticeDetail.rnum != 1 }">
+	<a href="masterNoticeDetailMove.do?rnum=${masterNoticeDetail.rnum-1 }">다음글</a><br>
 	</c:if>
-	<c:if test="${mnd.rnum != mnd.rnumMax }">
-	<a href="masterNoticeDetailMove.do?rnum=${mnd.rnum+1 }&cntPerPage=${pp.cntPerPage}">이전글</a><br><br>
+	<c:if test="${masterNoticeDetail.rnum != masterNoticeDetail.rnumMax }">
+	<a href="masterNoticeDetailMove.do?rnum=${masterNoticeDetail.rnum+1 }">이전글</a><br><br>
 	</c:if>
-	<button type="button" class="review_button1" 
-	onclick="location.href='masterNotice.do?nowPage=${Integer.toString(Math.floor((mnd.rnum-1)/pp.cntPerPage)+1)}'">목록으로</button>
-	<input type ="hidden" id="page">
+	<button type="button" class="review_button1" onclick="location.href='masterNotice.do?nowPage=${pp.nowPage}'">목록으로</button>
 	
 	<!-- css 양식 include -->
 	<%@include file="/WEB-INF/views/common/footer.jsp"%>

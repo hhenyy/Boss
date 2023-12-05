@@ -62,12 +62,10 @@ public class MasterNoticeService {
 
 	public int noticeMax() {
 
-		System.out.println("서비스최대값:");
 		return dao.noticeMax();
 	}
 
 	public MasterNotice selectMove(int rnum) {
-		
 		
 		return dao.selectMove(rnum);
 	}

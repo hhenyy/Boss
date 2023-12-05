@@ -16,11 +16,12 @@
 <!-- iamport.payment.js -->
 <script type="text/javascript"
    src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-   
+
 <body>
    <form method="post" action="ordersForm.do">
-   	<input type="hidden" name="bid" value="${bucket.bid}">
-   	<input type="hidden" name="mEmail" value="${member.mEmail}">
+      <input type="hidden" name="bid" value="${bucket.bid}"> <input
+         type="hidden" name="mEmail" value="${member.mEmail}">
+       <input type="hidden" name="pid" value=${bucket.pid }>  
       <div class="container_main">
          <center>
             <h1 style="font-size: 50px">주문서 작성</h1>
@@ -31,32 +32,36 @@
             <table class="table_orders1">
                <tr>
                   <td><input type="text" value="${member.mName } "
-                     placeholder="이름을 입력하세요." maxlength="5"
+                     placeholder="이름을 입력하세요." maxlength="5" name="mName"
                      style="color: palegreen; font-size: 30px"></td>
                </tr>
                <tr>
-                  <td><input type="text" value="${member.mPhone }" nmae="mPhone"
-                     placeholder="휴대폰번호를 입력하세요." maxlength="11"></td>
+                  <td><input type="text" value="${member.mPhone }"
+                     nmae="mPhone" placeholder="휴대폰번호를 입력하세요." maxlength="11"></td>
                </tr>
                <tr>
                   <td><input type="text" value="${member.mPost }" name="mPost"
                      placeholder="우편번호를 입력하세요." maxlength="5"></td>
                </tr>
                <tr>
-                  <td><input type="text" value="${member.mAddress }" name="mAddress"
-                     placeholder="주소를 입력하세요." maxlength="40"></td>
+                  <td><input type="text" value="${member.mAddress }"
+                     name="mAddress" placeholder="주소를 입력하세요." maxlength="40"></td>
+               </tr>
+               <tr>
+                  <td><input type="text" 
+                     name="omessage" placeholder="배송메시지를 입력하세요." maxlength="70"></td>
                </tr>
             </table>
             <h2>주문자 입력</h2>
             <table class="table_orders2">
                <tr>
-                  <td><input type="text" value="${member.mName }"
+                  <td><input type="text" value="${member.mName }" readonly
                      placeholder="이름을 입력하세요." maxlength="5"
                      style="color: palegreen; font-size: 30px"></td>
                </tr>
                <tr>
-                  <td><input type="text" value="${member.mPhone }" name="mPhone"
-                     placeholder="휴대폰번호를 입력하세요." maxlength="11"></td>
+                  <td><input type="text" value="${member.mPhone }"
+                     name="mPhone" placeholder="휴대폰번호를 입력하세요." maxlength="11"></td>
                </tr>
             </table>
 
@@ -68,8 +73,8 @@
                   <td class="product_img" rowspan="5"><img
                      src="./imeges/${bucket.bimage}"></td>
                <tr>
-                  <td><input type="text" value="${bucket.bname}" name="bname" readonly
-                     style="color: palegreen; font-size: 30px"></td>
+                  <td><input type="text" value="${bucket.bname}" name="bname"
+                     readonly style="color: palegreen; font-size: 30px"></td>
                </tr>
 
                <tr>
@@ -119,4 +124,4 @@
 
 
 
-</body>   
+</body>

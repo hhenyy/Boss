@@ -64,7 +64,7 @@
 									height="50px" alt="magic keyboard"></td>
 								<td><a href="#">Bo$$Mall</a><span
 									class="cart__list__smartstore"> HB & CM</span>
-									<p>${bucket.bname }</p> <sapn class="price">${bucket.bprice }원</sapn><span
+									<p>${bucket.bname }</p> <sapn class="price">${bucket.bprice }원</sapn><span>
 									style="text-decoration: line-through; color: lightgray;">${bucket.bprice}</span>
 								</td>
 								<td class="cart__list__option">
@@ -73,7 +73,7 @@
 								</td>
 								<td><span class="price">${bucket.bprice * bucket.bcount}원</span><br>
 									<button type="button" class="cart__list__orderbtn"
-										onclick="location.href='moveOrdersForm.do?bid=${bucket.bid }'">주문하기</button>
+										onclick="location.href='moveOrdersForm.do?bid=${bucket.bid }&pid=${bucket.pid }'">주문하기</button>
 									<button type="button" class="cart__list__orderbtn"
 										onclick="location.href='cartListDelete.do?bid=${bucket.bid}'">삭제하기</button>
 								</td>
@@ -95,14 +95,14 @@
 						<td></td>
 					</tr>
 				</tfoot>
-			</form>
 		</table>
 		<div class="cart__mainbtns">
 			<button class="cart__bigorderbtn left"
 				onclick="location.href='main.do'">쇼핑 계속하기</button>
 			<button class="cart__bigorderbtn right" id="payClick"
-				onclick="location.href='moveOrdersForm.do?bid=${bucket.bid }'">주문하기</button>
+				onclick="location.href='moveOrdersForm.do?bid=${bucket.bid }&pid=${bucket.pid }'">주문하기</button>
 		</div>
+		</form>
 	</section>
 </body>
 <%@include file="/WEB-INF/views/common/footer.jsp"%>

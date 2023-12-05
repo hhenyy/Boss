@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
-<html lang="en">
 <!--
 	Phantom by HTML5 UP
 	html5up.net | @ajlkn
@@ -16,10 +15,6 @@
 <%--  <%@include file="/WEB-INF/views/common/header.jsp"%> --%>
 
 <meta charset="utf-8" />
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="assets/css/main.css" />
@@ -28,52 +23,19 @@
 <link rel="stylesheet" href="assets/css/mainhs.css" />
 <!-- <link rel="stylesheet" href="assets/css/mainhsSlide.css" /> -->
 
+<!-- <!-- 슬라이드CSS --> 
+<!-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/> -->
+<!-- <!--   <link rel="stylesheet" type="text/css" href="slick/slick.css"/> --> 
+<!--   <!-- 슬라이드 테마 CSS --> 
+<!--   <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/> -->
+
+
+<!-- <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> -->
 
 <noscript>
 	<link rel="stylesheet" href="assets/css/noscript.css" />
 </noscript>
 
-<!-- 슬라이드 부트스트랩 -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-	crossorigin="anonymous"></script>
-<style>
-.carousel-inner>.carousel-item>img {
-	width: 640px;
-	height: 720px;
-}
-</style>
-
-<!-- 슬라이드 -->
-<script>
-	$('.carousel').carousel({
-		interval : 2000
-	})
-</script>
-
-<!-- 검색창 -->
-<script>
-	function enterkey() {
-		var s = document.getElementById("search").value;
-		if (window.event.keyCode == 13) {
-			// 엔터키가 눌렸을 때
-			location.href = "allSearch.do?keyword=" + s;
-		}
-	}
-</script>
 
 </head>
 
@@ -112,12 +74,10 @@
 					</div>
 					<div align="center" width="30px" height="100px">
 						<input type="text" maxlength="30"
-							placeholder="검색어를 입력하세요. 연말준비는 ? BOSS에서 !" id="search"
-							onkeyup="enterkey()">
+							placeholder="검색어를 입력하세요. 연말준비는 ? BOSS에서 !">
 					</div>
-					<br>
 
-					<!---------------------- Nav --------------------->
+					<!-- Nav -->
 					<nav>
 						<ul>
 							<li><a href="#menu">Menu</a></li>
@@ -125,97 +85,85 @@
 					</nav>
 			</div>
 		</header>
+
 		<!-- Menu -->
 		<nav id="menu">
 			<h2>Menu</h2>
 			<ul>
-				<li><a href="category.do?newCid=맨투맨" style="text-decoration: none">카테고리</a></li>
-				<li><a href="freeBoardList.do" style="text-decoration: none">커뮤니티</a></li>
-				<li><a href="masterNotice.do" style="text-decoration: none">공지사항</a></li>
-				<li><a href="elements.do" style="text-decoration: none">Elements</a></li>
+				<li><a href="category.do">카테고리</a></li>
+				<li><a href="freeBoardList.do">커뮤니티</a></li>
+				<li><a href="masterNotice.do">공지사항</a></li>
+				<li><a href="elements.do">Elements</a></li>
 				<br>
 			</ul>
 		</nav>
-		<!---------------------- Nav ------------------->
-
 		<!-- Main -->
 		<div id="main">
 			<div class="inner">
 				<header align="center">
 
-					<!-- 					<h1> -->
-					<!-- 						<b>시선이 교차하는 순간</b> -->
-					<!-- 					</h1> -->
-
-					<!-- 					<h4> -->
-					<!-- 						자연스럽고 특별한 아름다움은 한 순간에 시선과 마음을 사로잡습니다<br> -->
-					<!-- 					눈과 마음을 열어보세요</h4> -->
-					<!-- 					<br> -->
-
-					<!----------- 슬라이드 부트스트랩 시작-------------->
-					<div class="container"></div>
-					<div id="demo" class="carousel slide" data-ride="carousel">
-
-						<div class="carousel-inner">
-							<!-- 슬라이드 쇼 -->
-							<div class="carousel-item active">
-								<!--가로-->
-								<img class="d-block w-100" src="images/slide1.png"
-									alt="First slide">
-							</div>
-							<div class="carousel-item">
-								<img class="d-block w-100" src="images/slide2.png"
-									alt="Second slide">
-								<div class="carousel-caption d-none d-md-block">
-									<h5>BOSSMALL</h5>
-									<p>BOSSMALLBOSSMALL</p>
-								</div>
-							</div>
-							<div class="carousel-item">
-								<img class="d-block w-100" src="images/slide3.png"
-									alt="Third slide">
-							</div>
-							<!-- / 슬라이드 쇼 끝 -->
-
-							<!-- 왼쪽 오른쪽 화살표 버튼 -->
-							<a class="carousel-control-prev" href="#demo" data-slide="prev">
-								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-								<!-- <span>Previous</span> -->
-							</a> <a class="carousel-control-next" href="#demo" data-slide="next">
-								<span class="carousel-control-next-icon" aria-hidden="true"></span>
-								<!-- <span>Next</span> -->
-							</a>
-							<!-- / 화살표 버튼 끝 -->
-
-							<!-- 인디케이터 -->
-							<ul class="carousel-indicators">
-								<li data-target="#demo" data-slide-to="0" class="active"></li>
-								<!--0번부터시작-->
-								<li data-target="#demo" data-slide-to="1"></li>
-								<li data-target="#demo" data-slide-to="2"></li>
-							</ul>
-							<!-- 인디케이터 끝 -->
-						</div>
-						<!----------- 슬라이드 부트스트랩 끝-------------->
+					<!-- 	<h1>
+						<b>시선이 교차하는 순간</b>
+					</h1> -->
 
 
 
+					<!-- 슬라이드 -->
+<!-- 					<div class="content_area"> -->
+<!-- 						page slider -->
+<!-- 						<div class="slide_div_wrap"> -->
+<!-- 							<div class="slide_div"> -->
+<!-- 								<div> -->
+<!-- 									<a> <img src="images/slide1.png"> -->
+<!-- 									</a> -->
+<!-- 								</div> -->
+<!-- 								<div> -->
+<!-- 									<a> <img src="images/slide2.png"> -->
+<!-- 									</a> -->
+<!-- 								</div> -->
+<!-- 								<div> -->
+<!-- 									<a> <img src="images/slide3.png"> -->
+<!-- 									</a> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						post slider -->
+<!-- 					</div> -->
+<!-- 					슬라이드끝 -->
+<!-- 	 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script> -->
+<!--   <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
+<!--   <script type="text/javascript" src="slick/slick.min.js"></script> -->
+<!--   <script type="text/javascript"> -->
+<!--  	$(function() { 
+<!-- 		$('.slide_div').slick({ 
+<!-- 			dots : true, 
+<!--  			autoplay : true,
+<!--  			autoplaySpeed : 5000 
+<!--  		}); 
+<!--  	}); 
+<!-- </script> -->
+					
 
-						<br>
-						<p align="left">
-							남성을 위한 수트<br> 포멀함과 세심한 디자인의 기능성이 만난 남성 수트를 소개합니다.<br>
-							포멀 & 캐주얼 스타일을 선보이는 우아한 컬렉션에서 소개하는 BO$$만의 실루엣을 발견해보세요.<br>
-							슬림핏과 가벼운 여름 스타일부터 턱시도와 스리피스 디자인까지, 세심한 스타일링에 중점을 둔 수트 컬렉션을 지금
-							확인해보세요.
-						</p>
-						<br>
-						<h3 text-align="center">WHAT'S NEW</h3>
+					<h3>
+						자연스럽고 특별한 아름다움은 한 순간에 시선과 마음을 사로잡습니다<br>
+					</h3>
+					<h3>눈과 마음을 열어보세요</h3>
+					<br>
+
+
+
+					<p align="left">
+						남성을 위한 수트<br> 포멀함과 세심한 디자인의 기능성이 만난 남성 수트를 소개합니다.<br> 포멀
+						& 캐주얼 스타일을 선보이는 우아한 컬렉션에서 소개하는 BO$$만의 실루엣을 발견해보세요.<br> 슬림핏과
+						가벼운 여름 스타일부터 턱시도와 스리피스 디자인까지, 세심한 스타일링에 중점을 둔 수트 컬렉션을 지금 확인해보세요.
+					</p>
+					<br>
+					<h3 text-align="center">WEEKLY BEST</h3>
 				</header>
 				<section class="tiles">
 					<article class="style1">
 						<span class="image"> <c:if test="${block1 == 1 }">
-								<img src="images/${mainImageList1.mainimage} " alt=""
-									height="450" />
+								<img src="images/${mainImageList1.mainimage} " alt="" />
 							</c:if>
 
 						</span> <a href="productDetail.do?pid=${mainImageList1.pid }">
@@ -228,8 +176,7 @@
 					</article>
 					<article class="style1">
 						<span class="image"> <c:if test="${block2 == 2 }">
-								<img src="images/${mainImageList2.mainimage} " alt=""
-									height="450" />
+								<img src="images/${mainImageList2.mainimage} " alt="" />
 							</c:if>
 
 						</span> <a href="productDetail.do?pid=${mainImageList2.pid }">
@@ -242,8 +189,7 @@
 					</article>
 					<article class="style1">
 						<span class="image"> <c:if test="${block3 == 3 }">
-								<img src="images/${mainImageList3.mainimage} " alt=""
-									height="450" />
+								<img src="images/${mainImageList3.mainimage} " alt="" />
 							</c:if>
 
 						</span> <a href="productDetail.do?pid=${mainImageList3.pid }">
@@ -254,11 +200,9 @@
 						</a>
 						<div class="buttons_master"></div>
 					</article>
-					<!-- <br><h3 text-align="center">WEEKLY BEST</h3><br> -->
 					<article class="style1">
 						<span class="image"> <c:if test="${block4 == 4 }">
-								<img src="images/${mainImageList4.mainimage} " alt=""
-									height="450" />
+								<img src="images/${mainImageList4.mainimage} " alt="" />
 							</c:if>
 
 						</span> <a href="productDetail.do?pid=${mainImageList4.pid }">
@@ -271,8 +215,7 @@
 					</article>
 					<article class="style1">
 						<span class="image"> <c:if test="${block5 == 5 }">
-								<img src="images/${mainImageList5.mainimage} " alt=""
-									height="450" />
+								<img src="images/${mainImageList5.mainimage} " alt="" />
 							</c:if>
 
 						</span> <a href="productDetail.do?pid=${mainImageList5.pid }">
@@ -285,8 +228,7 @@
 					</article>
 					<article class="style1">
 						<span class="image"> <c:if test="${block6 == 6 }">
-								<img src="images/${mainImageList6.mainimage} " alt=""
-									height="450" />
+								<img src="images/${mainImageList6.mainimage} " alt="" />
 							</c:if>
 
 						</span> <a href="productDetail.do?pid=${mainImageList6.pid }">
@@ -300,8 +242,7 @@
 					<!-- 에러시작 -->
 					<article class="style1">
 						<span class="image"> <c:if test="${block7 == 7 }">
-								<img src="images/${mainImageList7.mainimage} " alt=""
-									height="450" />
+								<img src="images/${mainImageList7.mainimage} " alt="" />
 							</c:if>
 
 						</span> <a href="productDetail.do?pid=${mainImageList7.pid }">
@@ -314,8 +255,7 @@
 					</article>
 					<article class="style1">
 						<span class="image"> <c:if test="${block8 == 8 }">
-								<img src="images/${mainImageList8.mainimage} " alt=""
-									height="450" />
+								<img src="images/${mainImageList8.mainimage} " alt="" />
 							</c:if>
 
 						</span> <a href="productDetail.do?pid=${mainImageList8.pid }">
@@ -328,8 +268,7 @@
 					</article>
 					<article class="style1">
 						<span class="image"> <c:if test="${block9 == 9 }">
-								<img src="images/${mainImageList9.mainimage} " alt=""
-									height="450" />
+								<img src="images/${mainImageList9.mainimage} " alt="" />
 							</c:if>
 
 						</span> <a href="productDetail.do?pid=${mainImageList9.pid }">
@@ -370,6 +309,8 @@
 
 			<div align="center" width="100px" height="100px">
 				<input type="text" maxlength="50" placeholder="검색어를 입력하세요."><br>
+				<br> <br>
+
 			</div>
 
 			<!-- Nav -->
@@ -385,10 +326,10 @@
 	<nav id="menu">
 		<h2>Menu</h2>
 		<ul>
-			<li><a href="category.do" style="text-decoration: none">카테고리</a></li>
-			<li><a href="freeBoardList.do" style="text-decoration: none">커뮤니티</a></li>
-			<li><a href="masterNotice.do" style="text-decoration: none">공지사항</a></li>
-			<li><a href="elements.do" style="text-decoration: none">Elements</a></li>
+			<li><a href="category.do">카테고리</a></li>
+			<li><a href="freeBoardList.do">커뮤니티</a></li>
+			<li><a href="masterNotice.do">공지사항</a></li>
+			<li><a href="elements.do">Elements</a></li>
 			<input type="button" value="관리자페이지"
 				onclick="location.href='masterMain.do'">
 			<br>
@@ -400,67 +341,25 @@
 		<div class="inner">
 			<header align="center">
 
-				<!----------- 슬라이드 부트스트랩 시작-------------->
-				<div class="container"></div>
-				<div id="demo" class="carousel slide" data-ride="carousel">
+				<h1>시선이 교차하는 순간</h1>
 
-					<div class="carousel-inner">
-						<!-- 슬라이드 쇼 -->
-						<div class="carousel-item active">
-							<!--가로-->
-							<img class="d-block w-100" src="images/slide1.png"
-								alt="First slide">
-							<div class="carousel-caption d-none d-md-block">
-								<h5>TEST</h5>
-								<p>testtesttest</p>
-							</div>
-						</div>
-						<div class="carousel-item">
-							<img class="d-block w-100" src="images/slide2.png"
-								alt="Second slide">
-						</div>
-						<div class="carousel-item">
-							<img class="d-block w-100" src="images/slide3.png"
-								alt="Third slide">
-						</div>
-
-						<!-- / 슬라이드 쇼 끝 -->
-
-						<!-- 왼쪽 오른쪽 화살표 버튼 -->
-						<a class="carousel-control-prev" href="#demo" data-slide="prev">
-							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-							<!-- <span>Previous</span> -->
-						</a> <a class="carousel-control-next" href="#demo" data-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span>
-							<!-- <span>Next</span> -->
-						</a>
-						<!-- / 화살표 버튼 끝 -->
-
-						<!-- 인디케이터 -->
-						<ul class="carousel-indicators">
-							<li data-target="#demo" data-slide-to="0" class="active"></li>
-							<!--0번부터시작-->
-							<li data-target="#demo" data-slide-to="1"></li>
-							<li data-target="#demo" data-slide-to="2"></li>
-						</ul>
-						<!-- 인디케이터 끝 -->
-					</div>
-					<!----------- 슬라이드 부트스트랩 끝-------------->
-
-					<br>
-					<p align="left">
-						남성을 위한 수트<br> 포멀함과 세심한 디자인의 기능성이 만난 남성 수트를 소개합니다.<br> 포멀
-						& 캐주얼 스타일을 선보이는 우아한 컬렉션에서 소개하는 BO$$만의 실루엣을 발견해보세요.<br> 슬림핏과
-						가벼운 여름 스타일부터 턱시도와 스리피스 디자인까지, 세심한 스타일링에 중점을 둔 수트 컬렉션을 지금 확인해보세요.
-					</p>
-					<br>
-					<h3 text-align="center">WEEKLY BEST</h3>
+				<h3>
+					자연스럽고 특별한 아름다움은 한 순간에 시선과 마음을 사로잡습니다<br>
+				</h3>
+				<h3>눈과 마음을 열어보세요</h3>
+				<br>
+				<p align="left">
+					남성을 위한 수트<br> 포멀함과 세심한 디자인의 기능성이 만난 남성 수트를 소개합니다.<br> 포멀
+					& 캐주얼 스타일을 선보이는 우아한 컬렉션에서 소개하는 BO$$만의 실루엣을 발견해보세요.<br> 슬림핏과
+					가벼운 여름 스타일부터 턱시도와 스리피스 디자인까지, 세심한 스타일링에 중점을 둔 수트 컬렉션을 지금 확인해보세요.
+				</p>
+				<br>
+				<h3 text-align="center">WEEKLY BEST</h3>
 			</header>
 			<section class="tiles">
 				<article class="style1">
 					<span class="image"> <c:if test="${block1 == 1 }">
-							<img src="images/${mainImageList1.mainimage} " alt=""
-								height="450" />
+							<img src="images/${mainImageList1.mainimage} " alt="" />
 						</c:if>
 
 					</span> <a href="productDetail.do?pid=${mainImageList1.pid }">
@@ -477,8 +376,7 @@
 				</article>
 				<article class="style1">
 					<span class="image"> <c:if test="${block2 == 2 }">
-							<img src="images/${mainImageList2.mainimage} " alt=""
-								height="450" />
+							<img src="images/${mainImageList2.mainimage} " alt="" />
 						</c:if>
 
 					</span> <a href="productDetail.do?pid=${mainImageList2.pid }">
@@ -495,8 +393,7 @@
 				</article>
 				<article class="style2">
 					<span class="image"> <c:if test="${block3 == 3 }">
-							<img src="images/${mainImageList3.mainimage} " alt=""
-								height="450" />
+							<img src="images/${mainImageList3.mainimage} " alt="" />
 						</c:if>
 
 					</span> <a href="productDetail.do?pid=${mainImageList3.pid }">
@@ -513,8 +410,7 @@
 				</article>
 				<article class="style3">
 					<span class="image"> <c:if test="${block4 == 4 }">
-							<img src="images/${mainImageList4.mainimage} " alt=""
-								height="450" />
+							<img src="images/${mainImageList4.mainimage} " alt="" />
 						</c:if>
 
 					</span> <a href="productDetail.do?pid=${mainImageList4.pid }">
@@ -531,8 +427,7 @@
 				</article>
 				<article class="style4">
 					<span class="image"> <c:if test="${block5 == 5 }">
-							<img src="images/${mainImageList5.mainimage} " alt=""
-								height="450" />
+							<img src="images/${mainImageList5.mainimage} " alt="" />
 						</c:if>
 
 					</span> <a href="productDetail.do?pid=${mainImageList5.pid }">
@@ -549,8 +444,7 @@
 				</article>
 				<article class="style5">
 					<span class="image"> <c:if test="${block6 == 6 }">
-							<img src="images/${mainImageList6.mainimage} " alt=""
-								height="450" />
+							<img src="images/${mainImageList6.mainimage} " alt="" />
 						</c:if>
 
 					</span> <a href="productDetail.do?pid=${mainImageList6.pid }">
@@ -567,8 +461,7 @@
 				</article>
 				<article class="style6">
 					<span class="image"> <c:if test="${block7 ==  7}">
-							<img src="images/${mainImageList7.mainimage} " alt=""
-								height="450" />
+							<img src="images/${mainImageList7.mainimage} " alt="" />
 						</c:if>
 
 					</span> <a href="productDetail.do?pid=${mainImageList7.pid }">
@@ -585,8 +478,7 @@
 				</article>
 				<article class="style1">
 					<span class="image"> <c:if test="${block8 == 8 }">
-							<img src="images/${mainImageList8.mainimage} " alt=""
-								height="450" />
+							<img src="images/${mainImageList8.mainimage} " alt="" />
 						</c:if>
 
 					</span> <a href="productDetail.do?pid=${mainImageList8.pid }">
@@ -603,8 +495,7 @@
 				</article>
 				<article class="style2">
 					<span class="image"> <c:if test="${block9 == 9 }">
-							<img src="images/${mainImageList9.mainimage} " alt=""
-								height="450" />
+							<img src="images/${mainImageList9.mainimage} " alt="" />
 						</c:if>
 
 					</span> <a href="productDetail.do?pid=${mainImageList9.pid }">

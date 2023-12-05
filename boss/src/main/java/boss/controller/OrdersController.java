@@ -5,8 +5,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import boss.model.Bucket;
 import boss.model.Member;
+import boss.model.Orders;
+import boss.model.Product;
 import boss.service.BucketService;
 import boss.service.MasterProductService;
 import boss.service.OrdersService;
@@ -33,26 +33,23 @@ public class OrdersController {
 	 * 결제하기 이동 메소드
 	 */
 	@RequestMapping("ordersForm.do")
-	public String ordersForm(Member member, Model model, String bid, String mEmail) {
+	public String ordersForm(Member member, Model model, String bid, 
+			String mEmail, String omessage, String pid) {
 		
+		System.out.println("pid : " + pid);
 		Bucket bucket = bs.selectBucketOne(bid);
 		model.addAttribute("bucket", bucket);
 		
 		if(bucket != null) {
-			System.out.println("bucket : " + bucket);
-			System.out.println("bname : " + bucket.getBname());
-			System.out.println("mEmail : " + member.getmEmail());
-			System.out.println("mName : " + member.getmName());
-			System.out.println("mPhone : " + member.getmPhone());
-			System.out.println("mAddress : " + member.getmAddress());
-			System.out.println("mPost : " + member.getmPost());
-			System.out.println("bprice : " + bucket.getBprice());
-			System.out.println("bcount : " + bucket.getBcount());
+			member.setmName(mEmail);
 		} else {
 			System.out.println("bucket null : " + bucket);
 		}
 		
 		model.addAttribute("member", member);
+		model.addAttribute("omessage", omessage);
+		model.addAttribute("pid", pid);
+		model.addAttribute("bcount", bucket.getBcount());
 		
 		return "orders/ordersForm";
 	}
@@ -76,6 +73,7 @@ public class OrdersController {
 		bucket = bs.selectBucketOne(bid);
 		model.addAttribute("bucket", bucket);
 		model.addAttribute("member", member);
+		System.out.println("Dsadsadsad : " + member.getmEmail());
 		
 		return "./orders/moveOrdersForm";
 	}
@@ -85,16 +83,39 @@ public class OrdersController {
 	 */
 	@ResponseBody
 	@RequestMapping("orderResult.do")
-	public Map<String,Object> orderResult(String mEmail, String bid) {
-		
-		System.out.println("mEmail : " + mEmail);
-		System.out.println("bid : " + bid);
+	public String orderResult(String mEmail, String bid, 
+			Orders orders, String pid, String bcount) {
 		
 		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("bid", bid);
-		map.put("mEmail", mEmail);
 		
-		return map;
+		if(orders != null) {
+			orders.setMemail(mEmail);
+			System.out.println("여기는?");
+			int result = os.insertOrders(orders);
+			if(result == 1) {
+				
+				orders = os.selectOrdersOne(orders.getMemail());
+				System.out.println("oid : " + orders.getOid());
+				Product product = mps.selectOne(pid);
+				map.put("product", product);
+				map.put("oid", orders.getOid());
+				map.put("bcount", bcount);
+				int insertOrderDetail = os.insertOrderDetail(map);
+				System.out.println("insertOrderDetail : " + insertOrderDetail);
+				System.out.println(product.getPid());
+				System.out.println("주문 등록 성공");
+				int id = Integer.parseInt(bid);
+				int bucket = bs.deleteCartOne(id);
+				map.put("pid", pid);
+				int productCount = os.updateProductCount(map);
+			}
+		} else if(orders == null){
+			System.out.println("오더 null");
+		}
+		
+		//map.
+		
+		return "hi";
 	}
 }
 

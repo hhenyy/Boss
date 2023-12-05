@@ -7,7 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>커뮤니티</title>
- <%@include file="/WEB-INF/views/common/chatbot.jsp"%>
 <!--header css 양식 include -->
  <%@include file="/WEB-INF/views/common/header.jsp"%>
 
@@ -15,7 +14,6 @@
 <link rel="stylesheet" href="css/freeBoard.css">
 <!-- <script src="https://apis.google.com/js/api.js"></script> -->
 <!-- <script src="./js/freeboardyoutube.js"></script> -->
-
 
 <!-- 유투브 API 시작 -->
 <script async>
@@ -96,7 +94,7 @@
 <!-- 전체 div시작 -->
 	<div class="community">
 		<table class="table_community">
-			<caption><a1>BOSS COMMUNITY</a1></caption>
+			<caption><a2>BOSS COMMUNITY</a2></caption>
 			<tr>
 				<th width="5%">번호</th>
 				<th width="40%">제목</th>

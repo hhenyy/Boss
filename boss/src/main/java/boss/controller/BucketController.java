@@ -72,10 +72,14 @@ public class BucketController {
 		int totalPrice = 0;
 		
 		for(int i = 0; i < list.size(); i++) {
-			Bucket b = list.get(i);
-			int price = b.getBprice();
-			int count = b.getBcount();
-			totalPrice += price * count;
+				Bucket b = list.get(i);
+				if(b.getBdrop().equals("N")) {
+					int price = b.getBprice();
+					int count = b.getBcount();
+					totalPrice += price * count;
+					System.out.println("총가격 : " + totalPrice);
+				}
+			
 		}
 		
 		model.addAttribute("list", list);

@@ -20,6 +20,4 @@ public interface LikeDao {
 
 	public Likes findLikes(Likes like);
 
-	public int countLike(int fId);
-
 }

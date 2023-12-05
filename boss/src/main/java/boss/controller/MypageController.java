@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import boss.model.AskBoard;
 import boss.model.Member;
 import boss.model.OrderDetail;
 import boss.model.Orders;
@@ -164,22 +163,5 @@ public class MypageController {
 		}
 
 	}
-	
-	// my ask폼으로 이동
-	@RequestMapping("mypageAskBoard.do")
-	public String mypageAskBoard(HttpSession session,Model model) {
-		
-		Member member = (Member) session.getAttribute("member");
-		
-		String mEmail = member.getmEmail();
-		
-		// 내가 쓴 ask 불러오기
-		List<Map<String,Object>> plist = service.productlist(mEmail);
-		System.out.println("plist.size() : " + plist.size());
-		model.addAttribute("plist", plist);
-		return "login/mypage/mypageAskBoard";
-	}
-	
-	//
 
 }
