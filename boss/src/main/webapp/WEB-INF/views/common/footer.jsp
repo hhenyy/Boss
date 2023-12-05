@@ -18,9 +18,9 @@
 
     <!-- 푸터 -->
     <div class="footer">
-        <p>주소 : 서울특별시 강남구 중앙정보처리학원 <br>
+        <p>주소 : Nous sommes au milieu de la France 33-874 <br>
 		   출처 : Team Boss <br>
-		   대표자 : 이현배	<br>
+		   대표자 : capo della squadra	<br>
 
 		   Tel: 02.1234.5678 <br>
 

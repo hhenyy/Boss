@@ -29,7 +29,7 @@
 	                location.href = "mypageReview.do";
 	            } else {
 	                alert("리뷰 삭제에 실패했습니다.");
-	                location.href = "mypageReview.do";
+	                history.go(-1);
 	            }
 	        },
 	        error: function () {
@@ -66,38 +66,35 @@
 					<li><a href='deleteForm.do'>회원 탈퇴</a></li>
 				</ul>
 			</div>
-			<c:if test="${not empty rlist}">
+			<c:if test="${not empty plist}">
 				<div class="content">
-					<h1>내가 쓴 리뷰</h1>
+					<h1>상품문의</h1>
 					<div class="container_review">
 						<table border="1" class="reviewtable">
 							<tr>
-								<th>리뷰 제목</th>
-								<th>내용</th>
+								<th>상품명</th>
 								<th>이미지</th>
+								<th>내용</th>
 								<th>작성일</th>
-								<th>리뷰 삭제</th>
 							</tr>
 
-							<c:forEach items="${rlist }" varStatus="loop" var="review">
+							<c:forEach items="${plist }" varStatus="loop" var="askproduct">
 								<tr>
-									<td onclick="doDetailPage(${review.pid})">${review.rtitle }</td>
-									<td onclick="doDetailPage(${review.pid})">${review.rcontent }</td>
-									<c:if test="${not empty review.rimage }">
+									<td onclick="doDetailPage(${askproduct.PID})">${askproduct.PNAME }</td>
+									<c:if test="${not empty askproduct.PIMAGE }">
 										<td style="position: relative;"
-											onclick="doDetailPage(${review.pid})"><img
-											src="./images/${review.rimage }" width="50" height="50"
+											onclick="doDetailPage(${askproduct.PID})"><img
+											src="./images/${askproduct.PIMAGE }" width="50" height="50"
 											class="toggle-image"> <span class="text-on-image">${o.PTEXT}</span>
 										</td>
 									</c:if>
-									<c:if test="${empty review.rimage }">
-										<td onclick="doDetailPage(${review.pid})">x</td>
+									<c:if test="${empty askproduct.PIMAGE }">
+										<td> x <td>
 									</c:if>
-									<fmt:formatDate value="${review.rreg }" pattern="yyyy년 MM월 dd일"
-										var="formattedDate" />
-									<td onclick="doDetailPage(${review.pid})">${formattedDate}</td>
-									<td><button class="deleteReview_btn"
-											onclick="deleteReview(${review.rid})">리뷰삭제</button></td>
+									<td onclick="doDetailPage(${askproduct.PID})">${askproduct.ASKCONTENT }</td>
+									<fmt:formatDate value="${askproduct.ASKREG }"
+										pattern="yyyy년 MM월 dd일" var="formattedDate" />
+									<td onclick="doDetailPage(${askproduct.PID})">${formattedDate}</td>
 								</tr>
 							</c:forEach>
 						</table>
@@ -107,9 +104,10 @@
 
 			</c:if>
 		</div>
-		<c:if test="${empty rlist}">
-			<div class="content_noreview">
-				<h1>작성한 리뷰글이 없습니다.</h1>
+		
+		<c:if test="${empty plist}">
+			<div class="content_noask">
+				<h1>작성한 ask문 없습니다.</h1>
 			</div>
 		</c:if>
 	</c:if>
