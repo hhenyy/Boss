@@ -6,38 +6,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>상품 문의 작성</title>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<!-- <script src="./js/product.js"></script> -->
+<title>문의 댓글</title>
+
 <!-- css 양식 include -->
 <%@include file="/WEB-INF/views/common/header.jsp"%>
-<script>
-$(document).ready(function(){
-	
-	$("#ask_insert_button2").click(function() {
-		
-		if($('#askcontent').val() == ""){
-			alert("문의내용을 입력해주세요.");
-			return false;
-		}
-	});
-	
-}); /* ask_insert_button2 end */
-
-	
-</script>
 
 
 <!-- css불러오기 -->
-<link rel="stylesheet" href="css/AskBoard.css">
+<link rel="stylesheet" href="css/AskReply.css">
 </head>
 <body>
-	<div class="Ask_insert">
-		<h1 class="" align="center">문의 작성</h1>
-		<form method="post" action="productAskBoardInsertCheck.do">
+	<div class="Ar_insert">
+		<h1 class="" align="center">문의 댓글</h1>
+		<form method="post" action="askReplyCheck.do">
 
 
-			<table class="askinsert_table">
+			<table class="arinsert_table">
 				<tr>
 					<th>상품번호</th>
 					<td class=""><input type="text" class="input_box" name="pid"
@@ -46,10 +30,10 @@ $(document).ready(function(){
 				<tr>
 					<th>작성자</th>
 					<td class=""><input type="text" class="input_box"
-						name="memail" readonly="readonly" value="${member.mEmail}"></td>
+						name="memail" readonly="readonly" value="${mEmail}"></td>
 				</tr>
 				<tr>
-					<th>상품문의날짜</th>
+					<th>문의날짜</th>
 					<td class=""><input type="text" class="input_box" name="rreg"
 						readonly="readonly" value="${askDate}"></td>
 				</tr>
@@ -61,15 +45,22 @@ $(document).ready(function(){
 
 
 				<tr>
-					<th>상품문의내용</th>
+					<th>문의내용</th>
 					<td><textarea rows="10" cols="50" class="input_box"
-							id="askcontent" name="askcontent"></textarea></td>
+							id="askcontent" name="askcontent" readonly="readonly">${askboard.askcontent }</textarea></td>
+				</tr>
+				<tr>
+					<th>댓글</th>
+					<td><textarea rows="10" cols="50" class="input_box"
+							id="arcontent" name="arcontent"></textarea></td>
 				</tr>
 			</table>
 
-			<div class="ask_insert_button">
-				<input type="submit" value="등록" id="ask_insert_button2" class="ask_insert_button2" /> 
-				<input type="reset" value="취소" class="ask_insert_button2"
+			<div class="ar_insert_button">
+				<c:if test="${member != null }">
+					<input type="submit" value="저장" class="ar_insert_button2" />
+				</c:if>
+				<input type="reset" value="취소" class="ar_insert_button2"
 					onclick="history.go(-1)" />
 			</div>
 		</form>

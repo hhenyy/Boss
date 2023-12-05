@@ -7,7 +7,7 @@ body {
 	padding: 0;
 }
 
-.Ask_insert {
+.Ar_insert {
 	width: 50%;
 	margin: 50px auto;
 	background-color: #fff;
@@ -20,20 +20,20 @@ h1 {
 	color: #333;
 }
 
-.askinsert_table {
+.arinsert_table {
 	width: 100%;
 	border-collapse: collapse;
 	margin-top: 20px;
 }
 
-.askinsert_table th, .askinsert_table td {
+.arinsert_table th, .arinsert_table td {
 	border: 1px solid #ddd;
 	padding: 10px;
 	text-align: left;
 	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
 }
 
-.askinsert_table th {
+.arinsert_table th {
 	background-color: #f2f2f2;
 }
 
@@ -50,12 +50,12 @@ textarea {
 	box-sizing: border-box;
 }
 
-.ask_insert_button {
+.ar_insert_button {
 	margin-top: 20px;
 	text-align: center;
 }
 
-.ask_insert_button2 {
+.ar_insert_button2 {
 	background-color: #000;
 	color: #fff;
 	padding: 10px 20px;

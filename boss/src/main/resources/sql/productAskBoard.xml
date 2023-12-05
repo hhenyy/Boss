@@ -18,6 +18,10 @@
 		select * from askboard where askid = #{askid}
 	</select>
 
-
-
+	<!-- 상품 문의 업데이트 -->
+	<update id="askupdate" parameterType="askboard">
+		update askboard set askcontent=#{askcontent},askreg=sysdate where askid = #{askid}
+	</update>
+	
+	
 </mapper>

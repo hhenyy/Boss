@@ -11,6 +11,9 @@
 <link rel="stylesheet" href="css/productDetailReview.css">
 <!-- css 양식 include -->
 <%@include file="/WEB-INF/views/common/header.jsp"%>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="./js/product.js"></script>
 </head>
 <body>
 	<div class="insert_main">
@@ -52,7 +55,7 @@
 				<tr>
 					<th>이미지</th>
 					<td><input type="file" class="input_box"
-						name="rimage1"></td>
+						name="rimage1" id="rimage1"></td>
 				</tr>
 				<tr>
 					<th>글내용</th>
@@ -62,7 +65,7 @@
 			</table>
 
 			<div class="review_insert_button2">
-				<input type="submit" value="등록" class="review_insert_button" /> <input
+				<input type="submit" value="등록" id="review_insert_button" class="review_insert_button" /> <input
 					type="reset" value="취소" class="review_insert_button"
 					onclick="history.go(-1)" />
 			</div>
