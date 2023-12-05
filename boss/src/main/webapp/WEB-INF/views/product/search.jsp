@@ -18,30 +18,27 @@
 	<link rel="stylesheet" href="assets/css/noscript.css" />
 </noscript>
 <script>
-		
-	function selChange() {
-			
-		var sel = document.getElementById('cntPerPage').value;
-		var a = document.getElementById('search').value;
-		location.href = "allSearch.do?nowPage=${pp.nowPage}&cntPerPage="+ sel+"&keyword="+a;
-	}
-	
 	function enterkey() {
-	   	var s = document.getElementById("search").value;
 		if (window.event.keyCode == 13) {
-	    	// 엔터키가 눌렸을 때
-	    	console.log(a)
-	    	location.href="categorySearch.do?newCid=${category.newCid}&keyword="+s;
-	    }
+			// 엔터키가 눌렸을 때
+			var s = document.getElementById("search").value;
+			location.href = "allSearch.do?keyword=" + s;
+		}
+	    
 	}
+	function selChange() {
+
+		var sel = document.getElementById('cntPerPage').value;
+		location.href = "allSearch.do?keyword=${pp.keyword}&nowPage=${pp.nowPage}&cntPerPage="
+		+ sel;
+		}
 </script>
 </head>
 
 <body class="is-preload">
 
-<!-- Wrapper -->
+	<!-- Wrapper -->
 	<div id="wrapper">
-
 		<!-- Header -->
 		<header id="header">
 			<div class="inner">
@@ -49,29 +46,27 @@
 				<!-- 쇼핑몰 로고 & 상단 아이콘 불러오기 -->
 				<%@include file="../common/header.jsp"%>
 
-				<!--1. 회원 or 비회원 페이지 -->
-					<div class="category-link" align="center">
-						<a href="category.do?newCid=맨투맨"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
-							style="text-decoration: none">OUTER</a> <a
-							href="category.do?newCid=맨투맨"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
-							style="text-decoration: none">KNIT</a> <a
-							href="category.do?newCid=맨투맨"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
-						<a href="category.do?newCid=맨투맨"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
-						<a href="category.do?newCid=맨투맨"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
-						<a href="category.do?newCid=맨투맨"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
-						<a href="category.do?newCid=맨투맨"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
-					</div>				
-					<div align="center" width="100px" height="100px">
+				<c:if test="${sessionId eq null}">
+					<a href="NaverLogin.do" style="text-decoration: none">로그인</a>
+				</c:if>
+				<c:if test="${sessionId ne null && sessionId eq 'boss'}">
+				${sessionId }님 환영합니다.
+				<a href="Logout.do" onclick="alert('로그아웃')"
+						style="text-decoration: none"><br>로그아웃</a>
+					<a href="productInsertForm.do" onclick="alert('상품등록')"
+						style="text-decoration: none"><br>상품등록</a>
+				</c:if>
+				<c:if test="${sessionId ne null && sessionId ne 'boss'}">
+				${sessionId }님 환영합니다.
+				<a href="Logout.do" onclick="alert('로그아웃')"
+						style="text-decoration: none"><br>로그아웃</a>
+				</c:if>
+				<div align="center" width="100px" height="100px">
 					<input type="text" id="search" maxlength="50"
 						value ="${pp.keyword }" onkeyup="enterkey()"><br>
 				</div>
+				
+				<c:if test="${not empty search}">
 				<div style="float: right;">
 					<select id="cntPerPage" name="sel" onchange="selChange()"
 						class="selected-five">
@@ -86,18 +81,14 @@
 							보기</option>
 					</select>
 				</div>
+				</c:if>
 
-				<!-- Logo -->
-				<a href="main.do" class="logo"> <span class="symbol"><img
-						src="images/logo.png" alt="" style="width: 200px; height: 100px;"></span><span
-					class="title">JY & HB</span>
-				</a>
 				<!-- Nav -->
-					<nav>
-						<ul>
-							<li><a href="#menu">Menu</a></li>
-						</ul>
-					</nav>
+				<nav>
+					<ul>
+						<li><a href="#menu">Menu</a></li>
+					</ul>
+				</nav>
 			</div>
 		</header>
 
@@ -105,10 +96,16 @@
 		<nav id="menu">
 			<h2>Menu</h2>
 			<ul>
-				<li><a href="category.do">카테고리</a></li>
+				<li><a href="index.do">JOIN</a></li>
+				<li><a href="NaverLogin.do">LOGIN</a></li>
+				<li><a href="mypage.do">MYPAGE</a></li>
+				<li><a href="CartFormMove.do">CART</a></li>
 				<li><a href="freeBoardList.do">커뮤니티</a></li>
 				<li><a href="masterNotice.do">공지사항</a></li>
 				<li><a href="elements.do">Elements</a></li>
+				<!-- 최종에서는 관리자페이지 빼기 -->
+				<input type="button" value="관리자페이지"
+					onclick="location.href='masterMain.do'">
 				<br>
 			</ul>
 		</nav>
@@ -116,17 +113,7 @@
 		<!-- Main -->
 		<div id="main">
 			<div class="inner">
-				<header align="left">
-
-					<h1>카테고리</h1>
-					<br>
-					<p align="left">
-						남성을 위한 수트<br> 포멀함과 세심한 디자인의 기능성이 만난 남성 수트를 소개합니다.<br> 포멀
-						& 캐주얼 스타일을 선보이는 우아한 컬렉션에서 소개하는 BO$$만의 실루엣을 발견해보세요.<br> 슬림핏과
-						가벼운 여름 스타일부터 턱시도와 스리피스 디자인까지, 세심한 스타일링에 중점을 둔 수트 컬렉션을 지금 확인해보세요.
-					</p>
-				</header>
-
+				<c:if test="${not empty search}">
 				<section class="tiles">
 					<!-- if문을 넣어 해당 카테고리의 상품이 없을 경우 화면 중앙에 '등록된 상품이 없습니다' 출력 -->
 					<c:forEach var="list" items="${search }" varStatus="loop">
@@ -142,6 +129,19 @@
 						</article>
 					</c:forEach>
 				</section>
+				</c:if>
+				
+				<c:if test="${empty search}">
+					<br><br><br>
+					<div align="center">
+					<h1>등록된 상품이 없습니다</h1>
+					</div>
+				</c:if>
+				
+				
+				
+				
+				
 			</div>
 			<!-- 다른 페이지로 넘어가기 위한 숫자들 자리 -->
 			<div align="center">

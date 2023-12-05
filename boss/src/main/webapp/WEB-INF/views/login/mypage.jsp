@@ -39,9 +39,7 @@
 			<li><a href='cartFormMove.do'>장바구니</a></li>
 			<li><a href='mypageQnA.do'>내가 쓴 QnA</a></li>
 			<li><a href='mypageReview.do'>내가 쓴 Review</a></li>
-			<li><a href='mypageAskBoard.do'>내가 물어본 상품문의</a></li>
 			<li><a href='updateForm.do'>내 정보 수정</a></li>
-			<li><a href='deleteForm.do'>회원 탈퇴</a></li>
 		</ul>
 
 		<c:if test="${not empty orders}">
@@ -53,7 +51,6 @@
 						<tr>
 							<th>주문번호</th>
 							<th>주문 금액</th>
-							<th>주문 상품 수량</th>
 							<th>수령인 성함</th>
 							<th>우편번호</th>
 							<th>주소</th>
@@ -65,7 +62,6 @@
 								<tr>
 									<td onclick = "mypageOrderDetail(${order.oid})">${order.oid}</td>
 									<td onclick = "mypageOrderDetail(${order.oid})">${order.ototalprice}</td>
-									<td onclick = "mypageOrderDetail(${order.oid})">${order.ocount}</td>
 									<td onclick = "mypageOrderDetail(${order.oid})">${order.oname}</td>
 									<td onclick = "mypageOrderDetail(${order.oid})">${order.opost}</td>
 									<td onclick = "mypageOrderDetail(${order.oid})">${order.oaddress}</td>

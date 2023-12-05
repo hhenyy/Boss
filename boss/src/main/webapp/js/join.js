@@ -2,7 +2,29 @@
  *  회원가입 관련 처리
  */
  
-
+function fn_join() {
+    var f = $('#join_frm');
+    var formData = f.serialize(); // 직렬화
+        
+    $.ajax({
+        type: "POST",
+        url: f.attr('action'), // 폼의 action 속성을 사용
+        data: formData,
+        dataType: "json", // 서버로부터 JSON 데이터를 예상
+        success: function(data) {
+            if (data.result == "Y") {
+                alert("회원가입이 완료되었습니다.");    
+                location.href = "NaverLogin.do";
+            } else {
+                alert("회원가입에 실패하였습니다.");
+            }
+        },
+        error: function(data) {
+            alert("회원가입 에러 발생!");
+            console.log(data);
+        }
+    });
+}
 
  
  $(function() { 

@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import boss.model.AskBoard;
 import boss.model.OrderDetail;
 import boss.model.Orders;
 import boss.model.QnaBoard;
@@ -27,13 +26,8 @@ public interface MypageDao {
 
 	OrderDetail myorderDetail(String odid);
 
-	List<OrderDetail> mypageOrderDetail(String oid);
-
-	List<HashMap<String, Object>> listProduct(Integer oid);
+	List<HashMap<String, Object>> listProduct(String mEmail);
 
 	Orders myorders(String mEmail);
-
-	List<Map<String, Object>> productlist(String mEmail);
-
 
 }

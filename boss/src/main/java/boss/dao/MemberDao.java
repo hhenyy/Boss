@@ -19,9 +19,6 @@ public interface MemberDao {
 	public int insertNMember(Map<String, Object> map);
 	
 	// 회원 정보 수정
-	public int updateMember(Member member);
-	
-	// 회원 탈퇴
-	public int deleteMember(String mEmail);  
+	public int updateMember(Member member);  
 	
 }

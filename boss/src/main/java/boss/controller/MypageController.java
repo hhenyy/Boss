@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import boss.model.AskBoard;
 import boss.model.Member;
 import boss.model.OrderDetail;
 import boss.model.Orders;
@@ -30,9 +29,6 @@ public class MypageController {
 
 	@Autowired
 	private MypageService service;
-
-	@Autowired
-	private MasterOrdersService ms;
 
 	@RequestMapping("mypage.do")
 	public String doMypage(HttpSession session, Model model) {
@@ -54,20 +50,19 @@ public class MypageController {
 	public String mypageOrderDetail(String oid,HttpSession session,Model model) {
 		
 		Member member = (Member) session.getAttribute("member");
-
-		List<Orders> list = new ArrayList<Orders>();
+		
+		String mEmail = member.getmEmail();
+		
 		List<Orders> orders = service.myoders(member.getmEmail()); // 내 주문내역 구해오기
 
 		List<HashMap<String, Object>> ordersList = new ArrayList<>();
-		
-		//int oid = Integer.parseInt(oid)
 		
 		// 주문 한 내역이 있다면
 		if (orders != null) { // 주문번호가 있다면.
 			System.out.println("주문 번호가 있다면??");
 			
 			// 이제 주문 상세를 뽑아올 수 있어야해
-			ordersList = service.listProduct(Integer.parseInt(oid));
+			ordersList = service.listProduct(mEmail);
 
 			// 모든정보의 List
 			model.addAttribute("ordersList", ordersList);
@@ -75,7 +70,7 @@ public class MypageController {
 
 			// 메세지 넣을 배열을 주문 갯수만큼 빼오기
 			String statusMsg[] = new String[ordersList.size()]; // 주문 갯수
-
+			
 			// 배송상태 처리
 			for (int i = 0; i < ordersList.size(); i++) {
 				HashMap<String, Object> orderstatus = ordersList.get(i); // 개별 주문 구해오기
@@ -168,22 +163,5 @@ public class MypageController {
 		}
 
 	}
-	
-	// my ask폼으로 이동
-	@RequestMapping("mypageAskBoard.do")
-	public String mypageAskBoard(HttpSession session,Model model) {
-		
-		Member member = (Member) session.getAttribute("member");
-		
-		String mEmail = member.getmEmail();
-		
-		// 내가 쓴 ask 불러오기
-		List<Map<String,Object>> plist = service.productlist(mEmail);
-		System.out.println("plist.size() : " + plist.size());
-		model.addAttribute("plist", plist);
-		return "login/mypage/mypageAskBoard";
-	}
-	
-	//
 
 }

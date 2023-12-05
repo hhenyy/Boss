@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.event.ListDataListener;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -118,27 +119,38 @@ public class ProductDetailController {
 
 	// 리뷰 등록
 	@RequestMapping(value = "productReviewcheck.do", method = { RequestMethod.POST, RequestMethod.GET })
-	public String prInsert(Model model, Review review, HttpSession session, String pid,
+	public String prInsert(Model model, Review review, HttpSession session, int pid,
 			@RequestParam(value = "rimage1", required = false) MultipartFile mfile) throws Exception {
 
 		int result = 0;
-
+		
+		System.out.println(pid);
+		
 		// 세션 얻어오기
 		Member member = (Member) session.getAttribute("member");
 
 		// 이메일 얻기
 		String mEmail = member.getmEmail();
-		System.out.println("세션 이메일 확인 : " + mEmail);
-
-		// pid set하기
-		int pid1 = Integer.parseInt(pid);
+		
+		// pid 받는 list 가져오기 
+		List<Map<String, Object>> plist = service.plist(mEmail);
+		
+		int pida[] = new int[plist.size()];
+		
+		for(int i = 0; i<plist.size(); i++) {
+			Object pidObject = plist.get(i).get("PID") ;
+			
+			pida[i] = Integer.parseInt(pidObject.toString());
+			
+			System.out.println(pida[i]);
+		}
+		
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("memail", mEmail);
-		map.put("pid", pid);
-
+		map.put("pid",pid);
 		// 내 이메일, pid 로 orders에서 정보 추출 (주문 내역이 있나)
-		List<Orders> olist = service.selectlist(map);
+		List<Orders> olist = service.selectlist(mEmail);
 
 		// 내가 쓴 리뷰 갯수 구하기
 		List<Review> rlist = service.selectReviewOne(map); // 내가 쓴 리뷰의 갯수
@@ -213,7 +225,6 @@ public class ProductDetailController {
 					}
 
 					review.setOid(oid[i]);
-					review.setPid(pid1);
 					review.setMemail(mEmail);
 					result = service.reviewInsert(review);
 					break;
@@ -224,7 +235,6 @@ public class ProductDetailController {
 			} // for문 end
 		} // if문 end
 
-		model.addAttribute("pid", pid1);
 		model.addAttribute("result", result);
 
 		return "./product/review/productReviewcheck";
@@ -282,13 +292,6 @@ public class ProductDetailController {
 	public String productReviewUpdateCheck(Model model, Review review, HttpSession session,
 			@RequestParam(value = "rimage1", required = false) MultipartFile mfile) throws Exception {
 		
-		//System.out.println("mfile : " + mfile.getName());
-		
-		System.out.println("memail : " + review.getMemail());
-		System.out.println(" pid " + review.getPid() );
-		System.out.println(" rid " + review.getRid() );
-	//	System.out.println(" rimage1 " +  rimage1);
-		System.out.println("review값 : " + review.getRid());
 		int result = 0;
 
 		// 세션 얻어오기
@@ -303,7 +306,7 @@ public class ProductDetailController {
 		map.put("pid", review.getPid());
 
 		// 내 이메일, pid 로 orders에서 정보 추출 (주문 내역이 있나)
-		List<Orders> olist = service.selectlist(map);
+		List<Orders> olist = service.selectlist(mEmail);
 
 		// 내가 쓴 리뷰 갯수 구하기
 		List<Review> rlist = service.selectReviewOne(map); // 내가 쓴 리뷰의 갯수
@@ -379,6 +382,7 @@ public class ProductDetailController {
 				review.setRimage(newfilename);
 				review.setRid(review.getRid());
 				review.setMemail(mEmail);
+				
 				// 리뷰를 업데이트합니다.
 				result = service.reviewupdate(review);
 

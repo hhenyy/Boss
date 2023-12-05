@@ -52,11 +52,8 @@
 			</table>
 
 			<div class="ask_insert_button">
-			<c:if test="${member != null }">
-			<input type="button" value="댓글" class="ask_insert_button2" onclick="location.href='askReplyForm.do?pid=${pid}&&askid=${askboard.askid }'" /> 
-				<input type="submit" value="수정" class="ask_insert_button2" />
-				</c:if>
-				 <input type="reset" value="취소" class="ask_insert_button2"
+				<input type="submit" value="수정" class="review_insert_button" /> <input
+					type="reset" value="취소" class="review_insert_button"
 					onclick="history.go(-1)" />
 			</div>
 		</form>
