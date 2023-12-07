@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>자유게시판 상세페이지</title>
+
 <!-- css 양식 include -->
 <%@include file="/WEB-INF/views/common/header.jsp"%>
 
@@ -16,7 +17,6 @@
 <!-- <link rel="stylesheet" href="css/freeBoard.css"> -->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="./js/freeboard.js"></script>
-<!-- <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script> -->
 
 <script type="text/javascript">
 	/* 	window.onload=function() {
@@ -62,17 +62,24 @@
 		});
 
 		// 좋아요가 있는지 확인한 값을 likeval에 저장
-		var likeval = '${hasLike}'
-        // likeval이 1이면 좋아요가 이미 되있는것이므로 fill-heart.svg를 출력하는 코드
-        if(likeval == 'Y') {
+//		var likeval = '${hasLike}'
+		var likeval = '${like.likeDrop}'
+        console.log(likeval);
+		
+		console.log("session:"+ '${sessionScope.member.mEmail}');
+		console.log("member.mEmail:"+ '${member.mEmail}');
+		console.log("mEmail:"+ '${like.mEmail}');
+		console.log("like_email:"+ '${like_email.mEmail}');
+		
+        // likeval이 Y이면 좋아요가 이미 되있는것이므로 fill-heart.svg를 출력하는 코드
+       // if(likeval == 'Y') {
+        if('${sessionScope.member.mEmail}' == '${like_email.mEmail}' ) {
+//        if(likeval == 'Y' &&  '${sessionScope.member.mEmail}' == '${like_email.mEmail}' ) {
             console.log(likeval);
             $("#heart").prop("src", "images/fill-heart.png");
-            $(".heart").prop('name',likeval)
-        }
-        else {
+        } else {
             console.log(likeval);
             $("#heart").prop("src", "images/bin-heart.png");
-            $(".heart").prop('name',likeval)
         }
 
 		// 좋아요 버튼을 클릭 시 실행되는 코드
@@ -81,21 +88,22 @@
  		 		alert("로그인 후에 이용 해주세요.");
  		 		return false;
  	 	    }
-           // var that = $(".heart");
 		    $.ajax({
 		    	url :'toggleLike.do',
 		        type :'POST',
-		        data : {'fId':${detail.fId}, 'mEmail':'${member.mEmail}'},
+		        data : {'fId':${detail.fId}, 'mEmail':'${member.mEmail}', 'likeDrop':'${like.likeDrop}'},
 		    	success : function(data){
-		    		//that.prop('name',data);
-		        	if(data==1) {
-// 		        		const newSource = 'https://lottie.host/embed/76218272-a8ce-4468-93a0-e0db07f1225d/X6Dc2iwNGF.json'
-// 		        		const lottiePlayer = document.getElementById('lottie');
-// 		        		lottiePlayer.setAttribute('src', newSource);
-// 		        		lottiePlayer.play();
-		            	     $('#heart').prop("src","images/fill-heart.png");
+		    		
+		    		console.log("data:"+ data);
+		    		console.log("data.result:"+ data.result);
+		    		console.log("fLike:"+ data.fboard.fLike);
+		    		
+		    		$("#div_fLike").text(data.fboard.fLike);		    		
+		    		
+		        	if('${like.likeDrop}' == 'Y' && '${result}' == '1') {
+            	     $('#heart').prop("src","images/fill-heart.png");
 		        	} else {
-	                    	 $('#heart').prop("src","images/bin-heart.png");
+                   	 $('#heart').prop("src","images/bin-heart.png");
 		        	}
              	}
 		    });
@@ -127,38 +135,37 @@
 			</tr>
 			<tr>
 				<td>첨부파일</td>
-				<td>
-				<c:if test="${empty detail.fImage}">
+				<td><c:if test="${empty detail.fImage}">
                   &nbsp;
                 </c:if> <c:if test="${!empty detail.fImage}">
-						<img src="images/${detail.fImage}"
-							height="100" width="100" />
+						<img src="images/${detail.fImage}" height="100" width="100" />
 					</c:if></td>
 			<tr>
 				<td>조회수</td>
 				<td>${detail.fReadCount}</td>
 			</tr>
 			<tr>
-<!--  heart : 좋아요O, fill-heart : 좋아요X -->
+				<!--  heart : 좋아요O, fill-heart : 좋아요X -->
 				<td>좋아요</td>
-	<td>
-	<div>
-	<a class="heart" style="text-decoration-line: none; cursor: pointer;">
-		<img id="heart" src="images/fill-heart.png">
-		${detail.fLike}
-    </a></div>
+				<td>
+					<div>
+						<a class="heart"  style="text-decoration-line: none; cursor: pointer;"> 
+							<img id="heart" src="images/bin-heart.png"> 좋아요 <div id="div_fLike">${detail.fLike}</div> 개
+						</a>
+					</div>
 				</td>
 			</tr>
 		</table>
 
 		<!-- button div 시작-->
-	<!-- 로그인 되어있고 글작성자와 mEmail이 같을때 삭제/수정 버튼 보임 -->
+		<!-- 로그인 되어있고 글작성자와 mEmail이 같을때 삭제/수정 버튼 보임 -->
 		<div class="div_boardform_button" align="center">
-	<c:if test="${!empty sessionScope.member && member.mEmail == detail.mEmail}">
-			<input type="button" class="boardform_button" value="수정"
-				onClick="location.href='freeBoardDetail.do?fId=${detail.fId}&page=${page}&state=update'">
-			<input type="button" class="boardform_button" value="삭제"
-				onClick="location.href='freeBoardDetail.do?fId=${detail.fId}&page=${page}&state=delete'">
+			<c:if
+				test="${!empty sessionScope.member && member.mEmail == detail.mEmail}">
+				<input type="button" class="boardform_button" value="수정"
+					onClick="location.href='freeBoardDetail.do?fId=${detail.fId}&page=${page}&state=update'">
+				<input type="button" class="boardform_button" value="삭제"
+					onClick="location.href='freeBoardDetail.do?fId=${detail.fId}&page=${page}&state=delete'">
 			</c:if>
 			<input type="button" class="boardform_button" value="목록"
 				onClick="location.href='freeBoardList.do?page=${page}'">
@@ -172,8 +179,8 @@
 		<div class="div_reply form">
 			<form name="frm" id="frm">
 				<input type="hidden" name="mEmail" value="${member.mEmail}">
-				<input type="hidden" name="fId" value="${detail.fId}"> 
-				댓글 : <textarea rows="2" cols="50" name="frContent" id="frContent"
+				<input type="hidden" name="fId" value="${detail.fId}"> 댓글 :
+				<textarea rows="2" cols="50" name="frContent" id="frContent"
 					placeholder="댓글을 입력해 주세요."></textarea>
 				<input type="button" value="확인" id="replyInsert"
 					class="button_replyok">
