@@ -59,8 +59,8 @@ public class MypageService {
 		return dao.myorderDetail(odid);
 	}
 
-	public List<HashMap<String, Object>> listProduct(String mEmail) {
-		return dao.listProduct(mEmail);
+	public List<HashMap<String, Object>> listProduct(Map<String,Object> map) {
+		return dao.listProduct(map);
 	}
 
 	public Orders myorders(String mEmail) {

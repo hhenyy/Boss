@@ -11,13 +11,13 @@
 	</select>
 
 	<!-- 주문번호안에 pid목록들 -->
-	<select id="listProduct" parameterType="String"
+	<select id="listProduct" parameterType="Map"
 		resultType="Map">
 		select *
 		from orderdetail
 		join orders
 		using (oid)
-		where mEmail = #{mEmail}
+		where mEmail = #{mEmail} and oid = #{oid}
 	</select>
 
 	<!-- order 객체 -->

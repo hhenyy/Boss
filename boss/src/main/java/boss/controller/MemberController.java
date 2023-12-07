@@ -182,7 +182,7 @@ public class MemberController {
 	// kakao 코드 받기
 	@RequestMapping("kakaologin.do")
 	public String kakaologin(@RequestParam(value = "code", required = false) String code, Model model,
-			HttpSession session) throws Throwable {
+			HttpSession session, Member member) throws Throwable {
 
 		// 1. 인가코드 받기 ( 인가코드로 토큰을 발행하는거임 )
 		System.out.println("code:" + code);
@@ -199,13 +199,29 @@ public class MemberController {
 		System.out.println("###email#### : " + userInfo.get("email"));
 
 		String nickname = (String) userInfo.get("nickname");
-		String email = (String) userInfo.get("email");
+		String mEmail = (String) userInfo.get("email");
 
-		model.addAttribute("nickname", nickname);
-		model.addAttribute("email", email);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mEmail", mEmail);
+		map.put("mName", nickname);
+		
+		Member checkmember = service.selectOne(mEmail);
 
-		session.setAttribute("member", nickname);
+		// 회원 가입이 안 되어 있을 경우
+		if (checkmember == null) {
+			// 카카오 회원 가입
+			int loginresult = service.insertKMember(map);
 
+			if (loginresult == 1) {
+				// 카카오 회원 member 불러오기
+				member = service.selectOne(mEmail);
+				// 카카오 세션 올리기
+				session.setAttribute("member", member);
+			}
+		} else { // 회원가입이 되어 있을경우 세션만 올림
+			session.setAttribute("member", checkmember);
+		}
+		
 		return "common/main";
 	}
 
