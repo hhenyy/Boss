@@ -104,12 +104,29 @@ public class ProductAskBoardController {
 		String askDate = sdf.format(date);
 		
 			
-	
+		model.addAttribute("askboard", askboard);
 		model.addAttribute("pid", product.getPid());
 		model.addAttribute("askDate", askDate);
 		return"./product/askBoard/productAskBoardUpdateForm";
 	}
-	
+	// 문의 수정
+	@RequestMapping("productAskBoardUpdateCheck.do")
+	public String productAskBoardUpdateCheck(Model model, AskBoard askboard,Product product) {
+		System.out.println("productAskBoardUpdateCheck");
+		
+		int result = 0;
+		
+		result = service.askboardupdate(askboard);
+		
+		model.addAttribute("result", result);
+		model.addAttribute("askboard", askboard);
+		model.addAttribute("askid", askboard.getAskid());
+		model.addAttribute("pid", askboard.getAskid());
+		
+		
+		return "./product/askBoard/productAskBoardUpdateCheck";
+		
+	}
 		
 	}
 

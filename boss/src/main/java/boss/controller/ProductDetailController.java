@@ -205,14 +205,14 @@ public class ProductDetailController {
 							sizeCheck = -1;
 							model.addAttribute("sizeCheck", sizeCheck);
 							System.out.println("설정범위 초과");
-							return "./product/productDetail.do?pid=" + pid;
+							return "./product/productDetail.do?pid=" + pida;
 
 							// 확장자가 jpg, png, jpeg, gif 가 아닐경우
 						} else if (!file[1].equals("jpg") && !file[1].equals("png") && !file[1].equals("jpeg")
 								&& !file[1].equals("gif")) {
 							extensionCheck = -1;
 							model.addAttribute("extensionCheck", extensionCheck);
-							return "./product/productDetail.do?pid=" + pid;
+							return "./product/productDetail.do?pid=" + pida;
 						}
 
 					}
@@ -236,6 +236,7 @@ public class ProductDetailController {
 		} // if문 end
 
 		model.addAttribute("result", result);
+		model.addAttribute("pid", pida);
 
 		return "./product/review/productReviewcheck";
 	}
@@ -279,6 +280,7 @@ public class ProductDetailController {
 			model.addAttribute("pid", pid);
 			model.addAttribute("mEmailreview", mEmailreview);
 			model.addAttribute("reviewDate", reviewDate);
+			model.addAttribute("rid", review.getRid());
 			return "./product/review/productReviewUpdateForm";
 		} else {
 

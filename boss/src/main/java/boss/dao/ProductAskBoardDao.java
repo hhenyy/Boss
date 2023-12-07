@@ -12,6 +12,10 @@ public interface ProductAskBoardDao {
 	
 	// 상품문의 불러오기
 	AskBoard askselect(int askid);
+	
+	// 상품 수정
+	int askboardupdate(AskBoard askboard);
+
 
 	
 	
