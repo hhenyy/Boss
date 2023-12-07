@@ -90,14 +90,14 @@ public class BucketController {
 	
 	@RequestMapping("cartListDelete.do")
 	public String cartListDelete(String bid,Model model,HttpServletRequest request) {
-		
+		System.out.println("cartListDelete");
 		int result = 0;
 		List<String> list = new ArrayList<String>();
 		System.out.println("bid : " + bid);
-		String[] str = request.getParameterValues("checkOne");
+		String[] str = request.getParameterValues("bidAll");
 		if((bid != null) || (str != null)) {
 			System.out.println("bid : " + bid);
-			System.out.println("checkOne : " + request.getParameterValues("checkOne"));
+			System.out.println("checkOne : " + request.getParameterValues("bidAll"));
 			if((bid != null) && (str == null)) {
 				// 1개 or 여러개
 				int id = Integer.parseInt(bid);
