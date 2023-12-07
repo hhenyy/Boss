@@ -26,19 +26,17 @@
    var seconds = today.getSeconds(); // 초
    var milliseconds = today.getMilliseconds();
    var makeMerchantUid = hours + minutes + seconds + milliseconds;
-
+   
    var pid = '${pid}';
+   //var bidList = JSON.stringify(${bidList});
    var name = '${member.mName}';
-   var amount = '${bucket.bprice}';
+   var amount = '${totalPrice}';
    var buyer_email = '${member.mEmail}';
    var buyer_name = '${member.mName}';
    var buyer_tel = '${member.mPhone}';
    var buyer_addr = '${member.mAddress}';
    var buyer_postcode = '${member.mPost}';
    var omessage = '${omessage}';
-   var bprice = ${bucket.bprice};
-   var bcount = ${bucket.bcount};
-   var ototalprice = bprice * bcount;
 
    function requestPay() {
       IMP.request_pay({
@@ -47,7 +45,6 @@
          merchant_uid : "IMP" + makeMerchantUid,
          name : name,
          amount : amount,
-		 
          buyer_email : buyer_email,
          buyer_name : buyer_name,
          buyer_tel : buyer_tel,
@@ -64,11 +61,12 @@
          if (rsp.success) {
 			alert('결제완료');
             console.log(rsp);
+            
              var toSend = {
 			   mEmail: buyer_email,
-			   bid: '${bucket.bid}',
-			   pid: pid,
-			   bcount:'${bcount}',
+ 			   pid: pid,
+			   //bidList: JSON.stringify(bidList),
+			   bcount: amount,
 			   oname: buyer_name,
 			   ophone: buyer_tel,
 			   opost: buyer_postcode,

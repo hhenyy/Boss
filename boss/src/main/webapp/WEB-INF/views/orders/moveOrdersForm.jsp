@@ -19,9 +19,10 @@
 
 <body>
    <form method="post" action="ordersForm.do">
-      <input type="hidden" name="bid" value="${bucket.bid}"> <input
+      <input
          type="hidden" name="mEmail" value="${member.mEmail}">
-       <input type="hidden" name="pid" value=${bucket.pid }>  
+       <input type="hidden" name="pid" value="${bucket.pid }"> 
+       <input type="hidden" name="totalPrice" value="${totalPrice }"> 
       <div class="container_main">
          <center>
             <h1 style="font-size: 50px">주문서 작성</h1>
@@ -68,6 +69,10 @@
 
 
             <h2>주문상품</h2>
+            
+            <c:if test="${result == 1}">
+            <c:forEach items="${bucketList}" var="bucket">
+            <input type="hidden" name="bidAll" value="${bucket.bid }">
             <table class="table_product">
                <tr>
                   <td class="product_img" rowspan="5"><img
@@ -88,6 +93,32 @@
                </tr>
 
             </table>
+            </c:forEach>
+             </c:if>
+             
+             <c:if test="${result == 0 }">
+             <input type="hidden" name="bid" value="${bucket.bid}"> 
+             	<table class="table_product">
+               <tr>
+                  <td class="product_img" rowspan="5"><img
+                     src="./imeges/${bucket.bimage}"></td>
+               <tr>
+                  <td><input type="text" value="${bucket.bname}" name="bname"
+                     readonly style="color: palegreen; font-size: 30px"></td>
+               </tr>
+
+               <tr>
+                  <td>${bucket.bsize}</td>
+               </tr>
+               <tr>
+                  <td>${bucket.bcolor}</td>
+               </tr>
+               <tr>
+                  <td>${bucket.bprice}&#8361;${bucket.bcount}개</td>
+               </tr>
+
+            </table>
+             </c:if>
 
          </div>
          <div class="container_right">
@@ -101,7 +132,7 @@
                      style="color: palegreen; font-size: 30px"></td>
                </tr>
                <tr>
-                  <td>총금액 : ${bucket.bprice }</td>
+                  <td>총금액 : ${totalPrice }</td>
                </tr>
                <tr>
                   <td>배송비 : 4000</td>
