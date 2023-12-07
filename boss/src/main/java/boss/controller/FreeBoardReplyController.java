@@ -31,11 +31,10 @@ public class FreeBoardReplyController {
 		System.out.println("freplylist:"+freplylist);
 		System.out.println("fId:"+fId);
 		
-		//댓글수 (출력안됨 수정하기)
+		//댓글수 (삭제된 댓글수출력됨 수정하기)
 		int replycount=frservice.replyCount(fId);
 		System.out.println("replycount:"+replycount);
 		model.addAttribute("replycount", replycount);
-		
 		
 		model.addAttribute("freplylist", freplylist);
 		model.addAttribute("detail", detail);

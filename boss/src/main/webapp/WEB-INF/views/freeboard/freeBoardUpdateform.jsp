@@ -29,7 +29,7 @@
 	</c:if>
 		<c:if test="${result == 2 }">
 	<script>
-		alert("파일은 200KB까지 업로드 가능합니다.");
+		alert("파일은 1000KB까지 업로드 가능합니다.");
 		history.go(-1);
 	</script>
 </c:if>

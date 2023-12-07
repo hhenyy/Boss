@@ -43,6 +43,14 @@ public class FreeBoardService {
 		return fdao.delete(fId);
 	}
 
+	public void inUpdate(FreeBoard board) {
+		 fdao.inUpdate(board);
+	}
+
+	public void deUpdate(FreeBoard board) {
+		 fdao.deUpdate(board);		
+	}
+
 
 
 }

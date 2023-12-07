@@ -16,8 +16,12 @@ public interface LikeDao {
 	public int insertLike(Likes like);
 
 	//좋아요 삭제
-	public void deleteLike(Likes like);
+	public int deleteLike(Likes like);
 
 	public Likes findLikes(Likes like);
+
+	public Likes getEmail(int fId);
+
+//	public int countLike(int fId);
 
 }
