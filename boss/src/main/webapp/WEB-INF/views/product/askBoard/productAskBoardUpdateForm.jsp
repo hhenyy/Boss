@@ -47,7 +47,7 @@
 				<tr>
 					<th>상품문의내용</th>
 					<td><textarea rows="10" cols="50" class="input_box"
-							id="askcontent" name="askcontent">${askboard.askcontent }</textarea></td>
+							id="askcontent" name="askcontent"></textarea></td>
 				</tr>
 			</table>
 

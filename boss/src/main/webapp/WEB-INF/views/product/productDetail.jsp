@@ -210,7 +210,7 @@
 		<div class="reivew_button">
 			<table class="table_ask" align="center" border="1">
 				<caption>문의 게시판</caption>
-				<tr align="center">
+				<tr align="center"> 
 					<th>문의 번호</th>
 					<th>이메일</th>
 					<th>문의 게시글</th>
