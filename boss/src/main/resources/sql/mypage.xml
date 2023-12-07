@@ -34,10 +34,37 @@
 		'N'
 	</select>
 
-	<!-- 내 QnA 불러오기 -->
-	<select id="myqnas" parameterType="String" resultType="qnaBoard">
-		select *
-		from qnaBoard where mEmail = #{mEmail} and qnaDrop = 'N'
+	<!-- 내 QNA 목록 갯수 구하기 -->
+	<select id="totalCount" parameterType="String" resultType="int">
+		select sum(A) from 
+		(select count(*) A from qnaboard where memail=#{memail}
+		union
+		select count(*) A from qnareply where memail=#{memail})
+	</select>
+
+	<!-- 내 QnA 목록 불러오기 + 페이징 -->
+	<select id="myqnas" parameterType="Map" resultType="qnaBoard">
+		select * from 
+		(select rownum rnum, A.* from 
+		(select * from 
+		(select qnaboard.*,0 as qrid, null as qrreg, null as qrdrop from qnaboard
+		union
+		select qid, memail, null as qnatitle, null as qnacontent, null as qnaorifile,null as qnareg,null as qnadrop,
+		'Y' as qnayn,qrid,qrreg,qrdrop from qnareply) 
+		where memail=#{memail} order by qid DESC, qrid asc) 
+		A)
+		where rnum between #{start} and #{end}
+	</select>
+	
+	<!-- QnA 등록 -->
+	<insert id="qnaInsert" parameterType="qnaBoard">
+		insert into qnaBoard values(QNA_SEQ.nextval,#{memail},#{qnatitle},#{qnacontent},#{qnaorifile,jdbcType=VARCHAR},SYSDATE,'N','N')
+	</insert>
+	
+	<!-- qid로 내 문의글 불러오기 -->
+	<select id="selectQna" parameterType="int"
+		resultType="qnaBoard">
+		select rownum rnum,qnaboard.* from  qnaboard where qid=#{qid}
 	</select>
 
 	<!-- 리뷰 삭제 -->
@@ -69,8 +96,7 @@
 		select *
 		from askboard
 		join Product ON askboard.pid = Product.pid
-		where
-		askboard.mEmail = #{mEmail} AND askboard.askdrop = 'N'
+		where askboard.mEmail = #{mEmail} AND askboard.askdrop = 'N'
 	</select>
 
 </mapper>

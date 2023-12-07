@@ -12,7 +12,10 @@ public interface BucketDao {
 
 	// 장바구니 전체리스트 구하기(세션)
 	List<Bucket> selectBucketList(String memail);
-
+	
+	// 장바구니 전체 리스트 구하기(bid) 오버로딩
+	List<Bucket> selectAllBucketList(List<String> bidList);
+	
 	// 상품디테일 폼에서 장바구니 추가를 누를경우 장바구니 인서트
 	int InsertCart(Map<String, Object> map);
 
@@ -31,5 +34,7 @@ public interface BucketDao {
 	int updateBdrop(Map<String, Object> map);
 
 	Bucket selectBucketOne(String bid);
+
+	
   
 }

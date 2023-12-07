@@ -2,7 +2,7 @@ package boss.model;
 
 import java.util.Date;
 
-public class QnaBoard {
+public class QnaBoard extends QnaReply {
 
 	private int qid;
 	private String memail;

@@ -19,6 +19,11 @@ public class BucketService {
 	public List<Bucket> selectBucketList(String memail) {
 		return dao.selectBucketList(memail);
 	}
+	
+	// 장바구니 전체 리스트 구하기(bid) 오버로딩
+	public List<Bucket> selectAllBucketList(List<String> bidList) {
+		return dao.selectAllBucketList(bidList);
+	}
 
 	// 상품디테일 폼에서 장바구니 추가를 누를경우 장바구니 인서트
 	public int InsertCart(Map<String, Object> map) {
@@ -53,5 +58,7 @@ public class BucketService {
 	public Bucket selectBucketOne(String bid) {
 		return dao.selectBucketOne(bid);
 	}
+
+	
 
 }
