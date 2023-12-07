@@ -22,6 +22,9 @@ public interface MemberDao {
 	public int updateMember(Member member);
 	
 	// 회원 탈퇴
-	public int deleteMember(String mEmail);  
+	public int deleteMember(String mEmail);
+	
+	// 카카오 회원 가입
+	public int insertKMember(Map<String, Object> map);  
 	
 }

@@ -171,4 +171,8 @@ public class MemberService  {
 		return dao.deleteMember(mEmail);
 	}
 
+	public int insertKMember(Map<String, Object> map) {
+		return dao.insertKMember(map);
+	}
+
 }

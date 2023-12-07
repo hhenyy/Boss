@@ -29,7 +29,7 @@
 
 <div id="container" class="container">
    <div class="content">
-      <div class="join_wrap">
+      <div class="update_wrap">
          <form id="join_frm" action="updateMember.do" method = "post">
          
             <div class="join_title">회원 수정</div>

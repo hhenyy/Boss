@@ -37,9 +37,9 @@ public class MypageController {
 
 	@Autowired
 	private MypageService service;
+	
+	// 마이페이지 이동
 
-	@Autowired
-	private MasterOrdersService ms;
 
 	@RequestMapping("mypage.do")
 	public String doMypage(HttpSession session, Model model) {
@@ -57,12 +57,19 @@ public class MypageController {
 		return "login/mypage";
 	}
 	
+	// 주문내역
 	@RequestMapping("mypageOrderDetail.do")
 	public String mypageOrderDetail(String oid,HttpSession session,Model model) {
 		
 		Member member = (Member) session.getAttribute("member");
+		
+		String mEmail = member.getmEmail();
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("mEmail", mEmail);
+		map.put("oid", oid);
 
-		List<Orders> list = new ArrayList<Orders>();
+
 		List<Orders> orders = service.myoders(member.getmEmail()); // 내 주문내역 구해오기
 
 		List<HashMap<String, Object>> ordersList = new ArrayList<>();
@@ -74,7 +81,8 @@ public class MypageController {
 			System.out.println("주문 번호가 있다면??");
 			
 			// 이제 주문 상세를 뽑아올 수 있어야해
-			ordersList = service.listProduct(Integer.parseInt(oid));
+
+			ordersList = service.listProduct(map);
 
 			// 모든정보의 List
 			model.addAttribute("ordersList", ordersList);
@@ -105,7 +113,7 @@ public class MypageController {
 		return "login/mypage/mypageOrderDetail";
 	}
 	
-	
+	// 리뷰 페이지 이동
 	@RequestMapping("mypageReview.do")
 	public String mypageReview(HttpSession session, Model model) {
 

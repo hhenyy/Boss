@@ -27,9 +27,7 @@ public interface MypageDao {
 
 	OrderDetail myorderDetail(String odid);
 
-	List<OrderDetail> mypageOrderDetail(String oid);
-
-	List<HashMap<String, Object>> listProduct(Integer oid);
+	List<HashMap<String, Object>> listProduct(Map<String,Object> map);
 
 	Orders myorders(String mEmail);
 
