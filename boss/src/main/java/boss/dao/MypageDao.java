@@ -19,7 +19,7 @@ public interface MypageDao {
 
 	List<Review> myreviews(String mEmail);
 
-	List<QnaBoard> myqnas(String mEmail);
+	List<QnaBoard> myqnas(Map<String, Object> search);
 
 	int mypageDeleteReview(String rid);
 
@@ -27,11 +27,19 @@ public interface MypageDao {
 
 	OrderDetail myorderDetail(String odid);
 
-	List<HashMap<String, Object>> listProduct(String mEmail);
+	List<OrderDetail> mypageOrderDetail(String oid);
+
+	List<HashMap<String, Object>> listProduct(Integer oid);
 
 	Orders myorders(String mEmail);
 
 	List<Map<String, Object>> productlist(String mEmail);
+
+	int qnaInsert(QnaBoard board);
+
+	QnaBoard selectQna(int qid);
+
+	int totalCount(String mEmail);
 
 
 }
