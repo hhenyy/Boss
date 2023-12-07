@@ -15,13 +15,14 @@
 	<c:set var="now" value="<%=new java.util.Date()%>" />
 	<fmt:formatDate var="date" value="${now}" type="date"
 		pattern="yyyy-MM-dd (E) HH:mm:ss" />
-	<form method="post" action="reportWrite.do">
+	<form method="post" action="reportWrite.do"
+		enctype="multipart/form-data">
 		<div class="container_main">
 			<h1>신고 작성 게시판</h1>
 			<table class="table_main" border="1">
 				<tr>
 					<th>신고자명</th>
-					<td><input type="text" name="memail" value=""
+					<td><input type="text" name="reportname" value=""
 						placeholder="신고할 ID를 입력하세요."></td>
 					<th>작성일</th>
 					<td><input readonly="readonly" type="text" value="${date }"></td>
@@ -38,12 +39,12 @@
 				</tr>
 				<tr>
 					<th>이미지</th>
-					<td colspan="3"><input type="file"></td>
+					<td colspan="3"><input type="file" name="image1"></td>
 				</tr>
 				<tr>
 					<th>신고자</th>
 					<td colspan="3"><input readonly="readonly" type="text"
-						name="reportname" value="신고자아이디"></td>
+						name="memail" value="${member.mEmail }"></td>
 				</tr>
 			</table>
 			<div class="button_row">
