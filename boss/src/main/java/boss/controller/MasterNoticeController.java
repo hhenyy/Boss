@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mysql.cj.protocol.x.Notice;
-
 import boss.common.PagePgm;
 import boss.model.MasterNotice;
 import boss.service.MasterNoticeService;
@@ -252,6 +250,7 @@ public class MasterNoticeController {
 		return "./master/notice/masterNotice";
 	}
 	
+	//공지 검색
 	@RequestMapping("masterNoticeSearch.do")
 	public String masterNoticeSearch(PagePgm pp, 
 			@RequestParam(value = "nowPage", required = false) String nowPage,
@@ -276,7 +275,7 @@ public class MasterNoticeController {
 		return "./master/notice/masterNoticeSearch";
 	}
 	
-	// 공지 내용 : 세부 내용 띄우면서 조회수 + 1
+		// 공지 내용 : 세부 내용 띄우면서 조회수 + 1
 		@RequestMapping("masterNoticeDetail.do")
 		public String masterNoticeDetail(PagePgm pp, Model model, MasterNotice mn) {
 
@@ -286,7 +285,7 @@ public class MasterNoticeController {
 			// 해당 공지 번호의 자료 조회
 			mn = service.selectOne(mn.getmnId());
 			//글 번호의 최대값 구하기
-			mn.setRnumMax(service.noticeMax());
+			pp.setTotal(service.totalCount());
 			System.out.println(mn.getMnOriFile());
 			System.out.println("조회2");
 			System.out.println(mn.getmnId());
@@ -294,7 +293,8 @@ public class MasterNoticeController {
 
 			model.addAttribute("mnId", mn.getmnId());
 			model.addAttribute("pp", pp);
-			model.addAttribute("masterNoticeDetail", mn);
+			model.addAttribute("mnd", mn);
+			//mnId,pp,mnd 값들을 다음 페이지로 전송
 
 			return "./master/notice/masterNoticeDetail";
 		}
@@ -305,22 +305,29 @@ public class MasterNoticeController {
 				@RequestParam(value = "nowPage", required = false) String nowPage,
 				@RequestParam(value = "cntPerPage", required = false) String cntPerPage) {
 
+			System.out.println(mn.getRnum());
+			
 			// 조회수 + 1
 			service.updateMnReadCount(mn.getRnum());
 			//글 번호의 최대값 구하기
-			mn.setRnumMax(service.noticeMax());
+			
+			int t = service.totalCount();
+			pp.setTotal(t);
+			System.out.println("최대값:"+pp.getTotal());
+			
 			// 해당 글 번호의 자료 조회
 			mn = service.selectMove(mn.getRnum());
-			//해당 메소드는 id를 통해 값을 찾음. 이 부분 수정 필요
-			System.out.println(mn.getmnId());
-			System.out.println("최대값:"+mn.getRnumMax());
-			System.out.println(mn.getRnum());
+			
+			System.out.println("글 아이디:"+mn.getmnId());
+			System.out.println("글번호:"+mn.getRnum());
 
 			model.addAttribute("mnId", mn.getmnId());
+			model.addAttribute("cntPerPage", pp.getCntPerPage());
+			//model.addAttribute를 통해 단일값을 공유하면 get방식으로 공유됨. url 주소에서 확인 가능
 			model.addAttribute("pp", pp);
-			model.addAttribute("masterNoticeDetail", mn);
+			model.addAttribute("mnd", mn);
 
-			return "./master/notice/masterNoticeDetail";
+			return "redirect:/masterNoticeDetail.do";
 		}
 
 }

@@ -2,7 +2,9 @@ package boss.model;
 
 import java.util.Date;
 
-public class QnaReply {
+import boss.common.RowNum;
+
+public class QnaReply extends RowNum {
 
 	private int qrid;
 	private String memail;

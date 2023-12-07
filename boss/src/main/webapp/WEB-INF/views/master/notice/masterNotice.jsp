@@ -53,39 +53,40 @@
 		<header id="header">
 			<div class="inner">
 
-				<c:if test="${sessionId eq null}">
-					<a href="NaverLogin.do" style="text-decoration: none">로그인</a>
-				</c:if>
-				<c:if test="${member ne null && member.mEmail eq 'master'}">
-				${sessionId }님 환영합니다.
-				<a href="Logout.do" onclick="alert('로그아웃')"
-						style="text-decoration: none"><br>로그아웃</a>
-					<a href="productInsertForm.do" onclick="alert('상품등록')"
-						style="text-decoration: none"><br>상품등록</a>
-				</c:if>
-				<c:if test="${member ne null && member.mEmail ne 'master'}">
-				${sessionId }님 환영합니다.
-				<a href="Logout.do" onclick="alert('로그아웃')"
-						style="text-decoration: none"><br>로그아웃</a>
-				</c:if>
+				<!-- 쇼핑몰 로고 & 상단 아이콘 불러오기 -->
+				<%@include file="../../common/header.jsp"%>
+
+				<!--1. 회원 or 비회원 페이지 -->
+					<div class="category-link" align="center">
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
+							style="text-decoration: none">OUTER</a> <a
+							href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
+							style="text-decoration: none">KNIT</a> <a
+							href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
+					</div>
 
 				<div align="center" width="100px" height="100px">
 					<input type="text" maxlength="50" placeholder="검색어를 입력하세요."
 						id="search" onkeyup="enterkey()"><br>
-
-
 				</div>
-				<!-- Logo -->
-				<a href="main.do" class="logo"> <span class="symbol"><img
-						src="images/logo.png" alt="" style="width: 200px; height: 100px;"></span><span
-					class="title">JY & HB</span>
-				</a>
+				
 				<!-- Nav -->
 				<nav>
-					<ul>
-						<li><a href="#menu">Menu</a></li>
-					</ul>
-				</nav>
+						<ul>
+							<li><a href="#menu">Menu</a></li>
+						</ul>
+					</nav>
 			</div>
 		</header>
 
@@ -93,13 +94,10 @@
 		<nav id="menu">
 			<h2>Menu</h2>
 			<ul>
-				<li><a href="main.do">Home</a></li>
 				<li><a href="category.do">카테고리</a></li>
-				<li><a href="productDetail.do">Tempus etiam</a></li>
-				<li><a href="productDetail.do">Consequat dolor</a></li>
+				<li><a href="freeBoardList.do">커뮤니티</a></li>
+				<li><a href="masterNotice.do">공지사항</a></li>
 				<li><a href="elements.do">Elements</a></li>
-				<input type="button" value="관리자페이지"
-					onclick="location.href='masterMain.do'">
 				<br>
 			</ul>
 		</nav>
@@ -115,8 +113,6 @@
 				<section class="tiles">
 
 					<!-- 공지사항 테이블 출력 -->
-					<!-- 폼으로 만들 이유X 수정 필요 -->
-					<form method="post" action="javascript:popup()">
 						<div class="container">
 							<!-- 옵션선택 끝 -->
 							<table
@@ -124,24 +120,18 @@
 								<tr>
 									<th>글번호</th>
 									<th>제목</th>
-									<th>내용</th>
 									<th>작성일</th>
 									<th>조회수</th>
 								</tr>
 								<c:set var="i" value="1"></c:set>
 								<c:forEach var="masterNotice" items="${list}" varStatus="loop">
-									<tr>
+									<tr 
+									onclick="location.href='masterNoticeDetail.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' ">
 										<td id="${i }">${i }</td>
-										<td
-											onclick="location.href='masterNoticeDetail.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' ">${masterNotice.mnTitle}</td>
-										<td
-											onclick="location.href='masterNoticeDetail.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' ">${masterNotice.mnContent}</td>
-										<td
-											onclick="location.href='masterNoticeDetail.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' "><fmt:formatDate
+										<td>${masterNotice.mnTitle}</td>
+										<td><fmt:formatDate
 												pattern="yyyy-MM-dd hh:mm" value="${masterNotice.mnReg}" /></td>
-										<td
-											onclick="location.href='masterNoticeDetail.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' ">${masterNotice.mnReadCount}
-										</td>
+										<td>${masterNotice.mnReadCount}</td>
 										<c:if test="${member ne null && member.mEmail eq 'master'}">
 											<td>
 												<button type="button"
@@ -157,8 +147,8 @@
 									<c:set var="i" value="${i + 1}"></c:set>
 								</c:forEach>
 							</table>
-							<c:if test="${member ne null}">
-								<button type="submit" class="putsub">공지사항 등록</button>
+							<c:if test="${member ne null && member.mEmail eq 'master'}">
+								<button type="button" class="putsub" onclick="javascript:popup()">공지사항 등록</button>
 							</c:if>
 					</form>
 				</section>

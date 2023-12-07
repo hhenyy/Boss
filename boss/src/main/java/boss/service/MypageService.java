@@ -43,8 +43,8 @@ public class MypageService {
 		return dao.myreviews(mEmail);
 	}
 
-	public List<QnaBoard> myqnas(String mEmail) {
-		return dao.myqnas(mEmail);
+	public List<QnaBoard> myqnas(Map<String, Object> search) {
+		return dao.myqnas(search);
 	}
 
 	public int mypageDeleteReview(String rid) {
@@ -59,8 +59,12 @@ public class MypageService {
 		return dao.myorderDetail(odid);
 	}
 
-	public List<HashMap<String, Object>> listProduct(String mEmail) {
-		return dao.listProduct(mEmail);
+	public List<OrderDetail> mypageOrderDetail(String oid) {
+		return dao.mypageOrderDetail(oid);
+	}
+
+	public List<HashMap<String, Object>> listProduct(Integer oid) {
+		return dao.listProduct(oid);
 	}
 
 	public Orders myorders(String mEmail) {
@@ -70,6 +74,20 @@ public class MypageService {
 	public List<Map<String, Object>> productlist(String mEmail) {
 		return dao.productlist(mEmail);
 	}
-	
+
+	public int qnaInsert(QnaBoard board) {
+
+		return dao.qnaInsert(board);
+	}
+
+	public QnaBoard selectQna(int qid) {
+
+		return dao.selectQna(qid);
+	}
+
+	public int totalCount(String mEmail) {
+
+		return dao.totalCount(mEmail);
+	}
 
 }
