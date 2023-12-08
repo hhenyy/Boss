@@ -130,7 +130,7 @@
    
    <!-- 메인 상품 리스트 구하기 -->
    <select id="selectMainProductList" resultType="mainImage">
-   		select * from mainimage order by mainid
+   		select * from mainimage order by mainid desc
    </select>
    
 <!--    <update id="updateMainImageInsert" parameterType="string"> -->
