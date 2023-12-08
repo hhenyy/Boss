@@ -32,7 +32,7 @@
         	location.href="masterNoticeDelete.do?mnId="+abc+"&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }"
         	alert("삭제되었습니다!")		
         }
-        console.log("삭제")
+        event.stopPropagation()
       }
     function enterkey() {
 		if (window.event.keyCode == 13) {
@@ -42,6 +42,11 @@
 			/* searchType을 적용시킨 검색도 필요 */
 		}
 	}
+    
+    function update(a,b){
+    	location.href="masterNoticeUpdateForm.do?rnum="+a+"&mnId="+b+"&cntPerPage=${pp.cntPerPage}"
+    	event.stopPropagation()
+    }
 </script>
 </head>
 
@@ -135,10 +140,8 @@
 										<c:if test="${member ne null && member.mEmail eq 'master'}">
 											<td>
 												<button type="button"
-													onclick="location.href='masterNoticeUpdateForm.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage}&cntPerPage=${pp.cntPerPage}'">수정</button>
+													onclick="javascript:update(${masterNotice.rnum},${masterNotice.mnId})">수정</button>
 												<button type="button" id="delete"
-													value="${masterNotice.mnId}" id="deleteCheck"
-													value="${masterNotice.mnId}"
 													onclick="javascript:deleteCheck(${masterNotice.mnId})">삭제</button>
 												<!-- mnId는 items="{list}" 안에 포함된 정보.  -->
 											</td>

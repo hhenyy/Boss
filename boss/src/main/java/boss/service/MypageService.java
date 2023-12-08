@@ -12,6 +12,7 @@ import boss.model.AskBoard;
 import boss.model.OrderDetail;
 import boss.model.Orders;
 import boss.model.QnaBoard;
+import boss.model.QnaReply;
 import boss.model.Review;
 
 @Service
@@ -85,6 +86,26 @@ public class MypageService {
 	public int totalCount(String mEmail) {
 
 		return dao.totalCount(mEmail);
+	}
+
+	public QnaReply selectReply(int qrid) {
+
+		return dao.selectReply(qrid);
+	}
+
+	public int findQrid(int qid) {
+
+		return dao.findQrid(qid);
+	}
+
+	public void qnaDelete(int qid) {
+
+		dao.qnaDelete(qid);
+	}
+
+	public void replyDelete(int qid) {
+
+		dao.replyDelete(qid);
 	}
 
 }

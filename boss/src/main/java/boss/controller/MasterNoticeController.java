@@ -217,9 +217,10 @@ public class MasterNoticeController {
 		// update문 실행. 완성된 DTO 객체를 전송, 테이블에 덮어씌움
 		service.masterNoticeUpdate(mn);
 
-		return "redirect:/masterNoticeDetail.do?mnId=" + mn.getmnId();
+		return "redirect:/masterNoticeDetail.do?mnId=" + mn.getmnId()+
+				"&nowPage="+((mn.getRnum()-1)/pp.getCntPerPage())+1
+				+"&cntPerPage="+pp.getCntPerPage();
 	}
-
 	// 공지사항 목록 페이지 출력
 	@RequestMapping("masterNotice.do")
 	public String masterNotice(PagePgm pp, Model model,

@@ -15,7 +15,7 @@
 <div class="container" align="center">
 		<h2>공지사항</h2>
 		<div class="inner">
-		<form action="masterNoticeUpdate.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage}&cntPerPage=${pp.cntPerPage}" method="post" enctype="multipart/form-data" target="repacatFrame">
+		<form action="masterNoticeUpdate.do?mnId=${masterNotice.mnId}&nowPage=${Integer.toString(Math.floor((mn.rnum-1)/pp.cntPerPage)+1)}&cntPerPage=${pp.cntPerPage}" method="post" enctype="multipart/form-data" target="repacatFrame">
 			<table class="table table-hover">
 				<tr>
 					<td>제목</td>
