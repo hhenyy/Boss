@@ -31,7 +31,7 @@
 		update askboard set askdrop = 'Y'
 	</update>
 	
-<!-- 	<!-- 문의 댓글 불러오기 --> -->
+ 	<!-- 문의 댓글 불러오기 -->
 <!-- 	<select id="arselect" parameterType="int" resultType="askreply"> -->
 <!-- 		select * from askreply where askid = #{askid} -->
 <!-- 	</select> -->
