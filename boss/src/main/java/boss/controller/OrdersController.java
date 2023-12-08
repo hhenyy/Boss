@@ -9,11 +9,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import boss.model.Bucket;
@@ -38,10 +40,10 @@ public class OrdersController {
 	 * 결제하기 이동 메소드
 	 */
 	@RequestMapping("ordersForm.do")
-	public String ordersForm(Member member, Model model,String pid, String bid, String mEmail, String omessage,
+	public String ordersForm(Member member, Model model,String pid, String bid, String mEmail, String omessage, String amountCount,
 			HttpServletRequest request) {
 		System.out.println("ordersForm");
-		int result = 0;
+		System.out.println("ordersForm bid : " + bid);
 		String[] bidAll = request.getParameterValues("bidAll");
 		System.out.println("bidAll :" + bidAll);
 		List<String> bidList = new ArrayList<String>();
@@ -51,20 +53,20 @@ public class OrdersController {
 		if ((bid != null && bid != "") || (bidAll != null)) { // 값이 뭐라도 한개있음
 			if ((bid != null && bid != "") && (bidAll == null)) { // 값이 단일값임
 				System.out.println("1");
-				bidList.add(0, bid);
+				//bidList.add(0, bid);
 				model.addAttribute("bidList", bidList);
-				model.addAttribute("result", 0);
 				model.addAttribute("pid", pid);
+				model.addAttribute("bid", bid);
+				model.addAttribute("amountCount", amountCount);
 
 			} else if ((bid == null || bid == "") || (bidAll != null)) { // 값이 여러개임
 				System.out.println("2");
 				bidList = Arrays.asList(bidAll);
 				model.addAttribute("bidList", bidList);
-				model.addAttribute("result", 0);
+				model.addAttribute("amountCount", amountCount);
 			}
 		} else { // 값이 없음
 			System.out.println("3");
-			model.addAttribute("result", 1);
 		}
 
 		// model.addAttribute("bucket", bucket);
@@ -89,7 +91,7 @@ public class OrdersController {
 	public String moveOrdersForm(Bucket bucket, String bid, String pid, HttpServletRequest request, HttpSession session,
 			Model model) {
 		System.out.println("moveOrdersForm");
-		int result, totalPrice = 0;
+		int result,amountCount = 0, totalPrice = 0;
 
 		List<String> bidList = new ArrayList<String>();
 		List<Bucket> bucketList = new ArrayList<Bucket>();
@@ -105,10 +107,13 @@ public class OrdersController {
 				bucket = bs.selectBucketOne(bid);
 				totalPrice = bucket.getBprice() * bucket.getBcount();
 				result = 0;
+				amountCount = bucket.getBcount();
 				model.addAttribute("bucket", bucket);
 				model.addAttribute("member", member);
 				model.addAttribute("result", result);
 				model.addAttribute("pid", pid);
+				model.addAttribute("bid", bid);
+				model.addAttribute("amountCount", amountCount);
 				System.out.println("버튼으로 들어옴 bid : " + bid);
 				model.addAttribute("totalPrice", totalPrice);
 			}
@@ -122,11 +127,15 @@ public class OrdersController {
 				model.addAttribute("bucketList", bucketList);
 				model.addAttribute("member", member);
 				model.addAttribute("result", result);
+				model.addAttribute("pid", pid);
+				model.addAttribute("bid", bid);
 				System.out.println("메서드 실행 후, : " + bucketList.size());
 				for (int i = 0; i < bucketList.size(); i++) {
+					amountCount++;
 					totalPrice += bucketList.get(i).getBprice() * bucketList.get(i).getBcount();
 					model.addAttribute("totalPrice", totalPrice);
 				}
+				model.addAttribute("amountCount", amountCount);
 			}
 		} else { // 값이 하나도 안들어옴.
 			System.out.println("아무값도 없음.");
@@ -141,36 +150,55 @@ public class OrdersController {
 	 */
 	@ResponseBody
 	@RequestMapping("orderResult.do")
-	public String orderResult(String mEmail, String bid, Orders orders, String pid, String bcount, @RequestBody List<String> bidList) {
-		System.out.println("가자고 ㅋㅋ: " + bid);
+	public String orderResult(String mEmail, String bid, String amountCount,
+			Orders orders, String pid, String bcount,String omessage,@RequestParam Map<String, List<String>> bidList) {
+		System.out.println("orderResult");
 		System.out.println("bidList : " + bidList);
-		bidList = (List) bidList;
 		Map<String, Object> map = new HashMap<String, Object>();
-
+			System.out.println("orders : " + orders);
+			System.out.println("orderResult bid : " + bid);
 		if (orders != null) {
 			orders.setMemail(mEmail);
-			System.out.println("여기는?");
-			int result = os.insertOrders(orders);
-			if (result == 1) {
-
-				orders = os.selectOrdersOne(orders.getMemail());
-				System.out.println("oid : " + orders.getOid());
-				Product product = mps.selectOne(pid);
-				map.put("product", product);
-				map.put("oid", orders.getOid());
-				map.put("bcount", bcount);
-				int insertOrderDetail = os.insertOrderDetail(map);
-				System.out.println("insertOrderDetail : " + insertOrderDetail);
-				System.out.println(product.getPid());
-				System.out.println("주문 등록 성공");
-				int id = Integer.parseInt(bid);
-				int bucket = bs.deleteCartOne(id);
-				map.put("pid", pid);
-				int productCount = os.updateProductCount(map);
+			if(bid != "") {
+				int result = os.insertOrders(orders);
+				if (result == 1) {
+					System.out.println("단일값으로 넘어옴 bid");
+					orders = os.selectOrdersOne(orders.getMemail());
+					Product product = mps.selectOne(pid);
+					map.put("product", product);
+					map.put("oid", orders.getOid());
+					map.put("amountCount", amountCount);
+					int insertOrderDetail = os.insertOrderDetail(map);
+					int id = Integer.parseInt(bid);
+					int bucket = bs.deleteCartOne(id);
+					map.put("pid", pid);
+					int productCount = os.updateProductCount(map);
+				}
+			}else if(bid == "") {
+				JSONObject jsonObject = new JSONObject(bidList);
+				String s = (String)jsonObject.get("bidList");
+				System.out.println(s);
+				s = s.substring(2, s.length() - 2);
+				String[] f = s.split(", ");
+				int result = os.insertOrders(orders);
+				for(int i = 0; i < f.length; i++) {
+					System.out.println("*");
+					System.out.println("f[i] : " + f[i]);
+					Bucket bucket = bs.selectBucketOne(f[i]);
+					int pids = bucket.getPid();
+					orders = os.selectOrdersOne(orders.getMemail());
+					
+					Product product = mps.selectProductOne(pids);
+					map.put("product", product);
+					map.put("oid", orders.getOid());
+					map.put("amountCount", amountCount);
+					int insertOrderDetail = os.insertOrderDetail(map);
+					int bucketDel = bs.deleteCartOne(Integer.parseInt(f[i]));
+					map.put("pid", pids);
+					int productCount = os.updateProductCount(map);
+				}
 			}
-		} else if (orders == null) {
-			System.out.println("오더 null");
-		}
+		} 
 
 		// map.
 

@@ -68,7 +68,7 @@
 					<c:set var="i" value="1"></c:set>
 					<c:forEach var="bucket" items="${list }" varStatus="loop">
 						<c:if test="${bucket.bdrop eq 'N'}">
-							<input type="hidden" name="pidAll" value="${bucket.pid }"
+							<input type="hidden" name="pidAll" value="${bucket.pid }">
 								<tr class="cart__list__detail">
 								<td><input type="checkbox" name="bidAll"
 									value="${bucket.bid }"></td>

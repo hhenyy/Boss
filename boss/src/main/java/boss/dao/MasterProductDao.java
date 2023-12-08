@@ -62,6 +62,9 @@ public interface MasterProductDao {
 
 	int updateMainImageInsert(Map<String, Object> map);
 
+	// 상품 상세정보 구하기(int)
+	Product selectProductOne(int pids);
+
 	// 메인 이미지 변경하기
 //	int updateMainImageInsert(@Param("product") Product product, @Param("block") String block);
 

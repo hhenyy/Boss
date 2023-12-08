@@ -35,6 +35,9 @@ public interface BucketDao {
 
 	Bucket selectBucketOne(String bid);
 
+	// String bid 로 장바구니 한개 구하기
+	Bucket OneBucket(int bids);
+
 	
   
 }

@@ -7,7 +7,7 @@
 	<!-- 세션을 통해 장바구니 전체리스트 구하기 -->
 	<select id="selectBucketList" parameterType="string"
 		resultType="bucket">
-		select * from bucket where memail=#{memail}
+		select * from bucket where memail=#{memail} and bdrop='N'
 		
 	</select>
 
@@ -64,6 +64,11 @@
 	</update>
 
 	<select id="selectBucketOne" parameterType="String"
+		resultType="bucket">
+		select * from bucket where bid = #{bid}
+	</select>
+	
+	<select id="OneBucket" parameterType="int"
 		resultType="bucket">
 		select * from bucket where bid = #{bid}
 	</select>

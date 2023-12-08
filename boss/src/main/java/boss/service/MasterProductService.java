@@ -115,4 +115,9 @@ public class MasterProductService {
 		return dao.updateMainImageInsert(map);
 	}
 
+	// 상품 상세정보 구하기(int)
+	public Product selectProductOne(int pids) {
+		return dao.selectProductOne(pids);
+	}
+
 }

@@ -59,6 +59,11 @@ public class BucketService {
 		return dao.selectBucketOne(bid);
 	}
 
+	// String bid 로 장바구니 한개 구하기
+	public Bucket OneBucket(int bids) {
+		return dao.OneBucket(bids);
+	}
+
 	
 
 }

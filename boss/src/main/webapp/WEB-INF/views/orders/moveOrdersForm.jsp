@@ -22,7 +22,8 @@
       <input
          type="hidden" name="mEmail" value="${member.mEmail}">
        <input type="hidden" name="pid" value="${bucket.pid }"> 
-       <input type="hidden" name="totalPrice" value="${totalPrice }"> 
+       <input type="hidden" name="totalPrice" value="${totalPrice }">
+       <input type="hidden" name="amountCount" value="${amountCount }"> 
       <div class="container_main">
          <center>
             <h1 style="font-size: 50px">주문서 작성</h1>
@@ -95,7 +96,6 @@
             </table>
             </c:forEach>
              </c:if>
-             
              <c:if test="${result == 0 }">
              <input type="hidden" name="bid" value="${bucket.bid}"> 
              	<table class="table_product">

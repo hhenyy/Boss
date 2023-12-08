@@ -17,11 +17,11 @@
 	
 	<insert id="insertOrderDetail" parameterType="map">
 		insert into orderdetail values(orderdetail_seq.nextval,#{oid},#{product.pid},#{product.cid},#{product.pname},
-		#{product.pcontent},#{product.pimage},#{bcount},#{product.pcolor},#{product.psize},#{product.pprice},0)
+		#{product.pcontent},#{product.pimage},#{amountCount},#{product.pcolor},#{product.psize},#{product.pprice},0)
 	</insert>
 	
 	<update id="updateProductCount" parameterType="map">
-		update amount set acount=acount-#{bcount} where pid=#{pid}
+		update amount set acount=acount-#{amountCount} where pid=#{pid}
 	</update>
 	
 </mapper>

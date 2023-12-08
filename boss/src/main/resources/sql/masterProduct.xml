@@ -143,6 +143,10 @@
    		maincontent = #{maincontent}, mainimagereadcount = 0 where mainid=#{block}+1
    </update>
 
+   <select id="selectProductOne" parameterType="int" resultType="product">
+   		select * from product where pid=#{pid}
+   </select>
+
 </mapper>
 
 
