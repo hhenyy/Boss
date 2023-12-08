@@ -28,7 +28,9 @@
    var makeMerchantUid = hours + minutes + seconds + milliseconds;
    
    var pid = '${pid}';
-   //var bidList = JSON.stringify(${bidList});
+   var bid = '${bid}';
+   var amountCount = '${amountCount}';
+   var bidList = JSON.stringify('${bidList}');
    var name = '${member.mName}';
    var amount = '${totalPrice}';
    var buyer_email = '${member.mEmail}';
@@ -65,21 +67,23 @@
              var toSend = {
 			   mEmail: buyer_email,
  			   pid: pid,
-			   //bidList: JSON.stringify(bidList),
-			   bcount: amount,
+ 			   bid: bid,
+ 			   bidList: bidList,
+			   //bcount: amount,
 			   oname: buyer_name,
 			   ophone: buyer_tel,
 			   opost: buyer_postcode,
 			   oaddress: buyer_addr,
-			   ototalprice: ototalprice,
-			   odelivery: 4000,
-			   omessage: omessage
+			   ototalprice: amount,
+			   omessage: omessage,
+			   amountCount: amountCount
 			   
 		     };
 			        
 			 $.ajax({
 				url: 'orderResult.do',
 				method: 'POST',
+				//contentType: 'application/json',
 				data: toSend,
 				success: function(map){
 					
