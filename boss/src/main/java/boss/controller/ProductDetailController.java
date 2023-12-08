@@ -78,13 +78,15 @@ public class ProductDetailController {
 		List<AskBoard> asklist = service.asklist(map);
 
 		if (!list.equals(null) && list.size() > 0) { //review 1개라도 구해옴.
-			System.out.println("list를 구해옴 : " + list.size());
+			System.out.println("list.size() : " + list.size());
 			model.addAttribute("reviewList", list);
 		} else { // 1개도 못구해옴
 			System.out.println("list를 못구해옴 : " + list.size());
 		}
+		
+		
 		if (!asklist.equals(null) && asklist.size() > 0) {		// askBoard 1개라도 구해옴
-			System.out.println("asklist :" + asklist.size());
+			System.out.println("asklist.size() :" + asklist.size());
 			model.addAttribute("asklist", asklist);
 		}else {	// askBoard 1개라도 못구해옴
 			System.out.println("asklist 못구함:" + asklist.size());
@@ -236,7 +238,7 @@ public class ProductDetailController {
 		} // if문 end
 
 		model.addAttribute("result", result);
-		model.addAttribute("pid", pida);
+		model.addAttribute("pid", pid);
 
 		return "./product/review/productReviewcheck";
 	}
@@ -274,17 +276,20 @@ public class ProductDetailController {
 		String reviewDate = sdf.format(date);
 
 		review = service.prselect(rid);
+		System.out.println(review.getMemail());
 
-		if (review != null && mEmailreview.equals(review.getMemail())) {
+		if (mEmailreview.equals(review.getMemail())) {
+			System.out.println("update폼 다시 가기");
 			model.addAttribute("review", review);
 			model.addAttribute("pid", pid);
 			model.addAttribute("mEmailreview", mEmailreview);
 			model.addAttribute("reviewDate", reviewDate);
 			model.addAttribute("rid", review.getRid());
 			return "./product/review/productReviewUpdateForm";
+			
 		} else {
-
-			return "./product/review/productReviewSelect.do?rid=" + rid;
+			System.out.println("나이스");
+			return "./product/review/productReviewSelect.do?rid=" + rid + "&pid" + pid;
 		}
 
 	}

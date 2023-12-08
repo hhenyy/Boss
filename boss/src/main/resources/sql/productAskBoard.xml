@@ -6,23 +6,34 @@
 
 	<!-- 상품문의등록 -->
 	<insert id="askinsert" parameterType="askboard">
-		insert into askboard values (
-   	 ASKBOARD_SEQ.nextval,
-   	 #{memail}, #{pid},
-   	 #{askcontent},
-   	 sysdate, 'N' )
+		insert into askboard values
+		(
+		ASKBOARD_SEQ.nextval,
+		#{memail}, #{pid},
+		#{askcontent},
+		sysdate, 'N' )
 	</insert>
-	
+
 	<!-- 상품문의 불러오기 -->
 	<select id="askselect" parameterType="int" resultType="askboard">
-		select * from askboard where askid = #{askid}
+		select *
+		from askboard where askid = #{askid}
 	</select>
-	
+
 	<!-- 상품 수정하기 -->
 	<update id="askboardupdate" parameterType="askboard">
-		update askboard set askcontent=#{askcontent},askreg=sysdate , askdrop='N' where askid = #{askid}
+		update askboard set askcontent=#{askcontent}, askreg=sysdate where
+		askid=#{askid}
+	</update>
+
+	<!-- 문의 삭제하기 -->
+	<update id="askdelete" parameterType="String">
+		update askboard set askdrop = 'Y'
 	</update>
 	
-
+<!-- 	<!-- 문의 댓글 불러오기 --> -->
+<!-- 	<select id="arselect" parameterType="int" resultType="askreply"> -->
+<!-- 		select * from askreply where askid = #{askid} -->
+<!-- 	</select> -->
 
 </mapper>

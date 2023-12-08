@@ -62,9 +62,8 @@
 			</table>
 
 			<div class="review_insert_button2">
-				<input type="submit" value="수정" class="review_insert_button" /> <input
-					type="reset" value="취소" class="review_insert_button"
-					onclick="history.go(-1)" />
+				<input type="submit" value="수정" class="review_insert_button" /> 
+				<input type="reset" value="취소" class="review_insert_button" onclick="history.go(-1)" />
 			</div>
 		</form>
 	</div>
