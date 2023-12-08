@@ -32,17 +32,6 @@
 					<td class=""><input type="text" class="input_box"
 						name="memail" readonly="readonly" value="${member.mEmail}"></td>
 				</tr>
-				<tr>
-					<th>상품문의날짜</th>
-					<td class=""><input type="text" class="input_box" name="rreg"
-						readonly="readonly" value="${askDate}"></td>
-				</tr>
-
-
-				<tr>
-					<!-- 추가할수도 -->
-				</tr>
-
 
 				<tr>
 					<th>상품문의내용</th>

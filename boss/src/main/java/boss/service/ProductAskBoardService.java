@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import boss.dao.ProductAskBoardDao;
 import boss.model.AskBoard;
+import boss.model.AskReply;
 
 @Service
 public class ProductAskBoardService {
@@ -21,10 +22,21 @@ public class ProductAskBoardService {
 	public AskBoard askselect(int askid) {
 		return dao.askselect(askid);
 	}
+	
 	// 상품 수정
 	public int askboardupdate(AskBoard askboard) {
 		return dao.askboardupdate(askboard);
 	}
+	
+	// 문의 삭제
+	public int askdelete(String askid) {
+		return dao.askdelete(askid);
+	}
+	
+	// 문의 댓글 불러오기 
+//	public AskReply arselect(int askid) {
+//		return dao.arselect(askid);
+//	}
 
 
 }

@@ -150,7 +150,9 @@
 							</c:if>
 							<td>${review.rcontent}</td>
 							<td>${review.rwriter}</td>
-							<td>${review.rreg}</td>
+							<fmt:formatDate value="${review.rreg}" var="formattedDate"
+								pattern="YYYY년 MM월 dd일" />
+							<td>${formattedDate}</td>
 							<td>별점추가예정</td>
 						</tr>
 					</c:forEach>
@@ -210,7 +212,7 @@
 		<div class="reivew_button">
 			<table class="table_ask" align="center" border="1">
 				<caption>문의 게시판</caption>
-				<tr align="center"> 
+				<tr align="center">
 					<th>문의 번호</th>
 					<th>이메일</th>
 					<th>문의 게시글</th>
@@ -220,22 +222,54 @@
 				<c:set var="i" value="1"></c:set>
 				<c:if test="${not empty asklist}">
 					<c:forEach var="askboard" items="${asklist }" varStatus="loop">
-						<tr onclick="location.href='productAskBoardSelectForm.do?askid=${askboard.askid}&pid=${askboard.pid}'">
+						<tr
+							onclick="location.href='productAskBoardSelectForm.do?askid=${askboard.askid}&pid=${askboard.pid}'">
 							<td>${askboard.askid }</td>
 							<td>${askboard.memail}</td>
 							<td>${askboard.askcontent }</td>
-							<td>${askboard.askreg }</td>
+							<fmt:formatDate value="${askboard.askreg }" var="formatDate"
+								pattern="YYYY년 MM월 dd일" />
+							<td>${formatDate }</td>
 						</tr>
 					</c:forEach>
 				</c:if>
+
 				<c:if test="${empty asklist}">
 					<tr>
 						<td colspan="4">상품 문의글이 없습니다.</td>
 					</tr>
 				</c:if>
-
 			</table>
-			<button type="button" class="askbutton1" onclick="location.href='productAskBoardInsertForm.do?pid=${pid}'">문의
+			<!-- 여기 추가함 -->
+				<div class="detail_page">
+					<c:if test="${pp.startPage != 1 }">
+						<a style="text-decoration: none; color: black"
+							href="./productDetail.do?nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}&pid=${pid}">
+							< </a>
+					</c:if>
+					
+					<c:forEach begin="${pp.startPage }" end="${pp.endPage }" var="p">
+						<c:choose>
+							<c:when test="${p == pp.nowPage }">
+								<b>${p }</b>
+							</c:when>
+							
+							<c:when test="${p != pp.nowPage }">
+								<a style="text-decoration: none; color: black"
+									href="./productDetail.do?nowPage=${p }&cntPerPage=${pp.cntPerPage}&pid=${pid}">
+									${p }</a>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+					<c:if test="${pp.endPage != pp.lastPage}">
+						<a style="text-decoration: none; color: black"
+							href="./productDetail.do?nowPage=${pp.endPage + 1 }&cntPerPage=${pp.cntPerPage}&pid=${pid}">
+							> </a>
+					</c:if>
+				</div>
+
+			<button type="button" class="askbutton1"
+				onclick="location.href='productAskBoardInsertForm.do?pid=${pid}'">문의
 				작성</button>
 		</div>
 	</div>

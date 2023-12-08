@@ -61,7 +61,10 @@
 		<div class="button_select">
 			<!-- 			<button type="button" class="review_button1" -->
 			<%-- 				onclick="location.href='productReviewUpdateForm.do?rid=${review.rid}&pid=${review.pid}'">수정</button> --%>
+			
+			<c:if test="${member.mEmail eq review.memail }">
 			<button type="submit" class="review_button1" onclick="submit()">수정</button>
+			</c:if>
 
 
 			<button type="button" class="review_button1" onclick="history.go(-1)">취소</button>
