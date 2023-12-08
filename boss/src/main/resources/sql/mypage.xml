@@ -37,9 +37,9 @@
 	<!-- 내 QNA 목록 갯수 구하기 -->
 	<select id="totalCount" parameterType="String" resultType="int">
 		select sum(A) from 
-		(select count(*) A from qnaboard where memail=#{memail}
+		(select count(*) A from qnaboard where memail=#{memail} and qnadrop != 'Y'
 		union
-		select count(*) A from qnareply where memail=#{memail})
+		select count(*) A from qnareply where memail=#{memail} and qrdrop != 'Y')
 	</select>
 
 	<!-- 내 QnA 목록 불러오기 + 페이징 -->
@@ -51,7 +51,7 @@
 		union
 		select qid, memail, null as qnatitle, null as qnacontent, null as qnaorifile,null as qnareg,null as qnadrop,
 		'Y' as qnayn,qrid,qrreg,qrdrop from qnareply) 
-		where memail=#{memail} order by qid DESC, qrid asc) 
+		where memail=#{memail} and (qnadrop != 'Y' or qrdrop != 'Y') order by qid DESC, qrid asc) 
 		A)
 		where rnum between #{start} and #{end}
 	</select>
@@ -66,6 +66,27 @@
 		resultType="qnaBoard">
 		select rownum rnum,qnaboard.* from  qnaboard where qid=#{qid}
 	</select>
+	
+	<!-- qid로 qrid값 알아내기 -->
+	<select id="findQrid" parameterType="int" resultType="int">
+		select qrid from qnareply where qid=#{qid} and qrid!=0
+	</select>
+	
+	<!-- qrid로 관리자 답변글 불러오기 -->
+	<select id="selectReply" parameterType="int"
+		resultType="qnaReply">
+		select rownum rnum,qnareply.* from  qnareply where qrid=#{qrid}
+	</select>
+	
+	<!-- qna 삭제 -->
+	<update id="qnaDelete" parameterType="int">
+		update qnaboard set qnadrop='Y' where qid=#{qid}
+	</update>
+	
+	<!-- qna 답변 삭제 -->
+	<update id="replyDelete" parameterType="int">
+		update qnareply set qrdrop='Y' where qid=#{qid}
+	</update>
 
 	<!-- 리뷰 삭제 -->
 	<update id="mypageDeleteReview" parameterType="String">

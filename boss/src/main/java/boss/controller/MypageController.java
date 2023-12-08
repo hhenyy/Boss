@@ -27,6 +27,7 @@ import boss.model.OrderDetail;
 import boss.model.Orders;
 import boss.model.Product;
 import boss.model.QnaBoard;
+import boss.model.QnaReply;
 import boss.model.Review;
 import boss.service.MasterOrdersService;
 import boss.service.MasterProductService;
@@ -135,13 +136,15 @@ public class MypageController {
 			@RequestParam(value = "cntPerPage", required = false) String cntPerPage,
 			HttpSession session, Model model) {
 		
+		System.out.println("마이페이지 qna 리스트");
+		
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
-			cntPerPage = "20";
+			cntPerPage = "10";
 		} else if (nowPage == null) {
 			nowPage = "1";
 		} else if (cntPerPage == null) {
-			cntPerPage = "20";
+			cntPerPage = "10";
 		}
 		
 		
@@ -155,6 +158,7 @@ public class MypageController {
 		System.out.println(totalCount + "개");
 		
 		pp = new PagePgm(totalCount, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		System.out.println(pp.getCntPerPage());
 		
 		//페이징 처리를 위해선 startrow와 endrow가 필요. 추가적으로 나의 공지글을 찾아오기 위한 memail값을 전송
 		Map<String, Object> search = new HashMap<String, Object>();
@@ -167,7 +171,9 @@ public class MypageController {
 		List<QnaBoard> qlist = service.myqnas(search);
 
 		System.out.println(qlist);
-
+		System.out.println(pp.getLastPage());
+		System.out.println(pp.getEndPage());
+		
 		model.addAttribute("qlist", qlist);
 		model.addAttribute("pp", pp);
 		model.addAttribute("memail", mEmail);
@@ -281,29 +287,50 @@ public class MypageController {
 		//DTO를 통해 받아야 하는데....
 		
 					// 해당 공지 번호의 자료 조회
-					board = service.selectQna(board.getQid());
-					System.out.println(board.getQnaorifile());
+					QnaBoard board1 = service.selectQna(board.getQid());
+					board1.setRnum(board.getRnum());
 					System.out.println(board.getQid());
 					System.out.println(board.getRnum());
+					System.out.println(pp.getCntPerPage());
 
-//					model.addAttribute("mnId", mn.getmnId());
-//					model.addAttribute("pp", pp);
-//					model.addAttribute("mnd", mn);
+					model.addAttribute("pp", pp);
+					model.addAttribute("board", board1);
 					//mnId,pp,mnd 값들을 다음 페이지로 전송
-		
-		
-		
-		
-		
-		return "login/mypage/mypageQnaBoardDetail";
+
+					return "login/mypage/mypageQnaBoardDetail";
 	}
 	
 	//qna 답변 상세 페이지
 	@RequestMapping("mypageQnaBoardReplyDetail.do")
-	public String mypageQnaBoardReplyDetail(int rnum, int qrid, Model model) {
+	public String mypageQnaBoardReplyDetail(PagePgm pp,QnaReply reply, Model model) {
+		
+		if(reply.getQrid() == 0) {
+			reply.setQrid(service.findQrid(reply.getQid()));
+		}
+		
+		QnaReply reply1 = service.selectReply(reply.getQrid());
+		reply1.setRnum(reply.getRnum());
+		System.out.println(reply1.getRnum());
+		
+		model.addAttribute("pp", pp);
+		model.addAttribute("reply", reply1);
 		
 		return "login/mypage/mypageQnaBoardReplyDetail";
 	}
+	
+	//qna 삭제
+	// 글 삭제
+		@RequestMapping("mypageQnaBoardDelete.do")
+		public String mypageQnaBoardDelete(int qid) {
+
+			System.out.println("mypageQnaBoardDelete");
+			service.qnaDelete(qid);
+			service.replyDelete(qid);
+//			model.addAttribute("pp", pp);
+//			model.addAttribute("mnId", mnId);
+//			model.addAttribute("nowPage", nowPage);
+			return "redirect:/mypageQnA.do";
+		}
 
 	// 리뷰 삭제
 	@RequestMapping("mypageDeleteReview.do")

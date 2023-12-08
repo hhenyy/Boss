@@ -10,6 +10,7 @@ import boss.model.AskBoard;
 import boss.model.OrderDetail;
 import boss.model.Orders;
 import boss.model.QnaBoard;
+import boss.model.QnaReply;
 import boss.model.Review;
 
 @Mapper
@@ -37,7 +38,14 @@ public interface MypageDao {
 
 	QnaBoard selectQna(int qid);
 
+	QnaReply selectReply(int qrid);
+
 	int totalCount(String mEmail);
 
+	int findQrid(int qid);
+
+	void qnaDelete(int qid);
+
+	void replyDelete(int qid); 
 
 }
