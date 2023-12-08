@@ -69,7 +69,6 @@ public class MypageController {
 		map.put("mEmail", mEmail);
 		map.put("oid", oid);
 
-
 		List<Orders> orders = service.myoders(member.getmEmail()); // 내 주문내역 구해오기
 
 		List<HashMap<String, Object>> ordersList = new ArrayList<>();
