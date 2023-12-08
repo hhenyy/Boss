@@ -32,6 +32,7 @@ public class LikeService {
 		number.put("fId", fId);
 		number.put("mEmail", mEmail);
 		Likes likeFound = ldao.findLike(number);
+		System.out.println("likeFound:"+likeFound+", fId:"+fId+", mEmail:"+mEmail);
 		//likeFound : db에 저장된 like
 		
 		System.out.println("likeFound:"+likeFound);
@@ -40,12 +41,15 @@ public class LikeService {
 		Likes like = new Likes();
 		like.setfId(fId);
 		like.setmEmail(mEmail);
-		like.setLikeDrop(likeDrop);
 		if(likeFound==null) {
 			// insert의 리턴값은 DB에 성공적으로 insert된 갯수를 보내므로 result가 1이 됨
 			result = ldao.insertLike(like);
+			System.out.println("likeFound(insert):"+ldao.findLike(number).getLikeDrop());
 		} else {
+			like.setLikeDrop(likeFound.getLikeDrop());
+			System.out.println("likeDrop:"+like.getLikeDrop());
 			ldao.deleteLike(like);
+			System.out.println("likeFound(delete):"+ldao.findLike(number).getLikeDrop());
 		}
 	    	// 0 or 1이 담겨져서 @Controller에 보냄.
 		return result;

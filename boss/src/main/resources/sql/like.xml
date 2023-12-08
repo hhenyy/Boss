@@ -9,22 +9,21 @@
 	select * from Likes where fId=#{fId} and mEmail=#{mEmail}
 </select>
 
-<!--  좋아요 저장-->
+<!--  좋아요 저장 : default가 N , 누른게 Y -->
 <insert id="insertLike" parameterType="like">
-	insert into Likes(likeId, fId, mEmail, likeDrop)
-		values(LIKES_SEQ.nextval,#{fId}, #{mEmail}, 'Y')
+	insert into Likes values(LIKES_SEQ.nextval, #{fId}, #{mEmail},'Y')
 </insert>
 
-<!--  좋아요 삭제-->
+<!--  좋아요 삭제 & 다시 저장-->
 <update id="deleteLike" parameterType="like">
-	update Likes set
-	<if test='likeDrop == "Y"'>
-		likeDrop = 'N'
-	</if>
-	<if test='likeDrop == "N"'>
-		likeDrop = 'Y'
-	</if>
-	 where fId=#{fId} and mEmail=#{mEmail}
+	<choose>
+	    <when test = 'likeDrop =="Y"'>
+	        update Likes set likeDrop = 'N' where fId=#{fId} and mEmail=#{mEmail}
+	    </when>
+	    <otherwise>
+	        update Likes set likeDrop = 'Y' where fId=#{fId} and mEmail=#{mEmail}
+	    </otherwise>
+	</choose>
 </update>
 
 <!-- 좋아요 갯수 -->
