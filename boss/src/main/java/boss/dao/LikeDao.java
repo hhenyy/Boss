@@ -14,9 +14,12 @@ public interface LikeDao {
 
 	//좋아요 정보(Likes table에 게시글 번호, 회원 번호) 저장
 	public int insertLike(Likes like);
+	
+	// fId board의 like 갯수
+	public int countLike(int fId);
 
-	//좋아요 삭제
-	public int deleteLike(Likes like);
+	//좋아요 제거 or 다시 저장
+	public void updateLike(Likes like);
 
 	public Likes findLikes(Likes like);
 

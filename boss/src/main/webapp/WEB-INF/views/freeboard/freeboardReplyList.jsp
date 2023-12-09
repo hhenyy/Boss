@@ -64,6 +64,7 @@ function del(frId,fId) { //삭제 버튼 (클릭시 바로 삭제)
 }
 
 </script>
+
 </head>
 <body>
 

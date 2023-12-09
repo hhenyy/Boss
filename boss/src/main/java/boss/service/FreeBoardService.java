@@ -21,6 +21,10 @@ public class FreeBoardService {
 	public int freeBoardListCount(FreeBoard board) {
 		return fdao.listcount(board);
 	}
+	
+	public int setLike(FreeBoard board) {
+		return fdao.setLike(board);
+	}
 
 	public List<FreeBoard> freeBoardList(FreeBoard board) {
 		return fdao.selectList(board);
@@ -42,15 +46,4 @@ public class FreeBoardService {
 	public int delete(int fId) {
 		return fdao.delete(fId);
 	}
-
-	public void inUpdate(FreeBoard board) {
-		 fdao.inUpdate(board);
-	}
-
-	public void deUpdate(FreeBoard board) {
-		 fdao.deUpdate(board);		
-	}
-
-
-
 }

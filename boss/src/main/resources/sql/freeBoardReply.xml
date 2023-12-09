@@ -12,7 +12,7 @@
 
 	<!-- 댓글 수 -->
 	<select id="replyCount" parameterType="int" resultType="int">
-		select count(*) from FreeReply where fId=#{fId}
+		select count(*) from FreeReply where fId=#{fId} and frDrop='N' 
 	</select>
 
 

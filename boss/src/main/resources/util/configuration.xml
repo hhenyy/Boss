@@ -25,6 +25,8 @@
 		<typeAlias alias="freeboard" type="boss.model.FreeBoard" />
 		<typeAlias alias="freereply" type="boss.model.FreeReply" />
 		<typeAlias alias="like" type="boss.model.Likes" />
+		<typeAlias alias="chatbotdata" type="boss.model.ChatbotData" />
+		<typeAlias alias="chatmessagedata" type="boss.model.ChatMessageData" />
 		<typeAlias alias="masterNotice" type="boss.model.MasterNotice" />
 		<typeAlias alias="mainImage" type="boss.model.MainImage" />
 		<typeAlias alias="report" type="boss.model.Report" />

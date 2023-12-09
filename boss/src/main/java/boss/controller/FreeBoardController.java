@@ -173,44 +173,27 @@ public class FreeBoardController {
 
 		FreeBoard board = fservice.getDetail(fId);
 		System.out.println("fImage:"+board.getfImage());
-
-		model.addAttribute("detail", board);
-		model.addAttribute("page", page);
 		
-		//좋아요
-//		Likes like = new Likes();
-		//String mEmail = board.getmEmail();    // 글작성의 Email주소
-		// 좋아요를 누른 사용자의 email 주소 구하기
-//		member = (Member) session.getAttribute("member");
-//		if(member != null) { //회원인경우
-//		String mEmail = member.getmEmail();
-//		System.out.println("123123mEmail:"+mEmail);
-//		Likes like = lservice.findLike(fId, mEmail);
-//		System.out.println("like:"+like);
-//		model.addAttribute("like",like);
-//		}else {   //비회원인경우
-//			return 
-//		}
-		//좋아요 되있는지 찾는 메소드: 게시글번호와 회원번호를 보냄.
-	//	System.out.println("likeDrop:"+like.getLikeDrop());
+		// Like 가져오는 부분
+		Likes like = new Likes();
+		like.setLikeDrop("N");
 		
-//		String hasLike = "";
-//		if(like == null) {
-//			hasLike = "Y";
-//		}else {
-//			hasLike = "N";
-//		}
-//		// 찾은 정보를 like로 담아서 보냄
-//		System.out.println("hasLike:"+hasLike);
-//		model.addAttribute("hasLike",hasLike);
+		if(session.getAttribute("member") != null) {
+			member = (Member) session.getAttribute("member");
+			String mEmail = member.getmEmail();
+			System.out.println("123123mEmail:"+mEmail);
+			like = lservice.findLike(fId, mEmail);
+			System.out.println("like:"+like);
+		}
+		System.out.println("like:"+like);
 		
 		//좋아요 갯수
-//		int countLike=lservice.countLike(fId);
-//		System.out.println("countLike:"+countLike);
-//		model.addAttribute("countLike",countLike);
+		int countLike = lservice.countLike(fId);
+		board.setfLike(countLike);
 		
-		//좋아요 여부 
-	//	model.addAttribute("like_email",like_email);
+		model.addAttribute("detail", board);
+		model.addAttribute("page", page);
+		model.addAttribute("like",like);
 		
 		// state가 detail과 같다면(목록에서 제목클릭시 상세페이지로 이동) if(state.equals("detail")) {
 		if (state.equals("detail")) {

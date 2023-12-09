@@ -22,6 +22,13 @@
 	/* 	window.onload=function() {
 	 } */
 	$(function() {
+		var likeval = '${like.likeDrop}'
+		console.log(likeval);
+		if(likeval == "Y") {
+            $("#heart").prop("src", "images/fill-heart.png");
+         } else {
+            $("#heart").prop("src", "images/bin-heart.png");
+         }
 		//기존 댓글 목록 요청 
 		//load함수로 불러온 결과 페이지(freeboardReplyList.jsp)의 댓글 목록을 div태그사이에 출력
 		//상세페이지 들어오자마자 자동으로 처리됨. 
@@ -61,12 +68,8 @@
 			}); // $.ajax() end			
 		});
 
-		$('.heart').load('hasLike.do?fId=${detail.fId}&mEmail=${sessionScope.member.mEmail}')
+// 	$('#div_fLike').load('hasLike.do?fId=${detail.fId}&mEmail=${sessionScope.member.mEmail}')
 		// 좋아요가 있는지 확인한 값을 likeval에 저장
-//		var likeval = '${hasLike}'
-
-
-
 
 // 		var likeval = '${like.likeDrop}'
 //         console.log(likeval);
@@ -87,36 +90,38 @@
 //             console.log(likeval);
 //             $("#heart").prop("src", "images/bin-heart.png");
 //         }
-       
-        
+	//			}
+//		}); // $.ajax() end
 
-// 		// 좋아요 버튼을 클릭 시 실행되는 코드
-//         $(".heart").on("click", function () {
-//          	if('${sessionScope.member}' == ''){
-//  		 		alert("로그인 후에 이용 해주세요.");
-//  		 		return false;
-//  	 	    }
-// 		    $.ajax({
-// 		    	url :'toggleLike.do',
-// 		        type :'POST',
-// 		        data : {'fId':${detail.fId}, 'mEmail':'${sessionScope.member.mEmail}', 'likeDrop':'${like.likeDrop}'},
-// 		    	success : function(data){
+		// 좋아요 버튼을 클릭 시 실행되는 코드
+        $("#div_fLike").on("click", function () {
+         	if('${sessionScope.member}' == ''){
+ 		 		alert("로그인 후에 이용 해주세요.");
+ 		 		return false;
+ 	 	    }
+		    $.ajax({
+		    	url :'toggleLike.do',
+		        type :'POST',
+		        data : {'fId':${detail.fId}, 'mEmail':'${sessionScope.member.mEmail}'},
+		    	success : function(data){
 		    		
-// 		    		console.log("data:"+ data);
-// 		    		console.log("data.like.likeDrop:"+ data.like.likeDrop);
-// 		    		console.log("data.result:"+ data.result);
-// 		    		console.log("fLike:"+ data.fboard.fLike);
+		    		console.log("data:"+ data);
+		    		console.log("data.fboard.fLike:"+ data.fboard.fLike);
+		    		console.log("data.like.likeDrop:"+ data.like.likeDrop);
 		    		
-// 		    		$("#div_fLike").text(data.fboard.fLike);
+		    		$("#hear_count").text(data.fboard.fLike);
+		    		//$("#div_fLike").text('${data.fboard.fLike}');
 		    		
-// 		        	if('${data.like.likeDrop}' == 'Y') {
-//             	     $('#heart').prop("src","images/fill-heart.png");
-// 		        	} else {
-//                    	 $('#heart').prop("src","images/bin-heart.png");
-// 		        	}
-//              	}
-// 		    });
-//         });
+		    		var likeval = data.like.likeDrop
+					console.log(likeval);
+					if(likeval == "Y") {
+			            $("#heart").prop("src", "images/fill-heart.png");
+			        } else {
+			            $("#heart").prop("src", "images/bin-heart.png");
+			        }
+             	}
+		    });
+        });
     });
 </script>
 </head>
@@ -156,11 +161,15 @@
 			<tr>
 				<!--  heart : 좋아요O, fill-heart : 좋아요X -->
 				<td>좋아요</td>
-				<td><a class="heart"
-					style="text-decoration-line: none; cursor: pointer;"> <img
-						id="heart" src="images/bin-heart.png">
-				</a>
-					<div id="div_fLike">${fboard.fLike}</div></td>
+				<td>
+					<div id="div_fLike">
+						<div class="heart"
+							style="text-decoration-line: none; cursor: pointer;">
+							<img id="heart" src="images/bin-heart.png">
+							<div id="hear_count">${detail.fLike}</div>
+						</div>
+					</div>
+				</td>
 			</tr>
 		</table>
 
@@ -168,7 +177,7 @@
 		<!-- 로그인 되어있고 글작성자와 mEmail이 같을때 삭제/수정 버튼 보임 -->
 		<div class="div_boardform_button" align="center">
 			<c:if
-				test="${!empty sessionScope.member && member.mEmail == detail.mEmail}">
+				test="${!empty sessionScope.member && sessionScope.member.mEmail == detail.mEmail}">
 				<input type="button" class="boardform_button" value="수정"
 					onClick="location.href='freeBoardDetail.do?fId=${detail.fId}&page=${page}&state=update'">
 				<input type="button" class="boardform_button" value="삭제"
@@ -185,7 +194,7 @@
 			<!--freereplycontroller로 부모글의fId전달  댓글단사람의  mEmail로해야함 추후 수정  -->
 		<div class="div_reply form">
 			<form name="frm" id="frm">
-				<input type="hidden" name="mEmail" value="${member.mEmail}">
+				<input type="hidden" name="mEmail" value="${sessionScope.member.mEmail}">
 				<input type="hidden" name="fId" value="${detail.fId}"> 댓글 :
 				<textarea rows="2" cols="50" name="frContent" id="frContent"
 					placeholder="댓글을 입력해 주세요."></textarea>

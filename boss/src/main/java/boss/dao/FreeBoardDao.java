@@ -15,6 +15,5 @@ public interface FreeBoardDao {
 	FreeBoard getDetail(int fId);
 	int update(FreeBoard board);
 	int delete(int fId);
-	void inUpdate(FreeBoard board);
-	void deUpdate(FreeBoard board);
+	int setLike(FreeBoard board);
 }

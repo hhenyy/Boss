@@ -31,39 +31,34 @@
 			//    $("#heart").html("좋아요"+${detail.fLike}+"개");
 		}
 		// 좋아요 버튼을 클릭 시 실행되는 코드
-        $(".heart").on("click", function () {
-         	if('${sessionScope.member}' == ''){
- 		 		alert("로그인 후에 이용 해주세요.");
- 		 		return false;
- 	 	    }
-		    $.ajax({
-		    	url :'toggleLike.do',
-		        type :'POST',
-		        data : {'fId':'${detail.fId}', 'mEmail':'${sessionScope.member.mEmail}', 'likeDrop':'${like.likeDrop}'},
-		    	success : function(data){
+//         $(".heart").on("click", function () {
+//          	if('${sessionScope.member}' == ''){
+//  		 		alert("로그인 후에 이용 해주세요.");
+//  		 		return false;
+//  	 	    }
+// 		    $.ajax({
+// 		    	url :'toggleLike.do',
+// 		        type :'POST',
+// 		        data : {'fId':'${detail.fId}', 'mEmail':'${sessionScope.member.mEmail}', 'likeDrop':'${like.likeDrop}'},
+// 		    	success : function(data){
 		    		
-		    		console.log("data:"+ data);
-		    		console.log("data.like.likeDrop:"+ data.like.likeDrop);
-		    		console.log("data.result:"+ data.result);
-		    		console.log("fLike:"+ data.fboard.fLike);
+// 		    		console.log("data:"+ data);
+// 		    		console.log("data.like.likeDrop:"+ data.like.likeDrop);
+// 		    		console.log("data.result:"+ data.result);
+// 		    		console.log("fLike:"+ data.fboard.fLike);
 		    		
-		    		$("#div_fLike").text(data.fboard.fLike);
+// 		    		$("#div_fLike").text(data.fboard.fLike);
 		    		
-		        	if('${data.like.likeDrop}' == 'Y') {
-            	     $('#heart').prop("src","images/fill-heart.png");
-		        	} else {
-                   	 $('#heart').prop("src","images/bin-heart.png");
-		        	}
-             	}
-		    });
-        });
+// 		        	if('${data.like.likeDrop}' == 'Y') {
+//             	     $('#heart').prop("src","images/fill-heart.png");
+// 		        	} else {
+//                    	 $('#heart').prop("src","images/bin-heart.png");
+// 		        	}
+//              	}
+// 		    });
+//         });
      });
 </script>
-
-
-
-
-
 
 
 

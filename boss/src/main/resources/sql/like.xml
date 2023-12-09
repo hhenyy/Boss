@@ -14,22 +14,15 @@
 	insert into Likes values(LIKES_SEQ.nextval, #{fId}, #{mEmail},'Y')
 </insert>
 
-<!--  좋아요 삭제 & 다시 저장-->
-<update id="deleteLike" parameterType="like">
-	<choose>
-	    <when test = 'likeDrop =="Y"'>
-	        update Likes set likeDrop = 'N' where fId=#{fId} and mEmail=#{mEmail}
-	    </when>
-	    <otherwise>
-	        update Likes set likeDrop = 'Y' where fId=#{fId} and mEmail=#{mEmail}
-	    </otherwise>
-	</choose>
+<!--  좋아요 제거 or 다시 저장-->
+<update id="updateLike" parameterType="like">
+	update Likes set likeDrop=#{likeDrop} where fId=#{fId} and mEmail=#{mEmail}
 </update>
 
 <!-- 좋아요 갯수 -->
-<!-- <select id="countLike" parameterType="int" resultType="int">
-	select count(*) from Likes where fId=#{fId}
-</select> -->
+<select id="countLike" parameterType="int" resultType="int">
+	select count(*) from Likes where fId=#{fId} and likeDrop = 'Y'
+</select>
 
 <!-- 좋아요를 누른 사용자의 email주소 구하기 -->
 <select id="getEmail" parameterType="int" resultType="like">

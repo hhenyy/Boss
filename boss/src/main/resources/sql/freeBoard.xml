@@ -66,16 +66,9 @@ update FreeBoard set fTitle=#{fTitle}, fContent=#{fContent},
 	update FreeBoard set fDrop='Y' where fId=#{fId}
 </update>
 
-<!--게시판 좋아요 중가 -->
-<update id="inUpdate" parameterType="freeboard">
-update FreeBoard set fLike=fLike+1
-where fId=#{fId} and mEMail = #{mEmail}
-</update>
-
-<!--게시판 좋아요 감소 -->
-<update id="deUpdate" parameterType="freeboard">
-update FreeBoard set fLike=fLike-1
-where fId=#{fId} and mEMail= #{mEmail}
+<!-- 게시판 좋아요 갯수 설정  -->
+<update id="setLike" parameterType="freeboard">
+	update FreeBoard set fLike=#{fLike} where fId=#{fId}
 </update>
 
 </mapper>
