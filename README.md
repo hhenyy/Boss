@@ -2,16 +2,18 @@
 ## 소개
 쇼핑몰 기본기능(상품관리, 회원관리, 리뷰, 문의, 관리자페이지, 결제)와 더불어 유저들이 더 오래 쇼핑몰에 머물수 있도록 챗봇 기능과 유저 커뮤니티 게시판을 제작.<br/>
 
-## 활용기술 : JAVA, Oracle, Spring Framework, Eclipse, HTML, CSS, JavaScript, MyBatis, Tomcat, GitHub, AWS, JQuery, Ajax, REST API, OpenAI API, vector DB 
+## 활용기술 
+ JAVA, Oracle, Spring Framework, Eclipse, HTML, CSS, JavaScript, MyBatis, Tomcat, GitHub, AWS, JQuery, Ajax, REST API, OpenAI API, vector DB 
 
-<img width="982" alt="스크린샷 2023-12-24 011235" src="https://github.com/hhenyy/Boss/assets/141230104/3d113397-5bd7-488e-81df-710fb391b37c">
-<img width="999" alt="스크린샷 2023-12-24 011249" src="https://github.com/hhenyy/Boss/assets/141230104/5c830fbf-1b91-49f5-84a0-b7dccfbd9fb3">
-<img width="998" alt="스크린샷 2023-12-24 011300" src="https://github.com/hhenyy/Boss/assets/141230104/98b57fe3-1a51-40f5-838f-3ac6b815d51f">
-<img width="991" alt="스크린샷 2023-12-24 011309" src="https://github.com/hhenyy/Boss/assets/141230104/44e4f75b-9046-4566-afc8-0ead80fd0a62">
+<img width="982" alt="스크린샷 2023-12-24 011235" src="https://github.com/hhenyy/Boss/assets/141230104/3d113397-5bd7-488e-81df-710fb391b37c"><br/>
+<img width="999" alt="스크린샷 2023-12-24 011249" src="https://github.com/hhenyy/Boss/assets/141230104/5c830fbf-1b91-49f5-84a0-b7dccfbd9fb3"><br/>
+<img width="998" alt="스크린샷 2023-12-24 011300" src="https://github.com/hhenyy/Boss/assets/141230104/98b57fe3-1a51-40f5-838f-3ac6b815d51f"><br/>
+<img width="991" alt="스크린샷 2023-12-24 011309" src="https://github.com/hhenyy/Boss/assets/141230104/44e4f75b-9046-4566-afc8-0ead80fd0a62"><br/>
 
 
-## 역할 : UI 설계, 요구사항 분석, 흐름도 작성, ppt자료 제작
-       메인 페이지&유저 커뮤니티 게시판 제작<br/>
+## 역할 
+ UI 설계, 요구사항 분석, 흐름도 작성, ppt자료 제작
+ 메인 페이지&유저 커뮤니티 게시판 제작<br/>
 
 -AWS ec2에 프로젝트 배포, DB 구축 경험<br/>
 -Googling, Git, Stackoverflow, chatGPT를 이용하여 검색 및 활용하여 구현<br/>
