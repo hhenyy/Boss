@@ -4,7 +4,8 @@
 쇼핑몰 기본기능(상품관리, 회원관리, 리뷰, 문의, 관리자페이지, 결제)와 더불어 유저들이 더 오래 쇼핑몰에 머물수 있도록 챗봇 기능과 유저 커뮤니티 게시판을 제작.<br/>
 
 ## 활용기술 
- JAVA, Oracle, Spring Framework, HTML, CSS, JavaScript, maven, MyBatis,
+ JAVA, Oracle, Spring Framework, HTML, CSS, JavaScript, maven, MyBatis, <br/>
+
  Tomcat, GitHub, AWS, JQuery, Ajax, REST API, OpenAI API, vector DB 
 
 ## 역할 
