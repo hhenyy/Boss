@@ -6,7 +6,7 @@
 ## 개발환경 및 활용기술 
   maven, MyBatis, <br/>
  JQuery, Ajax, REST API, OpenAI API, vector DB 
-
+<br/>
  ### 🔨 기술 스택
 ---
 #### 📜 FRONT
@@ -25,14 +25,14 @@
 </p>
 
 #### 📀 DB
-<p align="left">
+
 ![Oracle](https://img.shields.io/badge/Oracle-F80000.svg?&style=for-the-badge&logo=Oracle&logoColor=white)
-</p>
+
 
 #### ✂️ Tool
-<p align="left">
+
 ![Eclipse IDE](https://img.shields.io/badge/Eclipse%20IDE-2C2255.svg?&style=for-the-badge&logo=Eclipse%20IDE&logoColor=white)
-</p>
+
 
 #### ⭐️ etc
 <p align="left">
