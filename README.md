@@ -58,7 +58,7 @@
 ##  1) 메인 페이지<br/>
 <img width="934" alt="스크린샷 2023-12-29 094617" src="https://github.com/hhenyy/BossMall/assets/141230104/4a38e7d9-1cc7-444c-848c-af96e2e19c34">
 <img width="942" alt="스크린샷 2023-12-29 094635" src="https://github.com/hhenyy/BossMall/assets/141230104/346a1aac-94d6-4151-b9e1-17bbd25bc085">
-
+<br/>
 : 메인 이미지 슬라이드 bootstrap/ 팝업창<br/>
 : header/menu/footer 분리 & 회원/비회원/관리자 아이디 별 노출 아이콘 링크 분리<br/>
 : 관리자 아이디 로그인 시 상품 변경 버튼 메인 이미지 노출/ 변경 페이지 이동<br/>
@@ -68,7 +68,7 @@
 ##  2) 유저 커뮤니티 게시판<br/>
 <img width="947" alt="스크린샷 2023-12-29 094654" src="https://github.com/hhenyy/BossMall/assets/141230104/0488c51d-c146-4d62-9283-9507c3a2cc20">
 <img width="936" alt="스크린샷 2023-12-29 094705" src="https://github.com/hhenyy/BossMall/assets/141230104/207b2f75-0af8-4e5d-a04e-cc7c858d09c8">
-
+<br/>
 : 제목, 내용 검색기능 / 목록 페이징<br/>
 : 댓글 기능 : 댓글 목록/수정/삭제 Ajax이용 비동기 출력<br/>
 : 첨부 파일 기능<br/>
