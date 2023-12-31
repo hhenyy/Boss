@@ -3,10 +3,9 @@
 ## 소개
 쇼핑몰 기본기능(상품관리, 회원관리, 리뷰, 문의, 관리자페이지, 결제)와 더불어 유저들이 더 오래 쇼핑몰에 머물수 있도록 챗봇 기능과 유저 커뮤니티 게시판을 제작.<br/>
 
-## 활용기술 
- JAVA, Oracle, Spring Framework, HTML, CSS, JavaScript, maven, MyBatis, <br/>
-
- Tomcat, GitHub, AWS, JQuery, Ajax, REST API, OpenAI API, vector DB 
+## 개발환경 및 활용기술 
+  maven, MyBatis, <br/>
+ JQuery, Ajax, REST API, OpenAI API, vector DB 
 
  ### 🔨 기술 스택
 ---
@@ -27,12 +26,12 @@
 
 #### 📀 DB
 <p align="left">
-  <img src="https://img.shields.io/badge/MariaDB-003545?style=flat-square&logo=mariadb&logoColor=white" alt="MariaDB" height="25"/>
+![Oracle](https://img.shields.io/badge/Oracle-F80000.svg?&style=for-the-badge&logo=Oracle&logoColor=white)
 </p>
 
 #### ✂️ Tool
 <p align="left">
-  <img src="https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=flat-square&logo=intellij-idea&logoColor=white" alt="IntelliJ IDEA" height="25"/>
+![Eclipse IDE](https://img.shields.io/badge/Eclipse%20IDE-2C2255.svg?&style=for-the-badge&logo=Eclipse%20IDE&logoColor=white)
 </p>
 
 #### ⭐️ etc
