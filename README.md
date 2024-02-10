@@ -43,9 +43,6 @@
   <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white" alt="GitHub" height="25"/>
   <img src="https://img.shields.io/badge/Amazon%20AWS-232F3E?style=flat-square&logo=amazonaws&logoColor=white" alt="AWS" height="25"/>
 </p>
-<br>
-
-
 
 <br><br>
 ## 주요 기능
@@ -58,7 +55,7 @@
  6. 상품 추천 챗봇 기능 구현<br/>
  7. AWS에 프로젝트 배포 및 DB 구축<br/>
 
-<br/>
+<br><br>
 ## 담당 역할
 <br/>
   1. UI 설계, 요구사항 분석, 작업 흐름도 작성, ppt자료 제작 <br/>
