@@ -9,7 +9,8 @@
 
 ## 개발환경 및 활용기술 
   maven, MyBatis, <br/>
- JQuery, Ajax, REST API, OpenAI API, vector DB 
+ JQuery, Ajax, <br/>
+  KAKAO/NAVER Login API,결제API, openAI API, youtube data API, REST API, OpenAI API, vector DB 
 <br/>
  ### 🔨 기술 스택
 ---
