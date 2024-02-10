@@ -1,7 +1,7 @@
 # 남성 의류 쇼핑몰 (BossMall)
 
 ## 소개
-쇼핑몰 기본기능(상품관리, 회원관리, 리뷰, 문의, 관리자페이지, 결제)와 더불어 유저들이 더 오래 쇼핑몰에 머물수 있도록 챗봇 기능과 유저 커뮤니티 게시판을 제작.<br/>
+쇼핑몰 기본기능(상품관리, 회원관리, 리뷰, 문의, 관리자페이지, 결제)와 더불어 <br/> 유저들이 더 오래 쇼핑몰에 머물수 있도록 챗봇 기능과 유저 커뮤니티 게시판을 제작.<br/>
 
 ### 프로젝트 링크
 ### [BossMall 방문하기](http://13.125.218.183/)
@@ -43,19 +43,30 @@
   <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white" alt="GitHub" height="25"/>
   <img src="https://img.shields.io/badge/Amazon%20AWS-232F3E?style=flat-square&logo=amazonaws&logoColor=white" alt="AWS" height="25"/>
 </p>
-<br>
-
-
 
 <br><br>
+## 주요 기능
+<br/>
+ 1. 소셜 로그인 (naver, kakao API 활용) <br/>
+ 2. spring security를 이용한 password 암호화 <br/>
+ 3. 상품 결제 API 기능<br/>
+ 4. 배송 상태 문자전송 기능<br/>
+ 5. 유투브 data api를 활용한 조회수가 높은 영상 검색 및 시청 기능 구현<br/>
+ 6. 상품 추천 챗봇 기능 구현<br/>
+ 7. AWS에 프로젝트 배포 및 DB 구축<br/>
 
-
-## 역할 
- UI 설계, 요구사항 분석, 흐름도 작성, ppt자료 제작
- 메인 페이지&유저 커뮤니티 게시판 제작<br/>
-
--AWS ec2에 프로젝트 배포, DB 구축 경험<br/>
--Googling, Git, Stackoverflow, chatGPT를 이용하여 검색 및 활용하여 구현<br/>
+<br><br>
+## 담당 역할
+<br/>
+  1. UI 설계, 요구사항 분석, 작업 흐름도 작성, ppt자료 제작 <br/>
+  2. 메인 페이지 구현 <br/>
+  3. 관리자 모드 구현(회원관리)  <br/>
+  4. 상품 추천 챗봇 구현 (vector DB/openAI API) <br/>
+  5. 유저 커뮤니티 게시판 구현 (검색 기능 / 첨부파일 처리) <br/>
+  6. 댓글 기능 : 댓글 목록/수정/삭제 CRUD구현, Ajax이용 비동기 출력 <br/>
+  7. 유투브 data API를 활용한 조회수가 높은 영상 검색 및 시청 기능 구현<br/>
+  8. 좋아요 기능 <br/>
+  9. 프론트엔드
 <br/>
 
 ## 기능
